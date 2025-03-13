@@ -2,10 +2,15 @@ import argparse
 from commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
 
 class McupCLI:
+    VERSION = "1.0.0"
+
     def __init__(self):
         self.parser = argparse.ArgumentParser(
             prog="mcup",
             description="Tool for quickly creating Minecraft servers",
+        )
+        self.parser.add_argument(
+            "-v", "--version", action="version", version=f"%(prog)s {self.VERSION}", help="Show the version of mcup"
         )
         self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
