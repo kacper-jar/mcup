@@ -175,3 +175,4 @@ cython_debug/
 
 # mcup locker file
 locker.json
+locker-meta.json

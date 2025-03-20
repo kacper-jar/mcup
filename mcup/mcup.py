@@ -1,5 +1,5 @@
 import argparse
-from commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
+from mcup.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
 
 class McupCLI:
     VERSION = "1.0.0"
