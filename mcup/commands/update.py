@@ -1,7 +1,7 @@
-from mcup.utils import LockerUpdater
+from mcup.utils import LockerManager
 
 class UpdateCommand:
     @staticmethod
     def run(args):
         """Handles 'mcup update' command."""
-        LockerUpdater().update_locker()
+        LockerManager().update_locker()

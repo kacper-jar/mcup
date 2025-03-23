@@ -3,7 +3,7 @@ import os
 import requests
 
 
-class LockerUpdater:
+class LockerManager:
     def __init__(self):
         self.locker_url = "https://raw.githubusercontent.com/kacper-jar/mcup-locker-file/refs/heads/main/locker.json"
         self.repo_api_url = "https://api.github.com/repos/kacper-jar/mcup-locker-file/commits/main"
@@ -70,8 +70,9 @@ class LockerUpdater:
         if self.download_locker_file():
             self.update_local_meta(remote_date)
 
-
-# Usage
-if __name__ == "__main__":
-    updater = LockerUpdater()
-    updater.update_locker()
+    def load_locker(self):
+        """Load the locker.json file."""
+        if os.path.exists(self.locker_path):
+            with open(self.locker_path, 'r') as file:
+                return json.load(file)
+        return {"servers": {}}

@@ -1,1 +1,1 @@
-from .locker_updater import LockerUpdater
+from .locker_manager import LockerManager
