@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from mcup.configs import ConfigFile
 
 
@@ -6,7 +7,7 @@ from mcup.configs import ConfigFile
 class ServerPropertiesConfig(ConfigFile):
     def __init__(self):
         self.config_file_name = "server.properties"
-        self.config_file_path = "server.properties"
+        self.config_file_path = "."
 
         self.configuration = {
             # Server Identity

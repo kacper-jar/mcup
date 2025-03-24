@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
 from mcup.utils import LockerManager
 
@@ -47,7 +48,7 @@ class ServerCommand:
         server_properties.set_configuration_property("motd", input("Server motd: "))
 
         print("server.properties - World Settings")
-        server_properties.set_configuration_property("level-name", input("world name: "))
+        server_properties.set_configuration_property("level-name", input("World name: "))
         server_properties.set_configuration_property("level-seed", input("World seed: "))
         server_properties.set_configuration_property("level-type", input("World type: "))
         server_properties.set_configuration_property("generate-structures", input("Generate structures: "))
@@ -79,5 +80,6 @@ class ServerCommand:
         print("server.properties - Performance")
         server_properties.set_configuration_property("view-distance", input("View distance: "))
 
-        print(server_properties.configuration)
+        server_properties_assembler = ServerPropertiesAssembler()
+        ServerPropertiesAssembler.assemble(server_properties)
 
