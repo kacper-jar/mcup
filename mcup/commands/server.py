@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import requests
 
 from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
@@ -20,7 +21,7 @@ class ServerCommand:
         locker = LockerManager()
         locker_data = locker.load_locker()
 
-        print(f"By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
+        print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
 
         server_type = input("Server type (full list available at: ): ")
         for server in locker_data["servers"]:
@@ -36,6 +37,7 @@ class ServerCommand:
         for version in locker_data["servers"][server_type]:
             if version["version"] == server_version:
                 is_valid_server_version = True
+                url = version["url"]
                 break
             is_valid_server_version = False
         if not is_valid_server_version:
@@ -80,6 +82,20 @@ class ServerCommand:
         print("server.properties - Performance")
         server_properties.set_configuration_property("view-distance", input("View distance: "))
 
+        print("Downloading server...")
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            file_name = url.split("/")[-1]
+            file_path = server_path / file_name
+            with open(file_path, "wb") as file:
+                for chunk in response.iter_content(1024):
+                    file.write(chunk)
+            print(f"Downloaded: {file_path}")
+        else:
+            print(f"Failed to download server. HTTP {response.status_code}")
+
+        print("Writing server.properties...")
         server_properties_assembler = ServerPropertiesAssembler()
         server_properties_assembler.assemble(server_properties)
 
+        print("Server created successfully.")
