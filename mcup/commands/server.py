@@ -81,5 +81,5 @@ class ServerCommand:
         server_properties.set_configuration_property("view-distance", input("View distance: "))
 
         server_properties_assembler = ServerPropertiesAssembler()
-        ServerPropertiesAssembler.assemble(server_properties)
+        server_properties_assembler.assemble(server_properties)
 
