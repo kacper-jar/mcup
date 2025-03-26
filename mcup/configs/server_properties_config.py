@@ -47,3 +47,41 @@ class ServerPropertiesConfig(ConfigFile):
             # Performance
             "view-distance": None
         }
+
+        self.default_configuration = {
+            # Server Identity
+            "motd": "mcup Minecraft Server",
+
+            # World Settings
+            "level-name": "world",
+            "level-seed": "",
+            "level-type": "DEFAULT",
+            "generate-structures": "true",
+            "max-build-height": "256",
+
+            # Gameplay settings
+            "gamemode": "0",
+            "difficulty": "1",
+            "pvp": "true",
+            "allow-flight": "false",
+            "allow-nether": "true",
+
+            # Entity spawning
+            "spawn-animals": "true",
+            "spawn-monsters": "true",
+            "spawn-npcs": "true",
+
+            # Server Access & Multiplayer
+            "max-players": "20",
+            "white-list": "false",
+            "online-mode": "true",
+            "server-ip": "",
+            "server-port": "25565",
+
+            # Sever Communication & Remote Access
+            "enable-query": "false",
+            "enable-rcon": "false",
+
+            # Performance
+            "view-distance": "10"
+        }
