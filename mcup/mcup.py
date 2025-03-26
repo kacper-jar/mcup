@@ -1,6 +1,7 @@
 import argparse
 from mcup.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
 
+
 class McupCLI:
     VERSION = "1.0.0"
 
@@ -69,6 +70,7 @@ class McupCLI:
             args.func(args)
         else:
             self.parser.print_help()
+
 
 if __name__ == "__main__":
     McupCLI().run()

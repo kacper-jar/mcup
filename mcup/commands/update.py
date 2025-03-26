@@ -1,5 +1,6 @@
 from mcup.utils import LockerManager
 
+
 class UpdateCommand:
     @staticmethod
     def run(args):

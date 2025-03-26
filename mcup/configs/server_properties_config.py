@@ -5,6 +5,7 @@ from mcup.configs import ConfigFile
 
 @dataclass
 class ServerPropertiesConfig(ConfigFile):
+    """Class representing a server.properties Minecraft server configuration file"""
     def __init__(self):
         self.config_file_name = "server.properties"
         self.config_file_path = "."
