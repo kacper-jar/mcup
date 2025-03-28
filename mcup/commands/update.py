@@ -1,4 +1,4 @@
-from mcup.utils import LockerManager
+from mcup.utils.locker import LockerManager
 
 
 class UpdateCommand:

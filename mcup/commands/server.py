@@ -4,7 +4,7 @@ import requests
 
 from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
-from mcup.utils import LockerManager
+from mcup.utils.locker import LockerManager
 
 
 class ServerCommand:
