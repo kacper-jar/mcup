@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from mcup.utils.version import Version
 
 @dataclass
 class CollectorInput:
@@ -8,10 +10,8 @@ class CollectorInput:
     variable_prompt: str
     # variable_expected_type: Any
 
-    # optional
-    # TODO: change these from ints
-    # variable_min_version: int = 0
-    # variable_max_version: int = 0
+    variable_min_version: "Version"
+    variable_max_version: "Version"
 
     def get_variable_name(self) -> str:
         return self.variable_name

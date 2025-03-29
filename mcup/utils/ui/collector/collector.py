@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
+    from mcup.utils.version import Version
 
 
 class Collector:
@@ -9,7 +10,7 @@ class Collector:
     def __init__(self):
         self.sections: list[CollectorSection] = []
 
-    def start_collector(self) -> dict:
+    def start_collector(self, version: "Version") -> dict:
         """Function for collecting user input into configuration."""
         collector_output = {}
 
@@ -17,6 +18,8 @@ class Collector:
             print(f"\n{section.get_section_title()}")
             default_cfg_choice = input("Use default configuration? y/n: ")
             for section_input in section.get_section_inputs():
+                if not version >= section_input.variable_min_version and not version >= section_input.variable_max_version:
+                    continue
                 if default_cfg_choice == "y":
                     # "" makes config file use default var
                     collector_output[section_input.get_variable_name()] = ""

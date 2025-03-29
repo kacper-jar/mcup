@@ -6,6 +6,7 @@ from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
 from mcup.utils.locker import LockerManager
 from mcup.utils.ui.collector import Collector, CollectorSection, CollectorInput
+from mcup.utils.version import Version
 
 
 class ServerCommand:
@@ -50,63 +51,66 @@ class ServerCommand:
         collector.add_section(CollectorSection(
             "server.properties - Server Identity",
             [
-                CollectorInput("motd", "Server motd")
+                CollectorInput("motd", "Server motd", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - World Settings",
             [
-                CollectorInput("level-name", "World name"),
-                CollectorInput("level-seed", "World seed"),
-                CollectorInput("level-type", "World type"),
-                CollectorInput("generate-structures", "Generate structures"),
-                CollectorInput("max-build-height", "Max build height")
+                CollectorInput("level-name", "World name", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("level-seed", "World seed", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("level-type", "World type", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("generate-structures", "Generate structures", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Gameplay Settings",
             [
-                CollectorInput("gamemode", "Gamemode"),
-                CollectorInput("difficulty", "Difficulty"),
-                CollectorInput("pvp", "PVP"),
-                CollectorInput("allow-flight", "Allow flight"),
-                CollectorInput("allow-nether", "Allow nether")
+                CollectorInput("gamemode", "Gamemode", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("difficulty", "Difficulty", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("pvp", "PVP", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("allow-flight", "Allow flight", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("allow-nether", "Allow nether", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Entity Spawning",
             [
-                CollectorInput("spawn-animals", "Spawn animals"),
-                CollectorInput("spawn-monsters", "Spawn monsters"),
-                CollectorInput("spawn-npcs", "Spawn NPCs")
+                CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("spawn-monsters", "Spawn monsters", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Server Access & Multiplayer",
             [
-                CollectorInput("max-players", "Max players"),
-                CollectorInput("white-list", "Whitelist"),
-                CollectorInput("online-mode", "Online mode"),
-                CollectorInput("server-ip", "Server IP"),
-                CollectorInput("server-port", "Server port")
+                CollectorInput("max-players", "Max players", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("white-list", "Whitelist", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("online-mode", "Online mode", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("server-ip", "Server IP", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("server-port", "Server port", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Server Communication & Remote Access",
             [
-                CollectorInput("enable-query", "Enable query"),
-                CollectorInput("enable-rcon", "Enable RCON")
+                CollectorInput("enable-query", "Enable query", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("enable-rcon", "Enable RCON", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Performance",
             [
-                CollectorInput("view-distance", "View distance"),
+                CollectorInput("view-distance", "View distance", Version(1, 2, 5), Version(1, 2, 5)),
             ]
         ))
-        output = collector.start_collector()
-        server_properties.set_configuration_properties(output)
 
+        major, minor, patch = server_version.split(".")
+        version = Version(int(major), int(minor), int(patch))
+        output = collector.start_collector(version)
+
+        server_properties.set_configuration_properties(output)
 
         print("Downloading server...")
         response = requests.get(url, stream=True)
