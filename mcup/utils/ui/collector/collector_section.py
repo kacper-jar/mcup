@@ -1,8 +1,18 @@
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from mcup.utils.ui.collector import CollectorInput
+if TYPE_CHECKING:
+    from .collector_input import CollectorInput
 
 
 @dataclass
 class CollectorSection:
-    inputs: list[CollectorInput]
+    section_title: str
+    section_inputs: list["CollectorInput"]
+    # allow_default: bool
+
+    def get_section_title(self) -> str:
+        return self.section_title
+
+    def get_section_inputs(self) -> list["CollectorInput"]:
+        return self.section_inputs

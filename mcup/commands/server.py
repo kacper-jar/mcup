@@ -5,6 +5,7 @@ import requests
 from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
 from mcup.utils.locker import LockerManager
+from mcup.utils.ui.collector import Collector, CollectorSection, CollectorInput
 
 
 class ServerCommand:
@@ -45,67 +46,67 @@ class ServerCommand:
             return
 
         server_properties = ServerPropertiesConfig()
+        collector = Collector()
+        collector.add_section(CollectorSection(
+            "server.properties - Server Identity",
+            [
+                CollectorInput("motd", "Server motd")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - World Settings",
+            [
+                CollectorInput("level-name", "World name"),
+                CollectorInput("level-seed", "World seed"),
+                CollectorInput("level-type", "World type"),
+                CollectorInput("generate-structures", "Generate structures"),
+                CollectorInput("max-build-height", "Max build height")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Gameplay Settings",
+            [
+                CollectorInput("gamemode", "Gamemode"),
+                CollectorInput("difficulty", "Difficulty"),
+                CollectorInput("pvp", "PVP"),
+                CollectorInput("allow-flight", "Allow flight"),
+                CollectorInput("allow-nether", "Allow nether")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Entity Spawning",
+            [
+                CollectorInput("spawn-animals", "Spawn animals"),
+                CollectorInput("spawn-monsters", "Spawn monsters"),
+                CollectorInput("spawn-npcs", "Spawn NPCs")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Server Access & Multiplayer",
+            [
+                CollectorInput("max-players", "Max players"),
+                CollectorInput("white-list", "Whitelist"),
+                CollectorInput("online-mode", "Online mode"),
+                CollectorInput("server-ip", "Server IP"),
+                CollectorInput("server-port", "Server port")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Server Communication & Remote Access",
+            [
+                CollectorInput("enable-query", "Enable query"),
+                CollectorInput("enable-rcon", "Enable RCON")
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Performance",
+            [
+                CollectorInput("view-distance", "View distance"),
+            ]
+        ))
+        output = collector.start_collector()
+        server_properties.set_configuration_properties(output)
 
-        # TODO: rework entire config part into it's own class
-        print("server.properties - Server Identity")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["motd"])
-        else:
-            server_properties.set_configuration_property("motd", input("Server motd: "))
-
-        print("server.properties - World Settings")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["level-name", "level-seed", "level-type",
-                                                                    "generate-structures", "max-build-height"])
-        else:
-            server_properties.set_configuration_property("level-name", input("World name: "))
-            server_properties.set_configuration_property("level-seed", input("World seed: "))
-            server_properties.set_configuration_property("level-type", input("World type: "))
-            server_properties.set_configuration_property("generate-structures", input("Generate structures: "))
-            server_properties.set_configuration_property("max-build-height", input("Max build height: "))
-
-        print("server.properties - Gameplay Settings")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["gamemode", "difficulty", "pvp", "allow-flight",
-                                                                    "allow-nether"])
-        else:
-            server_properties.set_configuration_property("gamemode", input("Gamemode: "))
-            server_properties.set_configuration_property("difficulty", input("Difficulty: "))
-            server_properties.set_configuration_property("pvp", input("PVP: "))
-            server_properties.set_configuration_property("allow-flight", input("Allow flight: "))
-            server_properties.set_configuration_property("allow-nether", input("Allow nether: "))
-
-        print("server.properties - Entity Spawning")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["spawn-animals", "spawn-monsters", "spawn-npcs"])
-        else:
-            server_properties.set_configuration_property("spawn-animals", input("Spawn animals: "))
-            server_properties.set_configuration_property("spawn-monsters", input("Spawn monsters: "))
-            server_properties.set_configuration_property("spawn-npcs", input("Spawn NPCs: "))
-
-        print("server.properties - Server Access & Multiplayer")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["max-players", "white-list", "online-mode",
-                                                                    "server-ip", "server-port"])
-        else:
-            server_properties.set_configuration_property("max-players", input("Max players: "))
-            server_properties.set_configuration_property("white-list", input("Whitelist: "))
-            server_properties.set_configuration_property("online-mode", input("Online mode: "))
-            server_properties.set_configuration_property("server-ip", input("Server IP: "))
-            server_properties.set_configuration_property("server-port", input("Server port: "))
-
-        print("server.properties - Server Communication & Remote Access")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["enable-query", "enable-rcon"])
-        else:
-            server_properties.set_configuration_property("enable-query", input("Enable query: "))
-            server_properties.set_configuration_property("enable-rcon", input("Enable RCON: "))
-
-        print("server.properties - Performance")
-        if input("use default configuration? y/n: ") == "y":
-            server_properties.set_configuration_default_properties(["view-distance"])
-        else:
-            server_properties.set_configuration_property("view-distance", input("View distance: "))
 
         print("Downloading server...")
         response = requests.get(url, stream=True)

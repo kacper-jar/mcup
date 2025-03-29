@@ -27,6 +27,10 @@ class ConfigFile:
         else:
             self.configuration[property_name] = property_value
 
+    def set_configuration_properties(self, properties: dict):
+        for property_name, property_value in properties.items():
+            self.set_configuration_property(property_name, property_value)
+
     def set_configuration_default_property(self, property_name: str):
         self.configuration[property_name] = self.default_configuration[property_name]
 
