@@ -17,7 +17,7 @@ class Collector:
         for section in self.sections:
             section_inputs = [
                 s_input for s_input in section.get_section_inputs()
-                if version >= s_input.variable_min_version and version >= s_input.variable_max_version
+                if s_input.variable_min_version <= version <= s_input.variable_max_version
             ]
 
             if not section_inputs:
