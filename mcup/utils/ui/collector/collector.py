@@ -11,21 +11,25 @@ class Collector:
         self.sections: list[CollectorSection] = []
 
     def start_collector(self, version: "Version") -> dict:
-        """Function for collecting user input into configuration."""
+        """Collects user input into a configuration dictionary."""
         collector_output = {}
 
         for section in self.sections:
+            section_inputs = [
+                s_input for s_input in section.get_section_inputs()
+                if version >= s_input.variable_min_version and version >= s_input.variable_max_version
+            ]
+
+            if not section_inputs:
+                continue
+
             print(f"\n{section.get_section_title()}")
-            default_cfg_choice = input("Use default configuration? y/n: ")
-            for section_input in section.get_section_inputs():
-                if not version >= section_input.variable_min_version and not version >= section_input.variable_max_version:
-                    continue
-                if default_cfg_choice == "y":
-                    # "" makes config file use default var
-                    collector_output[section_input.get_variable_name()] = ""
-                else:
-                    user_input = input(f"{section_input.get_variable_prompt()}: ")
-                    collector_output[section_input.get_variable_name()] = user_input
+            use_default = input("Use default configuration? (y/n): ").strip().lower() == "y"
+
+            for section_input in section_inputs:
+                collector_output[section_input.get_variable_name()] = (
+                    "" if use_default else input(f"{section_input.get_variable_prompt()}: ")
+                )
 
         return collector_output
 

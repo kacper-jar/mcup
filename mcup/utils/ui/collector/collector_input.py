@@ -4,6 +4,7 @@ from typing import Any, TYPE_CHECKING
 if TYPE_CHECKING:
     from mcup.utils.version import Version
 
+
 @dataclass
 class CollectorInput:
     variable_name: str
