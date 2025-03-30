@@ -51,58 +51,72 @@ class ServerCommand:
         collector.add_section(CollectorSection(
             "server.properties - Server Identity",
             [
-                CollectorInput("motd", "Server motd", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("motd", "Server motd", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - World Settings",
             [
-                CollectorInput("level-name", "World name", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("level-seed", "World seed", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("level-type", "World type", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("generate-structures", "Generate structures", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("level-name", "World name", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("level-seed", "World seed", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("level-type", "World type", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("generate-structures", "Generate structures", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Gameplay Settings",
             [
-                CollectorInput("gamemode", "Gamemode", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("difficulty", "Difficulty", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("pvp", "PVP", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("allow-flight", "Allow flight", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("allow-nether", "Allow nether", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("gamemode", "Gamemode", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("difficulty", "Difficulty", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("hardcore", "Hardocre", Version(1, 3, 1), Version(1, 3, 1)),
+                CollectorInput("pvp", "PVP", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("allow-flight", "Allow flight", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("allow-nether", "Allow nether", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Entity Spawning",
             [
-                CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("spawn-monsters", "Spawn monsters", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("spawn-monsters", "Spawn monsters", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Server Access & Multiplayer",
             [
-                CollectorInput("max-players", "Max players", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("white-list", "Whitelist", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("online-mode", "Online mode", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("server-ip", "Server IP", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("server-port", "Server port", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("max-players", "Max players", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("white-list", "Whitelist", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("online-mode", "Online mode", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("server-ip", "Server IP", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("server-port", "Server port", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Server Communication & Remote Access",
             [
-                CollectorInput("enable-query", "Enable query", Version(1, 2, 5), Version(1, 2, 5)),
-                CollectorInput("enable-rcon", "Enable RCON", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("enable-query", "Enable query", Version(1, 2, 5), Version(1, 3, 1)),
+                CollectorInput("enable-rcon", "Enable RCON", Version(1, 2, 5), Version(1, 3, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Performance",
             [
-                CollectorInput("view-distance", "View distance", Version(1, 2, 5), Version(1, 2, 5)),
+                CollectorInput("view-distance", "View distance", Version(1, 2, 5), Version(1, 3, 1)),
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Customization",
+            [
+                CollectorInput("texture-pack", "Texture pack", Version(1, 3, 1), Version(1, 3, 1)),
+            ]
+        ))
+        collector.add_section(CollectorSection(
+            "server.properties - Mojang Telemetry",
+            [
+                CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
+                               Version(1, 3, 1), Version(1, 3, 1)),
             ]
         ))
 

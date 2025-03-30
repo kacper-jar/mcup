@@ -24,6 +24,7 @@ class ServerPropertiesConfig(ConfigFile):
             # Gameplay settings
             "gamemode": None,
             "difficulty": None,
+            "hardcore": None, # 1.3.1+
             "pvp": None,
             "allow-flight": None,
             "allow-nether": None,
@@ -45,7 +46,13 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-rcon": None,
 
             # Performance
-            "view-distance": None
+            "view-distance": None,
+
+            # Customization
+            "texture-pack": None, # 1.3.1+
+
+            # Telemetry
+            "snooper-enabled": None, # 1.3.1+
         }
 
         self.default_configuration = {
@@ -62,6 +69,7 @@ class ServerPropertiesConfig(ConfigFile):
             # Gameplay settings
             "gamemode": "0",
             "difficulty": "1",
+            "hardcore": "false",
             "pvp": "true",
             "allow-flight": "false",
             "allow-nether": "true",
@@ -83,5 +91,11 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-rcon": "false",
 
             # Performance
-            "view-distance": "10"
+            "view-distance": "10",
+
+            # Customization
+            "texture-pack": "",
+
+            # Telemetry
+            "snooper-enabled": "true"
         }
