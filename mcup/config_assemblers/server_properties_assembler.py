@@ -5,8 +5,8 @@ from mcup.configs import ServerPropertiesConfig
 class ServerPropertiesAssembler(Assembler):
     """Class representing server.properties configuration file assembler."""
     @staticmethod
-    def assemble(config: ServerPropertiesConfig):
-        with open(f"{config.config_file_path}/{config.config_file_name}", "w") as config_file:
+    def assemble(path: str, config: ServerPropertiesConfig):
+        with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
             for var, key in config.get_configuration().items():
                 if key is None:
                     continue

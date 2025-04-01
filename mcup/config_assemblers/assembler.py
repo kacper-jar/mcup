@@ -7,5 +7,5 @@ from mcup.configs import ConfigFile
 class Assembler():
     """Class representing configuration file assembler."""
     @staticmethod
-    def assemble(config: ConfigFile):
+    def assemble(path: str, config: ConfigFile):
         pass
