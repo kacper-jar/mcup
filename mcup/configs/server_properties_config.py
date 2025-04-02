@@ -19,12 +19,13 @@ class ServerPropertiesConfig(ConfigFile):
             "level-seed": None,
             "level-type": None,
             "generate-structures": None,
+            "generator-settings": None,  # 1.4.2+
             "max-build-height": None,
 
             # Gameplay settings
             "gamemode": None,
             "difficulty": None,
-            "hardcore": None, # 1.3.1+
+            "hardcore": None,  # 1.3.1+
             "pvp": None,
             "allow-flight": None,
             "allow-nether": None,
@@ -49,10 +50,10 @@ class ServerPropertiesConfig(ConfigFile):
             "view-distance": None,
 
             # Customization
-            "texture-pack": None, # 1.3.1+
+            "texture-pack": None,  # 1.3.1+
 
             # Telemetry
-            "snooper-enabled": None, # 1.3.1+
+            "snooper-enabled": None,  # 1.3.2+
         }
 
         self.default_configuration = {
@@ -64,6 +65,7 @@ class ServerPropertiesConfig(ConfigFile):
             "level-seed": "",
             "level-type": "DEFAULT",
             "generate-structures": "true",
+            "generator-settings": "",
             "max-build-height": "256",
 
             # Gameplay settings
