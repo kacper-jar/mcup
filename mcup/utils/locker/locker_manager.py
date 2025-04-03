@@ -72,9 +72,8 @@ class LockerManager:
 
     def load_locker(self):
         """Load the locker.json file."""
+        self.update_locker()
         if os.path.exists(self.locker_path):
             with open(self.locker_path, 'r') as file:
                 return json.load(file)
-        else:
-            self.update_locker()
         return {"servers": {}}
