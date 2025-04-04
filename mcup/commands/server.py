@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 import requests
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.config_assemblers import ServerPropertiesAssembler
 from mcup.configs import ServerPropertiesConfig
@@ -13,6 +15,8 @@ class ServerCommand:
     @staticmethod
     def create(args):
         """Handles 'mcup server create [path]' command."""
+        console = Console()
+
         server_path = Path(args.path).resolve()
 
         if not server_path.exists():
@@ -127,20 +131,35 @@ class ServerCommand:
 
         server_properties.set_configuration_properties(output)
 
-        print("Downloading server...")
-        response = requests.get(url, stream=True)
-        if response.status_code == 200:
-            file_name = url.split("/")[-1]
-            file_path = server_path / file_name
-            with open(file_path, "wb") as file:
-                for chunk in response.iter_content(1024):
-                    file.write(chunk)
-            print(f"Downloaded: {file_path}")
-        else:
-            print(f"Failed to download server. HTTP {response.status_code}")
+        with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TaskProgressColumn()
+        ) as progress:
+            task = progress.add_task("Preparing to download server...", total=1)
+            response = requests.get(url, stream=True)
+            progress.update(task, advance=1)
 
-        print("Writing server.properties...")
-        server_properties_assembler = ServerPropertiesAssembler()
-        server_properties_assembler.assemble(server_path, server_properties)
+            if response.status_code == 200:
+                total_size = int(response.headers.get('content-length', 0))
+                task = progress.add_task("Downloading server...", total=total_size)
+                file_name = url.split("/")[-1]
+                file_path = server_path / file_name
+                with open(file_path, "wb") as file:
+                    for chunk in response.iter_content(1024):
+                        file.write(chunk)
+                        progress.update(task, advance=len(chunk))
+                print(f"Downloaded: {file_path}")
+                progress.update(task, advance=1)
+            else:
+                print(f"Failed to download server. HTTP {response.status_code}")
+                raise Exception("Failed to download server.")
 
-        print("Server created successfully.")
+            task = progress.add_task("Assembling server.properties...", total=1)
+            server_properties_assembler = ServerPropertiesAssembler()
+            server_properties_assembler.assemble(server_path, server_properties)
+            progress.update(task, advance=1)
+
+            progress.stop()
+            print("Server created successfully.")
