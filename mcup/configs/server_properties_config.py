@@ -24,11 +24,14 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Gameplay settings
             "gamemode": None,
+            "force-gamemode": None,  # 1.5.2+
             "difficulty": None,
             "hardcore": None,  # 1.3.1+
             "pvp": None,
             "allow-flight": None,
             "allow-nether": None,
+            "announce-player-achievements": None,  # 1.7.2+
+            "enable-command-block": None,  # 1.7.2+
 
             # Entity spawning
             "spawn-animals": None,
@@ -37,10 +40,12 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Server Access & Multiplayer
             "max-players": None,
+            "player-idle-timeout": None,  # 1.6.4+
             "white-list": None,
             "online-mode": None,
             "server-ip": None,
             "server-port": None,
+            "op-permission-level": None,  # 1.7.2+
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -50,7 +55,8 @@ class ServerPropertiesConfig(ConfigFile):
             "view-distance": None,
 
             # Customization
-            "texture-pack": None,  # 1.3.1+
+            "texture-pack": None,  # 1.3.1-1.6.4
+            "resource-pack": None,  # 1.7.2+
 
             # Telemetry
             "snooper-enabled": None,  # 1.3.2+
@@ -70,11 +76,14 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Gameplay settings
             "gamemode": "0",
+            "force-gamemode": "false",
             "difficulty": "1",
             "hardcore": "false",
             "pvp": "true",
             "allow-flight": "false",
             "allow-nether": "true",
+            "announce-player-achievements": "true",
+            "enable-command-block": "false",
 
             # Entity spawning
             "spawn-animals": "true",
@@ -83,10 +92,12 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Server Access & Multiplayer
             "max-players": "20",
+            "player-idle-timeout": "0",
             "white-list": "false",
             "online-mode": "true",
             "server-ip": "",
             "server-port": "25565",
+            "op-permission-level": "4",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -97,6 +108,7 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Customization
             "texture-pack": "",
+            "resource-pack": "",
 
             # Telemetry
             "snooper-enabled": "true"
