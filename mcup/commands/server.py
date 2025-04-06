@@ -66,7 +66,7 @@ class ServerCommand:
                 CollectorInput("level-type", "World type", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("generate-structures", "Generate structures", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("generator-settings", "Custom Generator settings", Version(1, 4, 2), LATEST_VERSION),
-                CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), Version(1, 16, 5)),
                 CollectorInput("max-world-size", "Max world size", Version(1, 8, 0), LATEST_VERSION),
             ]
         ))
@@ -115,7 +115,8 @@ class ServerCommand:
                 CollectorInput("broadcast-console-to-ops", "Broadcast console to operators", Version(1, 14, 0),
                                LATEST_VERSION),
                 CollectorInput("broadcast-rcon-to-ops", "Broadcast RCON to operators", Version(1, 14, 0),
-                               LATEST_VERSION)
+                               LATEST_VERSION),
+                CollectorInput("text-filtering-config", "Text filtering config", Version(1, 16, 4), LATEST_VERSION)
             ]
         ))
         collector.add_section(CollectorSection(
@@ -126,6 +127,9 @@ class ServerCommand:
                 CollectorInput("enable-rcon", "Enable RCON", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("rcon.password", "RCON password", Version(1, 14, 0), LATEST_VERSION),
                 CollectorInput("rcon.port", "RCON port", Version(1, 14, 0), LATEST_VERSION),
+                CollectorInput("enable-status", "Enable status", Version(1, 16, 0), LATEST_VERSION),
+                CollectorInput("enable-jmx-monitoring", "Enable JMX monitoring", Version(1, 16, 0), LATEST_VERSION),
+                CollectorInput("rate-limit", "Rate limit", Version(1, 16, 2), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -134,6 +138,9 @@ class ServerCommand:
                 CollectorInput("view-distance", "View distance", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("max-tick-time", "Max tick time", Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("use-native-transport", "Use native transport", Version(1, 14, 0), LATEST_VERSION),
+                CollectorInput("entity-broadcast-range-percentage", "Entity broadcast range percentage",
+                               Version(1, 16, 0), LATEST_VERSION),
+                CollectorInput("sync-chunk-writes", "Sync chunk writes", Version(1, 16, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(

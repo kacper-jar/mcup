@@ -20,7 +20,7 @@ class ServerPropertiesConfig(ConfigFile):
             "level-type": None,
             "generate-structures": None,
             "generator-settings": None,  # 1.4.2+
-            "max-build-height": None,
+            "max-build-height": None,  # 1.2.5-1.16.5
             "max-world-size": None,  # 1.8+
 
             # Gameplay settings
@@ -54,6 +54,7 @@ class ServerPropertiesConfig(ConfigFile):
             "function-permission-level": None,  # 1.14.4+
             "broadcast-console-to-ops": None,  # 1.14+
             "broadcast-rcon-to-ops": None,  # 1.14+
+            "text-filtering-config": None,  # 1.16.4+
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -61,11 +62,16 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-rcon": None,
             "rcon.password": None,  # 1.14+
             "rcon.port": None,  # 1.14+
+            "enable-status": None,  # 1.16+
+            "enable-jmx-monitoring": None,  # 1.16+
+            "rate-limit": None,  # 1.16.2+
 
             # Performance
             "view-distance": None,
             "max-tick-time": None,  # 1.8+
             "use-native-transport": None,  # 1.14+
+            "entity-broadcast-range-percentage": None,  # 1.16+
+            "sync-chunk-writes": None,  # 1.16+
 
             # Customization
             "texture-pack": None,  # 1.3.1-1.6.4
@@ -121,6 +127,7 @@ class ServerPropertiesConfig(ConfigFile):
             "function-permission-level": "2",
             "broadcast-console-to-ops": "true",
             "broadcast-rcon-to-ops": "true",
+            "text-filtering-config": "",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -128,11 +135,16 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-rcon": "false",
             "rcon.password": "",
             "rcon.port": "25575",
+            "enable-status": "true",
+            "enable-jmx-monitoring": "false",
+            "rate-limit": "0",
 
             # Performance
             "view-distance": "10",
             "max-tick-time": "60000",
             "use-native-transport": "true",
+            "entity-broadcast-range-percentage": "100",
+            "sync-chunk-writes": "true",
 
             # Customization
             "texture-pack": "",

@@ -35,4 +35,4 @@ class Version:
         return f"{self.major}.{self.minor}.{self.patch}"
 
 
-LATEST_VERSION = Version(1, 14, 4)
+LATEST_VERSION = Version(1, 16, 5)
