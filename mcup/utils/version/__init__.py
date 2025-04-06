@@ -1,1 +1,1 @@
-from .version import Version
+from .version import Version, LATEST_VERSION
