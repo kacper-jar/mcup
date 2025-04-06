@@ -1,5 +1,5 @@
 import argparse
-from mcup.commands import *
+from mcup.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
 
 
 class McupCLI:
