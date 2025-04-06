@@ -34,4 +34,5 @@ class Version:
     def get_string(self) -> str:
         return f"{self.major}.{self.minor}.{self.patch}"
 
+
 LATEST_VERSION = Version(1, 14, 4)
