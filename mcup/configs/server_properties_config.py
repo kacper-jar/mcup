@@ -111,6 +111,7 @@ class ServerPropertiesConfig(ConfigFile):
             "max-players": "20",
             "player-idle-timeout": "0",
             "white-list": "false",
+            "enforce-whitelist": "false",
             "online-mode": "true",
             "server-ip": "",
             "server-port": "25565",

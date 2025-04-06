@@ -108,7 +108,7 @@ class ServerCommand:
                                LATEST_VERSION),
                 CollectorInput("prevent-proxy-connections", "Prevent proxy connections", Version(1, 11, 0),
                                LATEST_VERSION),
-                CollectorInput("op-permission-level", " Server operator (OP) permission level", Version(1, 7, 2),
+                CollectorInput("op-permission-level", "Server operator (OP) permission level", Version(1, 7, 2),
                                LATEST_VERSION),
                 CollectorInput("function-permission-level", "Function permission level", Version(1, 14, 4),
                                LATEST_VERSION),
