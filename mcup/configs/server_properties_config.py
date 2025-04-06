@@ -33,6 +33,7 @@ class ServerPropertiesConfig(ConfigFile):
             "allow-nether": None,
             "announce-player-achievements": None,  # 1.7.2-1.11.2
             "enable-command-block": None,  # 1.7.2+
+            "spawn-protection": None,  # 1.14+
 
             # Entity spawning
             "spawn-animals": None,
@@ -50,14 +51,21 @@ class ServerPropertiesConfig(ConfigFile):
             "network-compression-threshold": None,  # 1.8+
             "prevent-proxy-connections": None,  # 1.11+
             "op-permission-level": None,  # 1.7.2+
+            "function-permission-level": None,  # 1.14.4+
+            "broadcast-console-to-ops": None,  # 1.14+
+            "broadcast-rcon-to-ops": None,  # 1.14+
 
             # Sever Communication & Remote Access
             "enable-query": None,
+            "query.port": None,  # 1.14+
             "enable-rcon": None,
+            "rcon.password": None,  # 1.14+
+            "rcon.port": None,  # 1.14+
 
             # Performance
             "view-distance": None,
             "max-tick-time": None,  # 1.8+
+            "use-native-transport": None,  # 1.14+
 
             # Customization
             "texture-pack": None,  # 1.3.1-1.6.4
@@ -92,6 +100,7 @@ class ServerPropertiesConfig(ConfigFile):
             "allow-nether": "true",
             "announce-player-achievements": "true",
             "enable-command-block": "false",
+            "spawn-protection": "16",
 
             # Entity spawning
             "spawn-animals": "true",
@@ -108,14 +117,21 @@ class ServerPropertiesConfig(ConfigFile):
             "network-compression-threshold": "256",
             "prevent-proxy-connections": "false",
             "op-permission-level": "4",
+            "function-permission-level": "2",
+            "broadcast-console-to-ops": "true",
+            "broadcast-rcon-to-ops": "true",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
+            "query.port": "25565",
             "enable-rcon": "false",
+            "rcon.password": "",
+            "rcon.port": "25575",
 
             # Performance
             "view-distance": "10",
             "max-tick-time": "60000",
+            "use-native-transport": "true",
 
             # Customization
             "texture-pack": "",

@@ -80,8 +80,10 @@ class ServerCommand:
                 CollectorInput("pvp", "PVP", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("allow-flight", "Allow flight", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("allow-nether", "Allow nether", Version(1, 2, 5), LATEST_VERSION),
-                CollectorInput("announce-player-achievements", "Announce player achievements", Version(1, 7, 2), Version(1, 11, 2)),
+                CollectorInput("announce-player-achievements", "Announce player achievements",
+                               Version(1, 7, 2), Version(1, 11, 2)),
                 CollectorInput("enable-command-block", "Enable command blocks", Version(1, 7, 2), LATEST_VERSION),
+                CollectorInput("spawn-protection", "Spawn protection", Version(1, 14, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -102,16 +104,28 @@ class ServerCommand:
                 CollectorInput("online-mode", "Online mode", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("server-ip", "Server IP", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("server-port", "Server port", Version(1, 2, 5), LATEST_VERSION),
-                CollectorInput("network-compression-threshold", "Network compression threshold", Version(1, 8, 0), LATEST_VERSION),
-                CollectorInput("prevent-proxy-connections", "Prevent proxy connections", Version(1, 11, 0), LATEST_VERSION),
-                CollectorInput("op-permission-level", " Server operator (OP) permission level", Version(1, 7, 2), LATEST_VERSION),
+                CollectorInput("network-compression-threshold", "Network compression threshold", Version(1, 8, 0),
+                               LATEST_VERSION),
+                CollectorInput("prevent-proxy-connections", "Prevent proxy connections", Version(1, 11, 0),
+                               LATEST_VERSION),
+                CollectorInput("op-permission-level", " Server operator (OP) permission level", Version(1, 7, 2),
+                               LATEST_VERSION),
+                CollectorInput("function-permission-level", "Function permission level", Version(1, 14, 4),
+                               LATEST_VERSION),
+                CollectorInput("broadcast-console-to-ops", "Broadcast console to operators", Version(1, 14, 0),
+                               LATEST_VERSION),
+                CollectorInput("broadcast-rcon-to-ops", "Broadcast RCON to operators", Version(1, 14, 0),
+                               LATEST_VERSION)
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Server Communication & Remote Access",
             [
                 CollectorInput("enable-query", "Enable query", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("query.port", "Query port", Version(1, 14, 0), LATEST_VERSION),
                 CollectorInput("enable-rcon", "Enable RCON", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("rcon.password", "RCON password", Version(1, 14, 0), LATEST_VERSION),
+                CollectorInput("rcon.port", "RCON port", Version(1, 14, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -119,6 +133,7 @@ class ServerCommand:
             [
                 CollectorInput("view-distance", "View distance", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("max-tick-time", "Max tick time", Version(1, 8, 0), LATEST_VERSION),
+                CollectorInput("use-native-transport", "Use native transport", Version(1, 14, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
