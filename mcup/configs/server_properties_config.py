@@ -55,6 +55,7 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-console-to-ops": None,  # 1.14+
             "broadcast-rcon-to-ops": None,  # 1.14+
             "text-filtering-config": None,  # 1.16.4+
+            "hide-online-players": None,  # 1.18+
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -68,6 +69,7 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Performance
             "view-distance": None,
+            "simulation-distance": None,  # 1.18+
             "max-tick-time": None,  # 1.8+
             "use-native-transport": None,  # 1.14+
             "entity-broadcast-range-percentage": None,  # 1.16+
@@ -78,9 +80,11 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack": None,  # 1.7.2+
             "resource-pack-hash": None,  # 1.8-1.8.9
             "resource-pack-sha1": None,  # 1.9+
+            "require-resource-pack": None,  # 1.17+
+            "resource-pack-prompt": None,  # 1.17+
 
             # Telemetry
-            "snooper-enabled": None,  # 1.3.2+
+            "snooper-enabled": None,  # 1.3.2-1.17.1
         }
 
         self.default_configuration = {
@@ -128,6 +132,7 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-console-to-ops": "true",
             "broadcast-rcon-to-ops": "true",
             "text-filtering-config": "",
+            "hide-online-players": "false",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -141,6 +146,7 @@ class ServerPropertiesConfig(ConfigFile):
 
             # Performance
             "view-distance": "10",
+            "simulation-distance": "10",
             "max-tick-time": "60000",
             "use-native-transport": "true",
             "entity-broadcast-range-percentage": "100",
@@ -151,6 +157,8 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack": "",
             "resource-pack-hash": "",
             "resource-pack-sha1": "",
+            "require-resource-pack": "false",
+            "resource-pack-prompt": "",
 
             # Telemetry
             "snooper-enabled": "true"

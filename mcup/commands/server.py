@@ -116,7 +116,8 @@ class ServerCommand:
                                LATEST_VERSION),
                 CollectorInput("broadcast-rcon-to-ops", "Broadcast RCON to operators", Version(1, 14, 0),
                                LATEST_VERSION),
-                CollectorInput("text-filtering-config", "Text filtering config", Version(1, 16, 4), LATEST_VERSION)
+                CollectorInput("text-filtering-config", "Text filtering config", Version(1, 16, 4), LATEST_VERSION),
+                CollectorInput("hide-online-players", "Hide online players", Version(1, 18, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -136,6 +137,7 @@ class ServerCommand:
             "server.properties - Performance",
             [
                 CollectorInput("view-distance", "View distance", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("simulation-distance", "Simulation distance", Version(1, 18, 0), LATEST_VERSION),
                 CollectorInput("max-tick-time", "Max tick time", Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("use-native-transport", "Use native transport", Version(1, 14, 0), LATEST_VERSION),
                 CollectorInput("entity-broadcast-range-percentage", "Entity broadcast range percentage",
@@ -149,14 +151,16 @@ class ServerCommand:
                 CollectorInput("texture-pack", "Texture pack", Version(1, 3, 1), Version(1, 6, 4)),
                 CollectorInput("resource-pack", "Resource pack", Version(1, 7, 2), LATEST_VERSION),
                 CollectorInput("resource-pack-hash", "Resource pack hash", Version(1, 8, 0), Version(1, 8, 9)),
-                CollectorInput("resource-pack-sha1", "Resource pack SHA1", Version(1, 9, 0), LATEST_VERSION)
+                CollectorInput("resource-pack-sha1", "Resource pack SHA1", Version(1, 9, 0), LATEST_VERSION),
+                CollectorInput("require-resource-pack", "Require resource pack", Version(1, 17, 0), LATEST_VERSION),
+                CollectorInput("resource-pack-prompt", "Resource pack prompt", Version(1, 17, 0), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
             "server.properties - Mojang Telemetry",
             [
                 CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
-                               Version(1, 3, 2), LATEST_VERSION),
+                               Version(1, 3, 2), Version(1, 17, 1)),
             ]
         ))
 
