@@ -84,11 +84,6 @@ class ServerCommand:
                                Version(1, 7, 2), Version(1, 11, 2)),
                 CollectorInput("enable-command-block", "Enable command blocks", Version(1, 7, 2), LATEST_VERSION),
                 CollectorInput("spawn-protection", "Spawn protection", Version(1, 14, 0), LATEST_VERSION),
-            ]
-        ))
-        collector.add_section(CollectorSection(
-            "server.properties - Entity Spawning",
-            [
                 CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("spawn-monsters", "Spawn monsters", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), LATEST_VERSION),
@@ -134,7 +129,7 @@ class ServerCommand:
             ]
         ))
         collector.add_section(CollectorSection(
-            "server.properties - Performance",
+            "server.properties - Performance & Telemetry",
             [
                 CollectorInput("view-distance", "View distance", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("simulation-distance", "Simulation distance", Version(1, 18, 0), LATEST_VERSION),
@@ -143,6 +138,8 @@ class ServerCommand:
                 CollectorInput("entity-broadcast-range-percentage", "Entity broadcast range percentage",
                                Version(1, 16, 0), LATEST_VERSION),
                 CollectorInput("sync-chunk-writes", "Sync chunk writes", Version(1, 16, 0), LATEST_VERSION),
+                CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
+                               Version(1, 3, 2), Version(1, 17, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -154,13 +151,6 @@ class ServerCommand:
                 CollectorInput("resource-pack-sha1", "Resource pack SHA1", Version(1, 9, 0), LATEST_VERSION),
                 CollectorInput("require-resource-pack", "Require resource pack", Version(1, 17, 0), LATEST_VERSION),
                 CollectorInput("resource-pack-prompt", "Resource pack prompt", Version(1, 17, 0), LATEST_VERSION),
-            ]
-        ))
-        collector.add_section(CollectorSection(
-            "server.properties - Mojang Telemetry",
-            [
-                CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
-                               Version(1, 3, 2), Version(1, 17, 1)),
             ]
         ))
 

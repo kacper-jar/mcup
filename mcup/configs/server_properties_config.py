@@ -34,8 +34,6 @@ class ServerPropertiesConfig(ConfigFile):
             "announce-player-achievements": None,  # 1.7.2-1.11.2
             "enable-command-block": None,  # 1.7.2+
             "spawn-protection": None,  # 1.14+
-
-            # Entity spawning
             "spawn-animals": None,
             "spawn-monsters": None,
             "spawn-npcs": None,
@@ -67,13 +65,14 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-jmx-monitoring": None,  # 1.16+
             "rate-limit": None,  # 1.16.2+
 
-            # Performance
+            # Performance & Telemetry
             "view-distance": None,
             "simulation-distance": None,  # 1.18+
             "max-tick-time": None,  # 1.8+
             "use-native-transport": None,  # 1.14+
             "entity-broadcast-range-percentage": None,  # 1.16+
             "sync-chunk-writes": None,  # 1.16+
+            "snooper-enabled": None,  # 1.3.2-1.17.1
 
             # Customization
             "texture-pack": None,  # 1.3.1-1.6.4
@@ -81,10 +80,7 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-hash": None,  # 1.8-1.8.9
             "resource-pack-sha1": None,  # 1.9+
             "require-resource-pack": None,  # 1.17+
-            "resource-pack-prompt": None,  # 1.17+
-
-            # Telemetry
-            "snooper-enabled": None,  # 1.3.2-1.17.1
+            "resource-pack-prompt": None  # 1.17+
         }
 
         self.default_configuration = {
@@ -111,8 +107,6 @@ class ServerPropertiesConfig(ConfigFile):
             "announce-player-achievements": "true",
             "enable-command-block": "false",
             "spawn-protection": "16",
-
-            # Entity spawning
             "spawn-animals": "true",
             "spawn-monsters": "true",
             "spawn-npcs": "true",
@@ -144,13 +138,14 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-jmx-monitoring": "false",
             "rate-limit": "0",
 
-            # Performance
+            # Performance & Telemetry
             "view-distance": "10",
             "simulation-distance": "10",
             "max-tick-time": "60000",
             "use-native-transport": "true",
             "entity-broadcast-range-percentage": "100",
             "sync-chunk-writes": "true",
+            "snooper-enabled": "true",
 
             # Customization
             "texture-pack": "",
@@ -158,8 +153,5 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-hash": "",
             "resource-pack-sha1": "",
             "require-resource-pack": "false",
-            "resource-pack-prompt": "",
-
-            # Telemetry
-            "snooper-enabled": "true"
+            "resource-pack-prompt": ""
         }
