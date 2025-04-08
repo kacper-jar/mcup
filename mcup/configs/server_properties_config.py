@@ -34,9 +34,9 @@ class ServerPropertiesConfig(ConfigFile):
             "announce-player-achievements": None,  # 1.7.2-1.11.2
             "enable-command-block": None,  # 1.7.2+
             "spawn-protection": None,  # 1.14+
-            "spawn-animals": None,
-            "spawn-monsters": None,
-            "spawn-npcs": None,
+            "spawn-animals": None,  # 1.2.5-1.21.1
+            "spawn-monsters": None,  # 1.2.5+
+            "spawn-npcs": None,  # 1.2.5-1.21.1
 
             # Server Access & Multiplayer
             "max-players": None,
@@ -53,9 +53,11 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-console-to-ops": None,  # 1.14+
             "broadcast-rcon-to-ops": None,  # 1.14+
             "text-filtering-config": None,  # 1.16.4+
+            "text-filtering-version": None,  # 1.21.2+
             "hide-online-players": None,  # 1.18+
             "enforce-secure-profile": None,  # 1.19+
             "previews-chat": None,  # 1.19-1.19.2
+            "accepts-transfers": None,  # 1.20.5+
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -66,6 +68,8 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-status": None,  # 1.16+
             "enable-jmx-monitoring": None,  # 1.16+
             "rate-limit": None,  # 1.16.2+
+            "log-ips": None,  # 1.20.2+
+            "bug-report-link": None,  # 1.21+
 
             # Performance & Telemetry
             "view-distance": None,
@@ -75,6 +79,8 @@ class ServerPropertiesConfig(ConfigFile):
             "entity-broadcast-range-percentage": None,  # 1.16+
             "sync-chunk-writes": None,  # 1.16+
             "max-chained-neighbor-updates": None,  # 1.19+
+            "region-file-compression": None,  # 1.20.5+
+            "pause-when-empty-seconds": None,  # 1.21.2+
             "snooper-enabled": None,  # 1.3.2-1.17.1
 
             # Customization
@@ -84,6 +90,7 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-sha1": None,  # 1.9+
             "require-resource-pack": None,  # 1.17+
             "resource-pack-prompt": None,  # 1.17+
+            "resource-pack-id": None,  # 1.20.3+
             "initial-enabled-packs": None,  # 1.19.3+
             "initial-disabled-packs": None  # 1.19.3+
         }
@@ -131,9 +138,11 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-console-to-ops": "true",
             "broadcast-rcon-to-ops": "true",
             "text-filtering-config": "",
+            "text-filtering-version": "0",
             "hide-online-players": "false",
             "enforce-secure-profile": "true",
             "previews-chat": "false",
+            "accepts-transfers": "false",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -144,6 +153,8 @@ class ServerPropertiesConfig(ConfigFile):
             "enable-status": "true",
             "enable-jmx-monitoring": "false",
             "rate-limit": "0",
+            "log-ips": "true",
+            "bug-report-link": "",
 
             # Performance & Telemetry
             "view-distance": "10",
@@ -153,6 +164,8 @@ class ServerPropertiesConfig(ConfigFile):
             "entity-broadcast-range-percentage": "100",
             "sync-chunk-writes": "true",
             "max-chained-neighbor-updates": "1000000",
+            "region-file-compression": "deflate",
+            "pause-when-empty-seconds": "60",
             "snooper-enabled": "true",
 
             # Customization
@@ -162,6 +175,7 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-sha1": "",
             "require-resource-pack": "false",
             "resource-pack-prompt": "",
+            "resource-pack-id": "",
             "initial-enabled-packs": "vanilla",
             "initial-disabled-packs": ""
         }

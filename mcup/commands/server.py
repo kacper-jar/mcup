@@ -84,9 +84,9 @@ class ServerCommand:
                                Version(1, 7, 2), Version(1, 11, 2)),
                 CollectorInput("enable-command-block", "Enable command blocks", Version(1, 7, 2), LATEST_VERSION),
                 CollectorInput("spawn-protection", "Spawn protection", Version(1, 14, 0), LATEST_VERSION),
-                CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("spawn-animals", "Spawn animals", Version(1, 2, 5), Version(1, 21, 1)),
                 CollectorInput("spawn-monsters", "Spawn monsters", Version(1, 2, 5), LATEST_VERSION),
-                CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("spawn-npcs", "Spawn NPCs", Version(1, 2, 5), Version(1, 21, 1)),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -112,9 +112,11 @@ class ServerCommand:
                 CollectorInput("broadcast-rcon-to-ops", "Broadcast RCON to operators", Version(1, 14, 0),
                                LATEST_VERSION),
                 CollectorInput("text-filtering-config", "Text filtering config", Version(1, 16, 4), LATEST_VERSION),
+                CollectorInput("text-filtering-version", "Text filtering version", Version(1, 21, 2), LATEST_VERSION),
                 CollectorInput("hide-online-players", "Hide online players", Version(1, 18, 0), LATEST_VERSION),
                 CollectorInput("enforce-secure-profile", "Enforce secure profile", Version(1, 19, 0), LATEST_VERSION),
                 CollectorInput("previews-chat", "Previews chat", Version(1, 19, 0), Version(1, 19, 2)),
+                CollectorInput("accepts-transfers", "Accepts transfers", Version(1, 20, 5), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -128,6 +130,7 @@ class ServerCommand:
                 CollectorInput("enable-status", "Enable status", Version(1, 16, 0), LATEST_VERSION),
                 CollectorInput("enable-jmx-monitoring", "Enable JMX monitoring", Version(1, 16, 0), LATEST_VERSION),
                 CollectorInput("rate-limit", "Rate limit", Version(1, 16, 2), LATEST_VERSION),
+                CollectorInput("log-ips", "Log IPs", Version(1, 20, 2), LATEST_VERSION),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -142,6 +145,10 @@ class ServerCommand:
                 CollectorInput("sync-chunk-writes", "Sync chunk writes", Version(1, 16, 0), LATEST_VERSION),
                 CollectorInput("max-chained-neighbor-updates", "Max chained neighbor updates",
                                Version(1, 19, 0), LATEST_VERSION),
+                CollectorInput("region-file-compression", "Region file compression algorithm",
+                               Version(1, 20, 5), LATEST_VERSION),
+                CollectorInput("pause-when-empty-seconds", "Pause server when empty for",
+                               Version(1, 21, 2), LATEST_VERSION),
                 CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
                                Version(1, 3, 2), Version(1, 17, 1)),
             ]
@@ -155,6 +162,7 @@ class ServerCommand:
                 CollectorInput("resource-pack-sha1", "Resource pack SHA1", Version(1, 9, 0), LATEST_VERSION),
                 CollectorInput("require-resource-pack", "Require resource pack", Version(1, 17, 0), LATEST_VERSION),
                 CollectorInput("resource-pack-prompt", "Resource pack prompt", Version(1, 17, 0), LATEST_VERSION),
+                CollectorInput("resource-pack-id", "Resource pack ID", Version(1, 20, 3), LATEST_VERSION),
                 CollectorInput("initial-enabled-packs", "Initial enabled data packs",
                                Version(1, 19, 3), LATEST_VERSION),
                 CollectorInput("initial-disabled-packs", "Initial disabled data packs",
