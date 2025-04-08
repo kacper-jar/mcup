@@ -54,6 +54,8 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-rcon-to-ops": None,  # 1.14+
             "text-filtering-config": None,  # 1.16.4+
             "hide-online-players": None,  # 1.18+
+            "enforce-secure-profile": None,  # 1.19+
+            "previews-chat": None,  # 1.19-1.19.2
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -72,6 +74,7 @@ class ServerPropertiesConfig(ConfigFile):
             "use-native-transport": None,  # 1.14+
             "entity-broadcast-range-percentage": None,  # 1.16+
             "sync-chunk-writes": None,  # 1.16+
+            "max-chained-neighbor-updates": None,  # 1.19+
             "snooper-enabled": None,  # 1.3.2-1.17.1
 
             # Customization
@@ -80,7 +83,9 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-hash": None,  # 1.8-1.8.9
             "resource-pack-sha1": None,  # 1.9+
             "require-resource-pack": None,  # 1.17+
-            "resource-pack-prompt": None  # 1.17+
+            "resource-pack-prompt": None,  # 1.17+
+            "initial-enabled-packs": None,  # 1.19.3+
+            "initial-disabled-packs": None  # 1.19.3+
         }
 
         self.default_configuration = {
@@ -127,6 +132,8 @@ class ServerPropertiesConfig(ConfigFile):
             "broadcast-rcon-to-ops": "true",
             "text-filtering-config": "",
             "hide-online-players": "false",
+            "enforce-secure-profile": "true",
+            "previews-chat": "false",
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -145,6 +152,7 @@ class ServerPropertiesConfig(ConfigFile):
             "use-native-transport": "true",
             "entity-broadcast-range-percentage": "100",
             "sync-chunk-writes": "true",
+            "max-chained-neighbor-updates": "1000000",
             "snooper-enabled": "true",
 
             # Customization
@@ -153,5 +161,7 @@ class ServerPropertiesConfig(ConfigFile):
             "resource-pack-hash": "",
             "resource-pack-sha1": "",
             "require-resource-pack": "false",
-            "resource-pack-prompt": ""
+            "resource-pack-prompt": "",
+            "initial-enabled-packs": "vanilla",
+            "initial-disabled-packs": ""
         }

@@ -113,6 +113,8 @@ class ServerCommand:
                                LATEST_VERSION),
                 CollectorInput("text-filtering-config", "Text filtering config", Version(1, 16, 4), LATEST_VERSION),
                 CollectorInput("hide-online-players", "Hide online players", Version(1, 18, 0), LATEST_VERSION),
+                CollectorInput("enforce-secure-profile", "Enforce secure profile", Version(1, 19, 0), LATEST_VERSION),
+                CollectorInput("previews-chat", "Previews chat", Version(1, 19, 0), Version(1, 19, 2)),
             ]
         ))
         collector.add_section(CollectorSection(
@@ -138,6 +140,8 @@ class ServerCommand:
                 CollectorInput("entity-broadcast-range-percentage", "Entity broadcast range percentage",
                                Version(1, 16, 0), LATEST_VERSION),
                 CollectorInput("sync-chunk-writes", "Sync chunk writes", Version(1, 16, 0), LATEST_VERSION),
+                CollectorInput("max-chained-neighbor-updates", "Max chained neighbor updates",
+                               Version(1, 19, 0), LATEST_VERSION),
                 CollectorInput("snooper-enabled", "Enable Snooper (sending anonymous usage statistics to Mojang)",
                                Version(1, 3, 2), Version(1, 17, 1)),
             ]
@@ -151,6 +155,10 @@ class ServerCommand:
                 CollectorInput("resource-pack-sha1", "Resource pack SHA1", Version(1, 9, 0), LATEST_VERSION),
                 CollectorInput("require-resource-pack", "Require resource pack", Version(1, 17, 0), LATEST_VERSION),
                 CollectorInput("resource-pack-prompt", "Resource pack prompt", Version(1, 17, 0), LATEST_VERSION),
+                CollectorInput("initial-enabled-packs", "Initial enabled data packs",
+                               Version(1, 19, 3), LATEST_VERSION),
+                CollectorInput("initial-disabled-packs", "Initial disabled data packs",
+                               Version(1, 19, 3), LATEST_VERSION)
             ]
         ))
 
