@@ -43,6 +43,7 @@ class ServerCommand:
             if version["version"] == server_version:
                 is_valid_server_version = True
                 url = version["url"]
+                configs = version["configs"]
                 break
             is_valid_server_version = False
         if not is_valid_server_version:
@@ -88,8 +89,7 @@ class ServerCommand:
             server_properties_assembler.assemble(server_path, server_properties)
             progress.update(task, advance=1)
 
-            # TODO: Replace this with detecting configs inside locker.json
-            if server_type == "spigot" or server_type == "paper":
+            if "bukkit" in configs:
                 task = progress.add_task("Assembling bukkit.yml...", total=1)
 
                 bukkit_config = BukkitConfig()
