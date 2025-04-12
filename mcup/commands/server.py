@@ -4,7 +4,9 @@ import requests
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.config_assemblers import ServerPropertiesAssembler
+from mcup.config_assemblers import YmlAssembler
 from mcup.configs import ServerPropertiesConfig
+from mcup.configs import BukkitConfig
 from mcup.utils.locker import LockerManager
 from mcup.utils.ui.collector.predefined import ServerPropertiesCollector
 from mcup.utils.version import Version
@@ -85,6 +87,16 @@ class ServerCommand:
             server_properties_assembler = ServerPropertiesAssembler()
             server_properties_assembler.assemble(server_path, server_properties)
             progress.update(task, advance=1)
+
+            # TODO: Replace this with detecting configs inside locker.json
+            if server_type == "spigot" or server_type == "paper":
+                task = progress.add_task("Assembling bukkit.yml...", total=1)
+
+                bukkit_config = BukkitConfig()
+
+                yml_assembler = YmlAssembler()
+                yml_assembler.assemble(server_path, bukkit_config)
+                progress.update(task, advance=1)
 
             if version >= Version(1, 7, 10):
                 task = progress.add_task("Assembling eula.txt...", total=1)
