@@ -1,4 +1,6 @@
 import os
+import shutil
+import subprocess
 from pathlib import Path
 import requests
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
@@ -42,7 +44,11 @@ class ServerCommand:
         for version in locker_data["servers"][server_type]:
             if version["version"] == server_version:
                 is_valid_server_version = True
-                url = version["url"]
+                source = version["source"]
+                if source == "DOWNLOAD":
+                    url = version["url"]
+                elif source == "BUILDTOOLS":
+                    target = version["target"]
                 configs = version["configs"]
                 break
             is_valid_server_version = False
@@ -65,30 +71,89 @@ class ServerCommand:
                 BarColumn(),
                 TaskProgressColumn()
         ) as progress:
-            task = progress.add_task("Preparing to download server...", total=1)
-            response = requests.get(url, stream=True)
-            progress.update(task, advance=1)
-
-            if response.status_code == 200:
-                total_size = int(response.headers.get('content-length', 0))
-                task = progress.add_task("Downloading server...", total=total_size)
-                file_name = url.split("/")[-1]
-                file_path = server_path / file_name
-                with open(file_path, "wb") as file:
-                    for chunk in response.iter_content(1024):
-                        file.write(chunk)
-                        progress.update(task, advance=len(chunk))
-                print(f"Downloaded: {file_path}")
+            if source == "DOWNLOAD":
+                task = progress.add_task("Preparing to download server...", total=1)
+                response = requests.get(url, stream=True)
                 progress.update(task, advance=1)
-            else:
-                print(f"Failed to download server. HTTP {response.status_code}")
-                raise Exception("Failed to download server.")
+
+                if response.status_code == 200:
+                    total_size = int(response.headers.get('content-length', 0))
+                    task = progress.add_task("Downloading server...", total=total_size)
+                    file_name = url.split("/")[-1]
+                    file_path = server_path / file_name
+                    with open(file_path, "wb") as file:
+                        for chunk in response.iter_content(1024):
+                            file.write(chunk)
+                            progress.update(task, advance=len(chunk))
+                    print(f"Downloaded: {file_path}")
+                    progress.update(task, advance=1)
+                else:
+                    print(f"Failed to download server. HTTP {response.status_code}")
+                    raise Exception("Failed to download server.")
+            elif source == "BUILDTOOLS":
+                task = progress.add_task("Preparing to download Spigot BuildTools...", total=1)
+                spigot_buildtools_url = "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
+                response = requests.get(spigot_buildtools_url, stream=True)
+                progress.update(task, advance=1)
+
+                if response.status_code == 200:
+                    total_size = int(response.headers.get('content-length', 0))
+                    task = progress.add_task("Downloading server...", total=total_size)
+                    file_name = spigot_buildtools_url.split("/")[-1]
+                    file_path = server_path / file_name
+                    with open(file_path, "wb") as file:
+                        for chunk in response.iter_content(1024):
+                            file.write(chunk)
+                            progress.update(task, advance=len(chunk))
+                    print(f"Downloaded: {file_path}")
+                    progress.update(task, advance=1)
+                else:
+                    print(f"Failed to download Spigot BuildTools. HTTP {response.status_code}")
+                    raise Exception("Failed to download Spigot BuildTools.")
+
+                if not os.path.exists(file_path):
+                    raise FileNotFoundError("Spigot BuildTools not found.")
+
+                task = progress.add_task("Building server using Spigot BuildTools...", total=1)
+                # TODO: Add checks for java version
+                subprocess.run(
+                    ["java", "-jar", file_path, "--compile", target, "--rev", server_version],
+                    cwd=server_path
+                )
+                progress.update(task, advance=1)
+
+                if not os.path.exists(server_path / f"{target}-{server_version}.jar"):
+                    raise FileNotFoundError("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
+
+                task = progress.add_task("Cleaning up...", total=1)
+                to_clean_up = [
+                    "BuildTools.jar",
+                    "Bukkit",
+                    "CraftBukkit",
+                    "work",
+                    "Spigot",
+                    "BuildData",
+                    "apache-maven-3.9.6"
+                ]
+
+                for item in to_clean_up:
+                    full_path = os.path.join(server_path, item)
+                    if os.path.isfile(full_path):
+                        os.remove(full_path)
+                        print(f"Deleted file: {full_path}")
+                    elif os.path.isdir(full_path):
+                        shutil.rmtree(full_path)
+                        print(f"Deleted directory: {full_path}")
+                    else:
+                        print(f"Not found: {full_path}. Skipping...")
+                progress.update(task, advance=1)
 
             task = progress.add_task("Assembling server.properties...", total=1)
             server_properties_assembler = ServerPropertiesAssembler()
             server_properties_assembler.assemble(server_path, server_properties)
             progress.update(task, advance=1)
 
+            # TODO: replace this with some kind of "assembler linker" or smth
             if "bukkit" in configs:
                 task = progress.add_task("Assembling bukkit.yml...", total=1)
 

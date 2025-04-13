@@ -9,4 +9,10 @@ class YmlAssembler(Assembler):
     @staticmethod
     def assemble(path: str, config: ConfigFile):
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
-            yaml.dump(config.get_configuration(), config_file, sort_keys=False, default_flow_style=False)
+            # TODO: Clean up configuration from None(s) before dumping to yml
+            yaml.dump(
+                config.get_configuration(),
+                config_file,
+                sort_keys=False,
+                default_flow_style=False
+            )
