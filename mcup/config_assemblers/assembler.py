@@ -4,7 +4,7 @@ from mcup.configs import ConfigFile
 
 
 @dataclass
-class Assembler():
+class Assembler:
     """Class representing configuration file assembler."""
     @staticmethod
     def assemble(path: str, config: ConfigFile):
