@@ -98,7 +98,7 @@ class ServerCommand:
 
                 if response.status_code == 200:
                     total_size = int(response.headers.get('content-length', 0))
-                    task = progress.add_task("Downloading server...", total=total_size)
+                    task = progress.add_task("Downloading Spigot BuildTools...", total=total_size)
                     file_name = spigot_buildtools_url.split("/")[-1]
                     file_path = server_path / file_name
                     with open(file_path, "wb") as file:
@@ -129,7 +129,9 @@ class ServerCommand:
 
                 subprocess.run(
                     ["java", "-jar", file_path, "--compile", target, "--rev", server_version],
-                    cwd=server_path
+                    cwd=server_path,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
                 )
                 progress.update(task, advance=1)
 
