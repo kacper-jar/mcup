@@ -31,16 +31,17 @@ class ServerCommand:
         print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
 
         server_type = input("Server type (full list available at: ): ")
+        is_valid_server_type = False
         for server in locker_data["servers"]:
             if server == server_type:
                 is_valid_server_type = True
                 break
-            is_valid_server_type = False
         if not is_valid_server_type:
             print(f"Invalid or unsupported server type: {server_type}")
             return
 
         server_version = input(f"{server_type} server version (full list available at: ): ")
+        is_valid_server_version = False
         for version in locker_data["servers"][server_type]:
             if version["version"] == server_version:
                 is_valid_server_version = True
@@ -51,7 +52,6 @@ class ServerCommand:
                     target = version["target"]
                 configs = version["configs"]
                 break
-            is_valid_server_version = False
         if not is_valid_server_version:
             print(f"Invalid or unsupported server version: {server_version}")
             return
