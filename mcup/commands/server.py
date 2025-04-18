@@ -5,8 +5,7 @@ from pathlib import Path
 import requests
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
-from mcup.config_assemblers import ServerPropertiesAssembler
-from mcup.config_assemblers import YmlAssembler
+from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.configs import ServerPropertiesConfig
 from mcup.configs import BukkitConfig
 from mcup.utils.locker import LockerManager
@@ -56,14 +55,21 @@ class ServerCommand:
             print(f"Invalid or unsupported server version: {server_version}")
             return
 
-        server_properties = ServerPropertiesConfig()
-        collector = ServerPropertiesCollector()
-
         major, minor, patch = server_version.split(".")
         version = Version(int(major), int(minor), int(patch))
-        output = collector.start_collector(version)
 
+        assembler_linker_conf = AssemblerLinkerConfig()
+
+        server_properties = ServerPropertiesConfig()
+        collector = ServerPropertiesCollector()
+        output = collector.start_collector(version)
         server_properties.set_configuration_properties(output)
+
+        if "bukkit" in configs:
+            bukkit_config = BukkitConfig()
+            assembler_linker_conf.add_configuration_file(bukkit_config)
+
+        assembler_linker_conf.add_configuration_file(server_properties)
 
         with Progress(
                 SpinnerColumn(),
@@ -161,20 +167,11 @@ class ServerCommand:
                         print(f"Not found: {full_path}. Skipping...")
                 progress.update(task, advance=1)
 
-            task = progress.add_task("Assembling server.properties...", total=1)
-            server_properties_assembler = ServerPropertiesAssembler()
-            server_properties_assembler.assemble(server_path, server_properties)
+            task = progress.add_task("Assembling configuration files...", total=1)
+            assembler_linker = AssemblerLinker(assembler_linker_conf)
+            assembler_linker.link()
+            assembler_linker.assemble_linked_files(server_path)
             progress.update(task, advance=1)
-
-            # TODO: replace this with some kind of "assembler linker" or smth
-            if "bukkit" in configs:
-                task = progress.add_task("Assembling bukkit.yml...", total=1)
-
-                bukkit_config = BukkitConfig()
-
-                yml_assembler = YmlAssembler()
-                yml_assembler.assemble(server_path, bukkit_config)
-                progress.update(task, advance=1)
 
             if version >= Version(1, 7, 10):
                 task = progress.add_task("Assembling eula.txt...", total=1)
