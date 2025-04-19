@@ -55,8 +55,7 @@ class ServerCommand:
             print(f"Invalid or unsupported server version: {server_version}")
             return
 
-        major, minor, patch = server_version.split(".")
-        version = Version(int(major), int(minor), int(patch))
+        version = Version.from_string(server_version)
 
         assembler_linker_conf = AssemblerLinkerConfig()
 
