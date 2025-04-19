@@ -124,13 +124,13 @@ class ServerCommand:
                 java_major_version = int(java_version_output.split("\n")[0].split("\"")[1].split(".")[0])
 
                 if version >= Version(1, 20, 6) and java_major_version < 21:
-                    raise RuntimeError("Minecraft 1.20.6 and above require at least JDK 21. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. (Azul Zulu JDK is recommended.)")
                 elif version > Version(1, 17, 1) and java_major_version < 17:
-                    raise RuntimeError("Minecraft versions above 1.17.1 require at least JDK 17. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft versions above 1.17.1 require at least JDK 17. BuildTools may fail. (Azul Zulu JDK is recommended.)")
                 elif version >= Version(1, 17, 0) and java_major_version < 16:
-                    raise RuntimeError("Minecraft 1.17 and 1.17.1 require at least JDK 16. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. (Azul Zulu JDK is recommended.)")
                 elif version < Version(1, 17, 0) and java_major_version < 8:
-                    raise RuntimeError("Minecraft versions below 1.17 require at least JDK 8. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. (Azul Zulu JDK is recommended.)")
 
                 subprocess.run(
                     ["java", "-jar", file_path, "--compile", target, "--rev", server_version],
