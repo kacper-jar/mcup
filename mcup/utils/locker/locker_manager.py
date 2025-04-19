@@ -4,7 +4,9 @@ import requests
 
 
 class LockerManager:
+    """Manages the locker file that contains server information and versions."""
     def __init__(self):
+        """Initialize the locker manager with default paths and URLs."""
         self.locker_url = "https://raw.githubusercontent.com/kacper-jar/mcup-locker-file/refs/heads/main/locker.json"
         self.repo_api_url = "https://api.github.com/repos/kacper-jar/mcup-locker-file/commits/main"
         self.locker_path = "locker.json"

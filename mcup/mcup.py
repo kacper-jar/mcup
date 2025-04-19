@@ -7,6 +7,7 @@ class McupCLI:
     VERSION = "1.0.0"
 
     def __init__(self):
+        """Initialize the CLI with all available commands and arguments."""
         self.parser = argparse.ArgumentParser(
             prog="mcup",
             description="Tool for quickly creating Minecraft servers",

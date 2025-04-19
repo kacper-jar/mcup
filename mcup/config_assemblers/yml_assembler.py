@@ -8,6 +8,7 @@ class YmlAssembler(Assembler):
     """Class representing yaml configuration files assembler."""
     @staticmethod
     def clean_config(data):
+        """Clean configuration data by removing empty values."""
         if isinstance(data, dict):
             cleaned_dict = {
                 k: YmlAssembler.clean_config(v)
@@ -26,6 +27,7 @@ class YmlAssembler(Assembler):
 
     @staticmethod
     def assemble(path: str, config: ConfigFile):
+        """Assemble and write YAML configuration to the specified path."""
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
             filtered_config = YmlAssembler.clean_config(config.get_configuration())
             yaml.dump(

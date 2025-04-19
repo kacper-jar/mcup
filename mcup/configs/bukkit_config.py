@@ -2,8 +2,9 @@ from mcup.configs import ConfigFile
 
 
 class BukkitConfig(ConfigFile):
-    """Class representing a bukkit.yml Minecraft server configuration file"""
+    """Class representing a bukkit.yml Minecraft server configuration file."""
     def __init__(self):
+        """Initialize the bukkit.yml configuration with default values."""
         self.config_file_name = "bukkit.yml"
         self.config_file_path = "."
 
