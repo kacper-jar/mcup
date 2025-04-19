@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MCUP_ENTRY_PACKAGE="mcup.mcup"
+MCUP_ENTRY_PACKAGE="mcup"
 
 if ! command -v python3 &> /dev/null; then
     echo "Error: Python3 is not installed."

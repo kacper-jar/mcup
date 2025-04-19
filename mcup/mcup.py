@@ -3,6 +3,7 @@ from mcup.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCom
 
 
 class McupCLI:
+    """Command-line interface for the Minecraft server utility program."""
     VERSION = "1.0.0"
 
     def __init__(self):
@@ -70,7 +71,3 @@ class McupCLI:
             args.func(args)
         else:
             self.parser.print_help()
-
-
-if __name__ == "__main__":
-    McupCLI().run()
