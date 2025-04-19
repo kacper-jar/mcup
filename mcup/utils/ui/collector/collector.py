@@ -24,7 +24,7 @@ class Collector:
                 continue
 
             print(f"\n{section.get_section_title()}")
-            use_default = input("Use default configuration? (y/n): ").strip().lower() == "y"
+            use_default = input("Use default configuration? (y/n): ").strip().lower() in ["y", ""]
 
             for section_input in section_inputs:
                 collector_output[section_input.get_variable_name()] = (
