@@ -173,6 +173,12 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# .idea folder
+.idea/
+
 # mcup locker file
 locker.json
 locker-meta.json
+
+# mcup templates folder
+.templates
