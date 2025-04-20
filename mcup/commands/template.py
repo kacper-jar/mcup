@@ -28,11 +28,6 @@ class TemplateCommand:
         for version in locker_data["servers"][server_type]:
             if version["version"] == server_version:
                 is_valid_server_version = True
-                source = version["source"]
-                if source == "DOWNLOAD":
-                    url = version["url"]
-                elif source == "BUILDTOOLS":
-                    target = version["target"]
                 configs = version["configs"]
                 break
         if not is_valid_server_version:
