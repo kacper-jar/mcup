@@ -38,6 +38,7 @@ class McupCLI:
         template_subparsers = template_parser.add_subparsers(dest="action", help="Template actions")
 
         create_parser = template_subparsers.add_parser("create", help="Create a new template")
+        create_parser.add_argument("template_name", help="Name of the template to create")
         create_parser.set_defaults(func=TemplateCommand.create)
 
         import_parser = template_subparsers.add_parser("import", help="Import a template")
@@ -47,6 +48,7 @@ class McupCLI:
         export_parser.set_defaults(func=TemplateCommand.export_template)
 
         delete_parser = template_subparsers.add_parser("delete", help="Delete a template")
+        delete_parser.add_argument("template_name", help="Name of the template to delete")
         delete_parser.set_defaults(func=TemplateCommand.delete)
 
         use_parser = template_subparsers.add_parser("use", help="Use a template")

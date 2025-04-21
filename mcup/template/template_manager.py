@@ -1,10 +1,12 @@
 import json
 import os
 
+from mcup.template import Template
+
 
 class TemplateManager:
     @staticmethod
-    def save_template(template):
+    def save_template(template: Template):
         if not os.path.exists(".templates"):
             os.makedirs(".templates")
 

@@ -1,3 +1,5 @@
+import os
+
 from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
 from mcup.template import Template, TemplateManager
@@ -10,6 +12,8 @@ class TemplateCommand:
     @staticmethod
     def create(args):
         """Handles 'mcup template create' command."""
+        template_name = args.template_name
+
         locker = LockerManager()
         locker_data = locker.load_locker()
 
@@ -33,8 +37,6 @@ class TemplateCommand:
         if not is_valid_server_version:
             print(f"Invalid or unsupported server version: {server_version}")
             return
-
-        template_name = input("Template name: ")
 
         version = Version.from_string(server_version)
 
@@ -81,7 +83,12 @@ class TemplateCommand:
     @staticmethod
     def delete(args):
         """Handles 'mcup template delete' command."""
-        print("[TODO] Deleting template")
+        template_name = args.template_name
+        if os.path.exists(f".templates/{template_name}.json"):
+            os.remove(f".templates/{template_name}.json")
+            print(f"Deleted template '{template_name}'")
+        else:
+            print(f"Template '{template_name}' not found.")
 
     @staticmethod
     def use(args):

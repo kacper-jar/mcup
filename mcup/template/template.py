@@ -21,3 +21,11 @@ class Template:
 
     def get_template_linker_config(self) -> AssemblerLinkerConfig:
         return self.template_linker_config
+
+    def get_dict(self):
+        return {
+            "template_name": self.template_name,
+            "template_server_type": self.template_server_type,
+            "template_server_version": self.template_server_version,
+            "template_linker_config": self.template_linker_config.to_dict()
+        }
