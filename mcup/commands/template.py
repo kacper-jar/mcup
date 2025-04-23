@@ -1,4 +1,5 @@
 import os
+import json
 
 from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
@@ -11,7 +12,7 @@ from mcup.utils.version import Version
 class TemplateCommand:
     @staticmethod
     def create(args):
-        """Handles 'mcup template create' command."""
+        """Handles 'mcup template create <template_name>' command."""
         template_name = args.template_name
 
         locker = LockerManager()
@@ -72,17 +73,74 @@ class TemplateCommand:
 
     @staticmethod
     def import_template(args):
-        """Handles 'mcup template import' command."""
-        print("[TODO] Importing template")
+        """Handles 'mcup template import <path>' command."""
+        path = args.path
+
+        if not os.path.exists(path):
+            print(f"Error: File not found at path: {path}")
+            return
+
+        try:
+            with open(path, 'r') as file:
+                template_data = json.load(file)
+
+            template_name = template_data.get("template_name")
+            template_server_type = template_data.get("template_server_type")
+            template_server_version = template_data.get("template_server_version")
+            template_linker_config_data = template_data.get("template_linker_config")
+
+            if not all([template_name, template_server_type, template_server_version, template_linker_config_data]):
+                print(f"Error: Invalid template file format at path: {path}")
+                return
+
+            assembler_linker_config = AssemblerLinkerConfig()
+            assembler_linker_config.from_dict(template_linker_config_data)
+
+            template = Template(
+                template_name,
+                template_server_type,
+                template_server_version,
+                assembler_linker_config
+            )
+
+            TemplateManager.save_template(template)
+
+        except json.JSONDecodeError:
+            print(f"Error: Invalid JSON format in file at path: {path}")
+        except Exception as e:
+            print(f"Error importing template: {str(e)}")
 
     @staticmethod
     def export_template(args):
-        """Handles 'mcup template export' command."""
-        print("[TODO] Exporting template")
+        """Handles 'mcup template export <template_name> <destination>' command."""
+        template_name = args.template_name
+        destination = args.destination
+
+        template_path = f".templates/{template_name}.json"
+
+        if not os.path.exists(template_path):
+            print(f"Error: Template '{template_name}' not found.")
+            return
+
+        try:
+            destination_dir = os.path.dirname(destination)
+            if destination_dir and not os.path.exists(destination_dir):
+                os.makedirs(destination_dir)
+
+            with open(template_path, 'r') as src_file:
+                template_data = json.load(src_file)
+
+            with open(destination, 'w') as dest_file:
+                json.dump(template_data, dest_file, indent=4)
+
+            print(f"Template '{template_name}' exported successfully to '{destination}'.")
+
+        except Exception as e:
+            print(f"Error exporting template: {str(e)}")
 
     @staticmethod
     def delete(args):
-        """Handles 'mcup template delete' command."""
+        """Handles 'mcup template delete <template_name>' command."""
         template_name = args.template_name
         if os.path.exists(f".templates/{template_name}.json"):
             os.remove(f".templates/{template_name}.json")

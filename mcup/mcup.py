@@ -42,9 +42,12 @@ class McupCLI:
         create_parser.set_defaults(func=TemplateCommand.create)
 
         import_parser = template_subparsers.add_parser("import", help="Import a template")
+        import_parser.add_argument("path", help="Path to the template file to import")
         import_parser.set_defaults(func=TemplateCommand.import_template)
 
         export_parser = template_subparsers.add_parser("export", help="Export a template")
+        export_parser.add_argument("template_name", help="Name of the template to export")
+        export_parser.add_argument("destination", help="Destination path for the exported template")
         export_parser.set_defaults(func=TemplateCommand.export_template)
 
         delete_parser = template_subparsers.add_parser("delete", help="Delete a template")
