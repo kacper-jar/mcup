@@ -29,6 +29,12 @@ class ConfigFile:
         """Set a single configuration property value."""
         if property_value == "":
             self.set_configuration_default_property(property_name)
+        elif ":" in property_name:
+            parts = property_name.split(":", 1)
+            outer_key = parts[0]
+            inner_key = parts[1]
+
+            self.configuration[outer_key][inner_key] = property_value
         else:
             self.configuration[property_name] = property_value
 
@@ -39,7 +45,14 @@ class ConfigFile:
 
     def set_configuration_default_property(self, property_name: str):
         """Reset a configuration property to its default value."""
-        self.configuration[property_name] = self.default_configuration[property_name]
+        if ":" in property_name:
+            parts = property_name.split(":", 1)
+            outer_key = parts[0]
+            inner_key = parts[1]
+
+            self.configuration[outer_key][inner_key] = self.default_configuration[outer_key][inner_key]
+        else:
+            self.configuration[property_name] = self.default_configuration[property_name]
 
     def set_configuration_default_properties(self, properties: list):
         """Reset multiple configuration properties to their default values."""

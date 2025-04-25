@@ -19,7 +19,7 @@ class ServerPropertiesCollector(Collector):
                 CollectorInput("level-seed", "World seed", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("level-type", "World type", Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("generate-structures", "Generate structures", Version(1, 2, 5), LATEST_VERSION),
-                CollectorInput("generator-settings", "Custom Generator settings", Version(1, 4, 2), LATEST_VERSION),
+                CollectorInput("generator-settings", "Custom generator settings", Version(1, 4, 2), LATEST_VERSION),
                 CollectorInput("max-build-height", "Max build height", Version(1, 2, 5), Version(1, 16, 5)),
                 CollectorInput("max-world-size", "Max world size", Version(1, 8, 0), LATEST_VERSION),
             ]
