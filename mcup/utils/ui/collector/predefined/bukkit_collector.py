@@ -32,10 +32,10 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Chunk gc",
+            "Bukkit - Chunk Garbage Collection (Unloader) Settings",
             [
-                CollectorInput("chunk-gc/period-in-ticks", "Chunk GC period in ticks", Version(1, 8, 0), LATEST_VERSION),
-                CollectorInput("chunk-gc/load-threshold", "Chunk GC load threshold", Version(1, 8, 0), LATEST_VERSION),
+                CollectorInput("chunk-gc/period-in-ticks", "Period in ticks between checks", Version(1, 8, 0), LATEST_VERSION),
+                CollectorInput("chunk-gc/load-threshold", "Loaded chunks threshold", Version(1, 8, 0), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
