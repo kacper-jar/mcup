@@ -29,12 +29,16 @@ class ConfigFile:
         """Set a single configuration property value."""
         if property_value == "":
             self.set_configuration_default_property(property_name)
-        elif ":" in property_name:
-            parts = property_name.split(":", 1)
-            outer_key = parts[0]
-            inner_key = parts[1]
+        elif "/" in property_name:
+            keys = property_name.split("/")
+            current_dict = self.configuration
 
-            self.configuration[outer_key][inner_key] = property_value
+            for key in keys[:-1]:
+                if key not in current_dict:
+                    current_dict[key] = {}
+                current_dict = current_dict[key]
+
+            current_dict[keys[-1]] = property_value
         else:
             self.configuration[property_name] = property_value
 
@@ -45,12 +49,23 @@ class ConfigFile:
 
     def set_configuration_default_property(self, property_name: str):
         """Reset a configuration property to its default value."""
-        if ":" in property_name:
-            parts = property_name.split(":", 1)
-            outer_key = parts[0]
-            inner_key = parts[1]
+        if "/" in property_name:
+            keys = property_name.split("/")
+            config_dict = self.configuration
+            default_dict = self.default_configuration
 
-            self.configuration[outer_key][inner_key] = self.default_configuration[outer_key][inner_key]
+            for key in keys[:-1]:
+                if key not in config_dict:
+                    config_dict[key] = {}
+                config_dict = config_dict[key]
+
+                if key not in default_dict:
+                    return
+                default_dict = default_dict[key]
+
+            last_key = keys[-1]
+            if last_key in default_dict:
+                config_dict[last_key] = default_dict[last_key]
         else:
             self.configuration[property_name] = self.default_configuration[property_name]
 
