@@ -10,7 +10,6 @@ class CollectorSection:
     section_title: str
     section_inputs: list["CollectorInput"]
     section_header: str = ""
-    # allow_default: bool
 
     def get_section_title(self) -> str:
         return self.section_title
