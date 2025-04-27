@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 class CollectorSection:
     section_title: str
     section_inputs: list["CollectorInput"]
+    section_header: str = ""
     # allow_default: bool
 
     def get_section_title(self) -> str:
@@ -16,3 +17,6 @@ class CollectorSection:
 
     def get_section_inputs(self) -> list["CollectorInput"]:
         return self.section_inputs
+
+    def get_section_header(self) -> str:
+        return self.section_header

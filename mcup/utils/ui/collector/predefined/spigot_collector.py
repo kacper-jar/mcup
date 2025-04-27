@@ -58,8 +58,6 @@ class SpigotCollector(Collector):
             ]
         ))
         # TODO: Implement needed functionality to handle correctly lists, etc.
-        print("Warning: Spigot World Settings aren't fully supported. It's better to use default configuration "
-              "and if any edits are needed, edit the file manually.")
         self.add_section(CollectorSection(
             "Spigot - World Settings",
             [
@@ -114,5 +112,7 @@ class SpigotCollector(Collector):
                 CollectorInput("world-settings/default/view-distance", "", Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("world-settings/default/chunks-per-tick", "", Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("world-settings/default/clear-tick-list", "", Version(1, 8, 0), LATEST_VERSION),
-            ]
+            ],
+            "Warning: Spigot World Settings aren't fully supported. It's better to use default configuration "
+              "and if any edits are needed, edit the file manually."
         ))

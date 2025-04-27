@@ -24,6 +24,8 @@ class Collector:
                 continue
 
             print(f"\n{section.get_section_title()}")
+            if section.get_section_header() != "":
+                print(section.get_section_header())
             use_default = input("Use default configuration? (Y/n): ").strip().lower() in ["y", ""]
 
             for section_input in section_inputs:
