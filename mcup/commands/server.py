@@ -8,7 +8,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskPr
 from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
 from mcup.utils.locker import LockerManager
-from mcup.utils.ui.collector.predefined import ServerPropertiesCollector, BukkitCollector
+from mcup.utils.ui.collector.predefined import ServerPropertiesCollector, BukkitCollector, SpigotCollector
 from mcup.utils.version import Version
 
 
@@ -72,6 +72,9 @@ class ServerCommand:
 
         if "spigot" in configs:
             spigot_config = SpigotConfig()
+            spigot_collector = SpigotCollector()
+            output = spigot_collector.start_collector(version)
+            spigot_config.set_configuration_properties(output)
             assembler_linker_conf.add_configuration_file(spigot_config)
 
         if "paper" in configs:
