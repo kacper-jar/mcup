@@ -1,8 +1,11 @@
 from typing import TYPE_CHECKING
 
+
+from .collector_input_type import CollectorInputType
+
+
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
-    from . import CollectorInputType
     from mcup.utils.version import Version
 
 
@@ -53,6 +56,8 @@ class Collector:
                 example_input = "numbers divided by commas"
             case CollectorInputType.BOOL_LIST:
                 example_input = "true/false divided by commas"
+            case _:
+                example_input = ""
 
         var = input(f"{section_input.get_variable_prompt()} ({example_input}): ")
 
