@@ -48,10 +48,14 @@ class Collector:
                 example_input = "text"
             case CollectorInputType.INT:
                 example_input = "number"
+            case CollectorInputType.FLOAT:
+                example_input = "floating point number"
             case CollectorInputType.BOOL:
                 example_input = "true/false"
             case CollectorInputType.STRING_LIST:
                 example_input = "texts divided by commas"
+            case CollectorInputType.FLOAT_LIST:
+                example_input = "floating point numbers divided by commas"
             case CollectorInputType.INT_LIST:
                 example_input = "numbers divided by commas"
             case CollectorInputType.BOOL_LIST:
@@ -72,6 +76,11 @@ class Collector:
                     return int(var)
                 except ValueError:
                     print("Invalid integer value. Please try again.")
+            case CollectorInputType.FLOAT:
+                try:
+                    return float(var)
+                except ValueError:
+                    print("Invalid floating point number value. Please try again.")
             case CollectorInputType.BOOL:
                 if var.lower() in ["y", "yes", "true"]:
                     return True
@@ -86,6 +95,11 @@ class Collector:
                     return [int(item.strip()) for item in var.split(',')]
                 except ValueError:
                     print("Invalid integer value in list. Please try again.")
+            case CollectorInputType.FLOAT_LIST:
+                try:
+                    return [float(item.strip()) for item in var.split(',')]
+                except ValueError:
+                    print("Invalid floating point number value in list. Please try again.")
             case CollectorInputType.BOOL_LIST:
                 bool_list = []
                 for item in var.split(','):
