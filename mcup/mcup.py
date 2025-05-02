@@ -13,7 +13,8 @@ class McupCLI:
             description="Tool for quickly creating Minecraft servers",
         )
         self.parser.add_argument(
-            "-v", "--version", action="version", version=f"%(prog)s {self.VERSION}", help="Show the version of mcup"
+            "-v", "--version", action="version",
+            version=f"%(prog)s {self.VERSION}", help="Show the version of mcup"
         )
         self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
@@ -29,7 +30,8 @@ class McupCLI:
         server_subparsers = server_parser.add_subparsers(dest="action", help="Server actions")
 
         create_parser = server_subparsers.add_parser("create", help="Create a new server")
-        create_parser.add_argument("path", nargs="?", default=".", help="Path to create the server (default: current directory)")
+        create_parser.add_argument("path", nargs="?", default=".",
+                                   help="Path to create the server (default: current directory)")
         create_parser.set_defaults(func=ServerCommand.create)
 
     def _register_template_commands(self):
@@ -56,7 +58,8 @@ class McupCLI:
 
         use_parser = template_subparsers.add_parser("use", help="Use a template")
         use_parser.add_argument("template_name", help="Name of the template to use")
-        use_parser.add_argument("path", nargs="?", default=".", help="Path to apply the template (default: current directory)")
+        use_parser.add_argument("path", nargs="?", default=".",
+                                help="Path to apply the template (default: current directory)")
         use_parser.set_defaults(func=TemplateCommand.use)
 
     def _register_update_command(self):

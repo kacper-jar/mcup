@@ -1,5 +1,6 @@
 import enum
 
+
 class CollectorInputType(enum.Enum):
     STRING = enum.auto()
     INT = enum.auto()

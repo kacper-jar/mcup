@@ -133,17 +133,22 @@ class ServerCommand:
                     raise FileNotFoundError("Spigot BuildTools not found.")
 
                 task = progress.add_task("Building server using Spigot BuildTools...", total=1)
-                java_version_output = subprocess.check_output(["java", "-version"], stderr=subprocess.STDOUT, text=True)
+                java_version_output = subprocess.check_output(["java", "-version"],
+                                                              stderr=subprocess.STDOUT, text=True)
                 java_major_version = int(java_version_output.split("\n")[0].split("\"")[1].split(".")[0])
 
                 if version >= Version(1, 20, 6) and java_major_version < 21:
-                    print("Warning: Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
+                          "(Azul Zulu JDK is recommended.)")
                 elif version > Version(1, 17, 1) and java_major_version < 17:
-                    print("Warning: Minecraft versions above 1.17.1 require at least JDK 17. BuildTools may fail. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft versions above 1.17.1 require at least JDK 17. BuildTools may fail. "
+                          "(Azul Zulu JDK is recommended.)")
                 elif version >= Version(1, 17, 0) and java_major_version < 16:
-                    print("Warning: Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
+                          "(Azul Zulu JDK is recommended.)")
                 elif version < Version(1, 17, 0) and java_major_version < 8:
-                    print("Warning: Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. (Azul Zulu JDK is recommended.)")
+                    print("Warning: Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
+                          "(Azul Zulu JDK is recommended.)")
 
                 subprocess.run(
                     ["java", "-jar", file_path, "--compile", target, "--rev", server_version],
@@ -154,7 +159,8 @@ class ServerCommand:
                 progress.update(task, advance=1)
 
                 if not os.path.exists(server_path / f"{target}-{server_version}.jar"):
-                    raise FileNotFoundError("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
+                    raise FileNotFoundError("Server JAR file not found. "
+                                            "Check BuildTools.log.txt in server folder for more info.")
 
                 task = progress.add_task("Cleaning up...", total=1)
                 to_clean_up = [
