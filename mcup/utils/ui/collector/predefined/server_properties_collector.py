@@ -39,8 +39,8 @@ class ServerPropertiesCollector(Collector):
                 CollectorInput("pvp", "PVP", CollectorInputType.BOOL, Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("allow-flight", "Allow flight", CollectorInputType.BOOL,
                                Version(1, 2, 5), LATEST_VERSION),
-                CollectorInput("allow-nether", "Allow nether", CollectorInputType.BOOL
-                               , Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("allow-nether", "Allow nether", CollectorInputType.BOOL,
+                               Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("announce-player-achievements", "Announce player achievements", CollectorInputType.BOOL,
                                Version(1, 7, 2), Version(1, 11, 2)),
                 CollectorInput("enable-command-block", "Enable command blocks", CollectorInputType.BOOL,
