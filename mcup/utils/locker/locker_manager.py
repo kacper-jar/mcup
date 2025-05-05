@@ -2,15 +2,22 @@ import json
 import os
 import requests
 
+from mcup.utils.path import PathProvider
+
 
 class LockerManager:
     """Manages the locker file that contains server information and versions."""
     def __init__(self):
         """Initialize the locker manager with default paths and URLs."""
+        path_provider = PathProvider()
+
         self.locker_url = "https://raw.githubusercontent.com/kacper-jar/mcup-locker-file/refs/heads/main/locker.json"
         self.repo_api_url = "https://api.github.com/repos/kacper-jar/mcup-locker-file/commits/main"
-        self.locker_path = "locker.json"
-        self.meta_path = "locker-meta.json"
+        self.locker_path = path_provider.get_config_path() / "locker.json"
+        self.meta_path = path_provider.get_config_path() / "locker-meta.json"
+
+        config_dir = path_provider.get_config_path()
+        os.makedirs(config_dir, exist_ok=True)
 
     def get_remote_last_update(self):
         """Fetches the last commit date from GitHub."""

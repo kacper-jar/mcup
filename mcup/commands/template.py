@@ -7,6 +7,7 @@ from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.template import Template, TemplateManager
 from mcup.utils.locker import LockerManager
 from mcup.ui.components import ServerInfoPrompt, ServerConfigsCollector
+from mcup.utils.path import PathProvider
 
 
 class TemplateCommand:
@@ -52,9 +53,12 @@ class TemplateCommand:
             template_name = template_data.get("template_name")
             template_server_type = template_data.get("template_server_type")
             template_server_version = template_data.get("template_server_version")
+            template_source = template_data.get("template_server_source")
+            template_target = template_data.get("template_server_target")
             template_linker_config_data = template_data.get("template_linker_config")
 
-            if not all([template_name, template_server_type, template_server_version, template_linker_config_data]):
+            if not all([template_name, template_server_type, template_server_version, template_source,
+                        template_target, template_linker_config_data]):
                 print(f"Error: Invalid template file format at path: {path}")
                 return
 
@@ -65,6 +69,8 @@ class TemplateCommand:
                 template_name,
                 template_server_type,
                 template_server_version,
+                template_source,
+                template_target,
                 assembler_linker_config
             )
 
@@ -80,8 +86,9 @@ class TemplateCommand:
         """Handles 'mcup template export <template_name> <destination>' command."""
         template_name = args.template_name
         destination = args.destination
+        path_provider = PathProvider()
 
-        template_path = f".templates/{template_name}.json"
+        template_path = f"{path_provider.get_templates_path()}/{template_name}.json"
 
         if not os.path.exists(template_path):
             print(f"Error: Template '{template_name}' not found.")
@@ -107,8 +114,10 @@ class TemplateCommand:
     def delete(args):
         """Handles 'mcup template delete <template_name>' command."""
         template_name = args.template_name
-        if os.path.exists(f".templates/{template_name}.json"):
-            os.remove(f".templates/{template_name}.json")
+        path_provider = PathProvider()
+
+        if os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
+            os.remove(f"{path_provider.get_templates_path()}/{template_name}.json")
             print(f"Deleted template '{template_name}'")
         else:
             print(f"Template '{template_name}' not found.")
@@ -119,15 +128,16 @@ class TemplateCommand:
         template_name = args.template_name
         server_path = Path(args.path)
         assembler_linker_conf = AssemblerLinkerConfig()
+        path_provider = PathProvider()
 
-        if not os.path.exists(f".templates/{template_name}.json"):
+        if not os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
             print(f"Error: Template '{template_name}' not found.")
             return
 
         print(f"Creating a Minecraft server in: {server_path} (from template: {template_name})")
 
         try:
-            path = f".templates/{template_name}.json"
+            path = f"{path_provider.get_templates_path()}/{template_name}.json"
 
             with open(path, 'r') as file:
                 template_data = json.load(file)
