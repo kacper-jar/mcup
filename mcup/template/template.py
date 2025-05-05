@@ -8,6 +8,8 @@ class Template:
     template_name: str
     template_server_type: str
     template_server_version: str
+    template_server_source: str
+    template_server_target: str
     template_linker_config: AssemblerLinkerConfig
 
     def get_template_name(self) -> str:
@@ -19,6 +21,12 @@ class Template:
     def get_template_server_version(self) -> str:
         return self.template_server_version
 
+    def get_template_server_source(self) -> str:
+        return self.template_server_source
+
+    def get_template_server_target(self) -> str:
+        return self.template_server_target
+
     def get_template_linker_config(self) -> AssemblerLinkerConfig:
         return self.template_linker_config
 
@@ -27,5 +35,7 @@ class Template:
             "template_name": self.template_name,
             "template_server_type": self.template_server_type,
             "template_server_version": self.template_server_version,
+            "template_server_source": self.template_server_source,
+            "template_server_target": self.template_server_target,
             "template_linker_config": self.template_linker_config.to_dict()
         }

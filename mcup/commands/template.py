@@ -29,6 +29,8 @@ class TemplateCommand:
             template_name,
             server_type,
             server_version,
+            source,
+            target,
             assembler_linker_conf
         )
 
@@ -117,8 +119,6 @@ class TemplateCommand:
         template_name = args.template_name
         server_path = Path(args.path)
         locker = LockerManager()
-        locker_data = locker.load_locker()
-
         assembler_linker_conf = AssemblerLinkerConfig()
 
         if not os.path.exists(f".templates/{template_name}.json"):
@@ -135,6 +135,8 @@ class TemplateCommand:
 
             server_type = template_data.get("template_server_type")
             server_version = template_data.get("template_server_version")
+            source = template_data.get("template_server_source")
+            target = template_data.get("template_server_target")
             linker_config_data = template_data.get("template_linker_config")
 
             if not all([server_type, server_version, linker_config_data]):
@@ -146,20 +148,6 @@ class TemplateCommand:
             print(f"Error: Invalid JSON format in file at path: {path}")
         except Exception as e:
             print(f"Error reading template: {str(e)}")
-
-        is_valid_server_version = False
-        for version in locker_data["servers"][server_type]:
-            if version["version"] == server_version:
-                is_valid_server_version = True
-                source = version["source"]
-                if source == "DOWNLOAD":
-                    target = version["url"]
-                elif source == "BUILDTOOLS":
-                    target = version["target"]
-                break
-        if not is_valid_server_version:
-            print(f"Invalid or unsupported server version: {server_version}")
-            return
 
         server = ServerManager()
         server.create(server_path, server_version, source, target, assembler_linker_conf)
