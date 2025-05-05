@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker

@@ -1,13 +1,9 @@
 import os
 import json
-import shutil
-import subprocess
 from pathlib import Path
-import requests
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.server import ServerManager
-from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
+from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
 from mcup.template import Template, TemplateManager
 from mcup.utils.locker import LockerManager
