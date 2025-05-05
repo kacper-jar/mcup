@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from mcup.server import ServerManager
+from mcup.handlers import ServerHandler
 from mcup.utils.locker import LockerManager
 from mcup.ui.components import ServerInfoPrompt, ServerConfigsCollector
 
@@ -23,5 +23,5 @@ class ServerCommand:
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, configs)
 
-        server = ServerManager()
+        server = ServerHandler()
         server.create(server_path, server_version, source, target, assembler_linker_conf)

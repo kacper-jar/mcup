@@ -9,7 +9,7 @@ from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.utils.version import Version
 
 
-class ServerManager:
+class ServerHandler:
     def create(self, server_path: Path, server_version: str, source: str,
                target: str, assembler_linker_config: AssemblerLinkerConfig):
         version = Version.from_string(server_version)

@@ -2,7 +2,7 @@ import os
 import json
 from pathlib import Path
 
-from mcup.server import ServerManager
+from mcup.handlers import ServerHandler
 from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.template import Template, TemplateManager
 from mcup.utils.locker import LockerManager
@@ -118,7 +118,6 @@ class TemplateCommand:
         """Handles 'mcup template use <template_name> [path]' command."""
         template_name = args.template_name
         server_path = Path(args.path)
-        locker = LockerManager()
         assembler_linker_conf = AssemblerLinkerConfig()
 
         if not os.path.exists(f".templates/{template_name}.json"):
@@ -149,5 +148,5 @@ class TemplateCommand:
         except Exception as e:
             print(f"Error reading template: {str(e)}")
 
-        server = ServerManager()
+        server = ServerHandler()
         server.create(server_path, server_version, source, target, assembler_linker_conf)
