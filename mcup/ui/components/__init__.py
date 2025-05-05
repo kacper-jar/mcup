@@ -1,5 +1,8 @@
 from .server_properties_collector import ServerPropertiesCollector
 from .bukkit_collector import BukkitCollector
 from .spigot_collector import SpigotCollector
+from .server_info_prompt import ServerInfoPrompt
+from .server_configs_collector import ServerConfigsCollector
 
-__all__ = ["ServerPropertiesCollector", "BukkitCollector", "SpigotCollector"]
+__all__ = ["ServerPropertiesCollector", "BukkitCollector", "SpigotCollector", "ServerInfoPrompt",
+           "ServerConfigsCollector"]
