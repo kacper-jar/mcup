@@ -1,4 +1,4 @@
-from mcup.utils.ui.collector import Collector, CollectorSection, CollectorInput, CollectorInputType
+from mcup.ui.elements.collector import Collector, CollectorSection, CollectorInput, CollectorInputType
 from mcup.utils.version import Version, LATEST_VERSION
 
 

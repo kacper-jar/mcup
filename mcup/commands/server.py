@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from mcup.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
+from mcup.config_assemblers import AssemblerLinkerConfig
 from mcup.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
 from mcup.server import ServerManager
 from mcup.utils.locker import LockerManager
-from mcup.utils.ui.collector.predefined import ServerPropertiesCollector, BukkitCollector, SpigotCollector
+from mcup.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector
 from mcup.utils.version import Version
 
 
