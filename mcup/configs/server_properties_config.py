@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-
 from mcup.configs import ConfigFile
 
 
-@dataclass
 class ServerPropertiesConfig(ConfigFile):
     """Class representing a server.properties Minecraft server configuration file."""
     def __init__(self):
