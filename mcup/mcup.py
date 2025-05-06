@@ -1,10 +1,10 @@
 import argparse
+from mcup import __version__
 from mcup.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
 
 
 class McupCLI:
     """Command-line interface for the Minecraft server utility program."""
-    VERSION = "1.0.0"
 
     def __init__(self):
         """Initialize the CLI with all available commands and arguments."""
@@ -14,7 +14,7 @@ class McupCLI:
         )
         self.parser.add_argument(
             "-v", "--version", action="version",
-            version=f"%(prog)s {self.VERSION}", help="Show the version of mcup"
+            version=f"%(prog)s {__version__}", help="Show the version of mcup"
         )
         self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
