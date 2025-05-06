@@ -61,6 +61,13 @@ class McupCLI:
                                 help="Path to apply the template (default: current directory)")
         use_parser.set_defaults(func=TemplateCommand.use)
 
+        list_parser = template_subparsers.add_parser("list", help="List available templates")
+        list_parser.set_defaults(func=TemplateCommand.list)
+
+        refresh_parser = template_subparsers.add_parser("refresh", help="Update download links in a template")
+        refresh_parser.add_argument("template_name", help="Name of the template to refresh")
+        refresh_parser.set_defaults(func=TemplateCommand.refresh)
+
     def _register_update_command(self):
         """Register command for updating the locker file."""
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")

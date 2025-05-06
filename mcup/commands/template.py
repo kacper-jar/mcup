@@ -165,3 +165,13 @@ class TemplateCommand:
 
         server = ServerHandler()
         server.create(server_path, server_version, source, target, assembler_linker_conf)
+
+    @staticmethod
+    def list(args):
+        """Handles 'mcup template list' command."""
+        pass
+
+    @staticmethod
+    def refresh(args):
+        """Handles 'mcup template refresh' command."""
+        pass
