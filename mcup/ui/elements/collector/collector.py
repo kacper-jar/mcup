@@ -115,7 +115,9 @@ class Collector:
         return None
 
     def get_sections(self) -> list["CollectorSection"]:
+        """Get collector sections."""
         return self.sections
 
     def add_section(self, section: "CollectorSection"):
+        """Add a collector section."""
         self.sections.append(section)

@@ -10,8 +10,10 @@ from mcup.utils.version import Version
 
 
 class ServerHandler:
+    """Class for handling server related actions."""
     def create(self, server_path: Path, server_version: str, source: str,
                target: str, assembler_linker_config: AssemblerLinkerConfig):
+        """Downloads/Builds server in specified path along with all required configuration files."""
         version = Version.from_string(server_version)
 
         if not server_path.exists():

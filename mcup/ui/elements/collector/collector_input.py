@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class CollectorInput:
+    """Class representing a collector input."""
     variable_name: str
     variable_prompt: str
     variable_input_type: "CollectorInputType"
@@ -16,10 +17,13 @@ class CollectorInput:
     variable_max_version: "Version"
 
     def get_variable_name(self) -> str:
+        """Get variable name."""
         return self.variable_name
 
     def get_variable_prompt(self) -> str:
+        """Get variable prompt."""
         return self.variable_prompt
 
     def get_variable_input_type(self) -> "CollectorInputType":
+        """Get variable input type."""
         return self.variable_input_type

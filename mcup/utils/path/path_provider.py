@@ -4,10 +4,13 @@ from pathlib import Path
 
 
 class PathProvider:
+    """Class providing platform-agnostic directory paths."""
     def __init__(self):
+        """Initialize platform."""
         self.platform = sys.platform
 
     def get_config_path(self):
+        """Get path for configuration files."""
         match self.platform:
             case "linux":
                 return Path("~/.config/mcup/").expanduser()
@@ -18,6 +21,7 @@ class PathProvider:
         return None
 
     def get_templates_path(self):
+        """Get path for template files."""
         match self.platform:
             case "linux":
                 return Path("~/.local/share/mcup/templates/").expanduser()

@@ -5,7 +5,7 @@ from mcup.configs import ConfigFile
 
 
 class YmlAssembler(Assembler):
-    """Class representing yaml configuration files assembler."""
+    """Class representing YAML configuration files assembler."""
     @staticmethod
     def clean_config(data):
         """Clean configuration data by removing empty values."""

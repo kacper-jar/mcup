@@ -2,6 +2,7 @@ import enum
 
 
 class CollectorInputType(enum.Enum):
+    """Class representing collector input type."""
     STRING = enum.auto()
     INT = enum.auto()
     FLOAT = enum.auto()

@@ -6,8 +6,10 @@ from mcup.utils.path import PathProvider
 
 
 class TemplateManager:
+    """Class handling template operations."""
     @staticmethod
     def save_template(template: Template):
+        """Save template to templates directory."""
         path_provider = PathProvider()
 
         if not os.path.exists(path_provider.get_templates_path()):
