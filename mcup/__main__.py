@@ -1,4 +1,4 @@
-from mcup.mcup import McupCLI
+from mcup.cli import McupCLI
 
 
 def main():
