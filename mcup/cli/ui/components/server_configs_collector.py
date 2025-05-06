@@ -1,6 +1,6 @@
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
-from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector
+from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector
 from mcup.core.utils.version import Version
 
 
@@ -32,6 +32,9 @@ class ServerConfigsCollector:
 
         if "paper" in configs:
             paper_config = PaperConfig()
+            paper_collector = PaperCollector()
+            output = paper_collector.start_collector(version)
+            paper_config.set_configuration_properties(output)
             assembler_linker_config.add_configuration_file(paper_config)
 
         assembler_linker_config.add_configuration_file(server_properties)
