@@ -45,5 +45,5 @@ class Template:
             "template_server_version": self.template_server_version,
             "template_server_source": self.template_server_source,
             "template_server_target": self.template_server_target,
-            "template_linker_config": self.template_linker_config.to_dict()
+            "template_linker_config": self.template_linker_config.to_dict(export_default_config=False)
         }

@@ -16,6 +16,11 @@ class TemplateCommand:
         """Handles 'mcup template create <template_name>' command."""
         template_name = args.template_name
         locker = LockerManager()
+        path_provider = PathProvider()
+
+        if os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
+            print(f"Error: Template '{template_name}' already exists.")
+            return
 
         try:
             server_info_prompt = ServerInfoPrompt()

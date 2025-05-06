@@ -18,7 +18,6 @@ class McupCLI:
         )
         self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
-        # Register commands
         self._register_server_commands()
         self._register_template_commands()
         self._register_update_command()

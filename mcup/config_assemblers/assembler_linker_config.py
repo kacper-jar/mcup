@@ -19,7 +19,7 @@ class AssemblerLinkerConfig:
         """Get the count of configuration files managed by this configuration."""
         return len(self.configuration_files)
 
-    def to_dict(self):
+    def to_dict(self, export_default_config=True):
         """Convert the AssemblerLinkerConfig object to a dictionary.
 
         Returns:
@@ -27,12 +27,15 @@ class AssemblerLinkerConfig:
         """
         config_files = []
         for config_file in self.configuration_files:
-            config_files.append({
+            file_dict = {
                 'config_file_name': config_file.config_file_name,
                 'config_file_path': config_file.config_file_path,
                 'configuration': config_file.configuration,
-                'default_configuration': config_file.default_configuration
-            })
+            }
+            if export_default_config:
+                file_dict['default_configuration'] = config_file.default_configuration
+
+            config_files.append(file_dict)
 
         return {
             'configuration_files': config_files
