@@ -4,7 +4,6 @@ import subprocess
 from pathlib import Path
 from typing import Iterator
 import requests
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.core.status import Status, StatusCode
@@ -36,9 +35,11 @@ class ServerHandler:
                         yield Status(StatusCode.PROGRESSBAR_UPDATE, len(chunk))
             else:
                 yield Status(StatusCode.ERROR_DOWNLOAD_SERVER_FAILED, str(response.status_code))
+                return
 
             if not os.path.exists(file_path):
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
+                return
         elif source == "BUILDTOOLS":
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download Spigot BuildTools...", 1])
             spigot_buildtools_url = "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
@@ -55,9 +56,11 @@ class ServerHandler:
                         yield Status(StatusCode.PROGRESSBAR_UPDATE, len(chunk))
             else:
                 yield Status(StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED, str(response.status_code))
+                return
 
             if not os.path.exists(file_path):
                 yield Status(StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND)
+                return
 
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Building server using Spigot BuildTools...", 1])
             java_version_output = subprocess.check_output(["java", "-version"],
@@ -90,6 +93,7 @@ class ServerHandler:
 
             if not os.path.exists(server_path / f"{target}-{server_version}.jar"):
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
+                return
 
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Cleaning up...", 1])
             to_clean_up = [

@@ -50,19 +50,15 @@ class ServerCommand:
                     case StatusCode.ERROR_DOWNLOAD_SERVER_FAILED:
                         progress.stop()
                         print(f"Failed to download server. HTTP {status.status_details}")
-                        return
                     case StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED:
                         progress.stop()
                         print(f"Failed to download Spigot BuildTools. HTTP {status.status_details}")
-                        return
                     case StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND:
                         progress.stop()
                         print("Spigot BuildTools not found.")
-                        return
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
-                        return
                     case StatusCode.PRINT_INFO:
                         print(status.status_details)
                     case StatusCode.SUCCESS:
