@@ -33,7 +33,7 @@ def test_get_template_name():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=AssemblerLinkerConfig()
     )
-    
+
     assert template.get_template_name() == "test_template"
 
 
@@ -47,7 +47,7 @@ def test_get_template_server_type():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=AssemblerLinkerConfig()
     )
-    
+
     assert template.get_template_server_type() == "paper"
 
 
@@ -61,7 +61,7 @@ def test_get_template_server_version():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=AssemblerLinkerConfig()
     )
-    
+
     assert template.get_template_server_version() == "1.19.4"
 
 
@@ -75,7 +75,7 @@ def test_get_template_server_source():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=AssemblerLinkerConfig()
     )
-    
+
     assert template.get_template_server_source() == "DOWNLOAD"
 
 
@@ -89,14 +89,14 @@ def test_get_template_server_target():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=AssemblerLinkerConfig()
     )
-    
+
     assert template.get_template_server_target() == "https://example.com/paper-1.19.4.jar"
 
 
 def test_get_template_linker_config():
     """Test get_template_linker_config method."""
     linker_config = AssemblerLinkerConfig()
-    
+
     template = Template(
         template_name="test_template",
         template_server_type="paper",
@@ -105,14 +105,14 @@ def test_get_template_linker_config():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=linker_config
     )
-    
+
     assert template.get_template_linker_config() == linker_config
 
 
 def test_get_dict():
     """Test get_dict method."""
     linker_config = AssemblerLinkerConfig()
-    
+
     template = Template(
         template_name="test_template",
         template_server_type="paper",
@@ -121,9 +121,9 @@ def test_get_dict():
         template_server_target="https://example.com/paper-1.19.4.jar",
         template_linker_config=linker_config
     )
-    
+
     template_dict = template.get_dict()
-    
+
     assert template_dict["template_name"] == "test_template"
     assert template_dict["template_server_type"] == "paper"
     assert template_dict["template_server_version"] == "1.19.4"

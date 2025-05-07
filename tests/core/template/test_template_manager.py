@@ -9,7 +9,7 @@ from mcup.core.config_assemblers.assembler_linker_config import AssemblerLinkerC
 def mock_template():
     """Create a mock Template for testing."""
     linker_config = AssemblerLinkerConfig()
-    
+
     return Template(
         template_name="test_template",
         template_server_type="paper",

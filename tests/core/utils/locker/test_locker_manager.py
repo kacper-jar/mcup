@@ -67,7 +67,7 @@ def test_get_remote_last_update_success(mocker, mock_paths, mock_path_provider, 
 
 def test_get_remote_last_update_failure(mocker, mock_paths, mock_path_provider, mock_makedirs):
     """Test getting remote last update timestamp (failure case)."""
-    mock_get = mocker.patch('requests.get', side_effect=requests.RequestException("Network error"))
+    mocker.patch('requests.get', side_effect=requests.RequestException("Network error"))
 
     manager = LockerManager()
     result = manager.get_remote_last_update()

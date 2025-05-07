@@ -25,7 +25,7 @@ def mock_config():
         default_configuration={"key": "default"}
     )
     config.add_configuration_file(bukkit_yml)
-    
+
     return config
 
 
@@ -45,9 +45,9 @@ def test_set_configuration():
     """Test set_configuration method."""
     linker = AssemblerLinker()
     config = AssemblerLinkerConfig()
-    
+
     linker.set_configuration(config)
-    
+
     assert linker.configuration == config
 
 
@@ -55,7 +55,7 @@ def test_get_configuration():
     """Test get_configuration method."""
     config = AssemblerLinkerConfig()
     linker = AssemblerLinker(config)
-    
+
     assert linker.get_configuration() == config
 
 
@@ -63,10 +63,10 @@ def test_add_configuration_file():
     """Test add_configuration_file method."""
     config = AssemblerLinkerConfig()
     linker = AssemblerLinker(config)
-    
+
     config_file = ConfigFile(config_file_name="test.yml")
     linker.add_configuration_file(config_file)
-    
+
     assert len(config.get_configuration_files()) == 1
     assert config.get_configuration_files()[0] == config_file
 
@@ -160,6 +160,6 @@ def test_assemble_linked_files(mock_config, mocker):
 
     server_properties_file = mock_server_properties_assembler.assemble.call_args[0][1]
     assert server_properties_file.config_file_name == "server.properties"
-    
+
     bukkit_yml_file = mock_yml_assembler.assemble.call_args[0][1]
     assert bukkit_yml_file.config_file_name == "bukkit.yml"

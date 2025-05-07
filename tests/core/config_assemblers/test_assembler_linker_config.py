@@ -18,7 +18,7 @@ def test_add_configuration_file():
         configuration={"key": "value"},
         default_configuration={"key": "default"}
     )
-    
+
     config.add_configuration_file(config_file)
 
     assert len(config.configuration_files) == 1
@@ -30,7 +30,7 @@ def test_get_configuration_files():
     config = AssemblerLinkerConfig()
     config_file1 = ConfigFile(config_file_name="test1.yml")
     config_file2 = ConfigFile(config_file_name="test2.yml")
-    
+
     config.add_configuration_file(config_file1)
     config.add_configuration_file(config_file2)
 
@@ -61,14 +61,14 @@ def test_to_dict_with_default_config():
         configuration={"key": "value"},
         default_configuration={"key": "default"}
     )
-    
+
     config.add_configuration_file(config_file)
 
     config_dict = config.to_dict(export_default_config=True)
 
     assert "configuration_files" in config_dict
     assert len(config_dict["configuration_files"]) == 1
-    
+
     file_dict = config_dict["configuration_files"][0]
     assert file_dict["config_file_name"] == "test.yml"
     assert file_dict["config_file_path"] == "/path/to/config"
@@ -85,14 +85,14 @@ def test_to_dict_without_default_config():
         configuration={"key": "value"},
         default_configuration={"key": "default"}
     )
-    
+
     config.add_configuration_file(config_file)
 
     config_dict = config.to_dict(export_default_config=False)
 
     assert "configuration_files" in config_dict
     assert len(config_dict["configuration_files"]) == 1
-    
+
     file_dict = config_dict["configuration_files"][0]
     assert file_dict["config_file_name"] == "test.yml"
     assert file_dict["config_file_path"] == "/path/to/config"
