@@ -169,7 +169,8 @@ class TemplateCommand:
     @staticmethod
     def list(args):
         """Handles 'mcup template list' command."""
-        pass
+        for template_file in os.listdir(PathProvider().get_templates_path()):
+            print(template_file.split(".")[0])
 
     @staticmethod
     def refresh(args):
