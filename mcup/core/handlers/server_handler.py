@@ -10,10 +10,11 @@ from mcup.core.utils.version import Version
 
 
 class ServerHandler:
-    """Class for handling server related actions."""
+    """Class for handling server-related actions."""
     def create(self, server_path: Path, server_version: str, source: str,
                target: str, assembler_linker_config: AssemblerLinkerConfig):
         """Downloads/Builds server in specified path along with all required configuration files."""
+        # TODO: move CLI UI elements to proper place, instead of tasks we should use some kind of status code
         version = Version.from_string(server_version)
 
         if not server_path.exists():
