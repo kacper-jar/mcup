@@ -1,6 +1,6 @@
 import argparse
 from mcup import __version__
-from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand, HelpCommand
+from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand
 
 
 class McupCLI:
@@ -21,7 +21,6 @@ class McupCLI:
         self._register_server_commands()
         self._register_template_commands()
         self._register_update_command()
-        self._register_help_command()
 
     def _register_server_commands(self):
         """Register server-related commands."""
@@ -72,12 +71,6 @@ class McupCLI:
         """Register command for updating the locker file."""
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")
         update_parser.set_defaults(func=UpdateCommand.run)
-
-    def _register_help_command(self):
-        """Register help command."""
-        help_parser = self.subparsers.add_parser("help", help="Show help for a specific command")
-        help_parser.add_argument("command", nargs="?", help="Command to show help for")
-        help_parser.set_defaults(func=HelpCommand.run)
 
     def run(self):
         """Parse and execute the given command."""
