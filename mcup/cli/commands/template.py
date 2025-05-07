@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from mcup.core.handlers.template_handler import TemplateHandler
+from mcup.core.status import Status
 from mcup.core.utils.locker import LockerManager
 from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 from mcup.core.utils.path import PathProvider
@@ -29,7 +30,10 @@ class TemplateCommand:
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, configs)
 
         template_handler = TemplateHandler()
-        template_handler.create_template(template_name, server_type, server_version, source, target, assembler_linker_conf)
+        template_handler.create_template(template_name, server_type, server_version, source, target,
+                                         assembler_linker_conf)
+
+
 
 
     @staticmethod

@@ -4,6 +4,7 @@ from pathlib import Path
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.handlers import ServerHandler
+from mcup.core.status import Status
 from mcup.core.template import Template, TemplateManager
 from mcup.core.utils.path import PathProvider
 
