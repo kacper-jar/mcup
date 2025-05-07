@@ -92,8 +92,6 @@ def test_link(mock_config, mocker):
 
 def test_get_linked_files(mock_config, mocker):
     """Test get_linked_files method."""
-    mock_server_properties_assembler = mocker.patch('mcup.core.config_assemblers.ServerPropertiesAssembler')
-    mock_yml_assembler = mocker.patch('mcup.core.config_assemblers.YmlAssembler')
 
     linker = AssemblerLinker(mock_config)
 
@@ -110,8 +108,6 @@ def test_get_linked_files(mock_config, mocker):
 
 def test_get_linked_file_count(mock_config, mocker):
     """Test get_linked_file_count method."""
-    mock_server_properties_assembler = mocker.patch('mcup.core.config_assemblers.ServerPropertiesAssembler')
-    mock_yml_assembler = mocker.patch('mcup.core.config_assemblers.YmlAssembler')
 
     linker = AssemblerLinker(mock_config)
 
@@ -126,8 +122,6 @@ def test_get_linked_file_count(mock_config, mocker):
 
 def test_drop_linked_files(mock_config, mocker):
     """Test drop_linked_files method."""
-    mock_server_properties_assembler = mocker.patch('mcup.core.config_assemblers.ServerPropertiesAssembler')
-    mock_yml_assembler = mocker.patch('mcup.core.config_assemblers.YmlAssembler')
 
     linker = AssemblerLinker(mock_config)
 

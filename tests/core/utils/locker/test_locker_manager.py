@@ -146,8 +146,8 @@ def test_download_locker_file_failure(mocker, mock_paths, mock_path_provider, mo
 
 def test_update_locker_newer_remote(mocker, mock_paths, mock_path_provider, mock_makedirs):
     """Test updating locker when remote is newer."""
-    mock_get_remote = mocker.patch.object(LockerManager, 'get_remote_last_update', return_value="2023-02-01T12:00:00Z")
-    mock_get_local = mocker.patch.object(LockerManager, 'get_local_last_update', return_value="2023-01-01T12:00:00Z")
+    mocker.patch.object(LockerManager, 'get_remote_last_update', return_value="2023-02-01T12:00:00Z")
+    mocker.patch.object(LockerManager, 'get_local_last_update', return_value="2023-01-01T12:00:00Z")
     mock_download = mocker.patch.object(LockerManager, 'download_locker_file', return_value=True)
     mock_update_meta = mocker.patch.object(LockerManager, 'update_local_meta')
 
@@ -161,8 +161,8 @@ def test_update_locker_newer_remote(mocker, mock_paths, mock_path_provider, mock
 
 def test_update_locker_up_to_date(mocker, mock_paths, mock_path_provider, mock_makedirs):
     """Test updating locker when it's already up to date."""
-    mock_get_remote = mocker.patch.object(LockerManager, 'get_remote_last_update', return_value="2023-01-01T12:00:00Z")
-    mock_get_local = mocker.patch.object(LockerManager, 'get_local_last_update', return_value="2023-01-01T12:00:00Z")
+    mocker.patch.object(LockerManager, 'get_remote_last_update', return_value="2023-01-01T12:00:00Z")
+    mocker.patch.object(LockerManager, 'get_local_last_update', return_value="2023-01-01T12:00:00Z")
     mock_download = mocker.patch.object(LockerManager, 'download_locker_file')
     mock_update_meta = mocker.patch.object(LockerManager, 'update_local_meta')
 

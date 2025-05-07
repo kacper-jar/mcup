@@ -30,8 +30,6 @@ def mock_progress(mocker):
 
 def test_create_download_success(mock_server_path, mock_assembler_linker_config, mock_progress, mocker):
     """Test creating a server by downloading the JAR file (success case)."""
-    mock_progress_instance, mock_task = mock_progress
-
     mock_version = mocker.Mock()
     mock_version.__ge__ = lambda self, other: False
     mocker.patch('mcup.core.handlers.server_handler.Version.from_string', return_value=mock_version)
@@ -78,7 +76,6 @@ def test_create_download_success(mock_server_path, mock_assembler_linker_config,
 
 def test_create_download_failure(mock_server_path, mock_assembler_linker_config, mock_progress, mocker):
     """Test creating a server by downloading the JAR file (failure case)."""
-    mock_progress_instance, mock_task = mock_progress
 
     mock_response = mocker.Mock()
     mock_response.status_code = 404
@@ -104,7 +101,6 @@ def test_create_download_failure(mock_server_path, mock_assembler_linker_config,
 
 def test_create_buildtools_success(mock_server_path, mock_assembler_linker_config, mock_progress, mocker):
     """Test creating a server using BuildTools (success case)."""
-    mock_progress_instance, mock_task = mock_progress
 
     mock_version = mocker.Mock()
     mock_version.__ge__ = lambda self, other: False
@@ -133,9 +129,8 @@ def test_create_buildtools_success(mock_server_path, mock_assembler_linker_confi
     mock_assembler_linker = mocker.patch('mcup.core.handlers.server_handler.AssemblerLinker')
     mock_assembler_linker_instance = mock_assembler_linker.return_value
 
-    mock_rmtree = mocker.patch('shutil.rmtree')
-
-    mock_remove = mocker.patch('os.remove')
+    mocker.patch('shutil.rmtree')
+    mocker.patch('os.remove')
 
     mocker.patch('os.path.isfile', return_value=False)
     mocker.patch('os.path.isdir', return_value=False)
@@ -177,8 +172,6 @@ def test_create_buildtools_success(mock_server_path, mock_assembler_linker_confi
 
 def test_create_buildtools_download_failure(mock_server_path, mock_assembler_linker_config, mock_progress, mocker):
     """Test creating a server using BuildTools when download fails."""
-    mock_progress_instance, mock_task = mock_progress
-
     mock_response = mocker.Mock()
     mock_response.status_code = 404
     mocker.patch('requests.get', return_value=mock_response)
@@ -206,17 +199,14 @@ def test_create_buildtools_download_failure(mock_server_path, mock_assembler_lin
 
 def test_create_buildtools_jar_not_found(mock_server_path, mock_assembler_linker_config, mock_progress, mocker):
     """Test creating a server using BuildTools when the JAR file is not found after building."""
-    mock_progress_instance, mock_task = mock_progress
-
     mock_response = mocker.Mock()
     mock_response.status_code = 200
     mock_response.headers.get.return_value = "1000"
     mock_response.iter_content.return_value = [b"chunk1", b"chunk2"]
     mocker.patch('requests.get', return_value=mock_response)
 
-    mock_open = mocker.patch('builtins.open', mocker.mock_open())
-
-    mock_makedirs = mocker.patch('os.makedirs')
+    mocker.patch('builtins.open', mocker.mock_open())
+    mocker.patch('os.makedirs')
 
     def mock_exists(path):
         if str(path).endswith("BuildTools.jar"):
@@ -227,7 +217,7 @@ def test_create_buildtools_jar_not_found(mock_server_path, mock_assembler_linker
 
     mocker.patch('os.path.exists', side_effect=mock_exists)
 
-    mock_check_output = mocker.patch('subprocess.check_output', return_value='java version "17.0.1"')
+    mocker.patch('subprocess.check_output', return_value='java version "17.0.1"')
     mock_run = mocker.patch('subprocess.run')
 
     handler = ServerHandler()
