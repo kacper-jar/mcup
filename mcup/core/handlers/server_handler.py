@@ -2,7 +2,6 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
-from tracemalloc import Statistic
 from typing import Iterator
 import requests
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
