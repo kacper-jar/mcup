@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.core.handlers import ServerHandler

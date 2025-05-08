@@ -1,21 +1,19 @@
 import json
 import os
 from pathlib import Path
+from typing import Iterator
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.handlers import ServerHandler
-from mcup.core.status import Status
+from mcup.core.status import Status, StatusCode
 from mcup.core.template import Template, TemplateManager
 from mcup.core.utils.path import PathProvider
 
 
 class TemplateHandler:
     """Class for handling template-related actions."""
-
-    # TODO: move CLI UI elements to proper place, instead of tasks we should use some kind of status code
-
     def create_template(self, template_name: str, server_type: str, server_version: str, source: str, target: str,
-               assembler_linker_conf: AssemblerLinkerConfig):
+               assembler_linker_conf: AssemblerLinkerConfig) -> Iterator[Status]:
         template = Template(
             template_name,
             server_type,
@@ -25,11 +23,17 @@ class TemplateHandler:
             assembler_linker_conf
         )
 
-        TemplateManager.save_template(template)
+        try:
+            TemplateManager.save_template(template)
+        except Exception as e:
+            yield Status(StatusCode.ERROR_TEMPLATE_WRITE_FAILED, str(e))
+            return
+        yield Status(StatusCode.SUCCESS)
 
-    def import_template(self, path: str):
+    def import_template(self, path: str) -> Iterator[Status]:
         if not os.path.exists(path):
-            print(f"Error: File not found at path: {path}")
+            # print(f"Error: File not found at path: {path}")
+            yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
             return
 
         try:
@@ -45,7 +49,7 @@ class TemplateHandler:
 
             if not all([template_name, template_server_type, template_server_version, template_source,
                         template_target, template_linker_config_data]):
-                print(f"Error: Invalid template file format at path: {path}")
+                yield Status(StatusCode.ERROR_TEMPLATE_MISSING_DATA, path)
                 return
 
             assembler_linker_config = AssemblerLinkerConfig()
@@ -62,17 +66,17 @@ class TemplateHandler:
 
             TemplateManager.save_template(template)
         except json.JSONDecodeError:
-            print(f"Error: Invalid JSON format in file at path: {path}")
+            yield Status(StatusCode.ERROR_TEMPLATE_INVALID_JSON_FORMAT, path)
         except Exception as e:
-            print(f"Error importing template: {str(e)}")
+            yield Status(StatusCode.ERROR_TEMPLATE_IMPORT_FAILED, str(e))
 
-    def export_template(self, template_name: str, destination: str):
+    def export_template(self, template_name: str, destination: str) -> Iterator[Status]:
         path_provider = PathProvider()
 
         template_path = f"{path_provider.get_templates_path()}/{template_name}.json"
 
         if not os.path.exists(template_path):
-            print(f"Error: Template '{template_name}' not found.")
+            yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
             return
 
         try:
@@ -86,26 +90,26 @@ class TemplateHandler:
             with open(destination, 'w') as dest_file:
                 json.dump(template_data, dest_file, indent=4)
 
-            print(f"Template '{template_name}' exported successfully to '{destination}'.")
-
+            yield Status(StatusCode.SUCCESS)
         except Exception as e:
-            print(f"Error exporting template: {str(e)}")
+            yield Status(StatusCode.ERROR_TEMPLATE_EXPORT_FAILED, str(e))
+            return
 
-    def delete_template(self, template_name: str):
+    def delete_template(self, template_name: str) -> Iterator[Status]:
         path_provider = PathProvider()
 
         if os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
             os.remove(f"{path_provider.get_templates_path()}/{template_name}.json")
-            print(f"Deleted template '{template_name}'")
+            yield Status(StatusCode.SUCCESS)
         else:
-            print(f"Template '{template_name}' not found.")
+            yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
 
-    def use_template(self, template_name: str, server_path: str | Path):
+    def use_template(self, template_name: str, server_path: str | Path) -> Iterator[Status]:
         assembler_linker_conf = AssemblerLinkerConfig()
         path_provider = PathProvider()
 
         if not os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
-            print(f"Error: Template '{template_name}' not found.")
+            yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
             return
 
         print(f"Creating a Minecraft server in: {server_path} (from template: {template_name})")
@@ -123,21 +127,27 @@ class TemplateHandler:
             linker_config_data = template_data.get("template_linker_config")
 
             if not all([server_type, server_version, linker_config_data]):
-                print(f"Error: Missing data inside template file at path: {path}")
+                yield Status(StatusCode.ERROR_TEMPLATE_MISSING_DATA, path)
                 return
 
             assembler_linker_conf.from_dict(linker_config_data)
         except json.JSONDecodeError:
-            print(f"Error: Invalid JSON format in file at path: {path}")
+            yield Status(StatusCode.ERROR_TEMPLATE_INVALID_JSON_FORMAT, path)
+            return
         except Exception as e:
-            print(f"Error reading template: {str(e)}")
+            yield Status(StatusCode.ERROR_TEMPLATE_READ_FAILED, str(e))
+            return
 
         server = ServerHandler()
-        server.create(server_path, server_version, source, target, assembler_linker_conf)
+        for status in server.create(server_path, server_version, source, target, assembler_linker_conf):
+            yield status
 
-    def list_templates(self):
+    def list_templates(self) -> Iterator[Status]:
+        templates = []
         for template_file in os.listdir(PathProvider().get_templates_path()):
-            print(template_file.split(".")[0])
+            templates.append(template_file.split(".")[0])
 
-    def refresh_template(self):
+        yield Status(StatusCode.SUCCESS, templates)
+
+    def refresh_template(self) -> Iterator[Status]:
         pass

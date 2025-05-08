@@ -18,4 +18,3 @@ class TemplateManager:
         template_path = f"{path_provider.get_templates_path()}/{template.get_template_name()}.json"
         with open(template_path, 'w') as file:
             json.dump(template.get_dict(), file, indent=4)
-            print(f"Template '{template.get_template_name()}' saved successfully.")
