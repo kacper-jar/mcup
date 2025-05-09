@@ -32,7 +32,6 @@ class TemplateHandler:
 
     def import_template(self, path: str) -> Iterator[Status]:
         if not os.path.exists(path):
-            # print(f"Error: File not found at path: {path}")
             yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
             return
 

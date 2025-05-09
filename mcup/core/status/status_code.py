@@ -24,5 +24,9 @@ class StatusCode(enum.Enum):
     ERROR_TEMPLATE_READ_FAILED = enum.auto()
     ERROR_TEMPLATE_EXPORT_FAILED = enum.auto()
     ERROR_TEMPLATE_IMPORT_FAILED = enum.auto()
+    ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED = enum.auto()
+    ERROR_LOCKER_META_READ_FAILED = enum.auto()
+    ERROR_LOCKER_META_UPDATE_FAILED = enum.auto()
+    ERROR_LOCKER_DOWNLOAD_FAILED = enum.auto()
 
     PRINT_INFO = enum.auto()

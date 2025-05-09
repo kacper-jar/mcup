@@ -1,7 +1,10 @@
 import json
 import os
+from typing import Iterator
+
 import requests
 
+from mcup.core.status import Status, StatusCode
 from mcup.core.utils.path import PathProvider
 
 
@@ -19,70 +22,83 @@ class LockerManager:
         config_dir = path_provider.get_config_path()
         os.makedirs(config_dir, exist_ok=True)
 
-    def get_remote_last_update(self):
+    def _get_remote_last_update(self):
         """Fetches the last commit date from GitHub."""
         try:
             response = requests.get(self.repo_api_url, timeout=10)
             response.raise_for_status()
             commit_data = response.json()
-            return commit_data["commit"]["committer"]["date"]
+            return commit_data["commit"]["committer"]["date"], None
         except requests.RequestException as e:
-            print(f"Error fetching last commit date: {e}")
-            return None
+            return None, e
 
-    def get_local_last_update(self):
+    def _get_local_last_update(self):
         """Reads the local last updated timestamp from locker-meta.json."""
         if not os.path.exists(self.meta_path):
-            return None
+            return "1970-01-01T00:00:00Z", None
         try:
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 meta_data = json.load(f)
-            return meta_data.get("last_updated")
+            return meta_data.get("last_updated"), None
         except (json.JSONDecodeError, IOError) as e:
-            print(f"Error reading locker-meta.json: {e}")
-            return None
+            return None, e
 
-    def update_local_meta(self, date):
+    def _update_local_meta(self, date):
         """Updates locker-meta.json with the latest update timestamp."""
         try:
             with open(self.meta_path, "w", encoding="utf-8") as f:
                 json.dump({"last_updated": date}, f, indent=4)
+            return True, None
         except IOError as e:
-            print(f"Error updating locker-meta.json: {e}")
+            return False, e
 
-    def download_locker_file(self):
+    def _download_locker_file(self):
         """Downloads the latest locker.json from GitHub."""
         try:
             response = requests.get(self.locker_url, timeout=10)
             response.raise_for_status()
             with open(self.locker_path, "w", encoding="utf-8") as f:
                 f.write(response.text)
-            print("Successfully updated locker.json")
-            return True
+            return True, None
         except requests.RequestException as e:
-            print(f"Error downloading locker.json: {e}")
-            return False
+            return False, e
 
-    def update_locker(self):
+    def update_locker(self) -> Iterator[Status]:
         """Checks for updates and downloads the new locker.json if needed."""
-        remote_date = self.get_remote_last_update()
+        remote_date, err = self._get_remote_last_update()
         if not remote_date:
-            print("Could not retrieve the latest update timestamp.")
+            yield Status(StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED, err)
             return
 
-        local_date = self.get_local_last_update()
-        if local_date and remote_date <= local_date:
-            print("Locker.json is already up-to-date.")
+        local_date, err = self._get_local_last_update()
+        if local_date is None:
+            yield Status(StatusCode.ERROR_LOCKER_META_READ_FAILED, err)
+
+        if remote_date <= local_date:
+            yield Status(StatusCode.PRINT_INFO, "Locker file is already up-to-date.")
             return
 
-        print("Updating locker.json...")
-        if self.download_locker_file():
-            self.update_local_meta(remote_date)
+        yield Status(StatusCode.PRINT_INFO, "Updating locker file...")
+        download_result, err = self._download_locker_file()
+        if not download_result:
+            yield Status(StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED, err)
+            return
 
-    def load_locker(self):
+        local_meta_update_result, err = self._update_local_meta(remote_date)
+        if local_meta_update_result:
+            yield Status(StatusCode.SUCCESS)
+        else:
+            yield Status(StatusCode.ERROR_LOCKER_META_UPDATE_FAILED, err)
+
+    def load_locker(self) -> Iterator[Status]:
         """Load the locker.json file."""
-        self.update_locker()
+        for status in self.update_locker():
+            if status.status_code != StatusCode.SUCCESS:
+                yield status
+            else:
+                break
         if os.path.exists(self.locker_path):
             with open(self.locker_path, 'r') as file:
-                return json.load(file)
-        return {"servers": {}}
+                yield Status(StatusCode.SUCCESS, json.load(file))
+        else:
+            yield Status(StatusCode.SUCCESS, {"servers": {}})

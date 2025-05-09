@@ -1,10 +1,26 @@
+from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerManager
 
 
 class ServerInfoPrompt:
     @staticmethod
     def get_server_info(locker: LockerManager):
-        locker_data = locker.load_locker()
+        for status in locker.update_locker():
+            match status.status_code:
+                case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
+                    print(f"Could not retrieve the latest update timestamp. Details: {status.status_details}")
+                case StatusCode.ERROR_LOCKER_META_READ_FAILED:
+                    print(f"Error reading locker meta file. Details: {status.status_details}")
+                case StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED:
+                    print(f"Error downloading locker file: {status.status_details}")
+                case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
+                    print(f"Error updating locker meta file: {status.status_details}")
+                case StatusCode.PRINT_INFO:
+                    print(status.status_details)
+                case StatusCode.SUCCESS:
+                    print("Successfully updated locker file")
+                    locker_data = status.status_details
+                    break
 
         server_type = input("Server type (full list available at: ): ")
         is_valid_server_type = False
