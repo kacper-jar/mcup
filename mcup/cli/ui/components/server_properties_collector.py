@@ -31,10 +31,10 @@ class ServerPropertiesCollector(Collector):
         self.add_section(CollectorSection(
             "server.properties - Gameplay Settings",
             [
-                CollectorInput("gamemode", "Gamemode", CollectorInputType.INT, Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("gamemode", "Gamemode", CollectorInputType.STRING_OR_INT, Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("force-gamemode", "Force Gamemode", CollectorInputType.BOOL,
                                Version(1, 5, 2), LATEST_VERSION),
-                CollectorInput("difficulty", "Difficulty", CollectorInputType.INT, Version(1, 2, 5), LATEST_VERSION),
+                CollectorInput("difficulty", "Difficulty", CollectorInputType.STRING_OR_INT, Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("hardcore", "Hardocre", CollectorInputType.BOOL, Version(1, 3, 1), LATEST_VERSION),
                 CollectorInput("pvp", "PVP", CollectorInputType.BOOL, Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("allow-flight", "Allow flight", CollectorInputType.BOOL,

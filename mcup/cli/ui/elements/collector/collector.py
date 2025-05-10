@@ -48,6 +48,8 @@ class Collector:
                 example_input = "text"
             case CollectorInputType.INT:
                 example_input = "number"
+            case CollectorInputType.STRING_OR_INT:
+                example_input = "text or number"
             case CollectorInputType.FLOAT:
                 example_input = "floating point number"
             case CollectorInputType.BOOL:
@@ -76,6 +78,11 @@ class Collector:
                     return int(var)
                 except ValueError:
                     print("Invalid integer value. Please try again.")
+            case CollectorInputType.STRING_OR_INT:
+                try:
+                    return int(var)
+                except ValueError:
+                    return var
             case CollectorInputType.FLOAT:
                 try:
                     return float(var)

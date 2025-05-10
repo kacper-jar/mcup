@@ -1,4 +1,6 @@
 from mcup.core.configs import ConfigFile
+from mcup.core.utils.version import VersionDependantVariablePicker, Version, VersionDependantVariable, LATEST_VERSION, \
+    OLDEST_SUPPORTED_VERSION
 
 
 class ServerPropertiesConfig(ConfigFile):
@@ -100,16 +102,29 @@ class ServerPropertiesConfig(ConfigFile):
             # World Settings
             "level-name": "world",
             "level-seed": "",
-            "level-type": "DEFAULT",
+            "level-type": VersionDependantVariablePicker([
+                VersionDependantVariable(OLDEST_SUPPORTED_VERSION, Version(1, 13, 2), "DEFAULT"),
+                VersionDependantVariable(Version(1, 14), Version(1, 18, 2), "default"),
+                VersionDependantVariable(Version(1, 19), LATEST_VERSION, "minecraft\\:normal")
+            ]),
             "generate-structures": "true",
-            "generator-settings": "",
+            "generator-settings": VersionDependantVariablePicker([
+                VersionDependantVariable(OLDEST_SUPPORTED_VERSION, Version(1, 18, 1), ""),
+                VersionDependantVariable(Version(1, 18, 2), LATEST_VERSION, "{}")
+            ]),
             "max-build-height": "256",
             "max-world-size": "29999984",
 
             # Gameplay settings
-            "gamemode": "0",
+            "gamemode": VersionDependantVariablePicker([
+                VersionDependantVariable(OLDEST_SUPPORTED_VERSION, Version(1, 13, 2), "0"),
+                VersionDependantVariable(Version(1, 14), LATEST_VERSION, "survival")
+            ]),
             "force-gamemode": "false",
-            "difficulty": "1",
+            "difficulty": VersionDependantVariablePicker([
+                VersionDependantVariable(OLDEST_SUPPORTED_VERSION, Version(1, 13, 2), "1"),
+                VersionDependantVariable(Version(1, 14), LATEST_VERSION, "easy")
+            ]),
             "hardcore": "false",
             "pvp": "true",
             "allow-flight": "false",
@@ -138,7 +153,10 @@ class ServerPropertiesConfig(ConfigFile):
             "text-filtering-config": "",
             "text-filtering-version": "0",
             "hide-online-players": "false",
-            "enforce-secure-profile": "true",
+            "enforce-secure-profile": VersionDependantVariablePicker([
+                VersionDependantVariable(OLDEST_SUPPORTED_VERSION, Version(1, 19), "false"),
+                VersionDependantVariable(Version(1, 19, 1), LATEST_VERSION, "true")
+            ]),
             "previews-chat": "false",
             "accepts-transfers": "false",
 

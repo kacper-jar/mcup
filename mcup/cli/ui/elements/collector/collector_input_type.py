@@ -5,6 +5,7 @@ class CollectorInputType(enum.Enum):
     """Class representing collector input type."""
     STRING = enum.auto()
     INT = enum.auto()
+    STRING_OR_INT = enum.auto()
     FLOAT = enum.auto()
     BOOL = enum.auto()
     STRING_LIST = enum.auto()
