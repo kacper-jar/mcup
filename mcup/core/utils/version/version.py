@@ -73,4 +73,5 @@ class Version:
         return f"{self.major}.{self.minor}.{self.patch}"
 
 
+OLDEST_SUPPORTED_VERSION = Version(1, 2, 5)
 LATEST_VERSION = Version(1, 21, 5)
