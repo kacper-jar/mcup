@@ -1,0 +1,24 @@
+name: mcup
+base: core22
+version: '1.0.0-beta1'
+summary: Minecraft server creation and template CLI tool
+description: |
+  Command-line tool for quickly creating Minecraft servers.
+
+grade: stable
+confinement: strict
+
+apps:
+  mcup:
+    command: bin/mcup.sh
+    plugs: [home, network]
+
+parts:
+  mcup:
+    plugin: python
+    source: .
+    build-packages:
+      - python3-pip
+    override-build: |
+      snapcraftctl build
+      install -Dm755 ./mcup.sh $SNAPCRAFT_PART_INSTALL/bin/mcup.sh
