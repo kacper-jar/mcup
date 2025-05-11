@@ -1,8 +1,8 @@
 # mcup
 
-**mcup** is a command-line tool for quickly creating and managing Minecraft servers.
+**mcup** is a command-line tool for quickly creating Minecraft servers.
 Inspired by tools like `rustup` and `npm init`, `mcup` simplifies the setup process and allows for templated server creation with support for multiple server types (e.g., vanilla, Spigot).
-Made for both advanced server managers and beginners seting up their first server.
+Made for both advanced server managers and beginners setting up their first server.
 
 ## Features
 
