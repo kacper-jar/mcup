@@ -1,7 +1,7 @@
 name: mcup
 base: core22
 version: '1.0.0-beta1'
-summary: Minecraft server creation and template CLI tool
+summary: Command-line tool for quickly creating Minecraft servers
 description: |
   Command-line tool for quickly creating Minecraft servers.
 
