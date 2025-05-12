@@ -20,5 +20,5 @@ parts:
     build-packages:
       - python3-pip
     override-build: |
-      snapcraftctl build
-      install -Dm755 ./mcup.sh $SNAPCRAFT_PART_INSTALL/bin/mcup.sh
+      craftctl default
+      install -Dm755 ./mcup.sh $CRAFT_PART_INSTALL/bin/mcup.sh
