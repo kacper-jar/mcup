@@ -15,7 +15,8 @@ if command -v lxc >/dev/null 2>&1 && snap list | grep -q lxd; then
     echo "📦 Building Snap with LXD..."
     snapcraft --use-lxd --output "$SNAP_OUT"
 else
-    echo "⚠️  LXD not found. FBuilding Snap using destructive mode (may be fragile)..."
+    echo "⚠️ LXD not found."
+    echo "📦 Building Snap using destructive mode (may be fragile)..."
     snapcraft --destructive-mode --output "$SNAP_OUT"
 fi\
 
