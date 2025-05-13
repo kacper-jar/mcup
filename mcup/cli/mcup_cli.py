@@ -1,4 +1,6 @@
 import argparse
+import logging
+
 from mcup import __version__
 from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand
 
@@ -8,6 +10,8 @@ class McupCLI:
 
     def __init__(self):
         """Initialize the CLI with all available commands and arguments."""
+        self.logger = logging.getLogger(__name__)
+
         self.parser = argparse.ArgumentParser(
             prog="mcup",
             description="Tool for quickly creating Minecraft servers",
@@ -21,6 +25,8 @@ class McupCLI:
         self._register_server_commands()
         self._register_template_commands()
         self._register_update_command()
+
+        self.logger.info("CLI initialized")
 
     def _register_server_commands(self):
         """Register server-related commands."""
@@ -75,7 +81,9 @@ class McupCLI:
     def run(self):
         """Parse and execute the given command."""
         args = self.parser.parse_args()
+        self.logger.info(f"Executing command: {args.command} {args.action}")
         if hasattr(args, "func"):
             args.func(args)
         else:
             self.parser.print_help()
+            self.logger.info("Unknown command, printing help message.")

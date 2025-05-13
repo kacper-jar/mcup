@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from typing import Iterator
 
@@ -12,6 +13,8 @@ class LockerManager:
     """Manages the locker file that contains server information and versions."""
     def __init__(self):
         """Initialize the locker manager with default paths and URLs."""
+        self.logger = logging.getLogger(__name__)
+
         path_provider = PathProvider()
 
         self.locker_url = "https://raw.githubusercontent.com/kacper-jar/mcup-locker-file/refs/heads/main/locker.json"
@@ -30,6 +33,7 @@ class LockerManager:
             commit_data = response.json()
             return commit_data["commit"]["committer"]["date"], None
         except requests.RequestException as e:
+            self.logger.error(f"Failed to retrieve latest locker file timestamp: {e}")
             return None, e
 
     def _get_local_last_update(self):
@@ -41,6 +45,7 @@ class LockerManager:
                 meta_data = json.load(f)
             return meta_data.get("last_updated"), None
         except (json.JSONDecodeError, IOError) as e:
+            self.logger.error(f"Failed to read locker-meta.json: {e}")
             return None, e
 
     def _update_local_meta(self, date):
@@ -50,6 +55,7 @@ class LockerManager:
                 json.dump({"last_updated": date}, f, indent=4)
             return True, None
         except IOError as e:
+            self.logger.error(f"Failed to update locker-meta.json: {e}")
             return False, e
 
     def _download_locker_file(self):
@@ -61,6 +67,7 @@ class LockerManager:
                 f.write(response.text)
             return True, None
         except requests.RequestException as e:
+            self.logger.error(f"Failed to download locker file: {e}")
             return False, e
 
     def update_locker(self) -> Iterator[Status]:
@@ -100,5 +107,7 @@ class LockerManager:
         if os.path.exists(self.locker_path):
             with open(self.locker_path, 'r') as file:
                 yield Status(StatusCode.SUCCESS, json.load(file))
+                self.logger.info("Locker file loaded successfully.")
         else:
             yield Status(StatusCode.SUCCESS, {"servers": {}})
+            self.logger.warning("No locker file found. Using empty locker file instead.")

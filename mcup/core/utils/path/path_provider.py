@@ -30,3 +30,14 @@ class PathProvider:
             case "win32":
                 return Path(os.environ["LOCALAPPDATA"]) / "mcup" / "templates"
         return None
+
+    def get_logs_path(self):
+        """Get path for log files."""
+        match self.platform:
+            case "linux":
+                return Path("~/.local/share/mcup/logs/").expanduser()
+            case "darwin":
+                return Path("~/Library/Application Support/mcup/logs/").expanduser()
+            case "win32":
+                return Path(os.environ["LOCALAPPDATA"]) / "mcup" / "logs"
+        return None
