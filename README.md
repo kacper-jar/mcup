@@ -55,8 +55,12 @@ Locker updates check the last commit date on GitHub to determine if a new versio
 
 ## Project Structure
 
-- `mcup.core` – Main application logic code
-- `mcup.cli` – CLI UI code
+- `.github/` - GitHub-related configuration files
+- `debian/` - Files for building the `.deb` package
+- `mcup/` - Project source code
+  - `mcup.core` – Main application logic code
+  - `mcup.cli` – CLI UI code
+- `snap/` - Files for building the `.snap` package
 
 ## Contributing
 
