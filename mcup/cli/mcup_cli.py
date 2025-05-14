@@ -81,7 +81,9 @@ class McupCLI:
     def run(self):
         """Parse and execute the given command."""
         args = self.parser.parse_args()
-        self.logger.info(f"Executing command: {args.command} {args.action}")
+        command_str = getattr(args, "command", "")
+        action_str = getattr(args, "action", "")
+        self.logger.info(f"Executing command: {command_str} {action_str}".strip())
         if hasattr(args, "func"):
             args.func(args)
         else:
