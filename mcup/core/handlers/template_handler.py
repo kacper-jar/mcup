@@ -13,7 +13,7 @@ from mcup.core.utils.path import PathProvider
 class TemplateHandler:
     """Class for handling template-related actions."""
     def create_template(self, template_name: str, server_type: str, server_version: str, source: str, target: str,
-               assembler_linker_conf: AssemblerLinkerConfig) -> Iterator[Status]:
+                        assembler_linker_conf: AssemblerLinkerConfig) -> Iterator[Status]:
         template = Template(
             template_name,
             server_type,

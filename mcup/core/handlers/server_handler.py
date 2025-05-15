@@ -14,7 +14,7 @@ class ServerHandler:
     """Class for handling server-related actions."""
     def create(self, server_path: Path, server_version: str, source: str,
                target: str, assembler_linker_config: AssemblerLinkerConfig) -> Iterator[Status]:
-        """Downloads/Builds server in specified path along with all required configuration files."""
+        """Downloads/Builds server in a specified path along with all required configuration files."""
         version = Version.from_string(server_version)
 
         if not server_path.exists():
@@ -69,16 +69,16 @@ class ServerHandler:
 
             if version >= Version(1, 20, 6) and java_major_version < 21:
                 yield Status(StatusCode.PRINT_INFO,
-                              "Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                             "Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
+                             "(Azul Zulu JDK is recommended.)")
             elif version > Version(1, 17, 1) and java_major_version < 17:
                 yield Status(StatusCode.PRINT_INFO,
                              "Minecraft 1.17.1 and above require at least JDK 17. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                             "(Azul Zulu JDK is recommended.)")
             elif version >= Version(1, 17, 0) and java_major_version < 16:
                 yield Status(StatusCode.PRINT_INFO,
                              "Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                             "(Azul Zulu JDK is recommended.)")
             elif version < Version(1, 17, 0) and java_major_version < 8:
                 yield Status(StatusCode.PRINT_INFO,
                              "Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
