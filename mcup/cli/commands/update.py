@@ -8,8 +8,9 @@ class UpdateCommand:
     def run(args):
         """Handles 'mcup update' command."""
         language = Language()
+        locker_manager = LockerManager()
 
-        for status in LockerManager().update_locker():
+        for status in locker_manager.update_locker():
             match status.status_code:
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
                     print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",

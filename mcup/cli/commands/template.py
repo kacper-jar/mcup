@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
+from mcup.cli.language import Language
 from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 from mcup.core.handlers.template_handler import TemplateHandler
 from mcup.core.status import StatusCode
@@ -51,6 +52,8 @@ class TemplateCommand:
                     print(f"Template imported successfully from '{path}'.")
                 case StatusCode.ERROR_TEMPLATE_NOT_FOUND:
                     print(f"Error: Template file not found at path: {path}")
+                case StatusCode.ERROR_TEMPLATE_MISSING_DATA:
+                    print(f"Error: Missing data inside template file at path: {path}")
                 case StatusCode.ERROR_TEMPLATE_INVALID_JSON_FORMAT:
                     print(f"Error: Invalid JSON format in template file at path: {path}")
                 case StatusCode.ERROR_TEMPLATE_IMPORT_FAILED:
@@ -148,5 +151,33 @@ class TemplateCommand:
     @staticmethod
     def refresh(args):
         """Handles 'mcup template refresh' command."""
+        template_name = args.template_name
+
+        language = Language()
         template_handler = TemplateHandler()
-        template_handler.refresh_template()
+        for status in template_handler.refresh_template(template_name):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(f"Template refreshed successfully.")
+                case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
+                    print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",
+                                              status.status_details))
+                case StatusCode.ERROR_LOCKER_META_READ_FAILED:
+                    print(language.get_string("ERROR_LOCKER_META_READ_FAILED",
+                                              status.status_details))
+                case StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED:
+                    print(language.get_string("ERROR_LOCKER_DOWNLOAD_FAILED",
+                                              status.status_details))
+                case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
+                    print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED",
+                                              status.status_details))
+                case StatusCode.PRINT_INFO:
+                    print(status.status_details)
+                case StatusCode.ERROR_TEMPLATE_NOT_FOUND:
+                    print(f"Error: Template file not found: {status.status_details}")
+                case StatusCode.ERROR_TEMPLATE_MISSING_DATA:
+                    print(f"Error: Missing data inside template file: {status.status_details}")
+                case StatusCode.ERROR_TEMPLATE_INVALID_JSON_FORMAT:
+                    print(f"Error: Invalid JSON format in template file: {status.status_details}")
+                case StatusCode.ERROR_TEMPLATE_REFRESH_FAILED:
+                    print(f"Error refreshing template: {status.status_details}")

@@ -7,6 +7,7 @@ from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import Status, StatusCode
 from mcup.core.template import Template, TemplateManager
+from mcup.core.utils.locker import LockerManager
 from mcup.core.utils.path import PathProvider
 
 
@@ -148,5 +149,59 @@ class TemplateHandler:
 
         yield Status(StatusCode.SUCCESS, templates)
 
-    def refresh_template(self) -> Iterator[Status]:
-        pass
+    def refresh_template(self, template_name) -> Iterator[Status]:
+        path_provider = PathProvider()
+        locker_manager = LockerManager()
+
+        template_path = f"{path_provider.get_templates_path()}/{template_name}.json"
+
+        if not os.path.exists(template_path):
+            yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
+            return
+
+        for status in locker_manager.load_locker():
+            if status.status_code != StatusCode.SUCCESS:
+                yield status
+            else:
+                locker_data = status.status_details
+                break
+
+        try:
+            with open(template_path, 'r') as file:
+                template_data = json.load(file)
+
+            template_name = template_data.get("template_name")
+            template_server_type = template_data.get("template_server_type")
+            template_server_version = template_data.get("template_server_version")
+            template_linker_config_data = template_data.get("template_linker_config")
+
+            if not all([template_name, template_server_type, template_server_version, template_linker_config_data]):
+                yield Status(StatusCode.ERROR_TEMPLATE_MISSING_DATA, template_name)
+                return
+
+            assembler_linker_config = AssemblerLinkerConfig()
+            assembler_linker_config.from_dict(template_linker_config_data)
+
+            for version in locker_data["servers"][template_server_type]:
+                if version["version"] == template_server_version:
+                    template_source = version["source"]
+                    if template_source == "DOWNLOAD":
+                        template_target = version["url"]
+                    elif template_source == "BUILDTOOLS":
+                        template_target = version["target"]
+                    break
+
+            template = Template(
+                template_name,
+                template_server_type,
+                template_server_version,
+                template_source,
+                template_target,
+                assembler_linker_config
+            )
+
+            TemplateManager.save_template(template)
+        except json.JSONDecodeError:
+            yield Status(StatusCode.ERROR_TEMPLATE_INVALID_JSON_FORMAT, template_name)
+        except Exception as e:
+            yield Status(StatusCode.ERROR_TEMPLATE_REFRESH_FAILED, str(e))
