@@ -82,10 +82,10 @@ class LockerManager:
             yield Status(StatusCode.ERROR_LOCKER_META_READ_FAILED, err)
 
         if remote_date <= local_date:
-            yield Status(StatusCode.PRINT_INFO, "Locker file is already up-to-date.")
+            yield Status(StatusCode.INFO_LOCKER_UP_TO_DATE)
             return
 
-        yield Status(StatusCode.PRINT_INFO, "Updating locker file...")
+        yield Status(StatusCode.INFO_LOCKER_UPDATING)
         download_result, err = self._download_locker_file()
         if not download_result:
             yield Status(StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED, err)

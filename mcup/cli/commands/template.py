@@ -115,6 +115,18 @@ class TemplateCommand:
                         progress.update(task, advance=1)
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
+                    case StatusCode.INFO_JAVA_MINIMUM_21:
+                        print("Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_17:
+                        print("Minecraft 1.17.1 and above require at least JDK 17. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_16:
+                        print("Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_8:
+                        print("Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.")
                     case StatusCode.ERROR_TEMPLATE_NOT_FOUND:
                         print(f"Error: Template '{template_name}' not found.")
                     case StatusCode.ERROR_TEMPLATE_MISSING_DATA:
@@ -135,8 +147,6 @@ class TemplateCommand:
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
-                    case StatusCode.PRINT_INFO:
-                        print(status.status_details)
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")
 
@@ -159,6 +169,10 @@ class TemplateCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(f"Template refreshed successfully.")
+                case StatusCode.INFO_LOCKER_UP_TO_DATE:
+                    print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
+                case StatusCode.INFO_LOCKER_UPDATING:
+                    print(language.get_string("INFO_LOCKER_UPDATING"))
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
                     print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",
                                               status.status_details))
@@ -171,8 +185,6 @@ class TemplateCommand:
                 case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
                     print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED",
                                               status.status_details))
-                case StatusCode.PRINT_INFO:
-                    print(status.status_details)
                 case StatusCode.ERROR_TEMPLATE_NOT_FOUND:
                     print(f"Error: Template file not found: {status.status_details}")
                 case StatusCode.ERROR_TEMPLATE_MISSING_DATA:

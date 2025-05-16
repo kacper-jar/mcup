@@ -12,6 +12,13 @@ class StatusCode(enum.Enum):
     PROGRESSBAR_FINISH_TASK = enum.auto()
     PROGRESSBAR_END = enum.auto()
 
+    INFO_JAVA_MINIMUM_21 = enum.auto()
+    INFO_JAVA_MINIMUM_17 = enum.auto()
+    INFO_JAVA_MINIMUM_16 = enum.auto()
+    INFO_JAVA_MINIMUM_8 = enum.auto()
+    INFO_LOCKER_UP_TO_DATE = enum.auto()
+    INFO_LOCKER_UPDATING = enum.auto()
+
     ERROR_GENERIC = enum.auto()
     ERROR_DOWNLOAD_SERVER_FAILED = enum.auto()
     ERROR_DOWNLOAD_BUILDTOOLS_FAILED = enum.auto()
@@ -29,5 +36,3 @@ class StatusCode(enum.Enum):
     ERROR_LOCKER_META_READ_FAILED = enum.auto()
     ERROR_LOCKER_META_UPDATE_FAILED = enum.auto()
     ERROR_LOCKER_DOWNLOAD_FAILED = enum.auto()
-
-    PRINT_INFO = enum.auto()

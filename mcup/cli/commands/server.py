@@ -46,6 +46,18 @@ class ServerCommand:
                         progress.update(task, advance=1)
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
+                    case StatusCode.INFO_JAVA_MINIMUM_21:
+                        print("Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_17:
+                        print("Minecraft 1.17.1 and above require at least JDK 17. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_16:
+                        print("Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.)")
+                    case StatusCode.INFO_JAVA_MINIMUM_8:
+                        print("Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
+                              "(Azul Zulu JDK is recommended.")
                     case StatusCode.ERROR_DOWNLOAD_SERVER_FAILED:
                         progress.stop()
                         print(f"Failed to download server. HTTP {status.status_details}")
@@ -58,7 +70,5 @@ class ServerCommand:
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
-                    case StatusCode.PRINT_INFO:
-                        print(status.status_details)
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")

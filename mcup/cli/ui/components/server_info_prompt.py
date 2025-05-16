@@ -1,3 +1,4 @@
+from mcup.cli.language import Language
 from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerManager
 
@@ -5,8 +6,14 @@ from mcup.core.utils.locker import LockerManager
 class ServerInfoPrompt:
     @staticmethod
     def get_server_info(locker: LockerManager):
+        language = Language()
+
         for status in locker.load_locker():
             match status.status_code:
+                case StatusCode.INFO_LOCKER_UP_TO_DATE:
+                    print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
+                case StatusCode.INFO_LOCKER_UPDATING:
+                    print(language.get_string("INFO_LOCKER_UPDATING"))
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
                     print(f"Could not retrieve the latest update timestamp. Details: {status.status_details}")
                 case StatusCode.ERROR_LOCKER_META_READ_FAILED:
@@ -15,10 +22,7 @@ class ServerInfoPrompt:
                     print(f"Error downloading locker file: {status.status_details}")
                 case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
                     print(f"Error updating locker meta file: {status.status_details}")
-                case StatusCode.PRINT_INFO:
-                    print(status.status_details)
                 case StatusCode.SUCCESS:
-                    print("Successfully updated locker file")
                     locker_data = status.status_details
                     break
 
