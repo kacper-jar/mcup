@@ -1,6 +1,7 @@
 from pathlib import Path
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
+from mcup.cli.language import Language
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerManager
@@ -13,6 +14,7 @@ class ServerCommand:
         """Handles 'mcup server create [path]' command."""
         server_path = Path(args.path).resolve()
         locker = LockerManager()
+        language = Language()
 
         print(f"Creating a Minecraft server in: {server_path}")
         print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
@@ -47,28 +49,24 @@ class ServerCommand:
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
                     case StatusCode.INFO_JAVA_MINIMUM_21:
-                        print("Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                        print(language.get_string("INFO_JAVA_MINIMUM_21"))
                     case StatusCode.INFO_JAVA_MINIMUM_17:
-                        print("Minecraft 1.17.1 and above require at least JDK 17. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                        print(language.get_string("INFO_JAVA_MINIMUM_17"))
                     case StatusCode.INFO_JAVA_MINIMUM_16:
-                        print("Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.)")
+                        print(language.get_string("INFO_JAVA_MINIMUM_16"))
                     case StatusCode.INFO_JAVA_MINIMUM_8:
-                        print("Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
-                              "(Azul Zulu JDK is recommended.")
+                        print(language.get_string("INFO_JAVA_MINIMUM_8"))
                     case StatusCode.ERROR_DOWNLOAD_SERVER_FAILED:
                         progress.stop()
-                        print(f"Failed to download server. HTTP {status.status_details}")
+                        print(language.get_string("ERROR_DOWNLOAD_SERVER_FAILED", status.status_details))
                     case StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED:
                         progress.stop()
-                        print(f"Failed to download Spigot BuildTools. HTTP {status.status_details}")
+                        print(language.get_string("ERROR_DOWNLOAD_BUILDTOOLS_FAILED", status.status_details))
                     case StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND:
                         progress.stop()
-                        print("Spigot BuildTools not found.")
+                        print(language.get_string("ERROR_BUILD_TOOLS_NOT_FOUND"))
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
-                        print("Server JAR file not found. Check BuildTools.log.txt in server folder for more info.")
+                        print(language.get_string("ERROR_SERVER_JAR_NOT_FOUND"))
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")
