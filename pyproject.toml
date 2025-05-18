@@ -16,6 +16,9 @@ dependencies = [
 ]
 requires-python = ">=3.8"
 
+[project.scripts]
+mcup = "mcup.__main__:main"
+
 [tool.hatch.build]
 exclude = [
   "build.sh",

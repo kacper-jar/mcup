@@ -182,3 +182,10 @@ locker-meta.json
 
 # mcup templates folder
 .templates
+
+# Debian package build files
+.debhelper/
+.mcup/
+
+# pybuild files
+.pybuild/

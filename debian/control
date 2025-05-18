@@ -2,7 +2,7 @@ Source: mcup
 Section: utils
 Priority: optional
 Maintainer: Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>
-Build-Depends: debhelper-compat (= 13), dh-python, python3, python3-all, python3-hatchling
+Build-Depends: debhelper-compat (= 13), dh-python, python3, python3-all, python3-hatchling, pybuild-plugin-pyproject
 Standards-Version: 4.6.2
 
 Package: mcup
