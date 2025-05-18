@@ -17,10 +17,16 @@ class PaperGlobalConfig(ConfigFile):
                         "all-models": {
                             "also-obfuscate": None,
                             "dont-obfuscate": None,
-                            "sanitize-count": None
+                            "sanitize-count": True
                         },
                         "enable-item-obfuscation": None,
-                        "model-overrides": None,
+                        "model-overrides": {
+                            "minecraft:elytra": {
+                                "also-obfuscate": None,
+                                "dont-obfuscate": None,
+                                "sanitize-count": None
+                            }
+                        }
                     }
                 }
             },
