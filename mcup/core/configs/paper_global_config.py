@@ -7,7 +7,7 @@ class PaperGlobalConfig(ConfigFile):
     def __init__(self):
         """Initialize the paper-global.yml configuration with default values."""
         self.config_file_name = "paper-global.yml"
-        self.config_file_path = "./config"
+        self.config_file_path = "/config"
 
         self.configuration = {
             "_version": None,  # <--- This needs to be changed based on the server version.

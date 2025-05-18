@@ -1,3 +1,5 @@
+import os
+
 import yaml
 
 from mcup.core.config_assemblers import Assembler
@@ -28,6 +30,9 @@ class YmlAssembler(Assembler):
     @staticmethod
     def assemble(path: str, config: ConfigFile):
         """Assemble and write YAML configuration to the specified path."""
+        if not os.path.exists(f"{path}/{config.config_file_path}"):
+            os.mkdir(f"{path}/{config.config_file_path}")
+
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
             filtered_config = YmlAssembler.clean_config(config.get_configuration())
             yaml.dump(
