@@ -1,5 +1,5 @@
 from mcup.core.config_assemblers import AssemblerLinkerConfig
-from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig
+from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig
 from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector
 from mcup.core.utils.version import Version
 
@@ -36,6 +36,13 @@ class ServerConfigsCollector:
             output = paper_collector.start_collector(version)
             paper_config.set_configuration_properties(output, version)
             assembler_linker_config.add_configuration_file(paper_config)
+
+        if "paper-global" in configs:
+            paper_global_config = PaperGlobalConfig()
+            assembler_linker_config.add_configuration_file(paper_global_config)
+
+        if "paper-world-defaults" in configs:
+            pass
 
         assembler_linker_config.add_configuration_file(server_properties)
 

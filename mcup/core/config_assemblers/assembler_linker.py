@@ -33,7 +33,7 @@ class AssemblerLinker:
                 self.linked_files[config_file.config_file_name] = ServerPropertiesAssembler()
                 continue
 
-            if config_file.get_file_name() in ["bukkit.yml", "spigot.yml", "paper.yml"]:
+            if config_file.get_file_name() in ["bukkit.yml", "spigot.yml", "paper.yml", "paper-global.yml"]:
                 self.linked_files[config_file.config_file_name] = YmlAssembler()
                 continue
         print(self.linked_files)
