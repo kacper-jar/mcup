@@ -185,7 +185,7 @@ locker-meta.json
 
 # Debian package build files
 .debhelper/
-.mcup/
+debian/mcup/
 
 # pybuild files
 .pybuild/
