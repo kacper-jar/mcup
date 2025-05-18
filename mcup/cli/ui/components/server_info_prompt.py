@@ -15,13 +15,13 @@ class ServerInfoPrompt:
                 case StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string("INFO_LOCKER_UPDATING"))
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
-                    print(f"Could not retrieve the latest update timestamp. Details: {status.status_details}")
+                    print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED", status.status_details))
                 case StatusCode.ERROR_LOCKER_META_READ_FAILED:
-                    print(f"Error reading locker meta file. Details: {status.status_details}")
+                    print(language.get_string("ERROR_LOCKER_META_READ_FAILED", status.status_details))
                 case StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED:
-                    print(f"Error downloading locker file: {status.status_details}")
+                    print(language.get_string("ERROR_LOCKER_DOWNLOAD_FAILED", status.status_details))
                 case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
-                    print(f"Error updating locker meta file: {status.status_details}")
+                    print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED", status.status_details))
                 case StatusCode.SUCCESS:
                     locker_data = status.status_details
                     break
