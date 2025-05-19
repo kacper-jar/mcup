@@ -265,7 +265,7 @@ class PaperGlobalConfig(ConfigFile):
                 "player-max-chunk-send-rate": 75.0
             },
             "chunk-system": {
-                "gen-parallelism": "default",
+                "gen-parallelism": True,
                 "io-threads": -1,
                 "worker-threads": -1
             },
