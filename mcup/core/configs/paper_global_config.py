@@ -107,9 +107,7 @@ class PaperGlobalConfig(ConfigFile):
                     "flying-player": None,
                     "flying-vehicle": None
                 },
-                "no-permission": (
-                    None
-                ),
+                "no-permission": None,
                 "use-display-name-in-quit-message": None
             },
             "misc": {

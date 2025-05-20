@@ -77,73 +77,161 @@ class PaperGlobalCollector(Collector):
         self.add_section(CollectorSection(
             "Paper (Global) - Commands",
             [
-
+                CollectorInput("commands/fix-target-selector-tag-completion", "",
+                               CollectorInputType.BOOL, Version(1, 19), Version(1, 21, 3)),
+                CollectorInput("commands/ride-command-allow-player-as-vehicle", "",
+                               CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
+                CollectorInput("commands/suggest-player-names-when-null-tab-completions", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("commands/time-command-affects-all-worlds", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Console",
             [
-
+                CollectorInput("console/enable-brigadier-completions", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("console/enable-brigadier-highlighting", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("console/has-all-permissions", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Item Validation",
             [
-
+                CollectorInput("item-validation/book/author", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/book/page", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/book/title", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/book-size/page-max", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/book-size/total-multiplier", "",
+                               CollectorInputType.FLOAT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/display-name", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/lore-line", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("item-validation/resolve-selectors-in-books", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Logging",
             [
-
+                CollectorInput("logging/deobfuscate-stacktraces", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("logging/log-player-ip-addresses", "",
+                               CollectorInputType.BOOL, Version(1, 19), Version(1, 20, 1)),
+                CollectorInput("logging/use-rgb-for-named-text-colors", "",
+                               CollectorInputType.BOOL, Version(1, 19), Version(1, 19, 4)),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Messages",
             [
-
+                CollectorInput("messages/kick/authentication-servers-down", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("messages/kick/connection-throttle", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("messages/kick/flying-player", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("messages/kick/flying-vehicle", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("messages/no-permission", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("messages/use-display-name-in-quit-message", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Misc",
             [
-
+                CollectorInput("misc/chat-threads/chat-executor-core-size", "",
+                               CollectorInputType.INT, Version(1, 19, 2), LATEST_VERSION),
+                CollectorInput("misc/chat-threads/chat-executor-max-size", "",
+                               CollectorInputType.INT, Version(1, 19, 2), LATEST_VERSION),
+                CollectorInput("misc/client-interaction-leniency-distance", "",
+                               CollectorInputType.INT, Version(1, 21), LATEST_VERSION),
+                CollectorInput("misc/compression-level", "",
+                               CollectorInputType.STRING, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("misc/fix-entity-position-desync", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/lag-compensate-block-breaking", "",
+                               CollectorInputType.BOOL, Version(1, 19), Version(1, 20)),
+                CollectorInput("misc/load-permissions-yml-before-plugins", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/max-joins-per-tick", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/region-file-cache-size", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/strict-advancement-dimension-check", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/use-alternative-luck-formula", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("misc/use-dimension-type-for-custom-spawners", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
-        self.add_section(CollectorSection(
-            "Paper (Global) - Packet Limiter",
-            [
-
-            ]
-        ))
+        # TODO: implement collector section for packet-limiter
         self.add_section(CollectorSection(
             "Paper (Global) - Player Auto-save",
             [
-
+                CollectorInput("player-auto-save/max-per-tick", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("player-auto-save/rate", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Proxies",
             [
-
+                CollectorInput("proxies/bungee-cord/online-mode", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("proxies/proxy-protocol", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("proxies/velocity/enabled", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("proxies/velocity/online-mode", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("proxies/velocity/secret", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Scoreboards",
             [
-
+                CollectorInput("scoreboards/save-empty-scoreboard-teams", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("scoreboards/track-plugin-scoreboards", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Spam Limiter",
             [
-
+                CollectorInput("spam-limiter/incoming-packet-threshold", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("spam-limiter/recipe-spam-increment", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("spam-limiter/recipe-spam-limit", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("spam-limiter/tab-spam-increment", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("spam-limiter/tab-spam-limit", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Spark",
             [
-
+                CollectorInput("spark/enable-immediately", "",
+                               CollectorInputType.BOOL, Version(1, 21), LATEST_VERSION),
+                CollectorInput("spark/enabled", "",
+                               CollectorInputType.BOOL, Version(1, 21), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
