@@ -237,18 +237,60 @@ class PaperGlobalCollector(Collector):
         self.add_section(CollectorSection(
             "Paper (Global) - Timings",
             [
-
+                CollectorInput("timings/enabled", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/hidden-config-entries", "",
+                               CollectorInputType.STRING_LIST, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/history-interval", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/history-length", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/server-name", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/server-name-privacy", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/url", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("timings/verbose", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Unsupported (Legacy) Settings",
             [
-
-            ]
+                CollectorInput("unsupported-settings/allow-grindstone-overstacking", "",
+                               CollectorInputType.BOOL, Version(1, 19, 2), Version(1, 20, 4)),
+                CollectorInput("unsupported-settings/allow-headless-pistons", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("unsupported-settings/allow-permanent-block-break-exploits", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("unsupported-settings/allow-piston-duplication", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("unsupported-settings/allow-tripwire-disarming-exploits", "",
+                               CollectorInputType.BOOL, Version(1, 20, 4), Version(1, 21, 1)),
+                CollectorInput("unsupported-settings/allow-unsafe-end-portal-teleportation", "",
+                               CollectorInputType.BOOL, Version(1, 20, 4), LATEST_VERSION),
+                CollectorInput("unsupported-settings/compression-format", "",
+                               CollectorInputType.STRING, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("unsupported-settings/perform-username-validation", "",
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
+                CollectorInput("unsupported-settings/simplify-remote-item-matching", "",
+                               CollectorInputType.BOOL, Version(1, 21, 1), LATEST_VERSION),
+                CollectorInput("unsupported-settings/skip-tripwire-hook-placement-validation", "",
+                               CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
+                CollectorInput("unsupported-settings/skip-vanilla-damage-tick-when-shield-blocked", "",
+                               CollectorInputType.BOOL, Version(1, 20, 6), LATEST_VERSION),
+                CollectorInput("unsupported-settings/update-equipment-on-player-actions", "",
+                               CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
+            ],
+            "Warning: It's recommended to leave all these settings as default"
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Watchdog",
             [
-
+                CollectorInput("watchdog/early-warning-delay", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("watchdog/early-warning-every", "",
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
             ]
         ))
