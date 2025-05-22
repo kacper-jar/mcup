@@ -13,14 +13,52 @@ Made for both advanced server managers and beginners setting up their first serv
 
 ## Installation
 
-To install `mcup`, clone this repository and use `mcup.sh` or `mcup.bat` scripts depending on your operating system (temporary method until packaged releases are ready):
+### 📦 Snap (Linux)
+
+Install from the Snap Store:
+
+```sh
+sudo snap install mcup
+```
+
+Or install from a local `.snap` file:
+
+```sh
+sudo snap install --dangerous ./mcup_*.snap
+```
+
+> [!IMPORTANT]
+> Replace `./mcup_*.snap` with the actual path to your downloaded file.
+
+### 🧊 APT / .deb (Linux)
+
+Install via APT repository (if available):
+
+```sh
+sudo apt update
+sudo apt install mcup
+```
+
+Or install from a local `.deb` package:
+
+```sh
+sudo dpkg -i ./mcup_*.deb
+sudo apt-get install -f
+```
+
+> [!IMPORTANT]
+> Replace `./mcup_*.deb` with the actual path to your downloaded file.
+
+### 🔧 Manual (All platforms)
+
+Clone this repository and run the appropriate script:
 
 ```sh
 git clone https://github.com/kacper-jar/mcup.git
 cd mcup
+./mcup.sh   # Linux / macOS
+mcup.bat    # Windows
 ```
-
-*(Flatpak and APT packages coming soon!)*
 
 ## Usage
 
