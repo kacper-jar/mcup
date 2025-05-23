@@ -9,7 +9,7 @@ Made for both advanced server managers and beginners setting up their first serv
 - Fast server setup with a single command
 - Template system for custom or reusable server setups
 - Locker system for managing supported server versions and download links
-- Designed for Linux (Also supports Windows and macOS. Flatpak and APT distributions planned)
+- Designed for Linux (Also supports Windows and macOS)
 
 ## Installation
 
