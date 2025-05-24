@@ -3,6 +3,7 @@ import logging
 
 from mcup import __version__
 from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand
+from mcup.devtools.confdiff import ConfDiff
 
 
 class McupCLI:
@@ -11,6 +12,8 @@ class McupCLI:
     def __init__(self):
         """Initialize the CLI with all available commands and arguments."""
         self.logger = logging.getLogger(__name__)
+
+        self.DEVTOOLS_ENABLED = True  # temporary variable
 
         self.parser = argparse.ArgumentParser(
             prog="mcup",
@@ -25,6 +28,7 @@ class McupCLI:
         self._register_server_commands()
         self._register_template_commands()
         self._register_update_command()
+        self._register_devtools_commands()
 
         self.logger.info("CLI initialized")
 
@@ -77,6 +81,17 @@ class McupCLI:
         """Register command for updating the locker file."""
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")
         update_parser.set_defaults(func=UpdateCommand.run)
+
+    def _register_devtools_commands(self):
+        """Register devtools commands."""
+        if self.DEVTOOLS_ENABLED:
+            devtools_parser = self.subparsers.add_parser("devtools", help="Developer tools")
+            devtools_subparsers = devtools_parser.add_subparsers(dest="action", help="Devtools actions")
+
+            confdiff_parser = devtools_subparsers.add_parser("confdiff", help="Compare configuration files")
+            confdiff_parser.add_argument("configuration_files", help="Configuration files with version"
+                                         " formatted like this: VERSION:PATH", nargs="+")
+            confdiff_parser.set_defaults(func=ConfDiff.run)
 
     def run(self):
         """Parse and execute the given command."""
