@@ -1,5 +1,4 @@
 import os
-
 import yaml
 
 from mcup.core.config_assemblers import Assembler

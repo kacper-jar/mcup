@@ -26,7 +26,7 @@ class AssemblerLinker:
 
     def link(self):
         """Link configuration files with their appropriate assemblers."""
-        from mcup.core.config_assemblers import ServerPropertiesAssembler, YmlAssembler
+        from mcup.core.config_assemblers import ServerPropertiesAssembler, YmlAssembler, StartScriptAssembler
 
         for config_file in self.configuration.get_configuration_files():
             if config_file.get_file_name() == "server.properties":
@@ -36,7 +36,10 @@ class AssemblerLinker:
             if config_file.get_file_name() in ["bukkit.yml", "spigot.yml", "paper.yml", "paper-global.yml"]:
                 self.linked_files[config_file.config_file_name] = YmlAssembler()
                 continue
-        print(self.linked_files)
+
+            if config_file.get_file_name() in ["start.sh"]:
+                self.linked_files[config_file.config_file_name] = StartScriptAssembler()
+                continue
 
     def get_linked_files(self) -> dict[str, "Assembler"]:
         """Get all linked files with their assemblers."""

@@ -29,6 +29,7 @@ class ServerHandler:
                 yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading server...", total_size])
                 file_name = target.split("/")[-1]
                 file_path = server_path / file_name
+                server_jar_name = file_name
                 with open(file_path, "wb") as file:
                     for chunk in response.iter_content(1024):
                         file.write(chunk)
@@ -83,7 +84,8 @@ class ServerHandler:
                 stderr=subprocess.DEVNULL
             )
 
-            if not os.path.exists(server_path / f"{target}-{server_version}.jar"):
+            server_jar_name = f"{target}-{server_version}.jar"
+            if not os.path.exists(server_path / server_jar_name):
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
                 return
 
@@ -106,6 +108,11 @@ class ServerHandler:
                     shutil.rmtree(full_path)
 
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
+        config_files = assembler_linker_config.get_configuration_files()
+        for config in config_files:
+            if config.config_file_name == "start.sh":
+                config.set_configuration_property("server-jar", server_jar_name, version)
+
         assembler_linker = AssemblerLinker(assembler_linker_config)
         assembler_linker.link()
         assembler_linker.assemble_linked_files(server_path)

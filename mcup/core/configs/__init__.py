@@ -4,5 +4,7 @@ from .bukkit_config import BukkitConfig
 from .spigot_config import SpigotConfig
 from .paper_config import PaperConfig
 from .paper_global_config import PaperGlobalConfig
+from .start_script import StartScript
 
-__all__ = ["ConfigFile", "ServerPropertiesConfig", "BukkitConfig", "SpigotConfig", "PaperConfig", "PaperGlobalConfig"]
+__all__ = ["ConfigFile", "ServerPropertiesConfig", "BukkitConfig", "SpigotConfig", "PaperConfig", "PaperGlobalConfig",
+           "StartScript"]

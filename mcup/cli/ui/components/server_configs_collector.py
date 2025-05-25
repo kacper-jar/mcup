@@ -1,6 +1,8 @@
 from mcup.core.config_assemblers import AssemblerLinkerConfig
-from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig
-from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector
+from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig, \
+    StartScript
+from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector, \
+    StartScriptCollector
 from mcup.core.utils.version import Version
 
 
@@ -15,6 +17,7 @@ class ServerConfigsCollector:
         collector = ServerPropertiesCollector()
         output = collector.start_collector(version)
         server_properties.set_configuration_properties(output, version)
+        assembler_linker_config.add_configuration_file(server_properties)
 
         if "bukkit" in configs:
             bukkit_config = BukkitConfig()
@@ -44,6 +47,12 @@ class ServerConfigsCollector:
         if "paper-world-defaults" in configs:
             pass
 
-        assembler_linker_config.add_configuration_file(server_properties)
+        create_start_script = input("Create start script? (Y/n): ").strip().lower() in ["y", ""]
+        if create_start_script:
+            start_script_config = StartScript()
+            start_script_collector = StartScriptCollector()
+            output = start_script_collector.start_collector(version)
+            start_script_config.set_configuration_properties(output, version)
+            assembler_linker_config.add_configuration_file(start_script_config)
 
         return assembler_linker_config
