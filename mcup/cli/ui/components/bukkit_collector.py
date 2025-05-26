@@ -9,6 +9,8 @@ class BukkitCollector(Collector):
         self.add_section(CollectorSection(
             "Bukkit - General Settings",
             [
+                CollectorInput("settings/minimum-api", "Minimum API", CollectorInputType.STRING,
+                               Version(1, 14, 3), LATEST_VERSION),
                 CollectorInput("settings/allow-end", "Allow End", CollectorInputType.BOOL,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("settings/warn-on-overload", "Warn on overload", CollectorInputType.BOOL,
@@ -36,6 +38,8 @@ class BukkitCollector(Collector):
         self.add_section(CollectorSection(
             "Bukkit - Spawn Limits",
             [
+                CollectorInput("spawn-limits/water-ambient", "Max water ambient creatures", CollectorInputType.INT,
+                               Version(1, 16, 1), LATEST_VERSION),
                 CollectorInput("spawn-limits/monsters", "Max monsters", CollectorInputType.INT,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("spawn-limits/animals", "Max animals", CollectorInputType.INT,
@@ -58,6 +62,12 @@ class BukkitCollector(Collector):
         self.add_section(CollectorSection(
             "Bukkit - Ticks Settings",
             [
+                CollectorInput("ticks-per/water-spawns", "Ticks per water spawns", CollectorInputType.INT,
+                               Version(1, 15, 2), LATEST_VERSION),
+                CollectorInput("ticks-per/water-ambient-spawns", "Ticks per water ambient spawns",
+                               CollectorInputType.INT, Version(1, 16, 1), LATEST_VERSION),
+                CollectorInput("ticks-per/ambient-spawns", "Ticks per ambient spawns", CollectorInputType.INT,
+                               Version(1, 15, 2), LATEST_VERSION),
                 CollectorInput("ticks-per/animal-spawns", "Ticks per animal spawns", CollectorInputType.INT,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("ticks-per/monster-spawns", "Ticks per monsters spawns", CollectorInputType.INT,

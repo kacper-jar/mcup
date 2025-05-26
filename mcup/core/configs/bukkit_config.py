@@ -10,6 +10,7 @@ class BukkitConfig(ConfigFile):
 
         self.configuration = {
             "settings": {
+                "minimum-api": None,  # 1.14.3+
                 "allow-end": None,
                 "warn-on-overload": None,
                 "permissions-file": None,
@@ -23,6 +24,7 @@ class BukkitConfig(ConfigFile):
                 "shutdown-message": None
             },
             "spawn-limits": {
+                "water-ambient": None,  # 1.16.1+
                 "monsters": None,
                 "animals": None,
                 "water-animals": None,
@@ -33,6 +35,9 @@ class BukkitConfig(ConfigFile):
                 "load-threshold": None
             },
             "ticks-per": {
+                "water-spawns": None,  # 1.15.2+
+                "water-ambient-spawns": None,  # 1.16.1+
+                "ambient-spawns": None,  # 1.15.2+
                 "animal-spawns": None,
                 "monster-spawns": None,
                 "autosave": None
@@ -57,6 +62,7 @@ class BukkitConfig(ConfigFile):
 
         self.default_configuration = {
             "settings": {
+                "minimum-api": None,
                 "allow-end": True,
                 "warn-on-overload": True,
                 "permissions-file": "permissions.yml",
@@ -70,6 +76,7 @@ class BukkitConfig(ConfigFile):
                 "shutdown-message": "Server closed"
             },
             "spawn-limits": {
+                "water-ambient": 20,
                 "monsters": 70,
                 "animals": 15,
                 "water-animals": 5,
@@ -80,6 +87,9 @@ class BukkitConfig(ConfigFile):
                 "load-threshold": 0
             },
             "ticks-per": {
+                "water-spawns": 1,
+                "water-ambient-spawns": 1,
+                "ambient-spawns": 1,
                 "animal-spawns": 400,
                 "monster-spawns": 1,
                 "autosave": 6000
