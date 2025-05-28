@@ -98,6 +98,7 @@ Locker updates check the last commit date on GitHub to determine if a new versio
 - `mcup/` - Project source code
   - `mcup.core` – Main application logic code
   - `mcup.cli` – CLI UI code
+  - `mcup.devtools` - Development tools to speed up development
 - `snap/` - Files for building the `.snap` package
 
 ## Contributing
