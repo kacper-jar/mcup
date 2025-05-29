@@ -11,6 +11,11 @@ class BukkitConfig(ConfigFile):
         self.configuration = {
             "settings": {
                 "minimum-api": None,  # 1.14.3+
+                "use-map-color-cache": None,  # 1.19+
+                "compatibility": {
+                    "allow-old-keys-in-registry": None,  # 1.20.6+
+                    "enum-compatibility-mode": None  # 1.21.1+
+                },
                 "allow-end": None,
                 "warn-on-overload": None,
                 "permissions-file": None,
@@ -25,6 +30,8 @@ class BukkitConfig(ConfigFile):
             },
             "spawn-limits": {
                 "water-ambient": None,  # 1.16.1+
+                "water-underground-creature": None,  # 1.18+
+                "axolotls": None,  # 1.18.1+
                 "monsters": None,
                 "animals": None,
                 "water-animals": None,
@@ -37,6 +44,8 @@ class BukkitConfig(ConfigFile):
             "ticks-per": {
                 "water-spawns": None,  # 1.15.2+
                 "water-ambient-spawns": None,  # 1.16.1+
+                "water-underground-creature-spawns": None,  # 1.18+
+                "axolotl-spawns": None,  # 1.18.1+
                 "ambient-spawns": None,  # 1.15.2+
                 "animal-spawns": None,
                 "monster-spawns": None,
@@ -63,6 +72,11 @@ class BukkitConfig(ConfigFile):
         self.default_configuration = {
             "settings": {
                 "minimum-api": None,
+                "use-map-color-cache": True,
+                "compatibility": {
+                    "allow-old-keys-in-registry": False,
+                    "enum-compatibility-mode": False
+                },
                 "allow-end": True,
                 "warn-on-overload": True,
                 "permissions-file": "permissions.yml",
@@ -77,6 +91,8 @@ class BukkitConfig(ConfigFile):
             },
             "spawn-limits": {
                 "water-ambient": 20,
+                "water-underground-creature": 5,
+                "axolotls": 5,
                 "monsters": 70,
                 "animals": 15,
                 "water-animals": 5,
@@ -89,6 +105,8 @@ class BukkitConfig(ConfigFile):
             "ticks-per": {
                 "water-spawns": 1,
                 "water-ambient-spawns": 1,
+                "water-underground-creature-spawns": 1,
+                "axolotl-spawns": 1,
                 "ambient-spawns": 1,
                 "animal-spawns": 400,
                 "monster-spawns": 1,
