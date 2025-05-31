@@ -1,4 +1,5 @@
 from mcup.core.configs import ConfigFile
+from mcup.core.utils.version import VersionDependantVariablePicker, VersionDependantVariable, Version, LATEST_VERSION
 
 
 class PaperWorldDefaultsConfig(ConfigFile):
@@ -24,7 +25,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "obfuscation": {
                     "items": {
                         "hide-durability": None,
-                        "hide-itemmeta": None
+                        "hide-itemmeta": None,
+                        "hide-itemmeta-with-visual-effects": None,  # 1.19.2+
                     }
                 }
             },
@@ -40,6 +42,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "snowball": None
                 },
                 "fixed-chunk-inhabited-time": None,
+                "flush-regions-on-save": None,  # 1.19.4+
                 "max-auto-save-chunks-per-tick": None,
                 "prevent-moving-into-unloaded-chunks": None
             },
@@ -56,6 +59,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "tick": None
                 },
                 "behavior": {
+                    "allow-spider-world-border-climbing": None,  # 1.19.3+
                     "baby-zombie-movement-modifier": None,
                     "disable-chest-cat-detection": None,
                     "disable-creeper-lingering-effect": None,
@@ -77,6 +81,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "parrots-are-unaffected-by-player-movement": None,
                     "phantoms-do-not-spawn-on-creative-players": None,
                     "phantoms-only-attack-insomniacs": None,
+                    "phantoms-spawn-attempt-max-seconds": None,  # 1.19.2+
+                    "phantoms-spawn-attempt-min-seconds": None,  # 1.19.2+
                     "piglins-guard-chests": None,
                     "pillager-patrols": {
                         "disable": None,
@@ -90,12 +96,16 @@ class PaperWorldDefaultsConfig(ConfigFile):
                             "per-player": None
                         }
                     },
+                    "player-insomnia-start-ticks": None,  # 1.19.2+
                     "should-remove-dragon": None,
                     "spawner-nerfed-mobs-should-jump": None,
                     "zombie-villager-infection-chance": None,
                     "zombies-target-turtle-eggs": None
                 },
                 "entities-target-with-follow-range": None,
+                "markers": {
+                    "tick": None  # 1.19.4+
+                },
                 "mob-effects": {
                     "immune-to-wither-effect": {
                         "wither": None,
@@ -103,6 +113,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     },
                     "spiders-immune-to-poison-effect": None,
                     "undead-immune-to-certain-effects": None
+                },
+                "sniffer": {  # 1.20.1+
+                    "boosted-hatch-time": None,
+                    "hatch-time": None
                 },
                 "spawning": {
                     "all-chunks-are-slime-chunks": None,
@@ -153,7 +167,9 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "mode": None,
                         "safe-regen-delete-range": None
                     },
-                    "filter-nbt-data-from-spawn-eggs-and-related": None,
+                    "filter-bad-tile-entity-nbt-from-falling-blocks": None,  # 1.19.3+
+                    "filtered-entity-tag-nbt-paths": None,  # 1.19.3+
+                    "filter-nbt-data-from-spawn-eggs-and-related": None,  # 1.19-1.19.3
                     "iron-golems-can-spawn-in-air": None,
                     "monster-spawn-max-light-level": None,
                     "non-player-arrow-despawn-rate": None,
@@ -189,6 +205,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "maximum": None,
                         "minimum": None
                     }
+                },
+                "tracking-range-y": {  # 1.20.1+
+                    "animal": None,
+                    "display": None,
+                    "enabled": None,
+                    "misc": None,
+                    "monster": None,
+                    "other": None,
+                    "player": None
                 }
             },
             "environment": {
@@ -196,6 +221,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "disable-ice-and-snow": None,
                 "disable-teleportation-suffocation-check": None,
                 "disable-thunder": None,
+                "fire-tick-delay": None,  # 1.19.2+
                 "frosted-ice": {
                     "delay": {
                         "max": None,
@@ -245,7 +271,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "refresh-max": None,
                 "refresh-min": None,
                 "reset-seed-on-fill": None,
-                "restrict-player-reloot": None
+                "restrict-player-reloot": None,
+                "restrict-player-reloot-time": None  # 1.20.1+
             },
             "maps": {
                 "item-frame-cursor-limit": None,
@@ -286,13 +313,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     }
                 },
                 "container-update": None,
+                "dry-farmland": None,  # 1.20.2+
                 "grass-spread": None,
                 "mob-spawner": None,
                 "sensor": {
                     "villager": {
                         "secondarypoisensor": None
                     }
-                }
+                },
+                "wet-farmland": None  # 1.20.2+
             },
             "unsupported-settings": {
                 "fix-invulnerable-end-crystal-exploit": None
@@ -300,19 +329,32 @@ class PaperWorldDefaultsConfig(ConfigFile):
         }
 
         self.default_configuration = {
-            "_version": 28,
+            "_version": VersionDependantVariablePicker([
+                VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 28),
+                VersionDependantVariable(Version(1, 19, 2), Version(1, 19, 2), 29),
+                VersionDependantVariable(Version(1, 19, 3), LATEST_VERSION, 30),
+            ]),
             "anticheat": {
                 "anti-xray": {
                     "enabled": False,
                     "engine-mode": 1,
-                    "hidden-blocks": [
+                    "hidden-blocks": VersionDependantVariablePicker([
+                        VersionDependantVariable(Version(1, 19), Version(1, 20, 1), [
                         "copper_ore", "deepslate_copper_ore", "gold_ore", "deepslate_gold_ore",
                         "iron_ore", "deepslate_iron_ore", "coal_ore", "deepslate_coal_ore",
                         "lapis_ore", "deepslate_lapis_ore", "mossy_cobblestone", "obsidian",
                         "chest", "diamond_ore", "deepslate_diamond_ore", "redstone_ore",
                         "deepslate_redstone_ore", "clay", "emerald_ore", "deepslate_emerald_ore",
                         "ender_chest"
-                    ],
+                        ]),
+                        VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, [
+                            "copper_ore", "deepslate_copper_ore", "raw_copper_block", "gold_ore", "deepslate_gold_ore",
+                            "iron_ore", "deepslate_iron_ore", "raw_iron_block", "coal_ore", "deepslate_coal_ore",
+                            "lapis_ore", "deepslate_lapis_ore", "mossy_cobblestone", "obsidian", "chest",
+                            "diamond_ore", "deepslate_diamond_ore", "redstone_ore", "deepslate_redstone_ore", "clay",
+                            "emerald_ore", "deepslate_emerald_ore", "ender_chest"
+                        ])
+                    ]),
                     "lava-obscures": False,
                     "max-block-height": 64,
                     "replacement-blocks": ["stone", "oak_planks", "deepslate"],
@@ -322,7 +364,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "obfuscation": {
                     "items": {
                         "hide-durability": False,
-                        "hide-itemmeta": False
+                        "hide-itemmeta": False,
+                        "hide-itemmeta-with-visual-effects": False
                     }
                 }
             },
@@ -338,6 +381,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "snowball": -1
                 },
                 "fixed-chunk-inhabited-time": -1,
+                "flush-regions-on-save": False,
                 "max-auto-save-chunks-per-tick": 24,
                 "prevent-moving-into-unloaded-chunks": False
             },
@@ -354,6 +398,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "tick": True
                 },
                 "behavior": {
+                    "allow-spider-world-border-climbing": True,
                     "baby-zombie-movement-modifier": 0.5,
                     "disable-chest-cat-detection": False,
                     "disable-creeper-lingering-effect": False,
@@ -375,6 +420,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "parrots-are-unaffected-by-player-movement": False,
                     "phantoms-do-not-spawn-on-creative-players": True,
                     "phantoms-only-attack-insomniacs": True,
+                    "phantoms-spawn-attempt-max-seconds": 119,
+                    "phantoms-spawn-attempt-min-seconds": 60,
                     "piglins-guard-chests": True,
                     "pillager-patrols": {
                         "disable": False,
@@ -388,12 +435,19 @@ class PaperWorldDefaultsConfig(ConfigFile):
                             "per-player": False
                         }
                     },
+                    "player-insomnia-start-ticks": 72000,
                     "should-remove-dragon": False,
                     "spawner-nerfed-mobs-should-jump": False,
-                    "zombie-villager-infection-chance": -1.0,
+                    "zombie-villager-infection-chance": VersionDependantVariablePicker([
+                        VersionDependantVariable(Version(1, 19), Version(1, 20, 1), -1.0),
+                        VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, "default")
+                    ]),
                     "zombies-target-turtle-eggs": True
                 },
                 "entities-target-with-follow-range": False,
+                "markers": {
+                    "tick": True
+                },
                 "mob-effects": {
                     "immune-to-wither-effect": {
                         "wither": True,
@@ -401,6 +455,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     },
                     "spiders-immune-to-poison-effect": True,
                     "undead-immune-to-certain-effects": True
+                },
+                "sniffer": {
+                    "boosted-hatch-time": "default",
+                    "hatch-time": "default"
                 },
                 "spawning": {
                     "all-chunks-are-slime-chunks": False,
@@ -451,9 +509,14 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "mode": "SAFE_REGEN",
                         "safe-regen-delete-range": 32
                     },
+                    "filter-bad-tile-entity-nbt-from-falling-blocks": True,
+                    "filtered-entity-tag-nbt-paths": ['Pos', 'Motion', 'SleepingX', 'SleepingY', 'SleepingZ'],
                     "filter-nbt-data-from-spawn-eggs-and-related": True,
                     "iron-golems-can-spawn-in-air": False,
-                    "monster-spawn-max-light-level": -1,
+                    "monster-spawn-max-light-level": VersionDependantVariablePicker([
+                        VersionDependantVariable(Version(1, 19), Version(1, 20, 1), -1),
+                        VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, "default")
+                    ]),
                     "non-player-arrow-despawn-rate": "default",
                     "per-player-mob-spawns": True,
                     "scan-for-legacy-ender-dragon": True,
@@ -487,6 +550,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "maximum": "default",
                         "minimum": "default"
                     }
+                },
+                "tracking-range-y": {
+                    "animal": "default",
+                    "display": "default",
+                    "enabled": False,
+                    "misc": "default",
+                    "monster": "default",
+                    "other": "default",
+                    "player": "default"
                 }
             },
             "environment": {
@@ -494,6 +566,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "disable-ice-and-snow": False,
                 "disable-teleportation-suffocation-check": False,
                 "disable-thunder": False,
+                "fire-tick-delay": 30,
                 "frosted-ice": {
                     "delay": {
                         "max": 40,
@@ -502,7 +575,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "enabled": True
                 },
                 "generate-flat-bedrock": False,
-                "nether-ceiling-void-damage-height": 0,
+                "nether-ceiling-void-damage-height": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 0),
+                    VersionDependantVariable(Version(1, 19, 2), LATEST_VERSION, "disabled")
+                ]),
                 "optimize-explosions": False,
                 "portal-create-radius": 16,
                 "portal-search-radius": 128,
@@ -525,12 +601,18 @@ class PaperWorldDefaultsConfig(ConfigFile):
             },
             "fixes": {
                 "disable-unloaded-chunk-enderpearl-exploit": True,
-                "falling-block-height-nerf": 0,
-                "fix-curing-zombie-villager-discount-exploit": True,
+                "falling-block-height-nerf": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 0),
+                    VersionDependantVariable(Version(1, 19, 2), LATEST_VERSION, "disabled")
+                ]),
+                "fix-curing-zombie-villager-discount-exploit": True,  # 1.19-1.20.1
                 "fix-items-merging-through-walls": False,
                 "prevent-tnt-from-moving-in-water": False,
                 "split-overstacked-loot": True,
-                "tnt-entity-height-nerf": 0
+                "tnt-entity-height-nerf": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 0),
+                    VersionDependantVariable(Version(1, 19, 2), LATEST_VERSION, "disabled")
+                ])
             },
             "hopper": {
                 "cooldown-when-full": True,
@@ -543,7 +625,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "refresh-max": "2d",
                 "refresh-min": "12h",
                 "reset-seed-on-fill": True,
-                "restrict-player-reloot": True
+                "restrict-player-reloot": True,
+                "restrict-player-reloot-time": "disabled"
             },
             "maps": {
                 "item-frame-cursor-limit": 128,
@@ -569,7 +652,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "update-pathfinding-on-block-update": True
             },
             "scoreboards": {
-                "allow-non-player-entities-on-scoreboards": False,
+                "allow-non-player-entities-on-scoreboards": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 19, 3), False),
+                    VersionDependantVariable(Version(1, 19, 4), LATEST_VERSION, True)
+                ]),
                 "use-vanilla-world-scoreboard-name-coloring": False
             },
             "spawn": {
@@ -584,13 +670,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     }
                 },
                 "container-update": 1,
+                "dry-farmland": 1,
                 "grass-spread": 1,
                 "mob-spawner": 1,
                 "sensor": {
                     "villager": {
                         "secondarypoisensor": 40
                     }
-                }
+                },
+                "wet-farmland": 1
             },
             "unsupported-settings": {
                 "fix-invulnerable-end-crystal-exploit": True
