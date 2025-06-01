@@ -24,9 +24,9 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 },
                 "obfuscation": {
                     "items": {
-                        "hide-durability": None,
-                        "hide-itemmeta": None,
-                        "hide-itemmeta-with-visual-effects": None,  # 1.19.2+
+                        "hide-durability": None,  # 1.19-1.21.3
+                        "hide-itemmeta": None,  # 1.19-1.21.3
+                        "hide-itemmeta-with-visual-effects": None,  # 1.19.2-1.21.3
                     }
                 }
             },
@@ -53,6 +53,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "max-entity-collisions": None,
                 "only-players-collide": None
             },
+            "command-blocks": {  # 1.20.4+
+                "force-follow-perm-level": None,
+                "permissions-level": None
+            },
             "entities": {
                 "armor-stands": {
                     "do-collision-entity-lookups": None,
@@ -61,6 +65,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "behavior": {
                     "allow-spider-world-border-climbing": None,  # 1.19.3+
                     "baby-zombie-movement-modifier": None,
+                    "cooldown-failed-beehive-releases": None,  # 1.21.4+
                     "disable-chest-cat-detection": None,
                     "disable-creeper-lingering-effect": None,
                     "disable-player-crits": None,
@@ -78,6 +83,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "zombies": None
                     },
                     "nerf-pigmen-from-nether-portals": None,
+                    "only-merge-items-horizontally": None,  # 1.21.1+
                     "parrots-are-unaffected-by-player-movement": None,
                     "phantoms-do-not-spawn-on-creative-players": None,
                     "phantoms-only-attack-insomniacs": None,
@@ -102,7 +108,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "zombie-villager-infection-chance": None,
                     "zombies-target-turtle-eggs": None
                 },
-                "entities-target-with-follow-range": None,
+                "entities-target-with-follow-range": None,  # 1.19-1.21.2
                 "markers": {
                     "tick": None  # 1.19.4+
                 },
@@ -112,7 +118,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "wither-skeleton": None
                     },
                     "spiders-immune-to-poison-effect": None,
-                    "undead-immune-to-certain-effects": None
+                    "undead-immune-to-certain-effects": None  # 1.19-1.20.4
                 },
                 "sniffer": {  # 1.20.1+
                     "boosted-hatch-time": None,
@@ -127,40 +133,45 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         }
                     },
                     "count-all-mobs-for-spawning": None,
-                    "creative-arrow-despawn-rate": "default",
+                    "creative-arrow-despawn-rate": None,
+                    "despawn-range-shape": None,  # 1.21.1+
                     "despawn-ranges": {
                         "ambient": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "axolotls": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "misc": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "monster": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "underground_water_creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "water_ambient": {
-                            "hard": 64,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         },
                         "water_creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": None,
+                            "soft": None
                         }
+                    },
+                    "despawn-time": {  # 1.21.3+
+                        "llama_spit": None,
+                        "snowball": None
                     },
                     "disable-mob-spawner-spawn-egg-transformation": None,
                     "duplicate-uuid": {
@@ -194,6 +205,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "water_ambient": None,
                         "water_creature": None
                     },
+                    "ticks-per-spawn": {  # 1.20.4+
+                        "ambient": None,
+                        "axolotls": None,
+                        "creature": None,
+                        "monster": None,
+                        "underground_water_creature": None,
+                        "water_ambient": None,
+                        "water_creature": None
+                    },
                     "wandering-trader": {
                         "spawn-chance-failure-increment": None,
                         "spawn-chance-max": None,
@@ -219,7 +239,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
             "environment": {
                 "disable-explosion-knockback": None,
                 "disable-ice-and-snow": None,
-                "disable-teleportation-suffocation-check": None,
+                "disable-teleportation-suffocation-check": None,  # 1.19-1.21.4
                 "disable-thunder": None,
                 "fire-tick-delay": None,  # 1.19.2+
                 "frosted-ice": {
@@ -230,6 +250,9 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "enabled": None
                 },
                 "generate-flat-bedrock": None,
+                "locate-structures-outside-world-border": None,  # 1.20.4+
+                "max-block-ticks": None,  # 1.20.4+
+                "max-fluid-ticks": None,  # 1.20.4+
                 "nether-ceiling-void-damage-height": None,
                 "optimize-explosions": None,
                 "portal-create-radius": None,
@@ -242,6 +265,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "villager-trade": None
                     }
                 },
+                "void-damage-amount": None,  # 1.21.1+
+                "void-damage-min-build-height-offset": None,  # 1.21.1+
                 "water-over-lava-flow-speed": None
             },
             "feature-seeds": {
@@ -272,7 +297,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "refresh-min": None,
                 "reset-seed-on-fill": None,
                 "restrict-player-reloot": None,
-                "restrict-player-reloot-time": None  # 1.20.1+
+                "restrict-player-reloot-time": None,  # 1.20.1+
+                "retain-unlooted-shulker-box-loot-table-on-non-player-break": None  # 1.20.1+
             },
             "maps": {
                 "item-frame-cursor-limit": None,
@@ -287,10 +313,12 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "reeds": None
             },
             "misc": {
+                "alternate-current-update-order": None,  # 1.21.1+
                 "disable-end-credits": None,
                 "disable-relative-projectile-velocity": None,
                 "disable-sprint-interruption-on-attack": None,
-                "light-queue-size": None,
+                "legacy-ender-pearl-behavior": None,  # 1.21.3+
+                "light-queue-size": None,  # 1.19-1.21.4
                 "max-leash-distance": None,
                 "redstone-implementation": None,
                 "shield-blocking-delay": None,
@@ -303,8 +331,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
             },
             "spawn": {
                 "allow-using-signs-inside-spawn-protection": None,
-                "keep-spawn-loaded": None,
-                "keep-spawn-loaded-range": None
+                "keep-spawn-loaded": None,  # 1.19-1.20.4
+                "keep-spawn-loaded-range": None  # 1.19-1.20.4
             },
             "tick-rates": {
                 "behavior": {
@@ -324,6 +352,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "wet-farmland": None  # 1.20.2+
             },
             "unsupported-settings": {
+                "disable-world-ticking-when-empty": None,  # 1.20.4+
                 "fix-invulnerable-end-crystal-exploit": None
             }
         }
@@ -332,7 +361,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
             "_version": VersionDependantVariablePicker([
                 VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 28),
                 VersionDependantVariable(Version(1, 19, 2), Version(1, 19, 2), 29),
-                VersionDependantVariable(Version(1, 19, 3), LATEST_VERSION, 30),
+                VersionDependantVariable(Version(1, 19, 3), Version(1, 20, 4), 30),
+                VersionDependantVariable(Version(1, 20, 6), LATEST_VERSION, 31),
             ]),
             "anticheat": {
                 "anti-xray": {
@@ -392,6 +422,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "max-entity-collisions": 8,
                 "only-players-collide": False
             },
+            "command-blocks": {
+                "force-follow-perm-level": True,
+                "permissions-level": 2
+            },
             "entities": {
                 "armor-stands": {
                     "do-collision-entity-lookups": True,
@@ -400,6 +434,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "behavior": {
                     "allow-spider-world-border-climbing": True,
                     "baby-zombie-movement-modifier": 0.5,
+                    "cooldown-failed-beehive-releases": True,
                     "disable-chest-cat-detection": False,
                     "disable-creeper-lingering-effect": False,
                     "disable-player-crits": False,
@@ -417,6 +452,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "zombies": False
                     },
                     "nerf-pigmen-from-nether-portals": False,
+                    "only-merge-items-horizontally": False,
                     "parrots-are-unaffected-by-player-movement": False,
                     "phantoms-do-not-spawn-on-creative-players": True,
                     "phantoms-only-attack-insomniacs": True,
@@ -470,39 +506,92 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     },
                     "count-all-mobs-for-spawning": False,
                     "creative-arrow-despawn-rate": "default",
+                    "despawn-range-shape": "ELLIPSOID",
                     "despawn-ranges": {
                         "ambient": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "axolotls": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "misc": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "monster": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "underground_water_creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "water_ambient": {
-                            "hard": 64,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         },
                         "water_creature": {
-                            "hard": 128,
-                            "soft": 32
+                            "hard": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 128),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ]),
+                            "soft": VersionDependantVariablePicker([
+                                VersionDependantVariable(Version(1, 19), Version(1, 21), 32),
+                                VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                            ])
                         }
+                    },
+                    "despawn-time": {
+                        "llama_spit": "disabled",
+                        "snowball": "disabled"
                     },
                     "disable-mob-spawner-spawn-egg-transformation": False,
                     "duplicate-uuid": {
@@ -531,6 +620,15 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         }
                     },
                     "spawn-limits": {
+                        "ambient": -1,
+                        "axolotls": -1,
+                        "creature": -1,
+                        "monster": -1,
+                        "underground_water_creature": -1,
+                        "water_ambient": -1,
+                        "water_creature": -1
+                    },
+                    "ticks-per-spawn": {
                         "ambient": -1,
                         "axolotls": -1,
                         "creature": -1,
@@ -575,6 +673,9 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "enabled": True
                 },
                 "generate-flat-bedrock": False,
+                "locate-structures-outside-world-border": False,
+                "max-block-ticks": 65536,
+                "max-fluid-ticks": 65536,
                 "nether-ceiling-void-damage-height": VersionDependantVariablePicker([
                     VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 0),
                     VersionDependantVariable(Version(1, 19, 2), LATEST_VERSION, "disabled")
@@ -590,6 +691,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "villager-trade": False
                     }
                 },
+                "void-damage-amount": 4.0,
+                "void-damage-min-build-height-offset": -64.0,
                 "water-over-lava-flow-speed": 5
             },
             "feature-seeds": {
@@ -600,7 +703,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "minimum": 100
             },
             "fixes": {
-                "disable-unloaded-chunk-enderpearl-exploit": True,
+                "disable-unloaded-chunk-enderpearl-exploit": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 21, 2), True),
+                    VersionDependantVariable(Version(1, 21, 3), LATEST_VERSION, False)
+                ]),
                 "falling-block-height-nerf": VersionDependantVariablePicker([
                     VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 0),
                     VersionDependantVariable(Version(1, 19, 2), LATEST_VERSION, "disabled")
@@ -626,7 +732,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "refresh-min": "12h",
                 "reset-seed-on-fill": True,
                 "restrict-player-reloot": True,
-                "restrict-player-reloot-time": "disabled"
+                "restrict-player-reloot-time": "disabled",
+                "retain-unlooted-shulker-box-loot-table-on-non-player-break": True
             },
             "maps": {
                 "item-frame-cursor-limit": 128,
@@ -641,11 +748,16 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "reeds": 3
             },
             "misc": {
+                "alternate-current-update-order": "HORIZONTAL_FIRST_OUTWARD",
                 "disable-end-credits": False,
                 "disable-relative-projectile-velocity": False,
                 "disable-sprint-interruption-on-attack": False,
+                "legacy-ender-pearl-behavior": False,
                 "light-queue-size": 20,
-                "max-leash-distance": 10.0,
+                "max-leash-distance": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 19), Version(1, 21), 10.0),
+                    VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
+                ]),
                 "redstone-implementation": "VANILLA",
                 "shield-blocking-delay": 5,
                 "show-sign-click-command-failure-msgs-to-player": False,
@@ -681,6 +793,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "wet-farmland": 1
             },
             "unsupported-settings": {
+                "disable-world-ticking-when-empty": False,
                 "fix-invulnerable-end-crystal-exploit": True
             }
         }
