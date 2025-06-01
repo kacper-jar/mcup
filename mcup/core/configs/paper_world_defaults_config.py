@@ -370,12 +370,12 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "engine-mode": 1,
                     "hidden-blocks": VersionDependantVariablePicker([
                         VersionDependantVariable(Version(1, 19), Version(1, 20, 1), [
-                        "copper_ore", "deepslate_copper_ore", "gold_ore", "deepslate_gold_ore",
-                        "iron_ore", "deepslate_iron_ore", "coal_ore", "deepslate_coal_ore",
-                        "lapis_ore", "deepslate_lapis_ore", "mossy_cobblestone", "obsidian",
-                        "chest", "diamond_ore", "deepslate_diamond_ore", "redstone_ore",
-                        "deepslate_redstone_ore", "clay", "emerald_ore", "deepslate_emerald_ore",
-                        "ender_chest"
+                            "copper_ore", "deepslate_copper_ore", "gold_ore", "deepslate_gold_ore",
+                            "iron_ore", "deepslate_iron_ore", "coal_ore", "deepslate_coal_ore",
+                            "lapis_ore", "deepslate_lapis_ore", "mossy_cobblestone", "obsidian",
+                            "chest", "diamond_ore", "deepslate_diamond_ore", "redstone_ore",
+                            "deepslate_redstone_ore", "clay", "emerald_ore", "deepslate_emerald_ore",
+                            "ender_chest"
                         ]),
                         VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, [
                             "copper_ore", "deepslate_copper_ore", "raw_copper_block", "gold_ore", "deepslate_gold_ore",
