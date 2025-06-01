@@ -7,7 +7,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
     def __init__(self):
         """Initialize the paper-world-defaults.yml configuration with default values."""
         self.config_file_name = "paper-world-defaults.yml"
-        self.config_file_path = "."
+        self.config_file_path = "/config"
 
         self.configuration = {
             "_version": None,  # <--- This needs to be changed based on the server version.
