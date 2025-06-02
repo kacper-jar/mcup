@@ -17,7 +17,7 @@ class PaperGlobalConfig(ConfigFile):
                         "all-models": {
                             "also-obfuscate": None,
                             "dont-obfuscate": None,
-                            "sanitize-count": True
+                            "sanitize-count": None
                         },
                         "enable-item-obfuscation": None,
                         "model-overrides": {
