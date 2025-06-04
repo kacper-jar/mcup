@@ -56,6 +56,8 @@ Clone this repository and run the appropriate script:
 ```sh
 git clone https://github.com/kacper-jar/mcup.git
 cd mcup
+
+# Run the appropriate script
 ./mcup.sh   # Linux / macOS
 mcup.bat    # Windows
 ```
