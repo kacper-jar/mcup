@@ -2,7 +2,7 @@ from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig, \
     StartScript, PaperWorldDefaultsConfig
 from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector, \
-    StartScriptCollector
+    StartScriptCollector, PaperGlobalCollector, PaperWorldDefaultsCollector
 from mcup.core.utils.version import Version
 
 
@@ -43,11 +43,17 @@ class ServerConfigsCollector:
         if "paper-global" in configs:
             paper_global_config = PaperGlobalConfig()
             paper_global_config.set_configuration_default_property("_version", version)
+            paper_global_config_collector = PaperGlobalCollector()
+            output = paper_global_config_collector.start_collector(version)
+            paper_global_config.set_configuration_properties(output, version)
             assembler_linker_config.add_configuration_file(paper_global_config)
 
         if "paper-world-defaults" in configs:
             paper_world_defaults_config = PaperWorldDefaultsConfig()
             paper_world_defaults_config.set_configuration_default_property("_version", version)
+            paper_world_defaults_config_collector = PaperWorldDefaultsCollector()
+            output = paper_world_defaults_config_collector.start_collector(version)
+            paper_world_defaults_config.set_configuration_properties(output, version)
             assembler_linker_config.add_configuration_file(paper_world_defaults_config)
 
         create_start_script = input("Create start script? (Y/n): ").strip().lower() in ["y", ""]
