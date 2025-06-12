@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-
+from mcup.cli.language import Language
 from .collector_input_type import CollectorInputType
 
 
@@ -65,7 +65,8 @@ class Collector:
             case _:
                 example_input = ""
 
-        var = input(f"{section_input.get_variable_prompt()} ({example_input}): ")
+        language = Language()
+        var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
 
         if var == "":
             return var
