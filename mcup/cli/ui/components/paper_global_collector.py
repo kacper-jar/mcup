@@ -283,7 +283,7 @@ class PaperGlobalCollector(Collector):
                 CollectorInput("unsupported-settings/update-equipment-on-player-actions", "",
                                CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
             ],
-            "Warning: It's recommended to leave all these settings as default"
+            "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Watchdog",

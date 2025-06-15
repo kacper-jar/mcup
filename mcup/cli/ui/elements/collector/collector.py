@@ -27,9 +27,11 @@ class Collector:
             if not section_inputs:
                 continue
 
+            language = Language()
+
             print(f"\n{section.get_section_title()}")
-            if section.get_section_header() != "":
-                print(section.get_section_header())
+            if section.get_section_header_key() != "":
+                print(language.get_string(section.get_section_header_key()))
             use_default = input("Use default configuration? (Y/n): ").strip().lower() in ["y", ""]
 
             for section_input in section_inputs:

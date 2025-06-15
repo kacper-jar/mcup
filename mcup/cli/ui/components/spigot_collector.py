@@ -249,5 +249,5 @@ class SpigotCollector(Collector):
                                "COLLECTOR_SPIGOT_WORLD_SETTINGS_CLEAR_TICK_LIST",
                                CollectorInputType.BOOL, Version(1, 8, 0), LATEST_VERSION),
             ],
-            "Warning: It's recommended to leave all these settings as default"
+            "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))

@@ -10,7 +10,7 @@ class CollectorSection:
     """Class representing a collector section."""
     section_title: str
     section_inputs: list["CollectorInput"]
-    section_header: str = ""
+    section_header_key: str = ""
 
     def get_section_title(self) -> str:
         """Get the title of the section."""
@@ -20,6 +20,6 @@ class CollectorSection:
         """Get the inputs of the section."""
         return self.section_inputs
 
-    def get_section_header(self) -> str:
-        """Get the header of the section."""
-        return self.section_header
+    def get_section_header_key(self) -> str:
+        """Get the key of the sections header."""
+        return self.section_header_key

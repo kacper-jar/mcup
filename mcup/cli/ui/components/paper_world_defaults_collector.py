@@ -498,5 +498,5 @@ class PaperWorldDefaultsCollector(Collector):
                 CollectorInput("unsupported-settings/fix-invulnerable-end-crystal-exploit", "", CollectorInputType.BOOL,
                                Version(1, 19), LATEST_VERSION)
             ],
-            "Warning: It's recommended to leave all these settings as default"
+            "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))

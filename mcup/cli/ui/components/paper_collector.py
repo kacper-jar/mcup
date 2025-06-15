@@ -220,5 +220,5 @@ class PaperCollector(Collector):
                                "COLLECTOR_PAPER_WORLD_SETTINGS_DISABLE_TELEPORTATION_SUFFOCATION_CHECK",
                                CollectorInputType.BOOL, Version(1, 8, 8), LATEST_VERSION),
             ],
-            "Warning: It's recommended to leave all these settings as default"
+            "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))

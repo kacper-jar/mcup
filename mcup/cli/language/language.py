@@ -274,6 +274,9 @@ class Language:
         "COLLECTOR_PAPER_WORLD_SETTINGS_WATER_OVER_LAVA_FLOW_SPEED": "Water over lava flow speed",
         "COLLECTOR_PAPER_WORLD_SETTINGS_DISABLE_TELEPORTATION_SUFFOCATION_CHECK": "Disable teleportation suffocation check",
 
+        # collector headers
+        "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
+
         # Server
         "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
                                 "(Azul Zulu JDK is recommended.)",
