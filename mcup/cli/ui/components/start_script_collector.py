@@ -9,11 +9,11 @@ class StartScriptCollector(Collector):
         self.add_section(CollectorSection(
             "Start Script Configuration",
             [
-                CollectorInput("screen-name", "Screen name", CollectorInputType.STRING,
+                CollectorInput("screen-name", "COLLECTOR_START_SCRIPT_SCREEN_NAME", CollectorInputType.STRING,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
-                CollectorInput("initial-heap", "Initial heap size (in MB)", CollectorInputType.INT,
+                CollectorInput("initial-heap", "COLLECTOR_START_SCRIPT_SCREEN_NAME", CollectorInputType.INT,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
-                CollectorInput("max-heap", "Maximum heap size (in MB)", CollectorInputType.INT,
+                CollectorInput("max-heap", "COLLECTOR_START_SCRIPT_MAX_HEAP", CollectorInputType.INT,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
             ]
         ))
