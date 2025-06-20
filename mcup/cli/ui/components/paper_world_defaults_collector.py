@@ -101,7 +101,7 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
                 CollectorInput("collisions/only-players-collide",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_COLLISIONS_ONLY_PLAYERS_COLLIDE",
-                               CollectorInputType.BOOL,Version(1, 19), LATEST_VERSION)
+                               CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
@@ -309,7 +309,7 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
                 CollectorInput("entities/spawning/despawn-ranges/axolotls/soft",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SPAWNING_DESPAWN_RANGES_AXOLOTLS_SOFT",
-                               CollectorInputType.INT,Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
                 CollectorInput("entities/spawning/despawn-ranges/creature/hard",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SPAWNING_DESPAWN_RANGES_CREATURE_HARD",
                                CollectorInputType.INT,  Version(1, 19), LATEST_VERSION),
