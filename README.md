@@ -82,6 +82,29 @@ mcup <command> [options]
 - `template refresh <template_name>` – Update a stored template with new download links from a locker file
 - `update` – Update the locker file with the latest server metadata
 
+## Build
+
+To build the project locally, clone this repository and run:
+
+```sh
+./build.sh
+```
+
+> [!NOTE]
+> You can disable Snap package creation by passing the `--skip-snap` flag:
+> 
+> ```sh
+> ./build.sh --skip-snap
+> ```
+
+> [!IMPORTANT]
+> If you're using LXD (only Snap builds), make sure your user is added to the `lxd` group:
+> 
+> ```sh
+> sudo usermod -aG lxd $USER
+> newgrp lxd
+> ```
+
 ## Locker System
 
 `mcup` maintains a list of supported server types and versions via a **locker file**, which contains metadata for downloading and configuring different server flavors.
