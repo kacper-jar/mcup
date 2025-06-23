@@ -63,7 +63,7 @@ APT_PACKAGES=(
     build-essential
     dh-python
 )
-sudo $UPDATE_CMD
+$UPDATE_CMD
 $INSTALL_CMD "${APT_PACKAGES[@]}"
 
 if [[ "$SKIP_SNAP" -eq 0 ]]; then
