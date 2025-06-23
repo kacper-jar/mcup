@@ -23,6 +23,65 @@ for arg in "$@"; do
     fi
 done
 
+if [[ "$SKIP_SNAP" -eq 0 && ! -x "$(command -v snap)" ]]; then
+    echo "⚠️  Snap is not installed on this system. Skipping snap build..."
+    SKIP_SNAP=1
+fi
+
+if command -v apt >/dev/null 2>&1; then
+    PKG_MANAGER="apt"
+    UPDATE_CMD="sudo apt update"
+    INSTALL_CMD="sudo apt install -y"
+elif command -v dnf >/dev/null 2>&1; then
+    PKG_MANAGER="dnf"
+    UPDATE_CMD="sudo dnf makecache"
+    INSTALL_CMD="sudo dnf install -y"
+elif command -v pacman >/dev/null 2>&1; then
+    PKG_MANAGER="pacman"
+    UPDATE_CMD="sudo pacman -Sy"
+    INSTALL_CMD="sudo pacman -S --noconfirm"
+elif command -v zypper >/dev/null 2>&1; then
+    PKG_MANAGER="zypper"
+    UPDATE_CMD="sudo zypper refresh"
+    INSTALL_CMD="sudo zypper install -y"
+else
+    echo "❌ Unsupported package manager. Install dependencies manually."
+    exit 1
+fi
+
+echo "📦 Installing APT dependencies..."
+APT_PACKAGES=(
+    python3
+    python3-all
+    python3-setuptools
+    python3-wheel
+    python3-hatchling
+    pybuild-plugin-pyproject
+    devscripts
+    debhelper
+    fakeroot
+    build-essential
+    dh-python
+)
+sudo $UPDATE_CMD
+$INSTALL_CMD "${APT_PACKAGES[@]}"
+
+if [[ "$SKIP_SNAP" -eq 0 ]]; then
+    echo "📦 Installing Snap dependencies..."
+    if ! snap list | grep -q snapcraft; then
+        sudo snap install snapcraft --classic
+    else
+        echo "✅ Snapcraft is already installed."
+    fi
+
+    if ! snap list | grep -q lxd; then
+        sudo snap install lxd
+        sudo lxd init --auto
+    else
+        echo "✅ LXD is already installed."
+    fi
+fi
+
 echo "🔧 Building $PROJECT_NAME version $VERSION..."
 
 echo "🧹 Cleaning build artifacts..."
@@ -36,7 +95,7 @@ else
         echo "📦 Building Snap with LXD..."
         snapcraft --use-lxd --output "$SNAP_NAME"
     else
-        echo "⚠️ LXD not found."
+        echo "⚠️ LXD not found or not working."
         echo "📦 Building Snap using destructive mode (may be fragile)..."
         snapcraft --destructive-mode --output "$SNAP_NAME"
     fi
