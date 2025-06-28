@@ -128,11 +128,7 @@ Locker updates check the last commit date on GitHub to determine if a new versio
 
 ## Contributing
 
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
+Contributions are welcome! Please follow guidelines in [CONTRIBUTING.md](https://github.com/kacper-jar/mcup/blob/master/CONTRIBUTING.md).
 
 For major changes, open an issue first to discuss what you’d like to change.
 
