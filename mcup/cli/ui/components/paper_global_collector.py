@@ -220,7 +220,21 @@ class PaperGlobalCollector(Collector):
                                CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
             ]
         ))
-        # TODO: implement collector section for packet-limiter
+        self.add_section(CollectorSection(
+            "Paper (Global) - Packet Limiter",
+            [
+                CollectorInput("packet-limiter/all-packets/action", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("packet-limiter/all-packets/interval", "",
+                               CollectorInputType.FLOAT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("packet-limiter/all-packets/max-packet-rate", "",
+                               CollectorInputType.FLOAT, Version(1, 19), LATEST_VERSION),
+                CollectorInput("packet-limiter/kick-message", "",
+                               CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
+                CollectorInput("packet-limiter/overrides", "",
+                               CollectorInputType.STRING_LIST, Version(1, 19), LATEST_VERSION),
+            ]
+        ))
         self.add_section(CollectorSection(
             "Paper (Global) - Player Auto-save",
             [

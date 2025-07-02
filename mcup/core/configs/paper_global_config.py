@@ -133,13 +133,7 @@ class PaperGlobalConfig(ConfigFile):
                     "max-packet-rate": None
                 },
                 "kick-message": None,
-                "overrides": {
-                    "ServerboundPlaceRecipePacket": {
-                        "action": None,
-                        "interval": None,
-                        "max-packet-rate": None
-                    }
-                }
+                "overrides": None
             },
             "player-auto-save": {
                 "max-per-tick": None,
@@ -340,13 +334,7 @@ class PaperGlobalConfig(ConfigFile):
                     "max-packet-rate": 500.0
                 },
                 "kick-message": "<red><lang:disconnect.exceeded_packet_rate>",
-                "overrides": {
-                    "ServerboundPlaceRecipePacket": {
-                        "action": "DROP",
-                        "interval": 4.0,
-                        "max-packet-rate": 5.0
-                    }
-                }
+                "overrides": []
             },
             "player-auto-save": {
                 "max-per-tick": -1,
