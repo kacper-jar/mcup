@@ -6,8 +6,23 @@ class PaperGlobalCollector(Collector):
     def __init__(self):
         super().__init__()
 
-        # TODO: implement collector section for anticheat
-
+        self.add_section(CollectorSection(
+            "Paper (Global) - Anti-cheat",
+            [
+                CollectorInput("anticheat/obfuscation/items/all-models/also-obfuscate",
+                               "",
+                               CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
+                CollectorInput("anticheat/obfuscation/items/all-models/dont-obfuscate",
+                               "",
+                               CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
+                CollectorInput("anticheat/obfuscation/items/all-models/sanitize-count",
+                               "",
+                               CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
+                CollectorInput("anticheat/obfuscation/items/enable-item-obfuscation",
+                               "",
+                               CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
+            ]
+        ))
         self.add_section(CollectorSection(
             "Paper (Global) - Block Updates",
             [

@@ -20,13 +20,7 @@ class PaperGlobalConfig(ConfigFile):
                             "sanitize-count": None
                         },
                         "enable-item-obfuscation": None,
-                        "model-overrides": {
-                            "minecraft:elytra": {
-                                "also-obfuscate": None,
-                                "dont-obfuscate": None,
-                                "sanitize-count": None
-                            }
-                        }
+                        "model-overrides": None
                     }
                 }
             },
@@ -213,15 +207,7 @@ class PaperGlobalConfig(ConfigFile):
                             "sanitize-count": True
                         },
                         "enable-item-obfuscation": False,
-                        "model-overrides": {
-                            "minecraft:elytra": {
-                                "also-obfuscate": [],
-                                "dont-obfuscate": [
-                                    "minecraft:damage"
-                                ],
-                                "sanitize-count": True
-                            }
-                        }
+                        "model-overrides": {}
                     }
                 }
             },
