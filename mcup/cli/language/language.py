@@ -275,6 +275,10 @@ class Language:
         "COLLECTOR_PAPER_WORLD_SETTINGS_DISABLE_TELEPORTATION_SUFFOCATION_CHECK": "Disable teleportation suffocation check",
 
         # Paper Global collector
+        "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_ALSO_OBFUSCATE": "Data components to hide from other players",
+        "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_DONT_OBFUSCATE": "Data components to not hide from other players",
+        "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_SANITIZE_COUNT": "Hide item counts from other players",
+        "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ENABLE_ITEM_OBFUSCATION": "Send unnecessary data to other players",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_CHORUS_PLANT_UPDATES": "Disable block updates for chorus plants",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_MUSHROOM_BLOCK_UPDATES": "Disable block updates for mushroom blocks",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_NOTEBLOCK_UPDATES": "Disable block updates for noteblocks",
@@ -333,6 +337,11 @@ class Language:
         "COLLECTOR_PAPER_GLOBAL_MISC_STRICT_ADVANCEMENT_DIMENSION_CHECK": "Enable strict advancement dimension check",
         "COLLECTOR_PAPER_GLOBAL_MISC_USE_ALTERNATIVE_LUCK_FORMULA": "Use an alternative luck formula",
         "COLLECTOR_PAPER_GLOBAL_MISC_USE_DIMENSION_TYPE_FOR_CUSTOM_SPAWNERS": "Use dimension type for custom spawners",
+        "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_ACTION": "Action after limit is exceeded",
+        "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_INTERVAL": "Interval on which max packet rate applies",
+        "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_MAX_PACKET_RATE": "Number of packets that are allowed per player within the interval",
+        "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_KICK_MESSAGE": "Message sent to player when they exceed max packet rate",
+        "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_OVERRIDES": "Override individual packet limits",
         "COLLECTOR_PAPER_GLOBAL_PLAYER_AUTO_SAVE_MAX_PER_TICK": "Amount of players that are auto-saved at most in a single tick",
         "COLLECTOR_PAPER_GLOBAL_PLAYER_AUTO_SAVE_RATE": "Player auto-save rate",
         "COLLECTOR_PAPER_GLOBAL_PROXIES_BUNGEE_CORD_ONLINE_MODE": "Use online mode for Bungeecord",

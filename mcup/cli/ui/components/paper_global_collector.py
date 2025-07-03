@@ -10,18 +10,19 @@ class PaperGlobalCollector(Collector):
             "Paper (Global) - Anti-cheat",
             [
                 CollectorInput("anticheat/obfuscation/items/all-models/also-obfuscate",
-                               "",
+                               "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_ALSO_OBFUSCATE",
                                CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
                 CollectorInput("anticheat/obfuscation/items/all-models/dont-obfuscate",
-                               "",
+                               "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_DONT_OBFUSCATE",
                                CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
                 CollectorInput("anticheat/obfuscation/items/all-models/sanitize-count",
-                               "",
+                               "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_SANITIZE_COUNT",
                                CollectorInputType.BOOL, Version(1, 21, 4), LATEST_VERSION),
                 CollectorInput("anticheat/obfuscation/items/enable-item-obfuscation",
-                               "",
+                               "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ENABLE_ITEM_OBFUSCATION",
                                CollectorInputType.STRING_LIST, Version(1, 21, 4), LATEST_VERSION),
-            ]
+            ],
+            "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))
         self.add_section(CollectorSection(
             "Paper (Global) - Block Updates",
@@ -238,15 +239,20 @@ class PaperGlobalCollector(Collector):
         self.add_section(CollectorSection(
             "Paper (Global) - Packet Limiter",
             [
-                CollectorInput("packet-limiter/all-packets/action", "",
+                CollectorInput("packet-limiter/all-packets/action",
+                               "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_ACTION",
                                CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
-                CollectorInput("packet-limiter/all-packets/interval", "",
+                CollectorInput("packet-limiter/all-packets/interval",
+                               "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_INTERVAL",
                                CollectorInputType.FLOAT, Version(1, 19), LATEST_VERSION),
-                CollectorInput("packet-limiter/all-packets/max-packet-rate", "",
+                CollectorInput("packet-limiter/all-packets/max-packet-rate",
+                               "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_MAX_PACKET_RATE",
                                CollectorInputType.FLOAT, Version(1, 19), LATEST_VERSION),
-                CollectorInput("packet-limiter/kick-message", "",
+                CollectorInput("packet-limiter/kick-message",
+                               "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_KICK_MESSAGE",
                                CollectorInputType.STRING, Version(1, 19), LATEST_VERSION),
-                CollectorInput("packet-limiter/overrides", "",
+                CollectorInput("packet-limiter/overrides",
+                               "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_OVERRIDES",
                                CollectorInputType.STRING_LIST, Version(1, 19), LATEST_VERSION),
             ]
         ))
