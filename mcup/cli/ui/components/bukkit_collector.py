@@ -28,9 +28,9 @@ class BukkitCollector(Collector):
                 CollectorInput("settings/update-folder", "COLLECTOR_BUKKIT_UPDATE_FOLDER", CollectorInputType.STRING,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("settings/ping-packet-limit", "COLLECTOR_BUKKIT_PING_PACKET_LIMIT",
-                               CollectorInputType.INT, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.INT, Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("settings/use-exact-login-location", "COLLECTOR_BUKKIT_USE_EXACT_LOGIN_LOCATION",
-                               CollectorInputType.BOOL, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.BOOL, Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("settings/plugin-profiling", "COLLECTOR_BUKKIT_PROFILE_PLUGINS", CollectorInputType.BOOL,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("settings/connection-throttle", "COLLECTOR_BUKKIT_CONNECTION_THROTTLE",
@@ -69,7 +69,7 @@ class BukkitCollector(Collector):
                 CollectorInput("chunk-gc/period-in-ticks", "COLLECTOR_BUKKIT_CHUNK_GC_PERIOD", CollectorInputType.INT,
                                Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("chunk-gc/load-threshold", "COLLECTOR_BUKKIT_CHUNK_GC_LOAD_THRESHOLD",
-                               CollectorInputType.INT, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.INT, Version(1, 8, 0), Version(1, 21, 5)),
             ]
         ))
         self.add_section(CollectorSection(
@@ -98,17 +98,17 @@ class BukkitCollector(Collector):
             "Bukkit - Auto-Updater Settings",
             [
                 CollectorInput("auto-updater/enabled", "COLLECTOR_BUKKIT_AUTO_UPDATER_ENABLED", CollectorInputType.BOOL,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("auto-updater/on-broken", "COLLECTOR_BUKKIT_AUTO_UPDATER_ON_BROKEN",
-                               CollectorInputType.STRING_LIST, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.STRING_LIST, Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("auto-updater/on-update", "COLLECTOR_BUKKIT_AUTO_UPDATER_ON_UPDATE",
-                               CollectorInputType.STRING_LIST, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.STRING_LIST, Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("auto-updater/preferred-channel", "COLLECTOR_BUKKIT_AUTO_UPDATER_PREFERRED_CHANNEL",
-                               CollectorInputType.STRING, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.STRING, Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("auto-updater/host", "COLLECTOR_BUKKIT_AUTO_UPDATER_HOST", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("auto-updater/suggest-channels", "COLLECTOR_BUKKIT_AUTO_UPDATER_SUGGEST_CHANNELS",
-                               CollectorInputType.BOOL, Version(1, 8, 0), LATEST_VERSION),
+                               CollectorInputType.BOOL, Version(1, 8, 0), Version(1, 21, 5)),
             ]
         ))
         self.add_section(CollectorSection(
@@ -122,14 +122,14 @@ class BukkitCollector(Collector):
             "Bukkit - Database Connection",
             [
                 CollectorInput("database/username", "COLLECTOR_BUKKIT_DATABASE_USERNAME", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("database/isolation", "COLLECTOR_BUKKIT_DATABASE_ISOLATION", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("database/driver", "COLLECTOR_BUKKIT_DATABASE_DRIVER", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("database/password", "COLLECTOR_BUKKIT_DATABASE_PASSWORD", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
                 CollectorInput("database/url", "COLLECTOR_BUKKIT_DATABASE_URL", CollectorInputType.STRING,
-                               Version(1, 8, 0), LATEST_VERSION),
+                               Version(1, 8, 0), Version(1, 21, 5)),
             ]
         ))

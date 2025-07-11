@@ -1,4 +1,5 @@
 from mcup.core.configs import ConfigFile
+from mcup.core.utils.version import VersionDependantVariablePicker, VersionDependantVariable, Version, LATEST_VERSION
 
 
 class BukkitConfig(ConfigFile):
@@ -20,8 +21,8 @@ class BukkitConfig(ConfigFile):
                 "warn-on-overload": None,
                 "permissions-file": None,
                 "update-folder": None,
-                "ping-packet-limit": None,
-                "use-exact-login-location": None,
+                "ping-packet-limit": None,  # 1.8-1.21.5
+                "use-exact-login-location": None,  # 1.8-1.21.5
                 "plugin-profiling": None,
                 "connection-throttle": None,
                 "query-plugins": None,
@@ -39,7 +40,7 @@ class BukkitConfig(ConfigFile):
             },
             "chunk-gc": {
                 "period-in-ticks": None,
-                "load-threshold": None
+                "load-threshold": None  # 1.8-1.21.5
             },
             "ticks-per": {
                 "water-spawns": None,  # 1.15.2+
@@ -51,7 +52,7 @@ class BukkitConfig(ConfigFile):
                 "monster-spawns": None,
                 "autosave": None
             },
-            "auto-updater": {
+            "auto-updater": {  # 1.8-1.21.5
                 "enabled": None,
                 "on-broken": None,
                 "on-update": None,
@@ -60,7 +61,7 @@ class BukkitConfig(ConfigFile):
                 "suggest-channels": None
             },
             "aliases": None,
-            "database": {
+            "database": {  # 1.8-1.21.5
                 "username": None,
                 "isolation": None,
                 "driver": None,
@@ -94,7 +95,10 @@ class BukkitConfig(ConfigFile):
                 "water-underground-creature": 5,
                 "axolotls": 5,
                 "monsters": 70,
-                "animals": 15,
+                "animals": VersionDependantVariablePicker([
+                    VersionDependantVariable(Version(1, 8, 0), Version(1, 21, 5), 15),
+                    VersionDependantVariable(Version(1, 21, 6), LATEST_VERSION, 10)
+                ]),
                 "water-animals": 5,
                 "ambient": 15
             },
