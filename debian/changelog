@@ -1,5 +1,5 @@
-mcup (1.0.0-beta1) UNRELEASED; urgency=medium
+mcup (1.0.0-beta1) unstable; urgency=medium
 
-  * Initial release. (Closes: #XXXXXX)
+  * Initial beta release.
 
- -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Mon, 12 May 2025 18:37:53 +0200
+ -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Fri, 11 Jul 2025 22:31:16 +0200
