@@ -111,14 +111,16 @@ class PaperGlobalConfig(ConfigFile):
                 },
                 "client-interaction-leniency-distance": None,  # 1.21+
                 "compression-level": None,  # 1.20.1+
-                "fix-entity-position-desync": None,
+                "fix-entity-position-desync": None,  # 1.19-1.21.4
                 "lag-compensate-block-breaking": None,  # 1.19-1.20
                 "load-permissions-yml-before-plugins": None,
-                "max-joins-per-tick": None,
+                "max-joins-per-tick": None,  # 1.21.6+
                 "region-file-cache-size": None,
+                "send-full-pos-for-item-entities": None,  # 1.21.6+
                 "strict-advancement-dimension-check": None,
                 "use-alternative-luck-formula": None,
-                "use-dimension-type-for-custom-spawners": None
+                "use-dimension-type-for-custom-spawners": None,
+                "xp-orb-groups-per-area": None  # 1.21.6+
             },
             "packet-limiter": {
                 "all-packets": {
@@ -180,7 +182,7 @@ class PaperGlobalConfig(ConfigFile):
                 "allow-unsafe-end-portal-teleportation": None,  # 1.20.4+
                 "compression-format": None,  # 1.20.1+
                 "perform-username-validation": None,
-                "simplify-remote-item-matching": None,  # 1.21.1+
+                "simplify-remote-item-matching": None,  # 1.21.1-1.21.4
                 "skip-tripwire-hook-placement-validation": None,  # 1.21.4+
                 "skip-vanilla-damage-tick-when-shield-blocked": None,  # 1.20.6+
                 "update-equipment-on-player-actions": None  # 1.21.4+
@@ -308,10 +310,13 @@ class PaperGlobalConfig(ConfigFile):
                     VersionDependantVariable(Version(1, 19), Version(1, 19, 2), 3),
                     VersionDependantVariable(Version(1, 19, 3), LATEST_VERSION, 5)
                 ]),
+                "prevent-negative-villager-demand": False,
                 "region-file-cache-size": 256,
+                "send-full-pos-for-item-entities": False,
                 "strict-advancement-dimension-check": False,
                 "use-alternative-luck-formula": False,
-                "use-dimension-type-for-custom-spawners": False
+                "use-dimension-type-for-custom-spawners": False,
+                "xp-orb-groups-per-area": "default"
             },
             "packet-limiter": {
                 "all-packets": {

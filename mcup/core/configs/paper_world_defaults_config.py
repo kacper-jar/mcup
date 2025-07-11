@@ -599,7 +599,14 @@ class PaperWorldDefaultsConfig(ConfigFile):
                         "safe-regen-delete-range": 32
                     },
                     "filter-bad-tile-entity-nbt-from-falling-blocks": True,
-                    "filtered-entity-tag-nbt-paths": ['Pos', 'Motion', 'SleepingX', 'SleepingY', 'SleepingZ'],
+                    "filtered-entity-tag-nbt-paths": VersionDependantVariablePicker([
+                        VersionDependantVariable(Version(1, 19, 3), Version(1, 21, 4), [
+                            'Pos', 'Motion', 'SleepingX', 'SleepingY', 'SleepingZ'
+                        ]),
+                        VersionDependantVariable(Version(1, 21, 6), LATEST_VERSION, [
+                            'Pos', 'Motion', 'sleeping_pos'
+                        ])
+                    ]),
                     "filter-nbt-data-from-spawn-eggs-and-related": True,
                     "iron-golems-can-spawn-in-air": False,
                     "monster-spawn-max-light-level": VersionDependantVariablePicker([
