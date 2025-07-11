@@ -21,7 +21,7 @@ Install from the Snap Store:
 sudo snap install mcup
 ```
 
-Or install from a local `.snap` file:
+Or install from a local `.snap` file (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
 
 ```sh
 sudo snap install --dangerous ./mcup_*.snap
@@ -32,14 +32,11 @@ sudo snap install --dangerous ./mcup_*.snap
 
 ### 🧊 APT / .deb (Linux)
 
-Install via APT repository (if available):
+> [!NOTE]
+> An APT release is planned.
+> In the meantime, please use the Snapcraft version or install mcup using the `.deb` file.
 
-```sh
-sudo apt update
-sudo apt install mcup
-```
-
-Or install from a local `.deb` package:
+Install from a local `.deb` package (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
 
 ```sh
 sudo dpkg -i ./mcup_*.deb
