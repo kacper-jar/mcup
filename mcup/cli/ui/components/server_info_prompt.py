@@ -51,6 +51,8 @@ class ServerInfoPrompt:
                     target = version["url"]
                 elif source == "BUILDTOOLS":
                     target = version["target"]
+                else:
+                    raise Exception(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", source))
                 configs = version["configs"]
                 break
         if not is_valid_server_version:

@@ -58,6 +58,9 @@ class ServerHandler:
             else:
                 yield Status(StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED, str(response.status_code))
                 return
+        else:
+            yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, source)
+            return
 
             if not os.path.exists(file_path):
                 yield Status(StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND)

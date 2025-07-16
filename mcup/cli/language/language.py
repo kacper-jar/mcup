@@ -624,6 +624,8 @@ class Language:
         "ERROR_BUILD_TOOLS_NOT_FOUND": "Spigot BuildTools not found.",
         "ERROR_SERVER_JAR_NOT_FOUND": "Server JAR file not found. "
                                       "Check BuildTools.log.txt in server folder for more info.",
+        "ERROR_SERVER_SOURCE_NOT_SUPPORTED": "Unsupported server source type: {}. Try updating locker file and make"
+                                             " sure your mcup installation is up-to-date.",
         "SUCCESS_SERVER": "Server created successfully.",
 
         # Template

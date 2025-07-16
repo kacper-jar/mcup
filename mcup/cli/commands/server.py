@@ -68,5 +68,8 @@ class ServerCommand:
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print(language.get_string("ERROR_SERVER_JAR_NOT_FOUND"))
+                    case StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED:
+                        progress.stop()
+                        print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", status.status_details))
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")
