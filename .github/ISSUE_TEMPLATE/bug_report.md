@@ -32,6 +32,8 @@ Logs can help determine what happened and what core issue is. They can be found 
 **Desktop (please complete the following information):**
  - OS: [e.g. Ubuntu 21]
  - mcup version [e.g. 1.0.0-beta1]
+ - Installation method: [e.g. Snapcraft, GitHub release, source]
+ - Release channel (if installed via Snapcraft) [e.g. stable, beta, edge]
 
 **Additional context**
 Add any other context about the problem here.
