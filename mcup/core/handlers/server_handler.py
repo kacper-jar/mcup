@@ -58,9 +58,6 @@ class ServerHandler:
             else:
                 yield Status(StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED, str(response.status_code))
                 return
-        else:
-            yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, source)
-            return
 
             if not os.path.exists(file_path):
                 yield Status(StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND)
@@ -109,6 +106,9 @@ class ServerHandler:
                     os.remove(full_path)
                 elif os.path.isdir(full_path):
                     shutil.rmtree(full_path)
+        else:
+            yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, source)
+            return
 
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
         config_files = assembler_linker_config.get_configuration_files()
