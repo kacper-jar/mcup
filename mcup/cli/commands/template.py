@@ -7,7 +7,7 @@ from mcup.cli.language import Language
 from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 from mcup.core.handlers.template_handler import TemplateHandler
 from mcup.core.status import StatusCode
-from mcup.core.utils.locker import LockerManager
+from mcup.core.utils.locker import LockerUpdater
 from mcup.core.utils.path import PathProvider
 
 
@@ -16,7 +16,7 @@ class TemplateCommand:
     def create(args):
         """Handles 'mcup template create <template_name>' command."""
         template_name = args.template_name
-        locker = LockerManager()
+        locker = LockerUpdater()
         path_provider = PathProvider()
 
         if os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):

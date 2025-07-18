@@ -9,10 +9,10 @@ from mcup.core.status import Status, StatusCode
 from mcup.core.utils.path import PathProvider
 
 
-class LockerManager:
-    """Manages the locker file that contains server information and versions."""
+class LockerUpdater:
+    """Updates and loads the locker file that contains server information and versions."""
     def __init__(self):
-        """Initialize the locker manager with default paths and URLs."""
+        """Initialize the locker updater with default paths and URLs."""
         self.logger = logging.getLogger(__name__)
 
         path_provider = PathProvider()

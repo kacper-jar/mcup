@@ -4,7 +4,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskPr
 from mcup.cli.language import Language
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import StatusCode
-from mcup.core.utils.locker import LockerManager
+from mcup.core.utils.locker import LockerUpdater
 from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 
 
@@ -13,7 +13,7 @@ class ServerCommand:
     def create(args):
         """Handles 'mcup server create [path]' command."""
         server_path = Path(args.path).resolve()
-        locker = LockerManager()
+        locker = LockerUpdater()
         language = Language()
 
         print(f"Creating a Minecraft server in: {server_path}")

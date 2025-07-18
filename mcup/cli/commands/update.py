@@ -1,6 +1,6 @@
 from mcup.cli.language import Language
 from mcup.core.status import StatusCode
-from mcup.core.utils.locker import LockerManager
+from mcup.core.utils.locker import LockerUpdater
 
 
 class UpdateCommand:
@@ -8,7 +8,7 @@ class UpdateCommand:
     def run(args):
         """Handles 'mcup update' command."""
         language = Language()
-        locker_manager = LockerManager()
+        locker_manager = LockerUpdater()
 
         for status in locker_manager.update_locker():
             match status.status_code:
