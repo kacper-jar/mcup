@@ -1,3 +1,3 @@
-from .locker_manager import LockerManager
+from .locker_updater import LockerUpdater
 
-__all__ = ["LockerManager"]
+__all__ = ["LockerUpdater"]

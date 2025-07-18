@@ -1,11 +1,11 @@
 from mcup.cli.language import Language
 from mcup.core.status import StatusCode
-from mcup.core.utils.locker import LockerManager
+from mcup.core.utils.locker import LockerUpdater
 
 
 class ServerInfoPrompt:
     @staticmethod
-    def get_server_info(locker: LockerManager):
+    def get_server_info(locker: LockerUpdater):
         language = Language()
 
         for status in locker.load_locker():

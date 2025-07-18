@@ -7,7 +7,7 @@ from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import Status, StatusCode
 from mcup.core.template import Template, TemplateManager
-from mcup.core.utils.locker import LockerManager
+from mcup.core.utils.locker import LockerUpdater
 from mcup.core.utils.path import PathProvider
 
 
@@ -151,7 +151,7 @@ class TemplateHandler:
 
     def refresh_template(self, template_name) -> Iterator[Status]:
         path_provider = PathProvider()
-        locker_manager = LockerManager()
+        locker_manager = LockerUpdater()
 
         template_path = f"{path_provider.get_templates_path()}/{template_name}.json"
 
