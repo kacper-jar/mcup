@@ -103,8 +103,9 @@ class LockerUpdater:
             yield Status(StatusCode.ERROR_LOCKER_META_READ_FAILED, err)
 
         if remote_date <= local_date and not force_update:
-            yield Status(StatusCode.INFO_LOCKER_UP_TO_DATE)
-            return
+            if os.path.exists(self.locker_path):
+                yield Status(StatusCode.INFO_LOCKER_UP_TO_DATE)
+                return
 
         yield Status(StatusCode.INFO_LOCKER_UPDATING)
         download_result, err = self._download_locker_file()
