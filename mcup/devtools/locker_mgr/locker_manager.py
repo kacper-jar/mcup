@@ -236,7 +236,6 @@ class LockerManager:
             destination.parent.mkdir(parents=True, exist_ok=True)
 
             locker_data = LockerManager.load_locker()
-            print(f"locker data: {locker_data}")
             LockerManager.save_locker(locker_data, destination)
 
             print(f"Locker file exported successfully to {destination}.")
