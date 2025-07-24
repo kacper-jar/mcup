@@ -1,4 +1,6 @@
 import json
+import os
+from pathlib import Path
 
 from mcup.cli.language import Language
 from mcup.core.status import StatusCode
@@ -53,9 +55,13 @@ class LockerManager:
         return None
 
     @staticmethod
-    def save_locker(locker_data):
+    def save_locker(locker_data, path=None):
         """Save the locker data to locker.json."""
-        locker_file = LockerManager._get_locker_file()
+        if path is None:
+            locker_file = LockerManager._get_locker_file()
+        else:
+            locker_file = Path(path)
+
         with open(locker_file, 'w') as file:
             json.dump(locker_data, file, indent=4)
 
@@ -196,3 +202,25 @@ class LockerManager:
                 print(f"    3rd Party Warning: {'Yes' if version['3rd_party_warning'] else 'No'}")
                 print(f"    Configs: {version['configs']}")
             print("-" * 40)
+
+    @staticmethod
+    def export_locker(args):
+        """Export the locker file."""
+        destination = Path(args.destination)
+
+        locker_path = PathProvider().get_config_path() / "locker.json"
+
+        if not locker_path.exists():
+            print(f'Locker file "{locker_path}" does not exist.')
+            return
+
+        try:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+
+            locker_data = LockerManager.load_locker()
+            print(f"locker data: {locker_data}")
+            LockerManager.save_locker(locker_data, destination)
+
+            print(f"Locker file exported successfully to {destination}.")
+        except Exception as e:
+            print(f"Failed to export locker file: {e}")

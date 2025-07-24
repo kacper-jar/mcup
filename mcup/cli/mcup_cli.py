@@ -129,6 +129,10 @@ class McupCLI:
             list_locker_parser = locker_mgr_subparsers.add_parser("list", help="List all server types and versions")
             list_locker_parser.set_defaults(func=LockerManager.list_locker)
 
+            export_locker_parser = locker_mgr_subparsers.add_parser("export", help="Export the locker file")
+            export_locker_parser.add_argument("destination", help="Destination path for the exported locker file")
+            export_locker_parser.set_defaults(func=LockerManager.export_locker)
+
     def run(self):
         """Parse and execute the given command."""
         args = self.parser.parse_args()
