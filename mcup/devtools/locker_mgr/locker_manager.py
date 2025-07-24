@@ -1,5 +1,4 @@
 import json
-import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -27,7 +26,7 @@ class LockerManager:
         elif value.lower() in {'true', '1', 'yes', 'on'}:
             return True
         else:
-            raise ValueError(f"Invalid value for boolean.")
+            raise ValueError("Invalid value for boolean.")
 
     @staticmethod
     def load_locker():

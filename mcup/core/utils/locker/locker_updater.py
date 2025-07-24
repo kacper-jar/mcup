@@ -11,6 +11,7 @@ from mcup.core.utils.path import PathProvider
 
 class LockerUpdater:
     """Updates and loads the locker file that contains server information and versions."""
+
     def __init__(self):
         """Initialize the locker updater with default paths and URLs."""
         self.logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ class LockerUpdater:
         """Updates locker-meta.json with the latest update timestamp."""
         try:
             with open(self.meta_path, "w", encoding="utf-8") as f:
-                json.dump({"last_updated": date, "is_modified": False }, f, indent=4)
+                json.dump({"last_updated": date, "is_modified": False}, f, indent=4)
             return True, None
         except IOError as e:
             self.logger.error(f"Failed to update locker-meta.json: {e}")
