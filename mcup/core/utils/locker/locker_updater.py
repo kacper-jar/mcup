@@ -25,6 +25,18 @@ class LockerUpdater:
         config_dir = path_provider.get_config_path()
         os.makedirs(config_dir, exist_ok=True)
 
+    def _check_if_modified(self):
+        """Check if the locker file is modified or not."""
+        if not os.path.exists(self.meta_path):
+            return False, None
+        try:
+            with open(self.meta_path, "r", encoding="utf-8") as f:
+                meta_data = json.load(f)
+            return meta_data.get("is_modified"), None
+        except (json.JSONDecodeError, IOError) as e:
+            self.logger.error(f"Failed to read locker-meta.json: {e}")
+            return None, e
+
     def _get_remote_last_update(self):
         """Fetches the last commit date from GitHub."""
         try:
@@ -52,7 +64,7 @@ class LockerUpdater:
         """Updates locker-meta.json with the latest update timestamp."""
         try:
             with open(self.meta_path, "w", encoding="utf-8") as f:
-                json.dump({"last_updated": date}, f, indent=4)
+                json.dump({"last_updated": date, "is_modified": False }, f, indent=4)
             return True, None
         except IOError as e:
             self.logger.error(f"Failed to update locker-meta.json: {e}")
@@ -70,8 +82,17 @@ class LockerUpdater:
             self.logger.error(f"Failed to download locker file: {e}")
             return False, e
 
-    def update_locker(self) -> Iterator[Status]:
+    def update_locker(self, force_update=False) -> Iterator[Status]:
         """Checks for updates and downloads the new locker.json if needed."""
+        is_modified, err = self._check_if_modified()
+        if is_modified is None:
+            yield Status(StatusCode.ERROR_LOCKER_META_READ_FAILED)
+            return
+
+        if is_modified and not force_update:
+            yield Status(StatusCode.INFO_LOCKER_MODIFIED)
+            return
+
         remote_date, err = self._get_remote_last_update()
         if not remote_date:
             yield Status(StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED, err)
@@ -81,7 +102,7 @@ class LockerUpdater:
         if local_date is None:
             yield Status(StatusCode.ERROR_LOCKER_META_READ_FAILED, err)
 
-        if remote_date <= local_date:
+        if remote_date <= local_date and not force_update:
             yield Status(StatusCode.INFO_LOCKER_UP_TO_DATE)
             return
 

@@ -16,6 +16,7 @@ class StatusCode(enum.Enum):
     INFO_JAVA_MINIMUM_17 = enum.auto()
     INFO_JAVA_MINIMUM_16 = enum.auto()
     INFO_JAVA_MINIMUM_8 = enum.auto()
+    INFO_LOCKER_MODIFIED = enum.auto()
     INFO_LOCKER_UP_TO_DATE = enum.auto()
     INFO_LOCKER_UPDATING = enum.auto()
 

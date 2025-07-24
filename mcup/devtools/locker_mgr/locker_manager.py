@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from mcup.cli.language import Language
@@ -12,8 +13,12 @@ class LockerManager:
     @staticmethod
     def _get_locker_file():
         """Get the path to the locker file."""
-        path_provider = PathProvider()
-        return path_provider.get_config_path() / "locker.json"
+        return PathProvider().get_config_path() / "locker.json"
+
+    @staticmethod
+    def _get_locker_meta_file():
+        """Get the path to the locker file."""
+        return PathProvider().get_config_path() / "locker-meta.json"
 
     @staticmethod
     def _get_bool(value):
@@ -34,6 +39,8 @@ class LockerManager:
             match status.status_code:
                 case StatusCode.INFO_LOCKER_UP_TO_DATE:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
+                case StatusCode.INFO_LOCKER_MODIFIED:
+                    print(language.get_string("INFO_LOCKER_MODIFIED"))
                 case StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string("INFO_LOCKER_UPDATING"))
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
@@ -59,11 +66,22 @@ class LockerManager:
         """Save the locker data to locker.json."""
         if path is None:
             locker_file = LockerManager._get_locker_file()
+            meta_file = LockerManager._get_locker_meta_file()
         else:
             locker_file = Path(path)
+            meta_file = None
 
-        with open(locker_file, 'w') as file:
-            json.dump(locker_data, file, indent=4)
+        with open(locker_file, 'w') as l_file:
+            json.dump(locker_data, l_file, indent=4)
+
+        if meta_file is not None:
+            with open(meta_file, 'w') as m_file:
+                meta = {
+                    "last_updated": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+                    "is_modified": True
+                }
+
+                json.dump(meta, m_file, indent=4)
 
     @staticmethod
     def initialize_locker(args):

@@ -175,6 +175,8 @@ class TemplateCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_TEMPLATE_REFRESH", template_name))
+                case StatusCode.INFO_LOCKER_MODIFIED:
+                    print(language.get_string("INFO_LOCKER_MODIFIED"))
                 case StatusCode.INFO_LOCKER_UP_TO_DATE:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:
