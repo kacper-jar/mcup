@@ -111,8 +111,8 @@ class McupCLI:
             add_version_parser.add_argument("url_target", help="URL for DOWNLOAD or target for BUILDTOOLS")
             add_version_parser.add_argument("supports_plugins", help="Whether the version supports plugins (true/false)")
             add_version_parser.add_argument("supports_mods", help="Whether the version supports mods (true/false)")
-            add_version_parser.add_argument("third_party_warning", help="Whether to show 3rd party warning (true/false)")
             add_version_parser.add_argument("--configs", nargs="*", help="Configuration files for the version")
+            add_version_parser.add_argument("--cleanup", nargs="*", help="Files to clean up for the version")
             add_version_parser.set_defaults(func=LockerManager.add_version)
 
             update_version_parser = locker_mgr_subparsers.add_parser("update-version", help="Update a version's URL")

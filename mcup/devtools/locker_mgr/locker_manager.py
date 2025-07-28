@@ -112,8 +112,8 @@ class LockerManager:
         url_target = args.url_target
         supports_plugins = args.supports_plugins
         supports_mods = args.supports_mods
-        third_party_warning = args.third_party_warning
         configs = args.configs if hasattr(args, 'configs') else None
+        cleanup = args.cleanup if hasattr(args, 'cleanup') else None
 
         locker_data = LockerManager.load_locker()
 
@@ -130,7 +130,6 @@ class LockerManager:
         else:
             supports_plugins = LockerManager._get_bool(supports_plugins)
             supports_mods = LockerManager._get_bool(supports_mods)
-            third_party_warning = LockerManager._get_bool(third_party_warning)
 
             if source == "DOWNLOAD":
                 new_version = {
@@ -138,19 +137,19 @@ class LockerManager:
                     "source": "DOWNLOAD",
                     "url": url_target,
                     "supports_plugins": supports_plugins,
-                    'supports_mods': supports_mods,
-                    '3rd_party_warning': third_party_warning,
-                    'configs': configs
+                    "supports_mods": supports_mods,
+                    "configs": configs,
+                    "cleanup": cleanup
                 }
             elif source == "BUILDTOOLS":
                 new_version = {
                     "version": version,
                     "source": "BUILDTOOLS",
-                    "target": url_target,
+                    "buildtools_target": url_target,
                     "supports_plugins": supports_plugins,
-                    'supports_mods': supports_mods,
-                    '3rd_party_warning': third_party_warning,
-                    'configs': configs
+                    "supports_mods": supports_mods,
+                    "configs": configs,
+                    "cleanup": cleanup
                 }
 
             versions.append(new_version)
