@@ -108,12 +108,6 @@ class LockerManager:
         """Add a new version to a server type."""
         server_type = args.server_type
         version = args.version
-        source = args.source
-        url_target = args.url_target
-        supports_plugins = args.supports_plugins
-        supports_mods = args.supports_mods
-        configs = args.configs if hasattr(args, 'configs') else None
-        cleanup = args.cleanup if hasattr(args, 'cleanup') else None
 
         locker_data = LockerManager.load_locker()
 
@@ -121,46 +115,62 @@ class LockerManager:
             print(f"Server type {server_type} does not exist. Please add it first.")
             return
 
-        if configs is None:
-            configs = []
-
         versions = locker_data["servers"][server_type]
         if any(v['version'] == version for v in versions):
             print(f"Version {version} already exists for {server_type}.")
         else:
-            supports_plugins = LockerManager._get_bool(supports_plugins)
-            supports_mods = LockerManager._get_bool(supports_mods)
+            source = None
+
+            if args.server_url:
+                source = "DOWNLOAD"
+
+            if args.buildtools_url:
+                if not args.buildtools_args:
+                    print("--buildtools-url argument requires --buildtools-args argument.")
+                    return
+                source = "BUILDTOOLS"
+
+            if args.installer_url:
+                if not args.installer_args:
+                    print("--installer-url argument requires --installer-args argument.")
+                    return
+                source = "INSTALLER"
+
+            if source is None:
+                print("No valid source type detected. Must provide --server-url, --buildtools-url or --installer-url.")
+                return
 
             if source == "DOWNLOAD":
                 new_version = {
                     "version": version,
                     "source": "DOWNLOAD",
-                    "url": url_target,
-                    "supports_plugins": supports_plugins,
-                    "supports_mods": supports_mods,
-                    "configs": configs,
-                    "cleanup": cleanup
+                    "server_url": args.server_url,
+                    "supports_plugins": args.supports_plugins,
+                    "supports_mods": args.supports_mods,
+                    "configs": args.configs,
+                    "cleanup": args.cleanup
                 }
             elif source == "BUILDTOOLS":
                 new_version = {
                     "version": version,
                     "source": "BUILDTOOLS",
-                    "buildtools_target": url_target,
-                    "supports_plugins": supports_plugins,
-                    "supports_mods": supports_mods,
-                    "configs": configs,
-                    "cleanup": cleanup
+                    "buildtools_url": args.buildtools_url,
+                    "buildtools_args": args.buildtools_args,
+                    "supports_plugins": args.supports_plugins,
+                    "supports_mods": args.supports_mods,
+                    "configs": args.configs,
+                    "cleanup": args.cleanup
                 }
             elif source == "INSTALLER":
                 new_version = {
                     "version": version,
                     "source": "INSTALLER",
-                    "installer_url": None,
-                    "installer_args": None,
-                    "supports_plugins": supports_plugins,
-                    "supports_mods": supports_mods,
-                    "configs": configs,
-                    "cleanup": cleanup
+                    "installer_url": args.installer_url,
+                    "installer_args": args.installer_args,
+                    "supports_plugins": args.supports_plugins,
+                    "supports_mods": args.supports_mods,
+                    "configs": args.configs,
+                    "cleanup": args.cleanup
                 }
 
             versions.append(new_version)
