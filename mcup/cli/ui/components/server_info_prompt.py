@@ -48,16 +48,13 @@ class ServerInfoPrompt:
         for version in locker_data["servers"][server_type]:
             if version["version"] == server_version:
                 is_valid_server_version = True
-                source = version["source"]
-                if source == "DOWNLOAD":
-                    target = version["url"]
-                elif source == "BUILDTOOLS":
-                    target = version["target"]
-                else:
-                    raise Exception(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", source))
-                configs = version["configs"]
+
+                locker_entry = version
+
+                if locker_entry["source"] not in ["DOWNLOAD", "BUILDTOOLS", "INSTALLER"]:
+                    raise Exception(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", locker_entry["source"]))
                 break
         if not is_valid_server_version:
             raise Exception(f"Invalid or unsupported server version: {server_version}")
 
-        return server_type, server_version, source, target, configs
+        return server_type, server_version, locker_entry
