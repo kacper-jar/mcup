@@ -20,12 +20,12 @@ class ServerCommand:
         print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
 
         try:
-            server_type, server_version, source, target, configs = ServerInfoPrompt.get_server_info(locker)
+            server_type, server_version, locker_entry = ServerInfoPrompt.get_server_info(locker)
         except Exception as e:
             print(e)
             return
 
-        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, configs)
+        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
 
         with Progress(
                 SpinnerColumn(),
@@ -36,7 +36,7 @@ class ServerCommand:
             server = ServerHandler()
             task = None
 
-            for status in server.create(server_path, server_version, source, target, assembler_linker_conf):
+            for status in server.create(server_path, server_version, locker_entry, assembler_linker_conf):
                 match status.status_code:
                     case StatusCode.PROGRESSBAR_NEXT:
                         if task is not None:
