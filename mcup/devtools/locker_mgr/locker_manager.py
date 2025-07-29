@@ -151,6 +151,17 @@ class LockerManager:
                     "configs": configs,
                     "cleanup": cleanup
                 }
+            elif source == "INSTALLER":
+                new_version = {
+                    "version": version,
+                    "source": "INSTALLER",
+                    "installer_url": None,
+                    "installer_args": None,
+                    "supports_plugins": supports_plugins,
+                    "supports_mods": supports_mods,
+                    "configs": configs,
+                    "cleanup": cleanup
+                }
 
             versions.append(new_version)
             print(f"Version {version} added to {server_type}.")
