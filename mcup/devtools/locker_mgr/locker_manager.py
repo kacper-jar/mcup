@@ -233,11 +233,18 @@ class LockerManager:
             for version in versions:
                 print(f"  Version: {version['version']}")
                 print(f"    Source: {version['source']}")
-                print(f"    URL/Target: {version['url'] if version['source'] == 'DOWNLOAD' else version['target']}")
+                if version['source'] == "DOWNLOAD":
+                    print(f"    URL: {version['server_url']}")
+                if version['source'] == "BUILDTOOLS":
+                    print(f"    BuildTools URL: {version['buildtools_url']}")
+                    print(f"    BuildTools Arguments: {version['buildtools_args']}")
+                if version['source'] == "INSTALLER":
+                    print(f"    Installer URL: {version['installer_url']}")
+                    print(f"    Installer Arguments: {version['installer_args']}")
                 print(f"    Supports Plugins: {'Yes' if version['supports_plugins'] else 'No'}")
                 print(f"    Supports Mods: {'Yes' if version['supports_mods'] else 'No'}")
-                print(f"    3rd Party Warning: {'Yes' if version['3rd_party_warning'] else 'No'}")
                 print(f"    Configs: {version['configs']}")
+                print(f"    Cleanup: {version['cleanup']}")
             print("-" * 40)
 
     @staticmethod
