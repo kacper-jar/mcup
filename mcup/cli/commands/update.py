@@ -10,8 +10,10 @@ class UpdateCommand:
         language = Language()
         locker_manager = LockerUpdater()
 
-        for status in locker_manager.update_locker(force_update=True):
+        for status in locker_manager.update_locker(args.force):
             match status.status_code:
+                case StatusCode.INFO_LOCKER_MODIFIED:
+                    print(language.get_string("INFO_LOCKER_MODIFIED"))
                 case StatusCode.INFO_LOCKER_UP_TO_DATE:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:
