@@ -182,7 +182,6 @@ class LockerManager:
         """Update the URL for an existing version."""
         server_type = args.server_type
         version = args.version
-        url = args.url
 
         locker_data = LockerManager.load_locker()
 
@@ -193,8 +192,45 @@ class LockerManager:
         versions = locker_data["servers"][server_type]
         for v in versions:
             if v['version'] == version:
-                v['url'] = url
-                print(f"Version {version} URL updated for {server_type}.")
+                if args.server_url is not None:
+                    if 'server_url' in v:
+                        v['server_url'] = args.server_url
+                    else:
+                        print(
+                            "Field 'server_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                if args.buildtools_url is not None:
+                    if 'buildtools_url' in v:
+                        v['buildtools_url'] = args.buildtools_url
+                    else:
+                        print(
+                            "Field 'buildtools_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                if args.installer_url is not None:
+                    if 'installer_url' in v:
+                        v['installer_url'] = args.installer_url
+                    else:
+                        print(
+                            "Field 'installer_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                if args.buildtools_args is not None:
+                    if 'buildtools_args' in v:
+                        v['buildtools_args'] = args.buildtools_args
+                    else:
+                        print(
+                            "Field 'buildtools_args' does not exist in this entry. It might be other source type. Skipping this value...")
+                if args.installer_args is not None:
+                    if 'installer_args' in v:
+                        v['installer_args'] = args.installer_args
+                    else:
+                        print(
+                            "Field 'installer_args' does not exist in this entry. It might be other source type. Skipping this value...")
+                if args.supports_plugins is not None:
+                    v['supports_plugins'] = LockerManager._get_bool(args.supports_plugins)
+                if args.supports_mods is not None:
+                    v['supports_mods'] = LockerManager._get_bool(args.supports_mods)
+                if args.configs is not None:
+                    v['configs'] = args.configs
+                if args.cleanup is not None:
+                    v['cleanup'] = args.cleanup
+                print(f"Version {version} updated for {server_type}.")
                 LockerManager.save_locker(locker_data)
                 return
         print(f"Version {version} not found for {server_type}.")

@@ -123,7 +123,24 @@ class McupCLI:
             update_version_parser = locker_mgr_subparsers.add_parser("update-version", help="Update a version's URL")
             update_version_parser.add_argument("server_type", help="Type of server")
             update_version_parser.add_argument("version", help="Version to update")
-            update_version_parser.add_argument("url", help="New URL for the version")
+            update_version_parser.add_argument("--server-url", default=None,
+                                               help="Direct download URL for server jar (DOWNLOAD source)")
+            update_version_parser.add_argument("--buildtools-url", default=None,
+                                               help="URL for BuildTools jar (BUILDTOOLS source)")
+            update_version_parser.add_argument("--installer-url", default=None,
+                                               help="URL for installer jar (INSTALLER source)")
+            update_version_parser.add_argument("--buildtools-args", default=None, nargs=argparse.REMAINDER,
+                                               help="Arguments for BuildTools (BUILDTOOLS source only). Use '--' before these to separate from mcup flags.")
+            update_version_parser.add_argument("--installer-args", default=None, nargs=argparse.REMAINDER,
+                                               help="Arguments for installer jar (INSTALLER source only). Use '--' before these to separate from mcup flags.")
+            update_version_parser.add_argument("--supports-plugins", default=None,
+                                               help="Mark server as supporting plugins (true/false)")
+            update_version_parser.add_argument("--supports-mods", default=None,
+                                               help="Mark server as supporting mods (true/false)")
+            update_version_parser.add_argument("--configs", nargs="*", default=None,
+                                               help="Config files associated with this server")
+            update_version_parser.add_argument("--cleanup", nargs="*", default=None,
+                                               help="Files to clean up after install")
             update_version_parser.set_defaults(func=LockerManager.update_version)
 
             remove_version_parser = locker_mgr_subparsers.add_parser("remove-version", help="Remove a version from a server type")
