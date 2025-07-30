@@ -644,7 +644,7 @@ class Language:
         "SUCCESS_TEMPLATE_REFRESH": "Template '{}' refreshed successfully.",
 
         # Locker
-        "INFO_LOCKER_MODIFIED": "Locker file has been modified. Skipping locker update check. Use 'mcup update' to "
+        "INFO_LOCKER_MODIFIED": "Locker file has been modified. Skipping locker update. Use 'mcup update --force' to "
                                 "reset it.",
         "INFO_LOCKER_UP_TO_DATE": "Locker file is already up-to-date.",
         "INFO_LOCKER_UPDATING": "Updating locker file...",

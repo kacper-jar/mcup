@@ -81,6 +81,7 @@ class McupCLI:
     def _register_update_command(self):
         """Register command for updating the locker file."""
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")
+        update_parser.add_argument("--force", action="store_true", help="Force update the locker file even if it's up to date")
         update_parser.set_defaults(func=UpdateCommand.run)
 
     def _register_devtools_commands(self):
