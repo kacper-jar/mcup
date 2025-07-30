@@ -196,32 +196,32 @@ class LockerManager:
                     if 'server_url' in v:
                         v['server_url'] = args.server_url
                     else:
-                        print(
-                            "Field 'server_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                        print("Field 'server_url' does not exist in this entry. It might be other source type. "
+                              "Skipping this value...")
                 if args.buildtools_url is not None:
                     if 'buildtools_url' in v:
                         v['buildtools_url'] = args.buildtools_url
                     else:
-                        print(
-                            "Field 'buildtools_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                        print("Field 'buildtools_url' does not exist in this entry. It might be other source type. "
+                              "Skipping this value...")
                 if args.installer_url is not None:
                     if 'installer_url' in v:
                         v['installer_url'] = args.installer_url
                     else:
-                        print(
-                            "Field 'installer_url' does not exist in this entry. It might be other source type. Skipping this value...")
+                        print("Field 'installer_url' does not exist in this entry. It might be other source type. "
+                              "Skipping this value...")
                 if args.buildtools_args is not None:
                     if 'buildtools_args' in v:
                         v['buildtools_args'] = args.buildtools_args
                     else:
-                        print(
-                            "Field 'buildtools_args' does not exist in this entry. It might be other source type. Skipping this value...")
+                        print("Field 'buildtools_args' does not exist in this entry. It might be other source type. "
+                              "Skipping this value...")
                 if args.installer_args is not None:
                     if 'installer_args' in v:
                         v['installer_args'] = args.installer_args
                     else:
-                        print(
-                            "Field 'installer_args' does not exist in this entry. It might be other source type. Skipping this value...")
+                        print("Field 'installer_args' does not exist in this entry. It might be other source type. "
+                              "Skipping this value...")
                 if args.supports_plugins is not None:
                     v['supports_plugins'] = LockerManager._get_bool(args.supports_plugins)
                 if args.supports_mods is not None:
