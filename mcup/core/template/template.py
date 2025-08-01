@@ -9,8 +9,7 @@ class Template:
     template_name: str
     template_server_type: str
     template_server_version: str
-    template_server_source: str
-    template_server_target: str
+    template_locker_entry: dict
     template_linker_config: AssemblerLinkerConfig
 
     def get_template_name(self) -> str:
@@ -25,25 +24,20 @@ class Template:
         """Get the template server version."""
         return self.template_server_version
 
-    def get_template_server_source(self) -> str:
-        """Get the template server source."""
-        return self.template_server_source
-
-    def get_template_server_target(self) -> str:
-        """Get the template server target."""
-        return self.template_server_target
+    def get_template_locker_entry(self) -> dict:
+        """Get the template locker entry."""
+        return self.template_locker_entry
 
     def get_template_linker_config(self) -> AssemblerLinkerConfig:
         """Get the template linker config."""
         return self.template_linker_config
 
     def get_dict(self):
-        """Get the template data as dictionary."""
+        """Get the template data as a dictionary."""
         return {
             "template_name": self.template_name,
             "template_server_type": self.template_server_type,
             "template_server_version": self.template_server_version,
-            "template_server_source": self.template_server_source,
-            "template_server_target": self.template_server_target,
+            "template_locker_entry": self.template_locker_entry,
             "template_linker_config": self.template_linker_config.to_dict(export_default_config=False)
         }
