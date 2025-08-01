@@ -13,14 +13,14 @@ from mcup.core.utils.path import PathProvider
 
 class TemplateHandler:
     """Class for handling template-related actions."""
-    def create_template(self, template_name: str, server_type: str, server_version: str, source: str, target: str,
+
+    def create_template(self, template_name: str, server_type: str, server_version: str, locker_entry: dict,
                         assembler_linker_conf: AssemblerLinkerConfig) -> Iterator[Status]:
         template = Template(
             template_name,
             server_type,
             server_version,
-            source,
-            target,
+            locker_entry,
             assembler_linker_conf
         )
 
@@ -43,12 +43,11 @@ class TemplateHandler:
             template_name = template_data.get("template_name")
             template_server_type = template_data.get("template_server_type")
             template_server_version = template_data.get("template_server_version")
-            template_source = template_data.get("template_server_source")
-            template_target = template_data.get("template_server_target")
+            template_locker_entry = template_data.get("template_locker_entry")
             template_linker_config_data = template_data.get("template_linker_config")
 
-            if not all([template_name, template_server_type, template_server_version, template_source,
-                        template_target, template_linker_config_data]):
+            if not all([template_name, template_server_type, template_server_version, template_locker_entry,
+                        template_linker_config_data]):
                 yield Status(StatusCode.ERROR_TEMPLATE_MISSING_DATA, path)
                 return
 
@@ -59,8 +58,7 @@ class TemplateHandler:
                 template_name,
                 template_server_type,
                 template_server_version,
-                template_source,
-                template_target,
+                template_locker_entry,
                 assembler_linker_config
             )
 
@@ -122,8 +120,7 @@ class TemplateHandler:
 
             server_type = template_data.get("template_server_type")
             server_version = template_data.get("template_server_version")
-            source = template_data.get("template_server_source")
-            target = template_data.get("template_server_target")
+            locker_entry = template_data.get("template_locker_entry")
             linker_config_data = template_data.get("template_linker_config")
 
             if not all([server_type, server_version, linker_config_data]):
@@ -139,7 +136,7 @@ class TemplateHandler:
             return
 
         server = ServerHandler()
-        for status in server.create(server_path, server_version, source, target, assembler_linker_conf):
+        for status in server.create(server_path, server_version, locker_entry, assembler_linker_conf):
             yield status
 
     def list_templates(self) -> Iterator[Status]:
@@ -184,19 +181,14 @@ class TemplateHandler:
 
             for version in locker_data["servers"][template_server_type]:
                 if version["version"] == template_server_version:
-                    template_source = version["source"]
-                    if template_source == "DOWNLOAD":
-                        template_target = version["url"]
-                    elif template_source == "BUILDTOOLS":
-                        template_target = version["target"]
+                    template_locker_entry = version
                     break
 
             template = Template(
                 template_name,
                 template_server_type,
                 template_server_version,
-                template_source,
-                template_target,
+                template_locker_entry,
                 assembler_linker_config
             )
 

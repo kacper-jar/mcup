@@ -25,20 +25,20 @@ class TemplateCommand:
 
         try:
             server_info_prompt = ServerInfoPrompt()
-            server_type, server_version, source, target, configs = server_info_prompt.get_server_info(locker)
+            server_type, server_version, locker_entry = server_info_prompt.get_server_info(locker)
         except Exception as e:
             print(e)
             return
 
-        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, configs)
+        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
 
         template_handler = TemplateHandler()
         language = Language()
-        for status in template_handler.create_template(template_name, server_type, server_version, source, target,
+        for status in template_handler.create_template(template_name, server_type, server_version, locker_entry,
                                                        assembler_linker_conf):
             match status.status_code:
                 case StatusCode.SUCCESS:
-                    print(language.get_string("SUCCESS_TEMPLATE_CREATE"))
+                    print(language.get_string("SUCCESS_TEMPLATE_CREATE", template_name))
                 case StatusCode.ERROR_TEMPLATE_WRITE_FAILED:
                     print(language.get_string("ERROR_TEMPLATE_WRITE_FAILED", status.status_details))
 
