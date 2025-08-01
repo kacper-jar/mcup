@@ -74,4 +74,4 @@ class Version:
 
 
 OLDEST_SUPPORTED_VERSION = Version(1, 2, 5)
-LATEST_VERSION = Version(1, 21, 7)
+LATEST_VERSION = Version(1, 21, 8)
