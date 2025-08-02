@@ -196,7 +196,8 @@ class PaperGlobalConfig(ConfigFile):
         self.default_configuration = {
             "_version": VersionDependantVariablePicker([
                 VersionDependantVariable(Version(1, 19), Version(1, 20, 1), 28),
-                VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, 29)
+                VersionDependantVariable(Version(1, 20, 2), Version(1, 21, 7), 29),
+                VersionDependantVariable(Version(1, 21, 8), LATEST_VERSION, 30)
             ]),
             "anticheat": {
                 "obfuscation": {
