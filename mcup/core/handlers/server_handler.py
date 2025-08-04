@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from pathlib import Path
 from typing import Iterator
+
 import requests
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
@@ -77,7 +78,9 @@ class ServerHandler:
                 yield Status(StatusCode.INFO_JAVA_MINIMUM_8)
 
             args = [
-                file_path if arg == "$file_path" else arg
+                file_path if arg == "$file_path"
+                else version.get_string() if arg == "$version"
+                else arg
                 for arg in locker_entry["buildtools_args"]
             ]
 
