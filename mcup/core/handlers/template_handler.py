@@ -136,7 +136,7 @@ class TemplateHandler:
             return
 
         server = ServerHandler()
-        for status in server.create(server_path, server_version, locker_entry, assembler_linker_conf):
+        for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf):
             yield status
 
     def list_templates(self) -> Iterator[Status]:

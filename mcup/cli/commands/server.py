@@ -1,11 +1,12 @@
 from pathlib import Path
+
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.cli.language import Language
+from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerUpdater
-from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
 
 
 class ServerCommand:
@@ -36,7 +37,7 @@ class ServerCommand:
             server = ServerHandler()
             task = None
 
-            for status in server.create(server_path, server_version, locker_entry, assembler_linker_conf):
+            for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf):
                 match status.status_code:
                     case StatusCode.PROGRESSBAR_NEXT:
                         if task is not None:
