@@ -611,14 +611,14 @@ class Language:
         "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
 
         # Server
-        "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21. BuildTools may fail. "
+        "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21.  "
                                 "(Azul Zulu JDK is recommended.)",
-        "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. BuildTools may fail. "
+        "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. "
                                 "(Azul Zulu JDK is recommended.)",
-        "INFO_JAVA_MINIMUM_16": "Minecraft 1.17 and 1.17.1 require at least JDK 16. BuildTools may fail. "
+        "INFO_JAVA_MINIMUM_16": "Minecraft 1.17 and 1.17.1 require at least JDK 16."
                                 "(Azul Zulu JDK is recommended.)",
-        "INFO_JAVA_MINIMUM_8": "Minecraft versions below 1.17 require at least JDK 8. BuildTools may fail. "
-                               "(Azul Zulu JDK is recommended.",
+        "INFO_JAVA_MINIMUM_8": "Minecraft versions below 1.17 require at least JDK 8. "
+                               "(Azul Zulu JDK is recommended.)",
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
         "ERROR_DOWNLOAD_BUILDTOOLS_FAILED": "Failed to download Spigot BuildTools. HTTP {}",
         "ERROR_BUILD_TOOLS_NOT_FOUND": "Spigot BuildTools not found.",

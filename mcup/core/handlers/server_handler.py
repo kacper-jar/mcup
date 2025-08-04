@@ -13,7 +13,8 @@ from mcup.core.utils.version import Version
 
 class ServerHandler:
     """Class for handling server-related actions."""
-    def create(self, server_path: Path, server_version: str, locker_entry: dict,
+
+    def create(self, server_path: Path, server_type: str, server_version: str, locker_entry: dict,
                assembler_linker_config: AssemblerLinkerConfig) -> Iterator[Status]:
         """Downloads/Builds server in a specified path along with all required configuration files."""
         version = Version.from_string(server_version)
@@ -42,14 +43,14 @@ class ServerHandler:
             if not os.path.exists(file_path):
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
                 return
-        elif locker_entry["source"] == "BUILDTOOLS":
-            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download Spigot BuildTools...", 1])
-            response = requests.get(locker_entry["buildtools_url"], stream=True)
+        elif locker_entry["source"] == "INSTALLER":
+            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download installer...", 1])
+            response = requests.get(locker_entry["installer_url"], stream=True)
 
             if response.status_code == 200:
                 total_size = int(response.headers.get('content-length', 0))
-                yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading Spigot BuildTools...", total_size])
-                file_name = locker_entry["buildtools_url"].split("/")[-1]
+                yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading installer...", total_size])
+                file_name = locker_entry["installer_url"].split("/")[-1]
                 file_path = server_path / file_name
                 with open(file_path, "wb") as file:
                     for chunk in response.iter_content(1024):
@@ -63,7 +64,7 @@ class ServerHandler:
                 yield Status(StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND)
                 return
 
-            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Building server using Spigot BuildTools...", 1])
+            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Installing server...", 1])
             java_version_output = subprocess.check_output(["java", "-version"],
                                                           stderr=subprocess.STDOUT, text=True)
             java_major_version = int(java_version_output.split("\n")[0].split("\"")[1].split(".")[0])
@@ -81,7 +82,7 @@ class ServerHandler:
                 file_path if arg == "$file_path"
                 else version.get_string() if arg == "$version"
                 else arg
-                for arg in locker_entry["buildtools_args"]
+                for arg in locker_entry["installer_args"]
             ]
 
             subprocess.run(
@@ -91,15 +92,9 @@ class ServerHandler:
                 stderr=subprocess.DEVNULL
             )
 
-            target = None
-            if "--compile" in locker_entry["buildtools_args"]:
-                idx = locker_entry["buildtools_args"].index("--compile")
-                if idx + 1 < len(locker_entry["buildtools_args"]):
-                    target = locker_entry["buildtools_args"][idx + 1]
-
             matching_files = [
                 f for f in server_path.iterdir()
-                if f.is_file() and f.suffix == ".jar" and target in f.name
+                if f.is_file() and f.suffix == ".jar" and server_type in f.name
             ]
 
             if not matching_files:
@@ -107,17 +102,17 @@ class ServerHandler:
                 return
 
             server_jar_name = matching_files[0].name
-
-            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Cleaning up...", 1])
-            for item in locker_entry["cleanup"]:
-                full_path = os.path.join(server_path, item)
-                if os.path.isfile(full_path):
-                    os.remove(full_path)
-                elif os.path.isdir(full_path):
-                    shutil.rmtree(full_path)
         else:
             yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, locker_entry["source"])
             return
+
+        yield Status(StatusCode.PROGRESSBAR_NEXT, ["Cleaning up...", 1])
+        for item in locker_entry["cleanup"]:
+            full_path = os.path.join(server_path, item)
+            if os.path.isfile(full_path):
+                os.remove(full_path)
+            elif os.path.isdir(full_path):
+                shutil.rmtree(full_path)
 
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
         config_files = assembler_linker_config.get_configuration_files()
