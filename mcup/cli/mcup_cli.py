@@ -110,9 +110,7 @@ class McupCLI:
             add_version_parser.add_argument("version", help="Version to add")
             source_group = add_version_parser.add_mutually_exclusive_group(required=True)
             source_group.add_argument("--server-url", help="Direct download URL for server jar (DOWNLOAD source)")
-            source_group.add_argument("--buildtools-url", help="URL for BuildTools jar (BUILDTOOLS source)")
             source_group.add_argument("--installer-url", help="URL for installer jar (INSTALLER source)")
-            add_version_parser.add_argument("--buildtools-args", nargs=argparse.REMAINDER, help="Arguments for BuildTools (BUILDTOOLS source only). Use '--' before these to separate from mcup flags.")
             add_version_parser.add_argument("--installer-args", nargs=argparse.REMAINDER, help="Arguments for installer jar (INSTALLER source only). Use '--' before these to separate from mcup flags.")
             add_version_parser.add_argument("--supports-plugins", action="store_true", help="Mark server as supporting plugins")
             add_version_parser.add_argument("--supports-mods", action="store_true", help="Mark server as supporting mods")
@@ -125,12 +123,8 @@ class McupCLI:
             update_version_parser.add_argument("version", help="Version to update")
             update_version_parser.add_argument("--server-url", default=None,
                                                help="Direct download URL for server jar (DOWNLOAD source)")
-            update_version_parser.add_argument("--buildtools-url", default=None,
-                                               help="URL for BuildTools jar (BUILDTOOLS source)")
             update_version_parser.add_argument("--installer-url", default=None,
                                                help="URL for installer jar (INSTALLER source)")
-            update_version_parser.add_argument("--buildtools-args", default=None, nargs=argparse.REMAINDER,
-                                               help="Arguments for BuildTools (BUILDTOOLS source only). Use '--' before these to separate from mcup flags.")
             update_version_parser.add_argument("--installer-args", default=None, nargs=argparse.REMAINDER,
                                                help="Arguments for installer jar (INSTALLER source only). Use '--' before these to separate from mcup flags.")
             update_version_parser.add_argument("--supports-plugins", default=None,

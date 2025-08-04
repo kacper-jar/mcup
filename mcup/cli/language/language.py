@@ -620,8 +620,8 @@ class Language:
         "INFO_JAVA_MINIMUM_8": "Minecraft versions below 1.17 require at least JDK 8. "
                                "(Azul Zulu JDK is recommended.)",
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
-        "ERROR_DOWNLOAD_BUILDTOOLS_FAILED": "Failed to download Spigot BuildTools. HTTP {}",
-        "ERROR_BUILD_TOOLS_NOT_FOUND": "Spigot BuildTools not found.",
+        "ERROR_DOWNLOAD_INSTALLER_FAILED": "Failed to download Spigot BuildTools. HTTP {}",
+        "ERROR_INSTALLER_NOT_FOUND": "Spigot BuildTools not found.",
         "ERROR_SERVER_JAR_NOT_FOUND": "Server JAR file not found. "
                                       "Check BuildTools.log.txt in server folder for more info.",
         "ERROR_SERVER_SOURCE_NOT_SUPPORTED": "Unsupported server source type: {}. Try updating locker file and make"
