@@ -57,11 +57,11 @@ class ServerHandler:
                         file.write(chunk)
                         yield Status(StatusCode.PROGRESSBAR_UPDATE, len(chunk))
             else:
-                yield Status(StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED, str(response.status_code))
+                yield Status(StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED, str(response.status_code))
                 return
 
             if not os.path.exists(file_path):
-                yield Status(StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND)
+                yield Status(StatusCode.ERROR_INSTALLER_NOT_FOUND)
                 return
 
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Installing server...", 1])

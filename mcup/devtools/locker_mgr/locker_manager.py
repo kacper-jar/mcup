@@ -124,12 +124,6 @@ class LockerManager:
             if args.server_url:
                 source = "DOWNLOAD"
 
-            if args.buildtools_url:
-                if not args.buildtools_args:
-                    print("--buildtools-url argument requires --buildtools-args argument.")
-                    return
-                source = "BUILDTOOLS"
-
             if args.installer_url:
                 if not args.installer_args:
                     print("--installer-url argument requires --installer-args argument.")
@@ -137,7 +131,7 @@ class LockerManager:
                 source = "INSTALLER"
 
             if source is None:
-                print("No valid source type detected. Must provide --server-url, --buildtools-url or --installer-url.")
+                print("No valid source type detected. Must provide --server-url or --installer-url.")
                 return
 
             if source == "DOWNLOAD":
@@ -145,17 +139,6 @@ class LockerManager:
                     "version": version,
                     "source": "DOWNLOAD",
                     "server_url": args.server_url,
-                    "supports_plugins": args.supports_plugins,
-                    "supports_mods": args.supports_mods,
-                    "configs": args.configs,
-                    "cleanup": args.cleanup
-                }
-            elif source == "BUILDTOOLS":
-                new_version = {
-                    "version": version,
-                    "source": "BUILDTOOLS",
-                    "buildtools_url": args.buildtools_url,
-                    "buildtools_args": args.buildtools_args,
                     "supports_plugins": args.supports_plugins,
                     "supports_mods": args.supports_mods,
                     "configs": args.configs,
@@ -198,23 +181,11 @@ class LockerManager:
                     else:
                         print("Field 'server_url' does not exist in this entry. It might be other source type. "
                               "Skipping this value...")
-                if args.buildtools_url is not None:
-                    if 'buildtools_url' in v:
-                        v['buildtools_url'] = args.buildtools_url
-                    else:
-                        print("Field 'buildtools_url' does not exist in this entry. It might be other source type. "
-                              "Skipping this value...")
                 if args.installer_url is not None:
                     if 'installer_url' in v:
                         v['installer_url'] = args.installer_url
                     else:
                         print("Field 'installer_url' does not exist in this entry. It might be other source type. "
-                              "Skipping this value...")
-                if args.buildtools_args is not None:
-                    if 'buildtools_args' in v:
-                        v['buildtools_args'] = args.buildtools_args
-                    else:
-                        print("Field 'buildtools_args' does not exist in this entry. It might be other source type. "
                               "Skipping this value...")
                 if args.installer_args is not None:
                     if 'installer_args' in v:
@@ -271,9 +242,6 @@ class LockerManager:
                 print(f"    Source: {version['source']}")
                 if version['source'] == "DOWNLOAD":
                     print(f"    URL: {version['server_url']}")
-                if version['source'] == "BUILDTOOLS":
-                    print(f"    BuildTools URL: {version['buildtools_url']}")
-                    print(f"    BuildTools Arguments: {version['buildtools_args']}")
                 if version['source'] == "INSTALLER":
                     print(f"    Installer URL: {version['installer_url']}")
                     print(f"    Installer Arguments: {version['installer_args']}")

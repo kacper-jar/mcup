@@ -60,12 +60,12 @@ class ServerCommand:
                     case StatusCode.ERROR_DOWNLOAD_SERVER_FAILED:
                         progress.stop()
                         print(language.get_string("ERROR_DOWNLOAD_SERVER_FAILED", status.status_details))
-                    case StatusCode.ERROR_DOWNLOAD_BUILDTOOLS_FAILED:
+                    case StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED:
                         progress.stop()
-                        print(language.get_string("ERROR_DOWNLOAD_BUILDTOOLS_FAILED", status.status_details))
-                    case StatusCode.ERROR_BUILD_TOOLS_NOT_FOUND:
+                        print(language.get_string("ERROR_DOWNLOAD_INSTALLER_FAILED", status.status_details))
+                    case StatusCode.ERROR_INSTALLER_NOT_FOUND:
                         progress.stop()
-                        print(language.get_string("ERROR_BUILD_TOOLS_NOT_FOUND"))
+                        print(language.get_string("ERROR_INSTALLER_NOT_FOUND"))
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print(language.get_string("ERROR_SERVER_JAR_NOT_FOUND"))
