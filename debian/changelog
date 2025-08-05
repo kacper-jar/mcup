@@ -1,3 +1,24 @@
+mcup (1.0.0-beta2) unstable; urgency=medium
+
+  * ci: add commitlint GitHub Action 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/1)
+  * chore: update bug_report issue template 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/2)
+  * fix: adjust error handling for unsupported server source types 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/4)
+  * feat: Implement LockerManager as a development tool 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/5)
+  * feat: Locker v2 implementation 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/6)
+  * feat: Add 1.21.8 support 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/7)
+  * feat: simplify Locker v2 structure 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/8)
+  * fix: Prevent invalid server jar from start script 
+    (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/9) 
+
+ -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Wed, 06 Aug 2025 00:00:31 +0200
+
 mcup (1.0.0-beta1) unstable; urgency=medium
 
   * Initial beta release.
