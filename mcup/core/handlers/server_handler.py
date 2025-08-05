@@ -94,7 +94,10 @@ class ServerHandler:
 
             matching_files = [
                 f for f in server_path.iterdir()
-                if f.is_file() and f.suffix == ".jar" and server_type in f.name
+                if f.is_file()
+                   and f.suffix == ".jar"
+                   and server_type in f.name
+                   and f.name != file_name
             ]
 
             if not matching_files:
