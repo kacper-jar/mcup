@@ -79,8 +79,8 @@ class ServerHandler:
                 yield Status(StatusCode.INFO_JAVA_MINIMUM_8)
 
             args = [
-                file_path if arg == "$file_path"
-                else version.get_string() if arg == "$version"
+                file_path if arg == "%file_path"
+                else version.get_string() if arg == "%version"
                 else arg
                 for arg in locker_entry["installer_args"]
             ]
