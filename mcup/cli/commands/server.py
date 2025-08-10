@@ -74,3 +74,40 @@ class ServerCommand:
                         print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", status.status_details))
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")
+
+    @staticmethod
+    def list(args):
+        """Handles 'mcup server list' command."""
+        locker = LockerUpdater()
+        language = Language()
+
+        for status in locker.load_locker():
+            match status.status_code:
+                case StatusCode.INFO_LOCKER_MODIFIED:
+                    print(language.get_string("INFO_LOCKER_MODIFIED"))
+                case StatusCode.INFO_LOCKER_UP_TO_DATE:
+                    print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
+                case StatusCode.INFO_LOCKER_UPDATING:
+                    print(language.get_string("INFO_LOCKER_UPDATING"))
+                case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
+                    print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",
+                                              status.status_details))
+                    return
+                case StatusCode.ERROR_LOCKER_META_READ_FAILED:
+                    print(language.get_string("ERROR_LOCKER_META_READ_FAILED", status.status_details))
+                    return
+                case StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED:
+                    print(language.get_string("ERROR_LOCKER_DOWNLOAD_FAILED", status.status_details))
+                    return
+                case StatusCode.ERROR_LOCKER_META_UPDATE_FAILED:
+                    print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED", status.status_details))
+                    return
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_LOCKER"))
+                    locker_data = status.status_details
+                    break
+
+        for server in locker_data["servers"]:
+            versions = [version['version'] for version in locker_data["servers"][server]]
+            print(f"{server}:")
+            print(f"  {', '.join(versions)}")
