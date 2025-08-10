@@ -3,15 +3,15 @@ from typing import TYPE_CHECKING
 from mcup.cli.language import Language
 from .collector_input_type import CollectorInputType
 
-
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
-    from mcup.core.utils.version import Version
 
 
 class Collector:
     """Class representing Collector, which will collect data for configuration via CLI"""
-    def __init__(self):
+
+    def __init__(self, title: str):
+        self.title: str = title
         self.sections: list[CollectorSection] = []
 
     def start_collector(self, version: "Version") -> dict:
@@ -29,7 +29,7 @@ class Collector:
 
             language = Language()
 
-            print(f"\n{section.get_section_title()}")
+            print(f"\n{self.get_title()} - {section.get_section_title()}")
             if section.get_section_header_key() != "":
                 print(language.get_string(section.get_section_header_key()))
             use_default = input("Use default configuration? (Y/n): ").strip().lower() in ["y", ""]
@@ -123,6 +123,10 @@ class Collector:
                         return None
                 return bool_list
         return None
+
+    def get_title(self) -> str:
+        """Get collector title."""
+        return self.title
 
     def get_sections(self) -> list["CollectorSection"]:
         """Get collector sections."""

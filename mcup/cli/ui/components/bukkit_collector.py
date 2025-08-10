@@ -4,10 +4,10 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class BukkitCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Bukkit")
 
         self.add_section(CollectorSection(
-            "Bukkit - General Settings",
+            "General Settings",
             [
                 CollectorInput("settings/minimum-api", "COLLECTOR_BUKKIT_MINIMUM_API", CollectorInputType.STRING,
                                Version(1, 14, 3), LATEST_VERSION),
@@ -44,7 +44,7 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Spawn Limits",
+            "Spawn Limits",
             [
                 CollectorInput("spawn-limits/water-ambient", "COLLECTOR_BUKKIT_MAX_WATER_AMBIENT_CREATURES",
                                CollectorInputType.INT, Version(1, 16, 1), LATEST_VERSION),
@@ -64,7 +64,7 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Chunk Garbage Collection (Unloader) Settings",
+            "Chunk Garbage Collection (Unloader) Settings",
             [
                 CollectorInput("chunk-gc/period-in-ticks", "COLLECTOR_BUKKIT_CHUNK_GC_PERIOD", CollectorInputType.INT,
                                Version(1, 8, 0), LATEST_VERSION),
@@ -73,7 +73,7 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Ticks Settings",
+            "Ticks Settings",
             [
                 CollectorInput("ticks-per/water-spawns", "COLLECTOR_BUKKIT_TICKS_PER_WATER_SPAWNS",
                                CollectorInputType.INT, Version(1, 15, 2), LATEST_VERSION),
@@ -95,7 +95,7 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Auto-Updater Settings",
+            "Auto-Updater Settings",
             [
                 CollectorInput("auto-updater/enabled", "COLLECTOR_BUKKIT_AUTO_UPDATER_ENABLED", CollectorInputType.BOOL,
                                Version(1, 8, 0), Version(1, 21, 5)),
@@ -112,14 +112,14 @@ class BukkitCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Command Aliases",
+            "Command Aliases",
             [
                 CollectorInput("aliases", "COLLECTOR_BUKKIT_COMMAND_ALIASES", CollectorInputType.STRING,
                                Version(1, 8, 0), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
-            "Bukkit - Database Connection",
+            "Database Connection",
             [
                 CollectorInput("database/username", "COLLECTOR_BUKKIT_DATABASE_USERNAME", CollectorInputType.STRING,
                                Version(1, 8, 0), Version(1, 21, 5)),
