@@ -5,6 +5,7 @@ from .collector_input_type import CollectorInputType
 
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
+    from mcup.core.utils.version import Version
 
 
 class Collector:
