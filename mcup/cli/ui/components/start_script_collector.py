@@ -4,10 +4,10 @@ from mcup.core.utils.version import OLDEST_SUPPORTED_VERSION, LATEST_VERSION
 
 class StartScriptCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Start Script")
 
         self.add_section(CollectorSection(
-            "Start Script Configuration",
+            "Configuration",
             [
                 CollectorInput("screen-name", "COLLECTOR_START_SCRIPT_SCREEN_NAME", CollectorInputType.STRING,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),

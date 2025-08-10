@@ -4,17 +4,17 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class ServerPropertiesCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("server.properties")
 
         self.add_section(CollectorSection(
-            "server.properties - Server Identity",
+            "Server Identity",
             [
                 CollectorInput("motd", "COLLECTOR_SRV_PROP_MOTD",
                                CollectorInputType.STRING, Version(1, 2, 5), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - World Settings",
+            "World Settings",
             [
                 CollectorInput("level-name", "COLLECTOR_SRV_PROP_LEVEL_NAME", CollectorInputType.STRING,
                                Version(1, 2, 5), LATEST_VERSION),
@@ -33,7 +33,7 @@ class ServerPropertiesCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - Gameplay Settings",
+            "Gameplay Settings",
             [
                 CollectorInput("gamemode", "COLLECTOR_SRV_PROP_GAMEMODE", CollectorInputType.STRING_OR_INT,
                                Version(1, 2, 5), LATEST_VERSION),
@@ -64,7 +64,7 @@ class ServerPropertiesCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - Server Access & Multiplayer",
+            "Server Access & Multiplayer",
             [
                 CollectorInput("max-players", "COLLECTOR_SRV_PROP_MAX_PLAYERS", CollectorInputType.INT,
                                Version(1, 2, 5), LATEST_VERSION),
@@ -107,7 +107,7 @@ class ServerPropertiesCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - Server Communication & Remote Access",
+            "Server Communication & Remote Access",
             [
                 CollectorInput("enable-query", "COLLECTOR_SRV_PROP_ENABLE_QUERY", CollectorInputType.BOOL,
                                Version(1, 2, 5), LATEST_VERSION),
@@ -132,7 +132,7 @@ class ServerPropertiesCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - Performance & Telemetry",
+            "Performance & Telemetry",
             [
                 CollectorInput("view-distance", "COLLECTOR_SRV_PROP_VIEW_DISTANCE", CollectorInputType.INT,
                                Version(1, 2, 5), LATEST_VERSION),
@@ -158,7 +158,7 @@ class ServerPropertiesCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "server.properties - Customization",
+            "Customization",
             [
                 CollectorInput("texture-pack", "COLLECTOR_SRV_PROP_TEXTURE_PACK", CollectorInputType.STRING,
                                Version(1, 3, 1), Version(1, 6, 4)),

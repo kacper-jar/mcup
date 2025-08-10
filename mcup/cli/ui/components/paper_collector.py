@@ -4,10 +4,10 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class PaperCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Paper")
 
         self.add_section(CollectorSection(
-            "Paper - General Settings",
+            "General Settings",
             [
                 CollectorInput("effect-modifiers/strength", "COLLECTOR_PAPER_EFFECT_MODIFIERS_STRENGTH",
                                CollectorInputType.FLOAT, Version(1, 8, 8), LATEST_VERSION),
@@ -33,7 +33,7 @@ class PaperCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper - World Settings",
+            "World Settings",
             [
                 CollectorInput("world-settings/default/verbose", "COLLECTOR_PAPER_WORLD_SETTINGS_VERBOSE",
                                CollectorInputType.BOOL, Version(1, 8, 8), LATEST_VERSION),

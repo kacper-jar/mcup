@@ -4,10 +4,10 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class PaperWorldDefaultsCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Paper (World Defaults)")
 
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Anticheat",
+            "Anticheat",
             [
                 CollectorInput("anticheat/anti-xray/enabled",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ANTICHEAT_ANTI_XRAY_ENABLED",
@@ -45,7 +45,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Chunks",
+            "Chunks",
             [
                 CollectorInput("chunks/auto-save-interval", "COLLECTOR_PAPER_WORLD_DEFAULTS_CHUNKS_AUTO_SAVE_INTERVAL",
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
@@ -85,7 +85,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Collisions",
+            "Collisions",
             [
                 CollectorInput("collisions/allow-player-cramming-damage",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_COLLISIONS_ALLOW_PLAYER_CRAMMING_DAMAGE",
@@ -105,7 +105,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Command Blocks",
+            "Command Blocks",
             [
                 CollectorInput("command-blocks/force-follow-perm-level",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_COMMAND_BLOCKS_FORCE_FOLLOW_PERM_LEVEL",
@@ -116,7 +116,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Behavior (Entities)",
+            "Behavior (Entities)",
             [
                 CollectorInput("entities/behavior/allow-spider-world-border-climbing",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_BEHAVIOR_ALLOW_SPIDER_WORLD_BORDER_CLIMBING",
@@ -222,7 +222,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Armor Stands, Targeting, Markers, Mob Effects, Sniffers and Tracking Ranges "
+            "Armor Stands, Targeting, Markers, Mob Effects, Sniffers and Tracking Ranges "
             "(Entities)",
             [
                 CollectorInput("entities/armor-stands/do-collision-entity-lookups",
@@ -278,7 +278,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Spawning (Entities)",
+            "Spawning (Entities)",
             [
                 CollectorInput("entities/spawning/all-chunks-are-slime-chunks",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SPAWNING_ALL_CHUNKS_ARE_SLIME_CHUNK",
@@ -463,7 +463,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Environment & Feature Seeds",
+            "Environment & Feature Seeds",
             [
                 CollectorInput("environment/disable-explosion-knockback",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENVIRONMENT_DISABLE_EXPLOSION_KNOCKBACK",
@@ -540,7 +540,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Fishing Time Range, Fixes, Hoppers and Lootables",
+            "Fishing Time Range, Fixes, Hoppers and Lootables",
             [
                 CollectorInput("fishing-time-range/maximum",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_FISHING_TIME_RANGE_MAXIMUM",
@@ -605,7 +605,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Maps, Max Growth Height and Misc",
+            "Maps, Max Growth Height and Misc",
             [
                 CollectorInput("maps/item-frame-cursor-limit",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MAPS_ITEM_FRAME_CURSOR_LIMIT",
@@ -661,7 +661,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Scoreboards, Spawn and Tick Rates",
+            "Scoreboards, Spawn and Tick Rates",
             [
                 CollectorInput("scoreboards/allow-non-player-entities-on-scoreboards",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_SCOREBOARDS_ALLOW_NON_PLAYER_ENTITIES_ON_SCOREBOARDS",
@@ -702,7 +702,7 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (World Defaults) - Unsupported Settings",
+            "Unsupported Settings",
             [
                 CollectorInput("unsupported-settings/disable-world-ticking-when-empty",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_UNSUPPORTED_SETTINGS_DISABLE_WORLD_TICKING_WHEN_EMPTY",

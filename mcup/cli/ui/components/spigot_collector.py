@@ -4,10 +4,10 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class SpigotCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Spigot")
 
         self.add_section(CollectorSection(
-            "Spigot - General Settings",
+            "General Settings",
             [
                 CollectorInput("settings/debug", "COLLECTOR_SPIGOT_SETTINGS_DEBUG", CollectorInputType.BOOL,
                                Version(1, 8, 0), LATEST_VERSION),
@@ -55,7 +55,7 @@ class SpigotCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Spigot - Commands",
+            "Commands",
             [
                 CollectorInput("commands/silent-commandblock-console",
                                "COLLECTOR_SPIGOT_COMMANDS_SILENT_COMMANDBLOCK_CONSOLE",
@@ -71,7 +71,7 @@ class SpigotCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Spigot - Messages",
+            "Messages",
             [
                 CollectorInput("messages/restart", "COLLECTOR_SPIGOT_MESSAGES_RESTART", CollectorInputType.STRING,
                                Version(1, 8, 0), LATEST_VERSION),
@@ -88,7 +88,7 @@ class SpigotCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Spigot - Statistics",
+            "Statistics",
             [
                 CollectorInput("stats/disable-saving", "COLLECTOR_SPIGOT_STATS_DISABLE_SAVING",
                                CollectorInputType.STRING, Version(1, 8, 0), LATEST_VERSION),
@@ -97,7 +97,7 @@ class SpigotCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Spigot - World Settings",
+            "World Settings",
             [
                 CollectorInput("world-settings/default/verbose", "COLLECTOR_SPIGOT_WORLD_SETTINGS_VERBOSE",
                                CollectorInputType.BOOL, Version(1, 8, 0), LATEST_VERSION),

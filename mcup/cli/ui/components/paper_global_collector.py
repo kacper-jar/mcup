@@ -4,10 +4,10 @@ from mcup.core.utils.version import Version, LATEST_VERSION
 
 class PaperGlobalCollector(Collector):
     def __init__(self):
-        super().__init__()
+        super().__init__("Paper (Global)")
 
         self.add_section(CollectorSection(
-            "Paper (Global) - Anti-cheat",
+            "Anti-cheat",
             [
                 CollectorInput("anticheat/obfuscation/items/all-models/also-obfuscate",
                                "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_ALSO_OBFUSCATE",
@@ -25,7 +25,7 @@ class PaperGlobalCollector(Collector):
             "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Block Updates",
+            "Block Updates",
             [
                 CollectorInput("block-updates/disable-chorus-plant-updates",
                                "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_CHORUS_PLANT_UPDATES",
@@ -42,7 +42,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Chunk System & Chunk Loading",
+            "Chunk System & Chunk Loading",
             [
                 CollectorInput("async-chunks/threads", "COLLECTOR_PAPER_GLOBAL_ASYNC_CHUNKS_THREADS",
                                CollectorInputType.INT, Version(1, 19), Version(1, 19, 1)),
@@ -99,7 +99,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Collisions",
+            "Collisions",
             [
                 CollectorInput("collisions/enable-player-collisions",
                                "COLLECTOR_PAPER_GLOBAL_COLLISIONS_ENABLE_PLAYER_COLLISIONS",
@@ -110,7 +110,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Commands",
+            "Commands",
             [
                 CollectorInput("commands/fix-target-selector-tag-completion",
                                "COLLECTOR_PAPER_GLOBAL_COMMANDS_FIX_TARGET_SELECTOR_TAG_COMPLETION",
@@ -127,7 +127,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Console",
+            "Console",
             [
                 CollectorInput("console/enable-brigadier-completions",
                                "COLLECTOR_PAPER_GLOBAL_CONSOLE_ENABLE_BRIGADIER_COMPLETIONS",
@@ -141,7 +141,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Item Validation",
+            "Item Validation",
             [
                 CollectorInput("item-validation/book/author", "COLLECTOR_PAPER_GLOBAL_ITEM_VALIDATION_BOOK_AUTHOR",
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
@@ -165,7 +165,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Logging",
+            "Logging",
             [
                 CollectorInput("logging/deobfuscate-stacktraces",
                                "COLLECTOR_PAPER_GLOBAL_LOGGING_DEOBFUSCATE_STACKTRACES",
@@ -179,7 +179,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Messages",
+            "Messages",
             [
                 CollectorInput("messages/kick/authentication-servers-down",
                                "COLLECTOR_PAPER_GLOBAL_MESSAGES_KICK_AUTHENTICATION_SERVERS_DOWN",
@@ -199,7 +199,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Misc",
+            "Misc",
             [
                 CollectorInput("misc/chat-threads/chat-executor-core-size",
                                "COLLECTOR_PAPER_GLOBAL_MISC_CHAT_THREADS_CHAT_EXECUTOR_CORE_SIZE",
@@ -245,7 +245,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Packet Limiter",
+            "Packet Limiter",
             [
                 CollectorInput("packet-limiter/all-packets/action",
                                "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_ACTION",
@@ -265,7 +265,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Player Auto-save",
+            "Player Auto-save",
             [
                 CollectorInput("player-auto-save/max-per-tick", "COLLECTOR_PAPER_GLOBAL_PLAYER_AUTO_SAVE_MAX_PER_TICK",
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
@@ -274,7 +274,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Proxies",
+            "Proxies",
             [
                 CollectorInput("proxies/bungee-cord/online-mode",
                                "COLLECTOR_PAPER_GLOBAL_PROXIES_BUNGEE_CORD_ONLINE_MODE",
@@ -290,7 +290,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Scoreboards",
+            "Scoreboards",
             [
                 CollectorInput("scoreboards/save-empty-scoreboard-teams",
                                "COLLECTOR_PAPER_GLOBAL_SCOREBOARDS_SAVE_EMPTY_SCOREBOARD_TEAMS",
@@ -301,7 +301,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Spam Limiter",
+            "Spam Limiter",
             [
                 CollectorInput("spam-limiter/incoming-packet-threshold",
                                "COLLECTOR_PAPER_GLOBAL_SPAM_LIMITER_INCOMING_PACKET_THRESHOLD",
@@ -320,7 +320,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Spark",
+            "Spark",
             [
                 CollectorInput("spark/enable-immediately", "COLLECTOR_PAPER_GLOBAL_SPARK_ENABLE_IMMEDIATELY",
                                CollectorInputType.BOOL, Version(1, 21), LATEST_VERSION),
@@ -329,7 +329,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Timings",
+            "Timings",
             [
                 CollectorInput("timings/enabled", "COLLECTOR_PAPER_GLOBAL_TIMINGS_ENABLED",
                                CollectorInputType.BOOL, Version(1, 19), LATEST_VERSION),
@@ -350,7 +350,7 @@ class PaperGlobalCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Unsupported (Legacy) Settings",
+            "Unsupported (Legacy) Settings",
             [
                 CollectorInput("unsupported-settings/allow-grindstone-overstacking",
                                "COLLECTOR_PAPER_GLOBAL_UNSUPPORTED_SETTINGS_ALLOW_GRINDSTONE_OVERSTACKING",
@@ -392,7 +392,7 @@ class PaperGlobalCollector(Collector):
             "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))
         self.add_section(CollectorSection(
-            "Paper (Global) - Watchdog",
+            "Watchdog",
             [
                 CollectorInput("watchdog/early-warning-delay", "COLLECTOR_PAPER_GLOBAL_WATCHDOG_EARLY_WARNING_DELAY",
                                CollectorInputType.INT, Version(1, 19), LATEST_VERSION),
