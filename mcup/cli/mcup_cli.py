@@ -43,6 +43,9 @@ class McupCLI:
                                    help="Path to create the server (default: current directory)")
         create_parser.set_defaults(func=ServerCommand.create)
 
+        list_parser = server_subparsers.add_parser("list", help="List available server types and versions")
+        list_parser.set_defaults(func=ServerCommand.list)
+
     def _register_template_commands(self):
         """Register template-related commands."""
         template_parser = self.subparsers.add_parser("template", help="Manage server templates")
