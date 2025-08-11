@@ -13,18 +13,49 @@ class ServerCommand:
     @staticmethod
     def create(args):
         """Handles 'mcup server create [path]' command."""
+        server_type = args.server_type
+        server_version = args.server_version
         server_path = Path(args.path).resolve()
         locker = LockerUpdater()
         language = Language()
 
-        print(f"Creating a Minecraft server in: {server_path}")
+        print(f"Creating a Minecraft server ({server_type} {server_version}) in: {server_path}")
         print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
 
-        try:
-            server_type, server_version, locker_entry = ServerInfoPrompt.get_server_info(locker)
-        except Exception as e:
-            print(e)
-            return
+        locker_data = None
+        for status in locker.load_locker():
+            match status.status_code:
+                case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
+                    print(language.get_string(status.status_code.name))
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_LOCKER"))
+                    locker_data = status.status_details
+                    break
+                case _:
+                    error_message = language.get_string(status.status_code.name, status.status_details)
+                    print(error_message)
+                    return None
+
+        if locker_data is None:
+            print("Failed to load locker data")
+            return None
+
+        if server_type not in locker_data["servers"]:
+            print(f"Invalid or unsupported server type: {server_type}")
+            return None
+
+        locker_entry = None
+        for version in locker_data["servers"][server_type]:
+            if version["version"] == server_version:
+                if version["source"] not in ["DOWNLOAD", "BUILDTOOLS", "INSTALLER"]:
+                    print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", version["source"]))
+                    return None
+                locker_entry = version
+                break
+
+        if locker_entry is None:
+            print(f"Invalid or unsupported server version: {server_version}")
+            return None
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
 
@@ -36,6 +67,21 @@ class ServerCommand:
         ) as progress:
             server = ServerHandler()
             task = None
+
+            java_info_codes = {
+                StatusCode.INFO_JAVA_MINIMUM_21: "INFO_JAVA_MINIMUM_21",
+                StatusCode.INFO_JAVA_MINIMUM_17: "INFO_JAVA_MINIMUM_17",
+                StatusCode.INFO_JAVA_MINIMUM_16: "INFO_JAVA_MINIMUM_16",
+                StatusCode.INFO_JAVA_MINIMUM_8: "INFO_JAVA_MINIMUM_8"
+            }
+
+            error_codes = {
+                StatusCode.ERROR_DOWNLOAD_SERVER_FAILED: "ERROR_DOWNLOAD_SERVER_FAILED",
+                StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED: "ERROR_DOWNLOAD_INSTALLER_FAILED",
+                StatusCode.ERROR_INSTALLER_NOT_FOUND: "ERROR_INSTALLER_NOT_FOUND",
+                StatusCode.ERROR_SERVER_JAR_NOT_FOUND: "ERROR_SERVER_JAR_NOT_FOUND",
+                StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED: "ERROR_SERVER_SOURCE_NOT_SUPPORTED"
+            }
 
             for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf):
                 match status.status_code:
@@ -49,31 +95,16 @@ class ServerCommand:
                         progress.update(task, advance=1)
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
-                    case StatusCode.INFO_JAVA_MINIMUM_21:
-                        print(language.get_string("INFO_JAVA_MINIMUM_21"))
-                    case StatusCode.INFO_JAVA_MINIMUM_17:
-                        print(language.get_string("INFO_JAVA_MINIMUM_17"))
-                    case StatusCode.INFO_JAVA_MINIMUM_16:
-                        print(language.get_string("INFO_JAVA_MINIMUM_16"))
-                    case StatusCode.INFO_JAVA_MINIMUM_8:
-                        print(language.get_string("INFO_JAVA_MINIMUM_8"))
-                    case StatusCode.ERROR_DOWNLOAD_SERVER_FAILED:
-                        progress.stop()
-                        print(language.get_string("ERROR_DOWNLOAD_SERVER_FAILED", status.status_details))
-                    case StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED:
-                        progress.stop()
-                        print(language.get_string("ERROR_DOWNLOAD_INSTALLER_FAILED", status.status_details))
-                    case StatusCode.ERROR_INSTALLER_NOT_FOUND:
-                        progress.stop()
-                        print(language.get_string("ERROR_INSTALLER_NOT_FOUND"))
-                    case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
-                        progress.stop()
-                        print(language.get_string("ERROR_SERVER_JAR_NOT_FOUND"))
-                    case StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED:
-                        progress.stop()
-                        print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", status.status_details))
                     case StatusCode.SUCCESS:
                         print("Server created successfully.")
+                        return None
+                    case status_code if status_code in java_info_codes:
+                        print(language.get_string(java_info_codes[status_code]))
+                    case status_code if status_code in error_codes:
+                        progress.stop()
+                        error_msg = language.get_string(error_codes[status_code], status.status_details)
+                        print(error_msg)
+                        return None
 
     @staticmethod
     def list(args):

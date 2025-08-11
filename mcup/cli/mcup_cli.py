@@ -39,6 +39,8 @@ class McupCLI:
         server_subparsers = server_parser.add_subparsers(dest="action", help="Server actions")
 
         create_parser = server_subparsers.add_parser("create", help="Create a new server")
+        create_parser.add_argument("server_type", help="Type of server")
+        create_parser.add_argument("server_version", help="Version of server")
         create_parser.add_argument("path", nargs="?", default=".",
                                    help="Path to create the server (default: current directory)")
         create_parser.set_defaults(func=ServerCommand.create)
