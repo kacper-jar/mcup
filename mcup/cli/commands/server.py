@@ -12,7 +12,7 @@ from mcup.core.utils.locker import LockerUpdater
 class ServerCommand:
     @staticmethod
     def create(args):
-        """Handles 'mcup server create [path]' command."""
+        """Handles 'mcup server create <server_type> <server_version> [path]' command."""
         server_type = args.server_type
         server_version = args.server_version
         server_path = Path(args.path).resolve()
