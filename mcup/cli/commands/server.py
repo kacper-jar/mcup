@@ -58,7 +58,7 @@ class ServerCommand:
             return None
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"],
-                                                                              args.no_configs)
+                                                                              args.no_configs, args.all_defaults)
 
         with Progress(
                 SpinnerColumn(),
