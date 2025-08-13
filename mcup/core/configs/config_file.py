@@ -82,6 +82,10 @@ class ConfigFile:
         for property_name in properties:
             self.set_configuration_default_property(property_name, version)
 
+    def set_configuration_default_all_properties(self, version: Version):
+        """Reset all configuration properties to their default values."""
+        self.set_configuration_default_properties(list(self.default_configuration.keys()), version)
+
     def get_default_configuration(self) -> dict:
         """Get the default configuration dictionary."""
         return self.default_configuration
