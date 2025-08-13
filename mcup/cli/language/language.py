@@ -1,5 +1,9 @@
 class Language:
     strings = {
+        # server configs collector
+        "INFO_CONFIGS_NOT_SUPPORTED": "The following configs are currently not supported: {}. "
+                                      "Default values will be used.",
+
         # server.properties collector
         "COLLECTOR_SRV_PROP_MOTD": "Server motd",
         "COLLECTOR_SRV_PROP_LEVEL_NAME": "World name",

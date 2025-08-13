@@ -1,3 +1,4 @@
+from mcup.cli.language import Language
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig, \
     StartScript, PaperWorldDefaultsConfig
@@ -10,12 +11,16 @@ class ServerConfigsCollector:
     @staticmethod
     def collect_configurations(server_version, configs,
                                flags=ServerConfigsCollectorFlags.NONE) -> AssemblerLinkerConfig:
+        language = Language()
+
         version = Version.from_string(server_version)
 
         assembler_linker_config = AssemblerLinkerConfig()
 
         if flags == ServerConfigsCollectorFlags.NO_CONFIGS:
             return assembler_linker_config
+
+        configs_to_collect = configs
 
         no_defaults = flags == ServerConfigsCollectorFlags.NO_DEFAULTS
 
@@ -37,6 +42,7 @@ class ServerConfigsCollector:
             else:
                 bukkit_config.set_configuration_default_all_properties(version)
             assembler_linker_config.add_configuration_file(bukkit_config)
+            configs_to_collect.remove("bukkit")
 
         if "spigot" in configs:
             spigot_config = SpigotConfig()
@@ -47,6 +53,7 @@ class ServerConfigsCollector:
             else:
                 spigot_config.set_configuration_default_all_properties(version)
             assembler_linker_config.add_configuration_file(spigot_config)
+            configs_to_collect.remove("spigot")
 
         if "paper" in configs:
             paper_config = PaperConfig()
@@ -57,6 +64,7 @@ class ServerConfigsCollector:
             else:
                 paper_config.set_configuration_default_all_properties(version)
             assembler_linker_config.add_configuration_file(paper_config)
+            configs_to_collect.remove("paper")
 
         if "paper-global" in configs:
             paper_global_config = PaperGlobalConfig()
@@ -68,6 +76,7 @@ class ServerConfigsCollector:
             else:
                 paper_global_config.set_configuration_default_all_properties(version)
             assembler_linker_config.add_configuration_file(paper_global_config)
+            configs_to_collect.remove("paper-global")
 
         if "paper-world-defaults" in configs:
             paper_world_defaults_config = PaperWorldDefaultsConfig()
@@ -79,6 +88,10 @@ class ServerConfigsCollector:
             else:
                 paper_world_defaults_config.set_configuration_default_all_properties(version)
             assembler_linker_config.add_configuration_file(paper_world_defaults_config)
+            configs_to_collect.remove("paper-world-defaults")
+
+        if configs_to_collect:
+            print(language.get_string("INFO_CONFIGS_NOT_SUPPORTED", ', '.join(configs_to_collect)))
 
         create_start_script = True if flags == ServerConfigsCollectorFlags.ALL_DEFAULTS \
             else (input("Create start script? (Y/n): ").strip().lower() in ["y", ""])
