@@ -611,6 +611,9 @@ class Language:
         "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
 
         # Server
+        "INFO_CREATING_SERVER": "Creating a Minecraft server ({} {}) in: {}",
+        "INFO_EULA": "By creating Minecraft server you agree with Minecraft EULA available at "
+                     "https://aka.ms/MinecraftEULA",
         "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21.  "
                                 "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. "
@@ -619,13 +622,16 @@ class Language:
                                 "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_8": "Minecraft versions below 1.17 require at least JDK 8. "
                                "(Azul Zulu JDK is recommended.)",
+        "ERROR_LOCKER_LOAD_FAILED": "Failed to load locker data.",
+        "ERROR_INVALID_SERVER_TYPE": "Invalid or unsupported server type: {}",
+        "ERROR_SERVER_SOURCE_NOT_SUPPORTED": "Unsupported server source type: {}. Try updating locker file and make "
+                                             "sure your mcup installation is up-to-date.",
+        "ERROR_INVALID_SERVER_VERSION": "Invalid or unsupported server version: {}",
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
         "ERROR_DOWNLOAD_INSTALLER_FAILED": "Failed to download installer. HTTP {}",
         "ERROR_INSTALLER_NOT_FOUND": "Installer not found.",
         "ERROR_SERVER_JAR_NOT_FOUND": "Server JAR file not found. "
                                       "Check log file in server folder for more info.",
-        "ERROR_SERVER_SOURCE_NOT_SUPPORTED": "Unsupported server source type: {}. Try updating locker file and make"
-                                             " sure your mcup installation is up-to-date.",
         "SUCCESS_SERVER": "Server created successfully.",
 
         # Template

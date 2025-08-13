@@ -19,8 +19,8 @@ class ServerCommand:
         locker = LockerUpdater()
         language = Language()
 
-        print(f"Creating a Minecraft server ({server_type} {server_version}) in: {server_path}")
-        print("By creating Minecraft server you agree with Minecraft EULA available at https://aka.ms/MinecraftEULA")
+        print(language.get_string("INFO_CREATING_SERVER", server_type, server_version, server_path))
+        print(language.get_string("INFO_EULA"))
 
         locker_data = None
         for status in locker.load_locker():
@@ -37,11 +37,11 @@ class ServerCommand:
                     return None
 
         if locker_data is None:
-            print("Failed to load locker data")
+            print(language.get_string("ERROR_LOCKER_LOAD_FAILED"))
             return None
 
         if server_type not in locker_data["servers"]:
-            print(f"Invalid or unsupported server type: {server_type}")
+            print(language.get_string("ERROR_INVALID_SERVER_TYPE", server_type))
             return None
 
         locker_entry = None
@@ -54,7 +54,7 @@ class ServerCommand:
                 break
 
         if locker_entry is None:
-            print(f"Invalid or unsupported server version: {server_version}")
+            print(language.get_string("ERROR_INVALID_SERVER_VERSION", server_version))
             return None
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
@@ -96,7 +96,7 @@ class ServerCommand:
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
                     case StatusCode.SUCCESS:
-                        print("Server created successfully.")
+                        print(language.get_string("SUCCESS_SERVER"))
                         return None
                     case status_code if status_code in java_info_codes:
                         print(language.get_string(java_info_codes[status_code]))
