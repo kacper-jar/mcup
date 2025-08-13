@@ -17,10 +17,12 @@ class ServerConfigsCollector:
         if flags == ServerConfigsCollectorFlags.NO_CONFIGS:
             return assembler_linker_config
 
+        no_defaults = flags == ServerConfigsCollectorFlags.NO_DEFAULTS
+
         server_properties = ServerPropertiesConfig()
         if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
             collector = ServerPropertiesCollector()
-            output = collector.start_collector(version)
+            output = collector.start_collector(version, no_defaults)
             server_properties.set_configuration_properties(output, version)
         else:
             server_properties.set_configuration_default_all_properties(version)
@@ -30,7 +32,7 @@ class ServerConfigsCollector:
             bukkit_config = BukkitConfig()
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 bukkit_collector = BukkitCollector()
-                output = bukkit_collector.start_collector(version)
+                output = bukkit_collector.start_collector(version, no_defaults)
                 bukkit_config.set_configuration_properties(output, version)
             else:
                 bukkit_config.set_configuration_default_all_properties(version)
@@ -40,7 +42,7 @@ class ServerConfigsCollector:
             spigot_config = SpigotConfig()
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 spigot_collector = SpigotCollector()
-                output = spigot_collector.start_collector(version)
+                output = spigot_collector.start_collector(version, no_defaults)
                 spigot_config.set_configuration_properties(output, version)
             else:
                 spigot_config.set_configuration_default_all_properties(version)
@@ -50,7 +52,7 @@ class ServerConfigsCollector:
             paper_config = PaperConfig()
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 paper_collector = PaperCollector()
-                output = paper_collector.start_collector(version)
+                output = paper_collector.start_collector(version, no_defaults)
                 paper_config.set_configuration_properties(output, version)
             else:
                 paper_config.set_configuration_default_all_properties(version)
@@ -61,7 +63,7 @@ class ServerConfigsCollector:
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 paper_global_config.set_configuration_default_property("_version", version)
                 paper_global_config_collector = PaperGlobalCollector()
-                output = paper_global_config_collector.start_collector(version)
+                output = paper_global_config_collector.start_collector(version, no_defaults)
                 paper_global_config.set_configuration_properties(output, version)
             else:
                 paper_global_config.set_configuration_default_all_properties(version)
@@ -72,7 +74,7 @@ class ServerConfigsCollector:
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 paper_world_defaults_config.set_configuration_default_property("_version", version)
                 paper_world_defaults_config_collector = PaperWorldDefaultsCollector()
-                output = paper_world_defaults_config_collector.start_collector(version)
+                output = paper_world_defaults_config_collector.start_collector(version, no_defaults)
                 paper_world_defaults_config.set_configuration_properties(output, version)
             else:
                 paper_world_defaults_config.set_configuration_default_all_properties(version)
@@ -84,7 +86,7 @@ class ServerConfigsCollector:
             start_script_config = StartScript()
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 start_script_collector = StartScriptCollector()
-                output = start_script_collector.start_collector(version)
+                output = start_script_collector.start_collector(version, no_defaults)
                 start_script_config.set_configuration_properties(output, version)
             else:
                 start_script_config.set_configuration_default_all_properties(version)

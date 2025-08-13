@@ -15,7 +15,7 @@ class Collector:
         self.title: str = title
         self.sections: list[CollectorSection] = []
 
-    def start_collector(self, version: "Version") -> dict:
+    def start_collector(self, version: "Version", no_defaults) -> dict:
         """Collects user input into a configuration dictionary."""
         collector_output = {}
 
@@ -33,7 +33,8 @@ class Collector:
             print(f"\n{self.get_title()} - {section.get_section_title()}")
             if section.get_section_header_key() != "":
                 print(language.get_string(section.get_section_header_key()))
-            use_default = input("Use default configuration? (Y/n): ").strip().lower() in ["y", ""]
+            use_default = False if no_defaults else (input("Use default configuration? (Y/n): ").strip().lower()
+                                                     in ["y", ""])
 
             for section_input in section_inputs:
                 collector_output[section_input.get_variable_name()] = (

@@ -59,6 +59,8 @@ class ServerCommand:
 
         if args.no_configs:
             flags = ServerConfigsCollectorFlags.NO_CONFIGS
+        elif args.no_defaults:
+            flags = ServerConfigsCollectorFlags.NO_DEFAULTS
         elif args.all_defaults:
             flags = ServerConfigsCollectorFlags.ALL_DEFAULTS
         else:

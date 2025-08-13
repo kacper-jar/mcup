@@ -46,6 +46,8 @@ class McupCLI:
         configs_group = create_parser.add_mutually_exclusive_group()
         configs_group.add_argument("--no-configs", action="store_true",
                                    help="Skip generation of configuration files")
+        configs_group.add_argument("--no-defaults", action="store_true",
+                                   help="Prompt for all configuration values")
         configs_group.add_argument("--all-defaults", action="store_true",
                                    help="Use default configuration values for all configuration files")
         create_parser.set_defaults(func=ServerCommand.create)
