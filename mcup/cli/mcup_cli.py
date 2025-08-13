@@ -43,6 +43,8 @@ class McupCLI:
         create_parser.add_argument("server_version", help="Version of server")
         create_parser.add_argument("path", nargs="?", default=".",
                                    help="Path to create the server (default: current directory)")
+        create_parser.add_argument("--no-configs", action="store_true",
+                                   help="Skip generation of configuration files")
         create_parser.set_defaults(func=ServerCommand.create)
 
         list_parser = server_subparsers.add_parser("list", help="List available server types and versions")
