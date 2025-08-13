@@ -57,7 +57,8 @@ class ServerCommand:
             print(language.get_string("ERROR_INVALID_SERVER_VERSION", server_version))
             return None
 
-        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
+        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"],
+                                                                              args.no_configs)
 
         with Progress(
                 SpinnerColumn(),

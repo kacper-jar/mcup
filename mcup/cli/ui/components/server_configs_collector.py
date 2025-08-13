@@ -8,10 +8,13 @@ from mcup.core.utils.version import Version
 
 class ServerConfigsCollector:
     @staticmethod
-    def collect_configurations(server_version, configs) -> AssemblerLinkerConfig:
+    def collect_configurations(server_version, configs, no_configs: bool = False) -> AssemblerLinkerConfig:
         version = Version.from_string(server_version)
 
         assembler_linker_config = AssemblerLinkerConfig()
+
+        if no_configs:
+            return assembler_linker_config
 
         server_properties = ServerPropertiesConfig()
         collector = ServerPropertiesCollector()
