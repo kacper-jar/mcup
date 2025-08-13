@@ -3,7 +3,7 @@ from pathlib import Path
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.cli.language import Language
-from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
+from mcup.cli.ui.components import ServerConfigsCollector, ServerConfigsCollectorFlags
 from mcup.core.handlers import ServerHandler
 from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerUpdater
@@ -57,8 +57,15 @@ class ServerCommand:
             print(language.get_string("ERROR_INVALID_SERVER_VERSION", server_version))
             return None
 
+        if args.no_configs:
+            flags = ServerConfigsCollectorFlags.NO_CONFIGS
+        elif args.all_defaults:
+            flags = ServerConfigsCollectorFlags.ALL_DEFAULTS
+        else:
+            flags = ServerConfigsCollectorFlags.NONE
+
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"],
-                                                                              args.no_configs, args.all_defaults)
+                                                                              flags)
 
         with Progress(
                 SpinnerColumn(),
