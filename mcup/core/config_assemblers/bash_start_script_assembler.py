@@ -59,7 +59,6 @@ restart_count=0
 max_restarts={config.configuration['max-restarts']}
 
 echo "Server starting in screen session..."
-{"echo \"Using Aikar's optimized JVM flags...\"" if config.configuration['use-aikars-flags'] else ""}
 echo "Press CTRL + C to stop gracefully."
 
 while true; do
