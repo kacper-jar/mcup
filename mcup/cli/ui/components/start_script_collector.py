@@ -15,6 +15,8 @@ class StartScriptCollector(Collector):
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
                 CollectorInput("max-heap", "COLLECTOR_START_SCRIPT_MAX_HEAP", CollectorInputType.INT,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
+                CollectorInput("use-aikars-flags", "COLLECTOR_START_SCRIPT_USE_AIKARS_FLAGS", CollectorInputType.BOOL,
+                               OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(

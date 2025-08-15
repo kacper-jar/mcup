@@ -13,6 +13,7 @@ class StartScript(ConfigFile):
             "screen-name": None,
             "initial-heap": None,
             "max-heap": None,
+            "use-aikars-flags": None,
             "max-restarts": None,
             "restart-delay": None
         }
@@ -23,6 +24,7 @@ class StartScript(ConfigFile):
             "screen-name": "server",
             "initial-heap": 1024,
             "max-heap": 1024,
+            "use-aikars-flags": False,
             "max-restarts": 10,
             "restart-delay": 5
         }
