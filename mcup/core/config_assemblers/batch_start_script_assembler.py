@@ -45,7 +45,6 @@ if not exist "%SERVER_JAR%" (
 )
 
 echo Starting server in new console session: %SCREEN_NAME%
-{"echo Using Aikar's flags for optimized performance" if config.configuration['use-aikars-flags'] else ""}
 echo A new console window will open for the server
 echo Close that window or press CTRL+C in it to stop the server
 
@@ -57,7 +56,6 @@ title %SCREEN_NAME%
 set /a restart_count=0
 
 echo Server starting in console session...
-if "%USE_AIKARS_FLAGS%"=="true" echo Using Aikar's optimized JVM flags...
 echo Press CTRL + C to stop gracefully.
 
 :restart_loop
