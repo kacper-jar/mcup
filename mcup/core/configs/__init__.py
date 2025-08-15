@@ -6,6 +6,8 @@ from .paper_config import PaperConfig
 from .paper_global_config import PaperGlobalConfig
 from .paper_world_defaults_config import PaperWorldDefaultsConfig
 from .start_script import StartScript
+from .bash_start_script import BashStartScript
+from .batch_start_script import BatchStartScript
 
 __all__ = ["ConfigFile", "ServerPropertiesConfig", "BukkitConfig", "SpigotConfig", "PaperConfig", "PaperGlobalConfig",
-           "PaperWorldDefaultsConfig", "StartScript"]
+           "PaperWorldDefaultsConfig", "StartScript", "BashStartScript", "BatchStartScript"]

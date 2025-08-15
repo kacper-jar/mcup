@@ -1,15 +1,15 @@
 from mcup.core.config_assemblers import Assembler
 
 
-class StartScriptAssembler(Assembler):
-    """Class representing start script assembler."""
+class BashStartScriptAssembler(Assembler):
+    """Class representing bash start script assembler."""
     @staticmethod
     def assemble(path: str, config):
-        """Assemble the start script at the specified path."""
+        """Assemble the bash start script at the specified path."""
 
         java_flags = f"-Xms{config.configuration['initial-heap']}M -Xmx{config.configuration['max-heap']}M"
 
-        if config.configuration['use-aikar-flags']:
+        if config.configuration['use-aikars-flags']:
             aikar_flags = (
                 "-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled "
                 "-XX:+PerfDisableSharedMem -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC "

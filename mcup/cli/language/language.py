@@ -607,7 +607,7 @@ class Language:
         "COLLECTOR_PAPER_WORLD_DEFAULTS_UNSUPPORTED_SETTINGS_FIX_INVULNERABLE_END_CRYSTAL_EXPLOIT": "Fix invulnerable end crystal exploit",
 
         # Start Script collector
-        "COLLECTOR_START_SCRIPT_SCREEN_NAME": "Screen name",
+        "COLLECTOR_START_SCRIPT_SCREEN_NAME": "Screen / Window name",
         "COLLECTOR_START_SCRIPT_INITIAL_HEAP": "Initial heap size (in MB)",
         "COLLECTOR_START_SCRIPT_MAX_HEAP": "Maximum heap size (in MB)",
         "COLLECTOR_START_SCRIPT_USE_AIKARS_FLAGS": "Use Aikar's flags",

@@ -1,7 +1,9 @@
+import sys
+
 from mcup.cli.language import Language
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig, \
-    StartScript, PaperWorldDefaultsConfig
+    PaperWorldDefaultsConfig, BashStartScript, BatchStartScript
 from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector, \
     StartScriptCollector, PaperGlobalCollector, PaperWorldDefaultsCollector, ServerConfigsCollectorFlags
 from mcup.core.utils.version import Version
@@ -96,7 +98,11 @@ class ServerConfigsCollector:
         create_start_script = True if flags == ServerConfigsCollectorFlags.ALL_DEFAULTS \
             else (input("Create start script? (Y/n): ").strip().lower() in ["y", ""])
         if create_start_script:
-            start_script_config = StartScript()
+            if sys.platform != "win32":
+                start_script_config = BatchStartScript()
+            else:
+                start_script_config = BashStartScript()
+
             if flags != ServerConfigsCollectorFlags.ALL_DEFAULTS:
                 start_script_collector = StartScriptCollector()
                 output = start_script_collector.start_collector(version, no_defaults)
