@@ -44,23 +44,16 @@ if not exist "%SERVER_JAR%" (
     exit /b 1
 )
 
-tasklist /FI "WINDOWTITLE eq %SCREEN_NAME%*" 2>nul | find /i "%SCREEN_NAME%" >nul
-if not errorlevel 1 (
-    echo Screen session '%SCREEN_NAME%' is already running!
-    echo Use the console window titled '%SCREEN_NAME%' to access the existing session
-    echo Or close that window to stop it first
-    exit /b 1
-)
-
 echo Starting server in new console session: %SCREEN_NAME%
 {"echo Using Aikar's flags for optimized performance" if config.configuration['use-aikars-flags'] else ""}
 echo A new console window will open for the server
 echo Close that window or press CTRL+C in it to stop the server
 
-start "%SCREEN_NAME%" /min cmd /c "set DETACHED_SESSION=true && set SERVER_JAR=%SERVER_JAR% && set SCREEN_NAME=%SCREEN_NAME% && set MAX_RESTARTS=%MAX_RESTARTS% && set RESTART_DELAY=%RESTART_DELAY% && set USE_AIKARS_FLAGS=%USE_AIKARS_FLAGS% && \\"%~f0\\""
+start "%SCREEN_NAME%" cmd /c "set DETACHED_SESSION=true&& set SERVER_JAR=%SERVER_JAR%&& set SCREEN_NAME=%SCREEN_NAME%&& set MAX_RESTARTS=%MAX_RESTARTS%&& set RESTART_DELAY=%RESTART_DELAY%&& set USE_AIKARS_FLAGS=%USE_AIKARS_FLAGS%&& cd /d \"%CD%\"&& call \"%~f0\""
 exit /b 0
 
 :main_loop
+title %SCREEN_NAME%
 set /a restart_count=0
 
 echo Server starting in console session...
