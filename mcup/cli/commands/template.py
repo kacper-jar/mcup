@@ -4,7 +4,7 @@ from pathlib import Path
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
 from mcup.cli.language import Language
-from mcup.cli.ui.components import ServerInfoPrompt, ServerConfigsCollector
+from mcup.cli.ui.components import ServerConfigsCollector
 from mcup.core.handlers.template_handler import TemplateHandler
 from mcup.core.status import StatusCode
 from mcup.core.utils.locker import LockerUpdater
@@ -14,26 +14,56 @@ from mcup.core.utils.path import PathProvider
 class TemplateCommand:
     @staticmethod
     def create(args):
-        """Handles 'mcup template create <template_name>' command."""
+        """Handles 'mcup template create <server_type> <server_version> <template_name>' command."""
+        server_type = args.server_type
+        server_version = args.server_version
         template_name = args.template_name
         locker = LockerUpdater()
+        language = Language()
         path_provider = PathProvider()
 
         if os.path.exists(f"{path_provider.get_templates_path()}/{template_name}.json"):
             print(f"Error: Template '{template_name}' already exists.")
             return
 
-        try:
-            server_info_prompt = ServerInfoPrompt()
-            server_type, server_version, locker_entry = server_info_prompt.get_server_info(locker)
-        except Exception as e:
-            print(e)
-            return
+        locker_data = None
+        for status in locker.load_locker():
+            match status.status_code:
+                case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
+                    print(language.get_string(status.status_code.name))
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_LOCKER"))
+                    locker_data = status.status_details
+                    break
+                case _:
+                    error_message = language.get_string(status.status_code.name, status.status_details)
+                    print(error_message)
+                    return None
+
+        if locker_data is None:
+            print(language.get_string("ERROR_LOCKER_LOAD_FAILED"))
+            return None
+
+        if server_type not in locker_data["servers"]:
+            print(language.get_string("ERROR_INVALID_SERVER_TYPE", server_type))
+            return None
+
+        locker_entry = None
+        for version in locker_data["servers"][server_type]:
+            if version["version"] == server_version:
+                if version["source"] not in ["DOWNLOAD", "BUILDTOOLS", "INSTALLER"]:
+                    print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", version["source"]))
+                    return None
+                locker_entry = version
+                break
+
+        if locker_entry is None:
+            print(language.get_string("ERROR_INVALID_SERVER_VERSION", server_version))
+            return None
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
 
         template_handler = TemplateHandler()
-        language = Language()
         for status in template_handler.create_template(template_name, server_type, server_version, locker_entry,
                                                        assembler_linker_conf):
             match status.status_code:
