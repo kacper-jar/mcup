@@ -8,15 +8,21 @@ class StartScript(ConfigFile):
         self.config_file_path = "."
 
         self.configuration = {
+            "server-jar": None,
+
             "screen-name": None,
             "initial-heap": None,
             "max-heap": None,
-            "server-jar": None
+            "max-restarts": None,
+            "restart-delay": None
         }
 
         self.default_configuration = {
+            "server-jar": None,
+
             "screen-name": "server",
             "initial-heap": 1024,
             "max-heap": 1024,
-            "server-jar": None
+            "max-restarts": 10,
+            "restart-delay": 5
         }

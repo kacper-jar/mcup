@@ -17,3 +17,12 @@ class StartScriptCollector(Collector):
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
             ]
         ))
+        self.add_section(CollectorSection(
+            "Auto-Restart",
+            [
+                CollectorInput("max-restarts", "COLLECTOR_START_SCRIPT_MAX_RESTARTS",
+                               CollectorInputType.INT, OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
+                CollectorInput("restart-delay", "COLLECTOR_START_SCRIPT_RESTART_DELAY",
+                               CollectorInputType.INT, OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
+            ]
+        ))
