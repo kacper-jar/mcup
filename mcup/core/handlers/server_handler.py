@@ -120,7 +120,7 @@ class ServerHandler:
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
         config_files = assembler_linker_config.get_configuration_files()
         for config in config_files:
-            if config.config_file_name == "start.sh":
+            if config.config_file_name == "start.sh" or config.config_file_name == "start.bat":
                 config.set_configuration_property("server-jar", server_jar_name, version)
 
         assembler_linker = AssemblerLinker(assembler_linker_config)

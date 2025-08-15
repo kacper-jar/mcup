@@ -3,8 +3,8 @@ from mcup.core.configs import ConfigFile
 
 class StartScript(ConfigFile):
     def __init__(self):
-        """Initialize the start script (start.sh)."""
-        self.config_file_name = "start.sh"
+        """Initialize the start script."""
+        self.config_file_name = ""
         self.config_file_path = "."
 
         self.configuration = {
