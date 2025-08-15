@@ -11,7 +11,7 @@ class StartScriptCollector(Collector):
             [
                 CollectorInput("screen-name", "COLLECTOR_START_SCRIPT_SCREEN_NAME", CollectorInputType.STRING,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
-                CollectorInput("initial-heap", "COLLECTOR_START_SCRIPT_SCREEN_NAME", CollectorInputType.INT,
+                CollectorInput("initial-heap", "COLLECTOR_START_SCRIPT_INITIAL_HEAP", CollectorInputType.INT,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
                 CollectorInput("max-heap", "COLLECTOR_START_SCRIPT_MAX_HEAP", CollectorInputType.INT,
                                OLDEST_SUPPORTED_VERSION, LATEST_VERSION),
