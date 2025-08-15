@@ -98,7 +98,7 @@ class ServerConfigsCollector:
         create_start_script = True if flags == ServerConfigsCollectorFlags.ALL_DEFAULTS \
             else (input("Create start script? (Y/n): ").strip().lower() in ["y", ""])
         if create_start_script:
-            if sys.platform != "win32":
+            if sys.platform == "win32":
                 start_script_config = BatchStartScript()
             else:
                 start_script_config = BashStartScript()
