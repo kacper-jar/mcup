@@ -610,6 +610,8 @@ class Language:
         "COLLECTOR_START_SCRIPT_SCREEN_NAME": "Screen name",
         "COLLECTOR_START_SCRIPT_INITIAL_HEAP": "Initial heap size (in MB)",
         "COLLECTOR_START_SCRIPT_MAX_HEAP": "Maximum heap size (in MB)",
+        "COLLECTOR_START_SCRIPT_MAX_RESTARTS": "Max restarts",
+        "COLLECTOR_START_SCRIPT_RESTART_DELAY": "Delay between restarts (in seconds)",
 
         # Collector headers
         "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
