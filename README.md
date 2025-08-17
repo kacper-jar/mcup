@@ -69,7 +69,9 @@ mcup <command> [options]
 
 ### Commands
 
-- `server create [path]` – Create a new Minecraft server in the specified path (defaults to current directory)
+- `server create <server_type> <server_version> [path]` – Create a new Minecraft server in the specified path (defaults
+  to current directory)
+- `server list` - List all available server versions
 - `template use <template_name> [path]` – Create a server based on a saved template
 - `template create <template_name> ` – Create a new server template
 - `template import <path>` – Import a template from a file
