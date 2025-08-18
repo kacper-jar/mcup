@@ -2,7 +2,7 @@ import argparse
 import logging
 
 from mcup import __version__
-from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand
+from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand, ConfigCommand
 from mcup.devtools.confdiff import ConfDiff
 from mcup.devtools.locker_mgr import LockerManager
 
@@ -29,6 +29,7 @@ class McupCLI:
         self._register_server_commands()
         self._register_template_commands()
         self._register_update_command()
+        self._register_config_commands()
         self._register_devtools_commands()
 
         self.logger.info("CLI initialized")
@@ -97,6 +98,21 @@ class McupCLI:
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")
         update_parser.add_argument("--force", action="store_true", help="Force update the locker file even if it's up to date")
         update_parser.set_defaults(func=UpdateCommand.run)
+
+    def _register_config_commands(self):
+        """Register configuration-related commands."""
+        config_parser = self.subparsers.add_parser("config", help="Manage mcup configuration")
+        config_subparsers = config_parser.add_subparsers(dest="action", help="Configuration actions")
+
+        get_parser = config_subparsers.add_parser("get", help="Get a configuration value")
+        get_parser.add_argument("key", help="Name of the configuration property")
+        get_parser.set_defaults(func=ConfigCommand.get)
+
+        set_parser = config_subparsers.add_parser("set", help="Set a configuration value")
+        set_parser.add_argument("key", help="Name of the configuration property")
+        set_parser.add_argument("value", help="Value of the configuration property")
+        set_parser.set_defaults(func=ConfigCommand.set)
+
 
     def _register_devtools_commands(self):
         """Register devtools commands."""
