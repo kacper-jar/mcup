@@ -1,4 +1,5 @@
 from mcup.cli.language import Language
+from mcup.core.status import StatusCode
 from mcup.core.user_config import UserConfig
 
 
@@ -9,12 +10,14 @@ class ConfigCommand:
         language = Language()
         user_config = UserConfig()
 
-        output = user_config.get_configuration(args.key)
-
-        if output is None:
-            print(language.get_string("CONFIG_GET_NO_VALUE", args.key))
-        else:
-            print(language.get_string("CONFIG_GET_VALUE", args.key, output))
+        for status in user_config.get_configuration(args.key):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("CONFIG_GET_VALUE", args.key, status.status_details))
+                case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
+                    print(language.get_string("CONFIG_GET_NO_VALUE", args.key))
+                case StatusCode.ERROR_CONFIG_READ_FAILED:
+                    print(language.get_string("ERROR_CONFIG_READ_FAILED", status.status_details))
 
     @staticmethod
     def set(args):
@@ -22,6 +25,11 @@ class ConfigCommand:
         language = Language()
         user_config = UserConfig()
 
-        user_config.set_configuration(args.key, args.value)
-
-        print(language.get_string("CONFIG_SET_VALUE", args.key, args.value))
+        for status in user_config.set_configuration(args.key, args.value):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("CONFIG_SET_VALUE", args.key, args.value))
+                case StatusCode.ERROR_CONFIG_SET_FAILED:
+                    print(language.get_string("ERROR_CONFIG_SET_FAILED", status.status_details))
+                case StatusCode.ERROR_CONFIG_SAVE_FAILED:
+                    print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))

@@ -38,3 +38,7 @@ class StatusCode(enum.Enum):
     ERROR_LOCKER_META_READ_FAILED = enum.auto()
     ERROR_LOCKER_META_UPDATE_FAILED = enum.auto()
     ERROR_LOCKER_DOWNLOAD_FAILED = enum.auto()
+    ERROR_CONFIG_SAVE_FAILED = enum.auto()
+    ERROR_CONFIG_READ_FAILED = enum.auto()
+    ERROR_CONFIG_SET_FAILED = enum.auto()
+    ERROR_CONFIG_KEY_NOT_FOUND = enum.auto()

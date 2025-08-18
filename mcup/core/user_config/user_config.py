@@ -1,6 +1,7 @@
 import json
 import os
 
+from mcup.core.status import Status, StatusCode
 from mcup.core.utils.path import PathProvider
 
 
@@ -25,17 +26,19 @@ class UserConfig:
             if os.path.exists(self.config_file):
                 with open(self.config_file, 'r', encoding='utf-8') as f:
                     self.user_config = json.load(f)
-        except Exception as e:
-            print(f"Error loading settings: {e}")
+        except Exception:
             self.user_config = {}
 
     def save_configuration(self):
         """Save configuration to the user configuration file."""
         try:
+            os.makedirs(os.path.dirname(self.config_file), exist_ok=True)
+
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self.user_config, f, indent=4)
+            yield Status(StatusCode.SUCCESS)
         except Exception as e:
-            print(f"Error saving settings: {e}")
+            yield Status(StatusCode.ERROR_CONFIG_SAVE_FAILED, str(e))
 
     def get_configuration(self, key, default=None):
         """
@@ -48,7 +51,14 @@ class UserConfig:
         Returns:
             The setting value or the default value
         """
-        return self.user_config.get(key, default)
+        try:
+            value = self.user_config.get(key, default)
+            if value is None and default is None:
+                yield Status(StatusCode.ERROR_CONFIG_KEY_NOT_FOUND, key)
+            else:
+                yield Status(StatusCode.SUCCESS, value)
+        except Exception as e:
+            yield Status(StatusCode.ERROR_CONFIG_READ_FAILED, str(e))
 
     def set_configuration(self, key, value):
         """
@@ -58,5 +68,12 @@ class UserConfig:
             key: The configuration key
             value: The configuration value
         """
-        self.user_config[key] = value
-        self.save_configuration()
+        try:
+            self.user_config[key] = value
+            for status in self.save_configuration():
+                if status.status_code == StatusCode.SUCCESS:
+                    yield Status(StatusCode.SUCCESS, {"key": key, "value": value})
+                else:
+                    yield status
+        except Exception as e:
+            yield Status(StatusCode.ERROR_CONFIG_SET_FAILED, str(e))
