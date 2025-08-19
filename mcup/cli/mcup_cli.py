@@ -3,6 +3,8 @@ import logging
 
 from mcup import __version__
 from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand, ConfigCommand
+from mcup.core.status import StatusCode
+from mcup.core.user_config import UserConfig
 from mcup.devtools.confdiff import ConfDiff
 from mcup.devtools.locker_mgr import LockerManager
 
@@ -13,8 +15,6 @@ class McupCLI:
     def __init__(self):
         """Initialize the CLI with all available commands and arguments."""
         self.logger = logging.getLogger(__name__)
-
-        self.DEVTOOLS_ENABLED = True  # temporary variable
 
         self.parser = argparse.ArgumentParser(
             prog="mcup",
@@ -116,7 +116,17 @@ class McupCLI:
 
     def _register_devtools_commands(self):
         """Register devtools commands."""
-        if self.DEVTOOLS_ENABLED:
+        user_config = UserConfig()
+
+        for status in user_config.get_configuration("devtools.enabled", default="false"):
+            if status.status_code == StatusCode.SUCCESS:
+                devtools_enabled = str(status.status_details).lower()
+                break
+            else:
+                devtools_enabled = "false"
+                break
+
+        if devtools_enabled == "true":
             devtools_parser = self.subparsers.add_parser("devtools", help="Developer tools")
             devtools_subparsers = devtools_parser.add_subparsers(dest="action", help="Devtools actions")
 
