@@ -222,7 +222,7 @@ class LockerUpdater:
                 self.logger.debug("Repository configuration unchanged")
 
             return config_changed
-        except (json.JSONDecodeError, IOError):
+        except (json.JSONDecodeError, IOError) as e:
             self.logger.warning(f"Failed to read meta file for config change check: {e}")
             return True
 
