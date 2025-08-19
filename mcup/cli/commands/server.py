@@ -25,6 +25,9 @@ class ServerCommand:
         locker_data = None
         for status in locker.load_locker():
             match status.status_code:
+                case StatusCode.INFO_LOCKER_USING_REMOTE:
+                    print(language.get_string("INFO_LOCKER_USING_REMOTE", status.status_details['remote_url'],
+                                              status.status_details['branch']))
                 case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string(status.status_code.name))
                 case StatusCode.SUCCESS:
@@ -126,6 +129,9 @@ class ServerCommand:
             match status.status_code:
                 case StatusCode.INFO_LOCKER_MODIFIED:
                     print(language.get_string("INFO_LOCKER_MODIFIED"))
+                case StatusCode.INFO_LOCKER_USING_REMOTE:
+                    print(language.get_string("INFO_LOCKER_USING_REMOTE", status.status_details['remote_url'],
+                                              status.status_details['branch']))
                 case StatusCode.INFO_LOCKER_UP_TO_DATE:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:

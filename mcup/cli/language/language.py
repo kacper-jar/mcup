@@ -659,6 +659,7 @@ class Language:
         # Locker
         "INFO_LOCKER_MODIFIED": "Locker file has been modified. Skipping locker update. Use 'mcup update --force' to "
                                 "reset it.",
+        "INFO_LOCKER_USING_REMOTE": "Using remote locker: {} ({})",
         "INFO_LOCKER_UP_TO_DATE": "Locker file is already up-to-date.",
         "INFO_LOCKER_UPDATING": "Updating locker file...",
         "ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED": "Could not retrieve the latest update timestamp. Details: {}",
