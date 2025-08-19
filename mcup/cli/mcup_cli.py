@@ -125,9 +125,11 @@ class McupCLI:
         for status in user_config.get_configuration("devtools.enabled", default="false"):
             if status.status_code == StatusCode.SUCCESS:
                 devtools_enabled = str(status.status_details).lower()
+                logging.info(f"Devtools enabled.")
                 break
             else:
                 devtools_enabled = "false"
+                logging.info(f"Devtools disabled. Use 'mcup config set devtools.enabled true' to enable.")
                 break
 
         if devtools_enabled == "true":
