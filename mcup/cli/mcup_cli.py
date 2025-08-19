@@ -16,23 +16,27 @@ class McupCLI:
         """Initialize the CLI with all available commands and arguments."""
         self.logger = logging.getLogger(__name__)
 
-        self.parser = argparse.ArgumentParser(
-            prog="mcup",
-            description="Tool for quickly creating Minecraft servers",
-        )
-        self.parser.add_argument(
-            "-v", "--version", action="version",
-            version=f"%(prog)s {__version__}", help="Show the version of mcup"
-        )
-        self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
+        try:
+            self.parser = argparse.ArgumentParser(
+                prog="mcup",
+                description="Tool for quickly creating Minecraft servers",
+            )
+            self.parser.add_argument(
+                "-v", "--version", action="version",
+                version=f"%(prog)s {__version__}", help="Show the version of mcup"
+            )
+            self.subparsers = self.parser.add_subparsers(dest="command", help="Available commands")
 
-        self._register_server_commands()
-        self._register_template_commands()
-        self._register_update_command()
-        self._register_config_commands()
-        self._register_devtools_commands()
+            self._register_server_commands()
+            self._register_template_commands()
+            self._register_update_command()
+            self._register_config_commands()
+            self._register_devtools_commands()
 
-        self.logger.info("CLI initialized")
+            self.logger.info("CLI initialized successfully")
+        except Exception as e:
+            self.logger.error(f"Failed to initialize CLI: {e}")
+            raise
 
     def _register_server_commands(self):
         """Register server-related commands."""
