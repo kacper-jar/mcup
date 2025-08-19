@@ -31,6 +31,9 @@ class TemplateCommand:
             match status.status_code:
                 case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string(status.status_code.name))
+                case StatusCode.INFO_LOCKER_USING_REMOTE:
+                    print(language.get_string("INFO_LOCKER_USING_REMOTE", status.status_details['remote_url'],
+                                              status.status_details['branch']))
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_LOCKER"))
                     locker_data = status.status_details

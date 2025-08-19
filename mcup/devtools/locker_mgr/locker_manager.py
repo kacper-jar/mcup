@@ -36,10 +36,13 @@ class LockerManager:
 
         for status in locker.load_locker():
             match status.status_code:
-                case StatusCode.INFO_LOCKER_UP_TO_DATE:
-                    print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_MODIFIED:
                     print(language.get_string("INFO_LOCKER_MODIFIED"))
+                case StatusCode.INFO_LOCKER_USING_REMOTE:
+                    print(language.get_string("INFO_LOCKER_USING_REMOTE", status.status_details['remote_url'],
+                                              status.status_details['branch']))
+                case StatusCode.INFO_LOCKER_UP_TO_DATE:
+                    print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string("INFO_LOCKER_UPDATING"))
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
