@@ -63,7 +63,7 @@ class ServerHandler:
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
                 return
         elif locker_entry["source"] == "INSTALLER":
-            self.logger.info(f"Downloading installer from: {locker_entry["installer_url"]}")
+            self.logger.info(f"Downloading installer from: {locker_entry['installer_url']}")
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download installer...", 1])
             response = requests.get(locker_entry["installer_url"], stream=True)
 
@@ -153,7 +153,7 @@ class ServerHandler:
             server_jar_name = matching_files[0].name
             self.logger.info(f"Found server jar: {server_jar_name}")
         else:
-            self.logger.error(f"Unsupported server source: {locker_entry["source"]}")
+            self.logger.error(f"Unsupported server source: {locker_entry['source']}")
             yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, locker_entry["source"])
             return
 
@@ -164,7 +164,7 @@ class ServerHandler:
         if not locker_entry["cleanup"]:
             self.logger.debug("No cleanup items specified")
         else:
-            self.logger.info(f"Cleaning up {len(locker_entry["cleanup"])} items")
+            self.logger.info(f"Cleaning up {len(locker_entry['cleanup'])} items")
             for item in locker_entry["cleanup"]:
                 full_path = os.path.join(server_path, item)
                 if os.path.isfile(full_path):
