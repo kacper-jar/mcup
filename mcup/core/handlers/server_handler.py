@@ -32,7 +32,7 @@ class ServerHandler:
             os.makedirs(server_path)
 
         if locker_entry["source"] == "DOWNLOAD":
-            self.logger.info(f"Downloading server from: {locker_entry["server_url"]}")
+            self.logger.info(f"Downloading server from: {locker_entry['server_url']}")
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download server...", 1])
             response = requests.get(locker_entry["server_url"], stream=True)
 
