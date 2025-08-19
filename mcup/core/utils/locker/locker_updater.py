@@ -26,6 +26,8 @@ class LockerUpdater:
         config_dir = path_provider.get_config_path()
         os.makedirs(config_dir, exist_ok=True)
 
+        self.logger.debug(f"LockerUpdater initialized - locker: {self.locker_path}, meta: {self.meta_path}")
+
     def _parse_github_url(self, repo_url: str) -> Tuple[str, str]:
         """
         Parse GitHub repository URL to extract owner and repository name.
@@ -36,13 +38,18 @@ class LockerUpdater:
         Returns:
             Tuple of (owner, repo_name)
         """
+        self.logger.debug(f"Parsing GitHub URL: {repo_url}")
+
         repo_url = repo_url.rstrip('/').replace('.git', '')
 
         github_pattern = r'https://github\.com/([^/]+)/([^/]+)'
         match = re.match(github_pattern, repo_url)
 
         if not match:
+            self.logger.error(f"Invalid GitHub repository URL format: {repo_url}")
             raise ValueError(f"Invalid GitHub repository URL: {repo_url}")
+
+        self.logger.debug(f"Parsed GitHub URL - owner: {match.group(1)}, repo: {match.group(2)}")
 
         return match.group(1), match.group(2)
 
@@ -53,6 +60,8 @@ class LockerUpdater:
         Returns:
             Tuple of (remote_url, branch)
         """
+        self.logger.debug("Getting repository configuration")
+
         remote_config_statuses = list(self.user_config.get_configuration("locker.remote",
                                                                          "https://github.com/kacper-jar/mcup-locker-file"))
         branch_config_statuses = list(self.user_config.get_configuration("locker.branch", "main"))
@@ -61,12 +70,14 @@ class LockerUpdater:
         for status in remote_config_statuses:
             if status.status_code == StatusCode.SUCCESS:
                 remote_url = status.status_details
+                self.logger.debug(f"Remote URL from config: {remote_url}")
                 break
 
         branch = None
         for status in branch_config_statuses:
             if status.status_code == StatusCode.SUCCESS:
                 branch = status.status_details
+                self.logger.debug(f"Branch from config: {branch}")
                 break
 
         return remote_url, branch
@@ -82,12 +93,16 @@ class LockerUpdater:
         Returns:
             Tuple of (locker_file_url, api_url)
         """
+        self.logger.debug(f"Building URLs for remote: {remote_url}, branch: {branch}")
+
         try:
             owner, repo_name = self._parse_github_url(remote_url)
 
             locker_url = f"https://raw.githubusercontent.com/{owner}/{repo_name}/refs/heads/{branch}/locker.json"
 
             api_url = f"https://api.github.com/repos/{owner}/{repo_name}/commits/{branch}"
+
+            self.logger.debug(f"Built URLs - locker: {locker_url}, api: {api_url}")
 
             return locker_url, api_url
 
@@ -97,41 +112,57 @@ class LockerUpdater:
 
     def _check_if_modified(self):
         """Check if the locker file is modified or not."""
+        self.logger.debug(f"Checking if locker file is modified: {self.meta_path}")
+
         if not os.path.exists(self.meta_path):
+            self.logger.debug("Meta file does not exist, considering unmodified")
             return False, None
+
         try:
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 meta_data = json.load(f)
-            return meta_data.get("is_modified"), None
+            is_modified = meta_data.get("is_modified")
+            self.logger.debug(f"Locker file modified status: {is_modified}")
+            return is_modified, None
         except (json.JSONDecodeError, IOError) as e:
             self.logger.error(f"Failed to read locker-meta.json: {e}")
             return None, e
 
     def _get_remote_last_update(self, api_url: str):
         """Fetches the last commit date from GitHub."""
+        self.logger.debug(f"Fetching remote last update from: {api_url}")
+
         try:
             response = requests.get(api_url, timeout=10)
             response.raise_for_status()
             commit_data = response.json()
-            return commit_data["commit"]["committer"]["date"], None
+            last_update = commit_data["commit"]["committer"]["date"]
+            self.logger.debug(f"Remote last update: {last_update}")
+            return last_update, None
         except requests.RequestException as e:
             self.logger.error(f"Failed to retrieve latest locker file timestamp: {e}")
             return None, e
 
     def _get_local_last_update(self):
         """Reads the local last updated timestamp from locker-meta.json."""
+        self.logger.debug(f"Getting local last update from: {self.meta_path}")
+
         if not os.path.exists(self.meta_path):
             return "1970-01-01T00:00:00Z", None
         try:
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 meta_data = json.load(f)
-            return meta_data.get("last_updated"), None
+            last_update = meta_data.get("last_updated")
+            self.logger.debug(f"Local last update: {last_update}")
+            return last_update, None
         except (json.JSONDecodeError, IOError) as e:
             self.logger.error(f"Failed to read locker-meta.json: {e}")
             return None, e
 
     def _update_local_meta(self, date: str, remote_url: str, branch: str):
         """Updates locker-meta.json with the latest update timestamp and configuration."""
+        self.logger.debug(f"Updating local meta - date: {date}, remote: {remote_url}, branch: {branch}")
+
         try:
             meta_data = {
                 "last_updated": date,
@@ -141,6 +172,7 @@ class LockerUpdater:
             }
             with open(self.meta_path, "w", encoding="utf-8") as f:
                 json.dump(meta_data, f, indent=4)
+            self.logger.info(f"Local meta updated successfully")
             return True, None
         except IOError as e:
             self.logger.error(f"Failed to update locker-meta.json: {e}")
@@ -148,11 +180,19 @@ class LockerUpdater:
 
     def _download_locker_file(self, locker_url: str):
         """Downloads the latest locker.json from GitHub."""
+        self.logger.info(f"Downloading locker file from: {locker_url}")
+
         try:
             response = requests.get(locker_url, timeout=10)
             response.raise_for_status()
+
+            content_length = len(response.text)
+            self.logger.debug(f"Downloaded locker file size: {content_length} characters")
+
             with open(self.locker_path, "w", encoding="utf-8") as f:
                 f.write(response.text)
+
+            self.logger.info(f"Locker file downloaded successfully to: {self.locker_path}")
             return True, None
         except requests.RequestException as e:
             self.logger.error(f"Failed to download locker file: {e}")
@@ -160,16 +200,30 @@ class LockerUpdater:
 
     def _check_config_change(self, remote_url: str, branch: str) -> bool:
         """Check if repository configuration has changed since last update."""
+        self.logger.debug("Checking if repository configuration has changed")
+
         if not os.path.exists(self.meta_path):
+            self.logger.debug("Meta file does not exist, considering config changed")
             return True
 
         try:
             with open(self.meta_path, "r", encoding="utf-8") as f:
                 meta_data = json.load(f)
 
-            return (meta_data.get("remote") != remote_url or
-                    meta_data.get("branch") != branch)
+            old_remote = meta_data.get("remote")
+            old_branch = meta_data.get("branch")
+
+            config_changed = (old_remote != remote_url or old_branch != branch)
+
+            if config_changed:
+                self.logger.info(
+                    f"Repository configuration changed - old: {old_remote}/{old_branch}, new: {remote_url}/{branch}")
+            else:
+                self.logger.debug("Repository configuration unchanged")
+
+            return config_changed
         except (json.JSONDecodeError, IOError):
+            self.logger.warning(f"Failed to read meta file for config change check: {e}")
             return True
 
     def update_locker(self, force_update=False) -> Iterator[Status]:
