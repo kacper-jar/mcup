@@ -2,6 +2,7 @@ import logging
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Iterator
 
@@ -143,15 +144,29 @@ class ServerHandler:
                    and f.name != file_name
             ]
 
-            if not matching_files:
+            if server_type in ("forge", "neoforge") and version >= Version(1, 17, 1):
+                args_instead_of_jar = True
+
+                parts = file_name.split('-')
+                minecraft_version = parts[1]
+                forge_version = parts[2]
+
+                match sys.platform:
+                    case "linux" | "darwin":
+                        server_jar_name = f"@libraries/net/minecraftforge/forge/{minecraft_version}-{forge_version}/unix_args.txt"
+                    case "win32":
+                        server_jar_name = f"@libraries/net/minecraftforge/forge/{minecraft_version}-{forge_version}/win_args.txt"
+            else:
+                args_instead_of_jar = False
+                server_jar_name = matching_files[0].name
+            self.logger.info(f"Found server jar: {server_jar_name}")
+
+            if not matching_files and server_jar_name is None:
                 self.logger.error(f"No server jar found after installation in {server_path}")
                 self.logger.debug(
                     f"Available jar files: {[f.name for f in server_path.iterdir() if f.suffix == '.jar']}")
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
                 return
-
-            server_jar_name = matching_files[0].name
-            self.logger.info(f"Found server jar: {server_jar_name}")
         else:
             self.logger.error(f"Unsupported server source: {locker_entry['source']}")
             yield Status(StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED, locker_entry["source"])
@@ -186,6 +201,7 @@ class ServerHandler:
             if config.config_file_name == "start.sh" or config.config_file_name == "start.bat":
                 self.logger.debug(f"Setting server-jar property for {config.config_file_name}")
                 config.set_configuration_property("server-jar", server_jar_name, version)
+                config.set_configuration_property("server-args-instead-of-jar", args_instead_of_jar, version)
 
         assembler_linker = AssemblerLinker(assembler_linker_config)
         assembler_linker.link()

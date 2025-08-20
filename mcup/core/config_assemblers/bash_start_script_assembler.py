@@ -9,6 +9,8 @@ class BashStartScriptAssembler(Assembler):
 
         java_flags = f"-Xms{config.configuration['initial-heap']}M -Xmx{config.configuration['max-heap']}M"
 
+        jar_flag = "-jar" if config.configuration['server-args-instead-of-jar'] is False else ""
+
         if config.configuration['use-aikars-flags']:
             aikar_flags = (
                 "-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled "
@@ -20,9 +22,9 @@ class BashStartScriptAssembler(Assembler):
                 "-XX:MaxGCPauseMillis=200 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 "
                 "-Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"
             )
-            java_command = f"java {java_flags} {aikar_flags} -jar {config.configuration['server-jar']} nogui"
+            java_command = f"java {java_flags} {aikar_flags} {jar_flag} {config.configuration['server-jar']} nogui"
         else:
-            java_command = f"java {java_flags} -jar {config.configuration['server-jar']} nogui"
+            java_command = f"java {java_flags} {jar_flag} {config.configuration['server-jar']} nogui"
 
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
             script_content = f"""#!/usr/bin/env sh
@@ -43,8 +45,8 @@ if [ -z "$STY" ]; then
         exit 1
     fi
 
-    if [ ! -f "{config.configuration['server-jar']}" ]; then
-        echo "Error: {config.configuration['server-jar']} not found in current directory"
+    if [ ! -f "{str(config.configuration['server-jar']).replace("@", "")}" ]; then
+        echo "Error: {str(config.configuration['server-jar']).replace("@", "")} not found"
         exit 1
     fi
 
@@ -67,8 +69,8 @@ while true; do
         break
     fi
 
-    if [ ! -f "{config.configuration['server-jar']}" ]; then
-        echo "Error: {config.configuration['server-jar']} not found. Exiting."
+    if [ ! -f "{str(config.configuration['server-jar']).replace("@", "")}" ]; then
+        echo "Error: {str(config.configuration['server-jar']).replace("@", "")} not found. Exiting."
         break
     fi
 
