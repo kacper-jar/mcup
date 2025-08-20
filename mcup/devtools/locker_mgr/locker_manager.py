@@ -77,10 +77,17 @@ class LockerManager:
             json.dump(locker_data, l_file, indent=4)
 
         if meta_file is not None:
+            with open(meta_file, 'r') as m_file:
+                meta = json.load(m_file)
+                remote_url = meta.get("remote")
+                branch = meta.get("branch")
+
             with open(meta_file, 'w') as m_file:
                 meta = {
                     "last_updated": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
-                    "is_modified": True
+                    "is_modified": True,
+                    "remote": remote_url,
+                    "branch": branch
                 }
 
                 json.dump(meta, m_file, indent=4)
