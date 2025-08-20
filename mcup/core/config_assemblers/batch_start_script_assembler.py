@@ -10,6 +10,8 @@ class BatchStartScriptAssembler(Assembler):
 
         java_flags = f"-Xms{config.configuration['initial-heap']}M -Xmx{config.configuration['max-heap']}M"
 
+        jar_flag = "-jar" if config.configuration['server-args-instead-of-jar'] is False else ""
+
         if config.configuration['use-aikars-flags']:
             aikar_flags = (
                 "-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled "
@@ -21,15 +23,16 @@ class BatchStartScriptAssembler(Assembler):
                 "-XX:MaxGCPauseMillis=200 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 "
                 "-Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"
             )
-            java_command = f"java {java_flags} {aikar_flags} -jar \"%SERVER_JAR%\" nogui"
+            java_command = f"java {java_flags} {aikar_flags} {jar_flag} \"%SERVER_JAR%\" nogui"
         else:
-            java_command = f"java {java_flags} -jar \"%SERVER_JAR%\" nogui"
+            java_command = f"java {java_flags} {jar_flag} \"%SERVER_JAR%\" nogui"
 
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
             script_content = f"""@echo off
 setlocal enabledelayedexpansion
 
 set "SERVER_JAR={config.configuration['server-jar']}"
+set "SERVER_JAR_CLEAN={config.configuration['server-jar']}"
 set "SCREEN_NAME={config.configuration['screen-name']}"
 set "MAX_RESTARTS={config.configuration['max-restarts']}"
 set "RESTART_DELAY={config.configuration['restart-delay']}"
@@ -39,8 +42,8 @@ set "CLEANUP_DONE=false"
 
 if "%DETACHED_SESSION%"=="true" goto :main_loop
 
-if not exist "%SERVER_JAR%" (
-    echo Error: %SERVER_JAR% not found in current directory
+if not exist "%SERVER_JAR_CLEAN%" (
+    echo Error: %SERVER_JAR_CLEAN% not found
     exit /b 1
 )
 
@@ -64,8 +67,8 @@ if !restart_count! geq %MAX_RESTARTS% (
     goto :cleanup
 )
 
-if not exist "%SERVER_JAR%" (
-    echo Error: %SERVER_JAR% not found. Exiting.
+if not exist "%SERVER_JAR_CLEAN%" (
+    echo Error: %SERVER_JAR_CLEAN% not found. Exiting.
     goto :cleanup
 )
 

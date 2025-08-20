@@ -9,6 +9,7 @@ class StartScript(ConfigFile):
 
         self.configuration = {
             "server-jar": None,
+            "server-args-instead-of-jar": None,
 
             "screen-name": None,
             "initial-heap": None,
@@ -20,6 +21,7 @@ class StartScript(ConfigFile):
 
         self.default_configuration = {
             "server-jar": None,
+            "server-args-instead-of-jar": None,
 
             "screen-name": "server",
             "initial-heap": 1024,
