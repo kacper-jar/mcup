@@ -14,16 +14,14 @@ class UserConfig:
         self.logger = logging.getLogger(__name__)
 
         self.user_config = {}
-        self.config_file = self.get_config_file_path()
+
+        path_provider = PathProvider()
+        self.config_path = path_provider.get_config_path()
+        self.config_file = self.config_path / "userconfig.json"
+
         self.load_configuration()
 
         self.logger.debug(f"UserConfig initialized with config file: {self.config_file}")
-
-    def get_config_file_path(self):
-        """Get the path to the user configuration file."""
-        path_provider = PathProvider()
-        path = path_provider.get_config_path() / "userconfig.json"
-        return path
 
     def load_configuration(self):
         """Load configuration from the user configuration file."""
