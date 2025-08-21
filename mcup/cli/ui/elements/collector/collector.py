@@ -21,6 +21,7 @@ class Collector:
     def start_collector(self, version: "Version", no_defaults) -> dict:
         """Collects user input into a configuration dictionary."""
         user_config = UserConfig()
+        language = Language()
 
         collector_output = {}
 
@@ -32,6 +33,9 @@ class Collector:
                 advanced_mode_enabled = False
                 break
 
+        if not advanced_mode_enabled:
+            print(language.get_string("INFO_ADVANCED_MODE_DISABLED"))
+
         for section in self.sections:
             section_inputs = [
                 s_input for s_input in section.get_section_inputs()
@@ -41,11 +45,6 @@ class Collector:
 
             if not section_inputs:
                 continue
-
-            language = Language()
-
-            if not advanced_mode_enabled:
-                print(language.get_string("INFO_ADVANCED_MODE_DISABLED"))
 
             print(f"\n{self.get_title()} - {section.get_section_title()}")
             if section.get_section_header_key() != "":
