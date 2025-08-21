@@ -32,7 +32,7 @@ class BatchStartScriptAssembler(Assembler):
 setlocal enabledelayedexpansion
 
 set "SERVER_JAR={config.configuration['server-jar']}"
-set "SERVER_JAR_CLEAN={config.configuration['server-jar']}"
+set "SERVER_JAR_CLEAN={str(config.configuration['server-jar']).replace('@', '')}"
 set "SCREEN_NAME={config.configuration['screen-name']}"
 set "MAX_RESTARTS={config.configuration['max-restarts']}"
 set "RESTART_DELAY={config.configuration['restart-delay']}"
