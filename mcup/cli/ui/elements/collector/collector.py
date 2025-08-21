@@ -36,8 +36,7 @@ class Collector:
             section_inputs = [
                 s_input for s_input in section.get_section_inputs()
                 if s_input.variable_min_version <= version <= s_input.variable_max_version
-                   and (user_config.get_configuration("advancedmode.enabled", "false") or
-                        s_input.get_variable_input_mode() == CollectorInputMode.BASIC)
+                   and (advanced_mode_enabled or s_input.get_variable_input_mode() == CollectorInputMode.BASIC)
             ]
 
             if not section_inputs:
