@@ -18,23 +18,12 @@ class Collector:
         self.title: str = title
         self.sections: list[CollectorSection] = []
 
-    def start_collector(self, version: "Version", no_defaults) -> dict:
+    def start_collector(self, version: "Version", no_defaults, advanced_mode_enabled) -> dict:
         """Collects user input into a configuration dictionary."""
         user_config = UserConfig()
         language = Language()
 
         collector_output = {}
-
-        for status in user_config.get_configuration("advancedmode.enabled", default="false"):
-            if status.status_code == StatusCode.SUCCESS:
-                advanced_mode_enabled = str(status.status_details).lower() == "true"
-                break
-            else:
-                advanced_mode_enabled = False
-                break
-
-        if not advanced_mode_enabled:
-            print(language.get_string("INFO_ADVANCED_MODE_DISABLED"))
 
         for section in self.sections:
             section_inputs = [
