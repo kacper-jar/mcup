@@ -669,6 +669,8 @@ class Language:
         "SUCCESS_LOCKER": "Successfully updated locker file.",
 
         # Config
+        "ERROR_CONFIG_READ_FAILED": "Failed to read user configuration",
+        "ERROR_CONFIG_SAVE_FAILED": "Failed to save user configuration",
         "CONFIG_GET_NO_VALUE": "No value found for key '{}'",
         "CONFIG_GET_VALUE": "Current value for key '{}': '{}'",
         "CONFIG_SET_VALUE": "Saved value for key '{}': '{}'"
