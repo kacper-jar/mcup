@@ -1,7 +1,10 @@
 from typing import TYPE_CHECKING
 
 from mcup.cli.language import Language
+from mcup.core.status import StatusCode
+from mcup.core.user_config import UserConfig
 from .collector_input_type import CollectorInputType
+from .collector_input_mode import CollectorInputMode
 
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
@@ -17,18 +20,33 @@ class Collector:
 
     def start_collector(self, version: "Version", no_defaults) -> dict:
         """Collects user input into a configuration dictionary."""
+        user_config = UserConfig()
+
         collector_output = {}
+
+        for status in user_config.get_configuration("advancedmode.enabled", default="false"):
+            if status.status_code == StatusCode.SUCCESS:
+                advanced_mode_enabled = str(status.status_details).lower() == "true"
+                break
+            else:
+                advanced_mode_enabled = False
+                break
 
         for section in self.sections:
             section_inputs = [
                 s_input for s_input in section.get_section_inputs()
                 if s_input.variable_min_version <= version <= s_input.variable_max_version
+                   and (user_config.get_configuration("advancedmode.enabled", "false") or
+                        s_input.get_variable_input_mode() == CollectorInputMode.BASIC)
             ]
 
             if not section_inputs:
                 continue
 
             language = Language()
+
+            if not advanced_mode_enabled:
+                print(language.get_string("INFO_ADVANCED_MODE_DISABLED"))
 
             print(f"\n{self.get_title()} - {section.get_section_title()}")
             if section.get_section_header_key() != "":
