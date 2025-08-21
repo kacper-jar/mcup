@@ -621,6 +621,9 @@ class Language:
         "INFO_CREATING_SERVER": "Creating a Minecraft server ({} {}) in: {}",
         "INFO_EULA": "By creating Minecraft server you agree with Minecraft EULA available at "
                      "https://aka.ms/MinecraftEULA",
+        "INFO_ADVANCED_MODE_DISABLED": "Basic mode active. "
+                                       "Advanced configuration options are hidden and will use defaults. "
+                                       "To see all available options: mcup config set advancedmode.enabled true",
         "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21.  "
                                 "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. "
