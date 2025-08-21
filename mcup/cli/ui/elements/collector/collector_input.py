@@ -31,4 +31,4 @@ class CollectorInput:
 
     def get_variable_input_mode(self) -> "CollectorInputMode":
         """Get variable input mode."""
-        return self.variable_mode
+        return self.variable_input_mode
