@@ -45,6 +45,7 @@ class ServerHandler:
                 file_path = server_path / file_name
                 self.logger.debug(f"Saving to: {file_path}")
                 server_jar_name = file_name
+                args_instead_of_jar = False
 
                 downloaded_bytes = 0
                 with open(file_path, "wb") as file:
@@ -144,7 +145,7 @@ class ServerHandler:
                    and f.name != file_name
             ]
 
-            if server_type in ("forge", "neoforge") and version >= Version(1, 17, 1):
+            if server_type == "forge" and version >= Version(1, 17, 1):
                 args_instead_of_jar = True
 
                 parts = file_name.split('-')
@@ -156,6 +157,17 @@ class ServerHandler:
                         server_jar_name = f"@libraries/net/minecraftforge/forge/{minecraft_version}-{forge_version}/unix_args.txt"
                     case "win32":
                         server_jar_name = f"@libraries/net/minecraftforge/forge/{minecraft_version}-{forge_version}/win_args.txt"
+            elif server_type == "neoforge":
+                args_instead_of_jar = True
+
+                parts = file_name.split('-')
+                neoforge_version = parts[1]
+
+                match sys.platform:
+                    case "linux" | "darwin":
+                        server_jar_name = f"@libraries/net/neoforged/neoforge/{neoforge_version}/unix_args.txt"
+                    case "win32":
+                        server_jar_name = f"@libraries/net/neoforged/neoforge/{neoforge_version}/win_args.txt"
             else:
                 args_instead_of_jar = False
                 server_jar_name = matching_files[0].name
