@@ -27,7 +27,7 @@ class UserConfig:
         """Load configuration from the user configuration file."""
         try:
             self.logger.debug(f"Loading configuration from: {self.config_file}")
-            if os.path.exists(self.config_file):
+            if os.path.exists(self.config_path):
                 with open(self.config_file, 'r', encoding='utf-8') as f:
                     self.user_config = json.load(f)
             self.logger.info(f"Configuration loaded successfully with {len(self.user_config)} keys")
@@ -38,9 +38,9 @@ class UserConfig:
     def save_configuration(self):
         """Save configuration to the user configuration file."""
         try:
-            if not os.path.exists(self.config_file):
+            if not os.path.exists(self.config_path):
                 self.logger.debug(f"Creating configuration directory: {self.config_file}")
-                os.makedirs(self.config_file, exist_ok=True)
+                os.makedirs(self.config_path, exist_ok=True)
 
             self.logger.debug(f"Saving configuration to: {self.config_file}")
             with open(self.config_file, 'w', encoding='utf-8') as f:
