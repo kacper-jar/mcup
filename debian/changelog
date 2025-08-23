@@ -1,3 +1,28 @@
+mcup (1.0.0-beta3) unstable; urgency=medium
+
+  * fix: Change `$` prefix in locker dynamic variables (installer_args) to `%` by @kacper-jar in https://github.com/kacper-jar/mcup/pull/12
+  * refactor: Extract hardcoded collector titles to variables for dynamic title composition by @kacper-jar in https://github.com/kacper-jar/mcup/pull/13
+  * feat: Add `mcup server list` command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/14
+  * feat: Rework `server create` command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/15
+  * feat: Add warning for unsupported configurations by @kacper-jar in https://github.com/kacper-jar/mcup/pull/16
+  * refactor: Replace ServerInfoPrompt by @kacper-jar in https://github.com/kacper-jar/mcup/pull/17
+  * feat: Overhaul start script(s) by @kacper-jar in https://github.com/kacper-jar/mcup/pull/18
+  * chore: Update dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/19
+  * docs: Update Commands section in README by @kacper-jar in https://github.com/kacper-jar/mcup/pull/20
+  * feat: Add user config by @kacper-jar in https://github.com/kacper-jar/mcup/pull/21
+  * refactor: Improve user config handling by @kacper-jar in https://github.com/kacper-jar/mcup/pull/22
+  * feat: Disable devtools by default by @kacper-jar in https://github.com/kacper-jar/mcup/pull/23
+  * feat: Add 3rd party locker support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/24
+  * chore: Improve logging by @kacper-jar in https://github.com/kacper-jar/mcup/pull/25
+  * fix: Add new meta fields to lockermgr to prevent broken meta by @kacper-jar in https://github.com/kacper-jar/mcup/pull/26
+  * feat: Add support for Forge and NeoForge by @kacper-jar in https://github.com/kacper-jar/mcup/pull/27
+  * fix: Improve path handling in user config to avoid issues on Windows by @kacper-jar in https://github.com/kacper-jar/mcup/pull/28
+  * fix: Add missing strings for user config by @kacper-jar in https://github.com/kacper-jar/mcup/pull/29
+  * feat: Implement input modes to simplify server creation for basic users by @kacper-jar in https://github.com/kacper-jar/mcup/pull/30
+  * fix: Adjust `server_jar_name` to work with NeoForge by @kacper-jar in https://github.com/kacper-jar/mcup/pull/31 
+
+ -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Sat, 23 Aug 2025 17:00:05 +0200
+
 mcup (1.0.0-beta2) unstable; urgency=medium
 
   * ci: add commitlint GitHub Action 
