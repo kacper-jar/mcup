@@ -33,3 +33,20 @@ class ConfigCommand:
                     print(language.get_string("ERROR_CONFIG_SET_FAILED", status.status_details))
                 case StatusCode.ERROR_CONFIG_SAVE_FAILED:
                     print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))
+
+    @staticmethod
+    def remove(args):
+        """Handles 'mcup config remove <key>' command."""
+        language = Language()
+        user_config = UserConfig()
+
+        for status in user_config.remove_configuration(args.key):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("CONFIG_REMOVE_SUCCESS", args.key))
+                case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
+                    print(language.get_string("CONFIG_REMOVE_KEY_NOT_FOUND", args.key))
+                case StatusCode.ERROR_CONFIG_REMOVE_FAILED:
+                    print(language.get_string("ERROR_CONFIG_REMOVE_FAILED", status.status_details))
+                case StatusCode.ERROR_CONFIG_SAVE_FAILED:
+                    print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))

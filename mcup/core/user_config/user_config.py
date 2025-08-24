@@ -105,3 +105,34 @@ class UserConfig:
         except Exception as e:
             self.logger.error(f"Failed to set configuration key '{key}': {e}")
             yield Status(StatusCode.ERROR_CONFIG_SET_FAILED, str(e))
+
+    def remove_configuration(self, key):
+        """
+        Remove a configuration value.
+
+        Args:
+            key: The configuration key to remove
+        """
+        self.logger.info(f"Removing configuration key: '{key}'")
+
+        try:
+            if key not in self.user_config:
+                self.logger.warning(f"Configuration key '{key}' not found for removal")
+                yield Status(StatusCode.ERROR_CONFIG_KEY_NOT_FOUND, key)
+                return
+
+            old_value = self.user_config[key]
+            del self.user_config[key]
+            self.logger.debug(f"Configuration key '{key}' with value '{old_value}' removed from memory")
+
+            for status in self.save_configuration():
+                if status.status_code == StatusCode.SUCCESS:
+                    self.logger.info(f"Configuration key '{key}' removed successfully")
+                    yield Status(StatusCode.SUCCESS, {"key": key, "old_value": old_value})
+                else:
+                    self.user_config[key] = old_value
+                    self.logger.error(f"Failed to save configuration after removing '{key}', key restored")
+                    yield status
+        except Exception as e:
+            self.logger.error(f"Failed to remove configuration key '{key}': {e}")
+            yield Status(StatusCode.ERROR_CONFIG_REMOVE_FAILED, str(e))
