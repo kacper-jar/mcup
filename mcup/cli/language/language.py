@@ -677,11 +677,14 @@ class Language:
         "ERROR_CONFIG_SAVE_FAILED": "Failed to save user configuration",
         "ERROR_CONFIG_SET_FAILED": "Failed to set configuration key",
         "ERROR_CONFIG_REMOVE_FAILED": "Failed to remove configuration key",
+        "ERROR_CONFIG_CLEAR_FAILED": "Failed to clear configuration: {}",
         "ERROR_CONFIG_KEY_NOT_FOUND": "Configuration key '{}' not found",
+        "ERROR_CONFIG_FILE_NOT_FOUND": "Configuration file not found",
         "SUCCESS_CONFIG_GET_NO_VALUE": "No value found for key '{}'",
         "SUCCESS_CONFIG_GET_VALUE": "Current value for key '{}': '{}'",
         "SUCCESS_CONFIG_SET_VALUE": "Saved value for key '{}': '{}'",
         "SUCCESS_CONFIG_REMOVE": "Configuration key '{}' removed successfully",
+        "SUCCESS_CONFIG_CLEAR": "All user configuration cleared successfully",
     }
 
     def get_string(self, key, *args):

@@ -50,3 +50,18 @@ class ConfigCommand:
                     print(language.get_string("ERROR_CONFIG_REMOVE_FAILED", status.status_details))
                 case StatusCode.ERROR_CONFIG_SAVE_FAILED:
                     print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))
+
+    @staticmethod
+    def clear(args):
+        """Handles 'mcup config clear' command."""
+        language = Language()
+        user_config = UserConfig()
+
+        for status in user_config.clear_configuration():
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_CONFIG_CLEAR"))
+                case StatusCode.ERROR_CONFIG_CLEAR_FAILED:
+                    print(language.get_string("ERROR_CONFIG_CLEAR_FAILED", status.status_details))
+                case StatusCode.ERROR_CONFIG_FILE_NOT_FOUND:
+                    print(language.get_string("ERROR_CONFIG_FILE_NOT_FOUND"))

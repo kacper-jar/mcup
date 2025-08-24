@@ -44,4 +44,6 @@ class StatusCode(enum.Enum):
     ERROR_CONFIG_READ_FAILED = enum.auto()
     ERROR_CONFIG_SET_FAILED = enum.auto()
     ERROR_CONFIG_REMOVE_FAILED = enum.auto()
+    ERROR_CONFIG_CLEAR_FAILED = enum.auto()
     ERROR_CONFIG_KEY_NOT_FOUND = enum.auto()
+    ERROR_CONFIG_FILE_NOT_FOUND = enum.auto()
