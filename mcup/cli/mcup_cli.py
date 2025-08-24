@@ -124,6 +124,9 @@ class McupCLI:
         clear_parser = config_subparsers.add_parser("clear", help="Clear all configuration values")
         clear_parser.set_defaults(func=ConfigCommand.clear)
 
+        list_parser = config_subparsers.add_parser("list", help="List all configuration keys and values")
+        list_parser.set_defaults(func=ConfigCommand.list)
+
     def _register_devtools_commands(self):
         """Register devtools commands."""
         user_config = UserConfig()

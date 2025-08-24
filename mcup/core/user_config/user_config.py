@@ -170,3 +170,31 @@ class UserConfig:
         except Exception as e:
             self.logger.error(f"Failed to clear configuration: {e}")
             yield Status(StatusCode.ERROR_CONFIG_CLEAR_FAILED, str(e))
+
+    def list_configuration(self):
+        """
+        List all configuration keys and their values.
+        """
+        self.logger.debug("Listing all configuration keys and values")
+
+        try:
+            config_count = len(self.user_config)
+            self.logger.debug(f"Found {config_count} configuration entries")
+
+            if config_count == 0:
+                output = "No configuration entries found"
+            else:
+                lines = [f"Current configuration ({config_count} entries):"]
+
+                for key in sorted(self.user_config.keys()):
+                    value = self.user_config[key]
+                    lines.append(f"  {key} = {value}")
+
+                output = "\n".join(lines)
+
+            self.logger.info(f"Configuration list formatted successfully ({config_count} entries)")
+            yield Status(StatusCode.SUCCESS, output)
+
+        except Exception as e:
+            self.logger.error(f"Failed to list configuration: {e}")
+            yield Status(StatusCode.ERROR_CONFIG_LIST_FAILED, str(e))

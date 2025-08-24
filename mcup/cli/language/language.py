@@ -678,6 +678,7 @@ class Language:
         "ERROR_CONFIG_SET_FAILED": "Failed to set configuration key",
         "ERROR_CONFIG_REMOVE_FAILED": "Failed to remove configuration key",
         "ERROR_CONFIG_CLEAR_FAILED": "Failed to clear configuration: {}",
+        "ERROR_CONFIG_LIST_FAILED": "Failed to list configuration: {}",
         "ERROR_CONFIG_KEY_NOT_FOUND": "Configuration key '{}' not found",
         "ERROR_CONFIG_FILE_NOT_FOUND": "Configuration file not found",
         "SUCCESS_CONFIG_GET_NO_VALUE": "No value found for key '{}'",
