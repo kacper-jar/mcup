@@ -136,3 +136,37 @@ class UserConfig:
         except Exception as e:
             self.logger.error(f"Failed to remove configuration key '{key}': {e}")
             yield Status(StatusCode.ERROR_CONFIG_REMOVE_FAILED, str(e))
+
+    def clear_configuration(self):
+        """
+        Clear all configuration by deleting the userconfig.json file.
+        This will reset all user configuration to defaults.
+        """
+        self.logger.info("Clearing all user configuration")
+
+        try:
+            if not os.path.exists(self.config_file):
+                self.logger.warning(f"Configuration file '{self.config_file}' does not exist")
+                yield Status(StatusCode.ERROR_CONFIG_FILE_NOT_FOUND, str(self.config_file))
+                return
+
+            keys_count = len(self.user_config)
+
+            os.remove(self.config_file)
+            self.logger.debug(f"Configuration file '{self.config_file}' deleted successfully")
+
+            self.user_config.clear()
+
+            self.logger.info(f"All user configuration cleared successfully ({keys_count} keys removed)")
+            yield Status(StatusCode.SUCCESS, {"keys_removed": keys_count, "file_path": str(self.config_file)})
+
+        except FileNotFoundError:
+            self.logger.warning(f"Configuration file '{self.config_file}' not found during clear operation")
+            self.user_config.clear()
+            yield Status(StatusCode.ERROR_CONFIG_FILE_NOT_FOUND, str(self.config_file))
+        except PermissionError as e:
+            self.logger.error(f"Permission denied when trying to delete configuration file '{self.config_file}': {e}")
+            yield Status(StatusCode.ERROR_CONFIG_CLEAR_FAILED, f"Permission denied: {e}")
+        except Exception as e:
+            self.logger.error(f"Failed to clear configuration: {e}")
+            yield Status(StatusCode.ERROR_CONFIG_CLEAR_FAILED, str(e))
