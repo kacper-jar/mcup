@@ -65,3 +65,18 @@ class ConfigCommand:
                     print(language.get_string("ERROR_CONFIG_CLEAR_FAILED", status.status_details))
                 case StatusCode.ERROR_CONFIG_FILE_NOT_FOUND:
                     print(language.get_string("ERROR_CONFIG_FILE_NOT_FOUND"))
+
+    @staticmethod
+    def list(args):
+        """Handles 'mcup config list' command."""
+        language = Language()
+        user_config = UserConfig()
+
+        for status in user_config.list_configuration():
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(status.status_details)
+                case StatusCode.ERROR_CONFIG_LIST_FAILED:
+                    print(language.get_string("ERROR_CONFIG_LIST_FAILED", status.status_details))
+                case StatusCode.ERROR_CONFIG_READ_FAILED:
+                    print(language.get_string("ERROR_CONFIG_READ_FAILED", status.status_details))
