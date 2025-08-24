@@ -23,6 +23,7 @@ class StatusCode(enum.Enum):
     INFO_LOCKER_UPDATING = enum.auto()
 
     ERROR_GENERIC = enum.auto()
+    ERROR_JAVA_NOT_FOUND = enum.auto()
     ERROR_DOWNLOAD_SERVER_FAILED = enum.auto()
     ERROR_DOWNLOAD_INSTALLER_FAILED = enum.auto()
     ERROR_INSTALLER_NOT_FOUND = enum.auto()
