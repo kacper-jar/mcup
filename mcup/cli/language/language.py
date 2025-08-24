@@ -675,6 +675,7 @@ class Language:
         # Config
         "ERROR_CONFIG_READ_FAILED": "Failed to read user configuration",
         "ERROR_CONFIG_SAVE_FAILED": "Failed to save user configuration",
+        "ERROR_CONFIG_SET_FAILED": "Failed to set configuration key",
         "CONFIG_GET_NO_VALUE": "No value found for key '{}'",
         "CONFIG_REMOVE_KEY_NOT_FOUND": "Configuration key '{}' not found - nothing to remove",
         "CONFIG_GET_VALUE": "Current value for key '{}': '{}'",
