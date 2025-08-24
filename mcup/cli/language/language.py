@@ -640,6 +640,7 @@ class Language:
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
         "ERROR_DOWNLOAD_INSTALLER_FAILED": "Failed to download installer. HTTP {}",
         "ERROR_INSTALLER_NOT_FOUND": "Installer not found.",
+        "ERROR_JAVA_VERSION_DETECTION_FAILED": "Failed to detect JDK version. ({}).",
         "ERROR_SERVER_JAR_NOT_FOUND": "Server JAR file not found. "
                                       "Check log file in server folder for more info.",
         "SUCCESS_SERVER": "Server created successfully.",
