@@ -155,6 +155,8 @@ class TemplateCommand:
                         progress.update(task, advance=1)
                     case StatusCode.PROGRESSBAR_END:
                         progress.stop()
+                    case StatusCode.INFO_VERSION_NEWER_THAN_SUPPORTED:
+                        print(language.get_string("INFO_VERSION_NEWER_THAN_SUPPORTED"))
                     case StatusCode.INFO_JAVA_MINIMUM_21:
                         print(language.get_string("INFO_JAVA_MINIMUM_21"))
                     case StatusCode.INFO_JAVA_MINIMUM_17:

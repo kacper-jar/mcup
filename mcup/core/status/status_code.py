@@ -12,6 +12,7 @@ class StatusCode(enum.Enum):
     PROGRESSBAR_FINISH_TASK = enum.auto()
     PROGRESSBAR_END = enum.auto()
 
+    INFO_VERSION_NEWER_THAN_SUPPORTED = enum.auto()
     INFO_JAVA_MINIMUM_21 = enum.auto()
     INFO_JAVA_MINIMUM_17 = enum.auto()
     INFO_JAVA_MINIMUM_16 = enum.auto()

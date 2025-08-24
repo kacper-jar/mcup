@@ -11,7 +11,7 @@ import requests
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.core.status import Status, StatusCode
-from mcup.core.utils.version import Version
+from mcup.core.utils.version import Version, LATEST_VERSION
 
 
 class ServerHandler:
@@ -28,6 +28,11 @@ class ServerHandler:
         self.logger.debug(f"Locker entry: {locker_entry}")
 
         version = Version.from_string(server_version)
+
+        if version > LATEST_VERSION:
+            self.logger.warning(f"Server version {version} is not supported by this version of mcup - "
+                                f"configuration files won't be assembled")
+            yield Status(StatusCode.INFO_VERSION_NEWER_THAN_SUPPORTED)
 
         if not server_path.exists():
             self.logger.info(f"Creating server directory: {server_path}")
