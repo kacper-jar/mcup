@@ -13,9 +13,9 @@ class ConfigCommand:
         for status in user_config.get_configuration(args.key):
             match status.status_code:
                 case StatusCode.SUCCESS:
-                    print(language.get_string("CONFIG_GET_VALUE", args.key, status.status_details))
+                    print(language.get_string("SUCCESS_CONFIG_GET_VALUE", args.key, status.status_details))
                 case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
-                    print(language.get_string("CONFIG_GET_NO_VALUE", args.key))
+                    print(language.get_string("SUCCESS_CONFIG_GET_NO_VALUE", args.key))
                 case StatusCode.ERROR_CONFIG_READ_FAILED:
                     print(language.get_string("ERROR_CONFIG_READ_FAILED", status.status_details))
 
@@ -28,7 +28,7 @@ class ConfigCommand:
         for status in user_config.set_configuration(args.key, args.value):
             match status.status_code:
                 case StatusCode.SUCCESS:
-                    print(language.get_string("CONFIG_SET_VALUE", args.key, args.value))
+                    print(language.get_string("SUCCESS_CONFIG_SET_VALUE", args.key, args.value))
                 case StatusCode.ERROR_CONFIG_SET_FAILED:
                     print(language.get_string("ERROR_CONFIG_SET_FAILED", status.status_details))
                 case StatusCode.ERROR_CONFIG_SAVE_FAILED:
@@ -43,9 +43,9 @@ class ConfigCommand:
         for status in user_config.remove_configuration(args.key):
             match status.status_code:
                 case StatusCode.SUCCESS:
-                    print(language.get_string("CONFIG_REMOVE_SUCCESS", args.key))
+                    print(language.get_string("SUCCESS_CONFIG_REMOVE", args.key))
                 case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
-                    print(language.get_string("CONFIG_REMOVE_KEY_NOT_FOUND", args.key))
+                    print(language.get_string("ERROR_CONFIG_KEY_NOT_FOUND", args.key))
                 case StatusCode.ERROR_CONFIG_REMOVE_FAILED:
                     print(language.get_string("ERROR_CONFIG_REMOVE_FAILED", status.status_details))
                 case StatusCode.ERROR_CONFIG_SAVE_FAILED:

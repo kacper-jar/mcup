@@ -676,11 +676,12 @@ class Language:
         "ERROR_CONFIG_READ_FAILED": "Failed to read user configuration",
         "ERROR_CONFIG_SAVE_FAILED": "Failed to save user configuration",
         "ERROR_CONFIG_SET_FAILED": "Failed to set configuration key",
-        "CONFIG_GET_NO_VALUE": "No value found for key '{}'",
-        "CONFIG_REMOVE_KEY_NOT_FOUND": "Configuration key '{}' not found - nothing to remove",
-        "CONFIG_GET_VALUE": "Current value for key '{}': '{}'",
-        "CONFIG_SET_VALUE": "Saved value for key '{}': '{}'",
-        "CONFIG_REMOVE_SUCCESS": "Configuration key '{}' removed successfully",
+        "ERROR_CONFIG_REMOVE_FAILED": "Failed to remove configuration key",
+        "ERROR_CONFIG_KEY_NOT_FOUND": "Configuration key '{}' not found",
+        "SUCCESS_CONFIG_GET_NO_VALUE": "No value found for key '{}'",
+        "SUCCESS_CONFIG_GET_VALUE": "Current value for key '{}': '{}'",
+        "SUCCESS_CONFIG_SET_VALUE": "Saved value for key '{}': '{}'",
+        "SUCCESS_CONFIG_REMOVE": "Configuration key '{}' removed successfully",
     }
 
     def get_string(self, key, *args):
