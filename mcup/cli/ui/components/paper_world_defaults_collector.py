@@ -1,3 +1,5 @@
+from email._header_value_parser import Section
+
 from mcup.cli.ui.elements.collector import Collector, CollectorSection, CollectorInputType, CollectorInput, \
     CollectorInputMode
 from mcup.core.utils.version import Version, LATEST_VERSION
@@ -120,6 +122,17 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
+            "Armor Stands (Entities)",
+            [
+                CollectorInput("entities/armor-stands/do-collision-entity-lookups",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_ARMOR_STANDS_DO_COLLISION_ENTITY_LOOKUPS",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                CollectorInput("entities/armor-stands/tick",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_ARMOR_STANDS_TICK",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
             "Behavior (Entities)",
             [
                 CollectorInput("entities/behavior/allow-spider-world-border-climbing",
@@ -231,20 +244,18 @@ class PaperWorldDefaultsCollector(Collector):
             ]
         ))
         self.add_section(CollectorSection(
-            "Armor Stands, Targeting, Markers, Mob Effects, Sniffers and Tracking Ranges "
-            "(Entities)",
+            "Targeting and Markers (Entities)",
             [
-                CollectorInput("entities/armor-stands/do-collision-entity-lookups",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_ARMOR_STANDS_DO_COLLISION_ENTITY_LOOKUPS",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
-                CollectorInput("entities/armor-stands/tick",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_ARMOR_STANDS_TICK",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("entities/entities-target-with-follow-range",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_ENTITIES_TARGET_WITH_FOLLOW_RANGE",
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), Version(1, 21, 2)),
                 CollectorInput("entities/markers/tick", "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_MARKERS_TICK",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19, 4), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19, 4), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Mob Effects (Entities)",
+            [
                 CollectorInput("entities/mob-effects/immune-to-wither-effect/wither",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_MOB_EFFECTS_IMMUNE_TO_WITHER_EFFECT_WITHER",
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
@@ -256,34 +267,18 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
                 CollectorInput("entities/mob-effects/undead-immune-to-certain-effects",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_MOB_EFFECTS_UNDEAD_IMMUNE_TO_CERTAIN_EFFECTS",
-                               CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), Version(1, 20, 4)),
+                               CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), Version(1, 20, 4))
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Sniffer (Entities)",
+            [
                 CollectorInput("entities/sniffer/boosted-hatch-time",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SNIFFER_BOOSTED_HATCH_TIME",
                                CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 20, 1), LATEST_VERSION),
                 CollectorInput("entities/sniffer/hatch-time",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SNIFFER_HATCH_TIME",
-                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/enabled",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_ENABLED",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/animal",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_ANIMAL",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/display",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_DISPLAY",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/misc",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_MISC",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/monster",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_MONSTER",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/other",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_OTHER",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
-                CollectorInput("entities/tracking-range-y/player",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_PLAYER",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 20, 1), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
@@ -470,7 +465,33 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("entities/spawning/wateranimal-spawn-height/minimum",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_SPAWNING_WATERANIMAL_SPAWN_HEIGHT_MINIMUM",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Tracking Ranges (Entities)",
+            [
+                CollectorInput("entities/tracking-range-y/enabled",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_ENABLED",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/animal",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_ANIMAL",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/display",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_DISPLAY",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/misc",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_MISC",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/monster",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_MONSTER",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/other",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_OTHER",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION),
+                CollectorInput("entities/tracking-range-y/player",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENTITIES_TRACKING_RANGE_Y_PLAYER",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 20, 1), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
@@ -548,18 +569,23 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("environment/feature-seeds/generate-random-seeds-for-all",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENVIRONMENT_FEATURE_SEEDS_GENERATE_RANDOM_SEEDS_FOR_ALL",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
-            "Fishing Time Range, Fixes, Hoppers and Lootables",
+            "Fishing Time Range",
             [
                 CollectorInput("fishing-time-range/maximum",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_FISHING_TIME_RANGE_MAXIMUM",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("fishing-time-range/minimum",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_FISHING_TIME_RANGE_MINIMUM",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Fixes",
+            [
                 CollectorInput("fixes/disable-unloaded-chunk-enderpearl-exploit",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_FIXES_DISABLE_UNLOADED_CHUNK_ENDERPEARL_EXPLOIT",
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
@@ -580,7 +606,12 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("fixes/tnt-entity-height-nerf",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_FIXES_TNT_ENTITY_HEIGHT_NERF",
-                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Hoppers",
+            [
                 CollectorInput("hoppers/cooldown-when-full",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_HOPPERS_COOLDOWN_WHEN_FULL",
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
@@ -589,7 +620,12 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("hoppers/ignore-occluding-blocks",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_HOPPERS_IGNORE_OCCLUDING_BLOCKS",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Lootables",
+            [
                 CollectorInput("lootables/auto-replenish",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_LOOTABLES_AUTO_REPLENISH",
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
@@ -613,18 +649,23 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.STRING, CollectorInputMode.BASIC, Version(1, 20, 1), LATEST_VERSION),
                 CollectorInput("lootables/retain-unlooted-shulker-box-loot-table-on-non-player-break",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_LOOTABLES_RETAIN_UNLOOTED_SHULKER_BOX_LOOT_TABLE_ON_NON_PLAYER_BREAK",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
-            "Maps, Max Growth Height and Misc",
+            "Maps",
             [
                 CollectorInput("maps/item-frame-cursor-limit",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MAPS_ITEM_FRAME_CURSOR_LIMIT",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("maps/item-frame-cursor-update-interval",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MAPS_ITEM_FRAME_CURSOR_UPDATE_INTERVAL",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Max Growth Height",
+            [
                 CollectorInput("max-growth-height/bamboo/max",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MAX_GROWTH_HEIGHT_BAMBOO_MAX",
                                CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
@@ -636,7 +677,12 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
                 CollectorInput("max-growth-height/reeds",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MAX_GROWTH_HEIGHT_REEDS",
-                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Misc",
+            [
                 CollectorInput("misc/alternate-current-update-order",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MISC_ALTERNATE_CURRENT_UPDATE_ORDER",
                                CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 21, 1),
@@ -670,18 +716,23 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
                 CollectorInput("misc/update-pathfinding-on-block-update",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_MISC_UPDATE_PATHFINDING_ON_BLOCK_UPDATE",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(
-            "Scoreboards, Spawn and Tick Rates",
+            "Scoreboards",
             [
                 CollectorInput("scoreboards/allow-non-player-entities-on-scoreboards",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_SCOREBOARDS_ALLOW_NON_PLAYER_ENTITIES_ON_SCOREBOARDS",
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
                 CollectorInput("scoreboards/use-vanilla-world-scoreboard-name-coloring",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_SCOREBOARDS_USE_VANILLA_WORLD_SCOREBOARD_NAME_COLORING",
-                               CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
+                               CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION)
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Spawn",
+            [
                 CollectorInput("spawn/allow-using-signs-inside-spawn-protection",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_SPAWN_ALLOW_USING_SIGNS_INSIDE_SPAWN_PROTECTION",
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
@@ -690,7 +741,12 @@ class PaperWorldDefaultsCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 19), Version(1, 20, 4)),
                 CollectorInput("spawn/keep-spawn-loaded-range",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_SPAWN_KEEP_SPAWN_LOADED_RANGE",
-                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), Version(1, 20, 4)),
+                               CollectorInputType.INT, CollectorInputMode.BASIC, Version(1, 19), Version(1, 20, 4))
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Tick Rates",
+            [
                 CollectorInput("tick-rates/behavior/villager/validatenearbypoi",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_BEHAVIOR_VILLAGER_VALIDATENEARBYPOI",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
