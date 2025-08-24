@@ -117,6 +117,9 @@ class McupCLI:
         set_parser.add_argument("value", help="Value of the configuration property")
         set_parser.set_defaults(func=ConfigCommand.set)
 
+        remove_parser = config_subparsers.add_parser("remove", help="Remove a configuration value")
+        remove_parser.add_argument("key", help="Name of the configuration property")
+        remove_parser.set_defaults(func=ConfigCommand.remove)
 
     def _register_devtools_commands(self):
         """Register devtools commands."""
