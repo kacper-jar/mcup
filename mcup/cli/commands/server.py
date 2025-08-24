@@ -82,6 +82,7 @@ class ServerCommand:
             task = None
 
             java_info_codes = {
+                StatusCode.INFO_VERSION_NEWER_THAN_SUPPORTED: "INFO_VERSION_NEWER_THAN_SUPPORTED",
                 StatusCode.INFO_JAVA_MINIMUM_21: "INFO_JAVA_MINIMUM_21",
                 StatusCode.INFO_JAVA_MINIMUM_17: "INFO_JAVA_MINIMUM_17",
                 StatusCode.INFO_JAVA_MINIMUM_16: "INFO_JAVA_MINIMUM_16",

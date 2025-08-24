@@ -624,6 +624,9 @@ class Language:
         "INFO_ADVANCED_MODE_DISABLED": "Basic mode active. "
                                        "Advanced configuration options are hidden and will use defaults. "
                                        "To see all available options: mcup config set advancedmode.enabled true",
+        "INFO_VERSION_NEWER_THAN_SUPPORTED": "You are using a version that is not supported by this version of mcup. "
+                                             "Configuration files won't be generated to avoid broken or outdated "
+                                             "configurations",
         "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21.  "
                                 "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. "
