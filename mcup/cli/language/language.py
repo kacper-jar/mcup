@@ -640,6 +640,7 @@ class Language:
         "ERROR_SERVER_SOURCE_NOT_SUPPORTED": "Unsupported server source type: {}. Try updating locker file and make "
                                              "sure your mcup installation is up-to-date.",
         "ERROR_INVALID_SERVER_VERSION": "Invalid or unsupported server version: {}",
+        "ERROR_JAVA_NOT_FOUND": "Java not found. Please install Java first and try again.",
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
         "ERROR_DOWNLOAD_INSTALLER_FAILED": "Failed to download installer. HTTP {}",
         "ERROR_INSTALLER_NOT_FOUND": "Installer not found.",

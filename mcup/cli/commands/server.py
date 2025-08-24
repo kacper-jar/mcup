@@ -90,6 +90,7 @@ class ServerCommand:
             }
 
             error_codes = {
+                StatusCode.ERROR_JAVA_NOT_FOUND: "ERROR_JAVA_NOT_FOUND",
                 StatusCode.ERROR_DOWNLOAD_SERVER_FAILED: "ERROR_DOWNLOAD_SERVER_FAILED",
                 StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED: "ERROR_DOWNLOAD_INSTALLER_FAILED",
                 StatusCode.ERROR_INSTALLER_NOT_FOUND: "ERROR_INSTALLER_NOT_FOUND",

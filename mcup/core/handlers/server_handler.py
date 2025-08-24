@@ -27,6 +27,18 @@ class ServerHandler:
         self.logger.info(f"Creating server: type={server_type}, version={server_version}, path={server_path}")
         self.logger.debug(f"Locker entry: {locker_entry}")
 
+        try:
+            subprocess.check_output(
+                ["java", "-version"],
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+            self.logger.info("Java installation verified")
+        except (subprocess.CalledProcessError, FileNotFoundError) as e:
+            self.logger.error(f"Java is not installed or not accessible: {e}")
+            yield Status(StatusCode.ERROR_JAVA_NOT_FOUND)
+            return
+
         version = Version.from_string(server_version)
 
         if version > LATEST_VERSION:
