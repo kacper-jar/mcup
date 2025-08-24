@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -96,10 +97,51 @@ class ServerHandler:
                 return
 
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Installing server...", 1])
-            java_version_output = subprocess.check_output(["java", "-version"],
-                                                          stderr=subprocess.STDOUT, text=True)
-            java_major_version = int(java_version_output.split("\n")[0].split("\"")[1].split(".")[0])
-            self.logger.debug(f"Detected Java version: {java_major_version}")
+            try:
+                java_version_output = subprocess.check_output(
+                    ["java", "-version"],
+                    stderr=subprocess.STDOUT,
+                    text=True
+                )
+
+                version_pattern = r'(?:java\s+version\s+|openjdk\s+version\s+|openjdk\s+)[\"\']?(\d+(?:\.\d+)*(?:_\d+)?)[\"\']?'
+                match = re.search(version_pattern, java_version_output, re.IGNORECASE)
+
+                if not match:
+                    first_line = java_version_output.split('\n')[0]
+                    fallback_pattern = r'[\"\'](\d+(?:\.\d+)*(?:_\d+)?)[\"\']'
+                    match = re.search(fallback_pattern, first_line)
+
+                if not match:
+                    self.logger.error(f"Could not parse Java version from output: {java_version_output}")
+                    yield Status(StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED, "Could not parse Java version")
+                    return
+
+                version_string = match.group(1)
+
+                if version_string.startswith('1.'):
+                    parts = version_string.split('.')
+                    if len(parts) >= 2:
+                        java_major_version = int(parts[1])
+                    else:
+                        self.logger.error(f"Unexpected Java version format: {version_string}")
+                        yield Status(StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED,
+                                     f"Unexpected version format: {version_string}")
+                        return
+                else:
+                    major_version = version_string.split('.')[0]
+                    java_major_version = int(major_version)
+
+                self.logger.debug(f"Detected Java version: {java_major_version}")
+
+            except subprocess.CalledProcessError as e:
+                self.logger.error(f"Failed to execute 'java -version': {e}")
+                yield Status(StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED, str(e))
+                return
+            except ValueError as e:
+                self.logger.error(f"Failed to parse Java version number: {e}")
+                yield Status(StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED, str(e))
+                return
 
             if version >= Version(1, 20, 6) and java_major_version < 21:
                 self.logger.warning(

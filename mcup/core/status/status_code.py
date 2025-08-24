@@ -25,6 +25,7 @@ class StatusCode(enum.Enum):
     ERROR_DOWNLOAD_SERVER_FAILED = enum.auto()
     ERROR_DOWNLOAD_INSTALLER_FAILED = enum.auto()
     ERROR_INSTALLER_NOT_FOUND = enum.auto()
+    ERROR_JAVA_VERSION_DETECTION_FAILED = enum.auto()
     ERROR_SERVER_JAR_NOT_FOUND = enum.auto()
     ERROR_SERVER_SOURCE_NOT_SUPPORTED = enum.auto()
     ERROR_TEMPLATE_WRITE_FAILED = enum.auto()

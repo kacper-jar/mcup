@@ -180,6 +180,9 @@ class TemplateCommand:
                     case StatusCode.ERROR_INSTALLER_NOT_FOUND:
                         progress.stop()
                         print(language.get_string("ERROR_INSTALLER_NOT_FOUND"))
+                    case StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_JAVA_VERSION_DETECTION_FAILED"))
                     case StatusCode.ERROR_SERVER_JAR_NOT_FOUND:
                         progress.stop()
                         print(language.get_string("ERROR_SERVER_JAR_NOT_FOUND"))
