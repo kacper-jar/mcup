@@ -74,61 +74,72 @@ class Collector:
                 example_input = ""
 
         language = Language()
-        var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
 
-        if var == "":
-            return var
+        while True:
+            var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
 
-        match variable_type:
-            case CollectorInputType.STRING:
+            if var == "":
                 return var
-            case CollectorInputType.INT:
-                try:
-                    return int(var)
-                except ValueError:
-                    print("Invalid integer value. Please try again.")
-            case CollectorInputType.STRING_OR_INT:
-                try:
-                    return int(var)
-                except ValueError:
+
+            match variable_type:
+                case CollectorInputType.STRING:
                     return var
-            case CollectorInputType.FLOAT:
-                try:
-                    return float(var)
-                except ValueError:
-                    print("Invalid floating point number value. Please try again.")
-            case CollectorInputType.BOOL:
-                if var.lower() in ["y", "yes", "true"]:
-                    return True
-                elif var.lower() in ["n", "no", "false"]:
-                    return False
-                else:
-                    print("Invalid boolean value. Please try again.")
-            case CollectorInputType.STRING_LIST:
-                return var.split(',')
-            case CollectorInputType.INT_LIST:
-                try:
-                    return [int(item.strip()) for item in var.split(',')]
-                except ValueError:
-                    print("Invalid integer value in list. Please try again.")
-            case CollectorInputType.FLOAT_LIST:
-                try:
-                    return [float(item.strip()) for item in var.split(',')]
-                except ValueError:
-                    print("Invalid floating point number value in list. Please try again.")
-            case CollectorInputType.BOOL_LIST:
-                bool_list = []
-                for item in var.split(','):
-                    item = item.strip().lower()
-                    if item in ["y", "yes", "true"]:
-                        bool_list.append(True)
-                    elif item in ["n", "no", "false"]:
-                        bool_list.append(False)
+                case CollectorInputType.INT:
+                    try:
+                        return int(var)
+                    except ValueError:
+                        print("Invalid integer value. Please try again.")
+                        continue
+                case CollectorInputType.STRING_OR_INT:
+                    try:
+                        return int(var)
+                    except ValueError:
+                        return var
+                case CollectorInputType.FLOAT:
+                    try:
+                        return float(var)
+                    except ValueError:
+                        print("Invalid floating point number value. Please try again.")
+                        continue
+                case CollectorInputType.BOOL:
+                    if var.lower() in ["y", "yes", "true"]:
+                        return True
+                    elif var.lower() in ["n", "no", "false"]:
+                        return False
                     else:
-                        print(f"Invalid boolean value '{item}' in list. Please try again.")
-                        return None
-                return bool_list
-        return None
+                        print("Invalid boolean value. Please try again.")
+                        continue
+                case CollectorInputType.STRING_LIST:
+                    return var.split(',')
+                case CollectorInputType.INT_LIST:
+                    try:
+                        return [int(item.strip()) for item in var.split(',')]
+                    except ValueError:
+                        print("Invalid integer value in list. Please try again.")
+                        continue
+                case CollectorInputType.FLOAT_LIST:
+                    try:
+                        return [float(item.strip()) for item in var.split(',')]
+                    except ValueError:
+                        print("Invalid floating point number value in list. Please try again.")
+                        continue
+                case CollectorInputType.BOOL_LIST:
+                    bool_list = []
+                    valid_list = True
+                    for item in var.split(','):
+                        item = item.strip().lower()
+                        if item in ["y", "yes", "true"]:
+                            bool_list.append(True)
+                        elif item in ["n", "no", "false"]:
+                            bool_list.append(False)
+                        else:
+                            print(f"Invalid boolean value '{item}' in list. Please try again.")
+                            valid_list = False
+                            break
+                    if valid_list:
+                        return bool_list
+                    continue
+            return None
 
     def get_title(self) -> str:
         """Get collector title."""
