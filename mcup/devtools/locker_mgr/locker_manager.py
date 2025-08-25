@@ -34,6 +34,7 @@ class LockerManager:
         language = Language()
         locker = LockerUpdater()
 
+        update_occurred = False
         for status in locker.load_locker():
             match status.status_code:
                 case StatusCode.INFO_LOCKER_MODIFIED:
@@ -45,6 +46,7 @@ class LockerManager:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string("INFO_LOCKER_UPDATING"))
+                    update_occurred = True
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
                     print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",
                                               status.status_details))
@@ -59,7 +61,8 @@ class LockerManager:
                     print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED", status.status_details))
                     raise Exception()
                 case StatusCode.SUCCESS:
-                    print(language.get_string("SUCCESS_LOCKER"))
+                    if update_occurred:
+                        print(language.get_string("SUCCESS_LOCKER"))
                     return status.status_details
         return None
 

@@ -23,6 +23,7 @@ class ServerCommand:
         print(language.get_string("INFO_EULA"))
 
         locker_data = None
+        update_occurred = False
         for status in locker.load_locker():
             match status.status_code:
                 case StatusCode.INFO_LOCKER_USING_REMOTE:
@@ -30,8 +31,12 @@ class ServerCommand:
                                               status.status_details['branch']))
                 case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string(status.status_code.name))
+
+                    if status.status_code == StatusCode.INFO_LOCKER_UPDATING:
+                        update_occurred = True
                 case StatusCode.SUCCESS:
-                    print(language.get_string("SUCCESS_LOCKER"))
+                    if update_occurred:
+                        print(language.get_string("SUCCESS_LOCKER"))
                     locker_data = status.status_details
                     break
                 case _:
@@ -128,6 +133,8 @@ class ServerCommand:
         locker = LockerUpdater()
         language = Language()
 
+        locker_data = None
+        update_occurred = False
         for status in locker.load_locker():
             match status.status_code:
                 case StatusCode.INFO_LOCKER_MODIFIED:
@@ -139,6 +146,7 @@ class ServerCommand:
                     print(language.get_string("INFO_LOCKER_UP_TO_DATE"))
                 case StatusCode.INFO_LOCKER_UPDATING:
                     print(language.get_string("INFO_LOCKER_UPDATING"))
+                    update_occurred = True
                 case StatusCode.ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED:
                     print(language.get_string("ERROR_LOCKER_RETRIEVE_LATEST_TIMESTAMP_FAILED",
                                               status.status_details))
@@ -153,7 +161,8 @@ class ServerCommand:
                     print(language.get_string("ERROR_LOCKER_META_UPDATE_FAILED", status.status_details))
                     return
                 case StatusCode.SUCCESS:
-                    print(language.get_string("SUCCESS_LOCKER"))
+                    if update_occurred:
+                        print(language.get_string("SUCCESS_LOCKER"))
                     locker_data = status.status_details
                     break
 
