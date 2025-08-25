@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 from mcup.cli.language import Language
-from mcup.core.status import StatusCode
 from mcup.core.user_config import UserConfig
 from .collector_input_type import CollectorInputType
 from .collector_input_mode import CollectorInputMode
