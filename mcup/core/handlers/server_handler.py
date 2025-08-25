@@ -58,7 +58,15 @@ class ServerHandler:
             if response.status_code == 200:
                 total_size = int(response.headers.get('content-length', 0))
                 self.logger.debug(f"Download size: {total_size} bytes")
-                yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading server...", total_size])
+
+                if total_size > 0:
+                    yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading server...", total_size])
+                    show_progress = True
+                else:
+                    self.logger.warning("Content-length not available, using 0% -> 100% progress")
+                    yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading server...", 1])
+                    show_progress = False
+
                 file_name = locker_entry["server_url"].split("/")[-1]
                 file_path = server_path / file_name
                 self.logger.debug(f"Saving to: {file_path}")
@@ -68,11 +76,18 @@ class ServerHandler:
                 downloaded_bytes = 0
                 with open(file_path, "wb") as file:
                     for chunk in response.iter_content(1024):
-                        file.write(chunk)
-                        downloaded_bytes += len(chunk)
-                        yield Status(StatusCode.PROGRESSBAR_UPDATE, len(chunk))
+                        if chunk:
+                            file.write(chunk)
+                            chunk_size = len(chunk)
+                            downloaded_bytes += chunk_size
+
+                            if show_progress:
+                                yield Status(StatusCode.PROGRESSBAR_UPDATE, chunk_size)
 
                 self.logger.info(f"Server downloaded successfully: {downloaded_bytes} bytes")
+
+                if not show_progress:
+                    yield Status(StatusCode.PROGRESSBAR_UPDATE, 1)
             else:
                 self.logger.error(f"Failed to download server: {str(response.status_code)}")
                 yield Status(StatusCode.ERROR_DOWNLOAD_SERVER_FAILED, str(response.status_code))
@@ -82,6 +97,7 @@ class ServerHandler:
                 self.logger.error(f"Server jar file not found after download: {file_path}")
                 yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
                 return
+
         elif locker_entry["source"] == "INSTALLER":
             self.logger.info(f"Downloading installer from: {locker_entry['installer_url']}")
             yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download installer...", 1])
@@ -90,7 +106,15 @@ class ServerHandler:
             if response.status_code == 200:
                 total_size = int(response.headers.get('content-length', 0))
                 self.logger.debug(f"Installer size: {total_size} bytes")
-                yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading installer...", total_size])
+
+                if total_size > 0:
+                    yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading installer...", total_size])
+                    show_progress = True
+                else:
+                    self.logger.warning("Content-length not available, using 0% -> 100% progress")
+                    yield Status(StatusCode.PROGRESSBAR_NEXT, ["Downloading installer...", 1])
+                    show_progress = False
+
                 file_name = locker_entry["installer_url"].split("/")[-1]
                 file_path = server_path / file_name
                 self.logger.debug(f"Saving to: {file_path}")
@@ -98,11 +122,18 @@ class ServerHandler:
                 downloaded_bytes = 0
                 with open(file_path, "wb") as file:
                     for chunk in response.iter_content(1024):
-                        file.write(chunk)
-                        downloaded_bytes += len(chunk)
-                        yield Status(StatusCode.PROGRESSBAR_UPDATE, len(chunk))
+                        if chunk:
+                            file.write(chunk)
+                            chunk_size = len(chunk)
+                            downloaded_bytes += chunk_size
+
+                            if show_progress:
+                                yield Status(StatusCode.PROGRESSBAR_UPDATE, chunk_size)
 
                 self.logger.info(f"Server downloaded successfully: {downloaded_bytes} bytes")
+
+                if not show_progress:
+                    yield Status(StatusCode.PROGRESSBAR_UPDATE, 1)
             else:
                 self.logger.error(f"Failed to download installer: {str(response.status_code)}")
                 yield Status(StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED, str(response.status_code))
