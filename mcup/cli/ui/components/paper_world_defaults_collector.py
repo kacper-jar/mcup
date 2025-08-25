@@ -1,5 +1,3 @@
-from email._header_value_parser import Section
-
 from mcup.cli.ui.elements.collector import Collector, CollectorSection, CollectorInputType, CollectorInput, \
     CollectorInputMode
 from mcup.core.utils.version import Version, LATEST_VERSION
