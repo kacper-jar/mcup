@@ -27,7 +27,7 @@ class AssemblerLinker:
     def link(self):
         """Link configuration files with their appropriate assemblers."""
         from mcup.core.config_assemblers import (ServerPropertiesAssembler, YmlAssembler, BashStartScriptAssembler,
-                                                 BatchStartScriptAssembler)
+                                                 BatchStartScriptAssembler, EulaAssembler)
 
         for config_file in self.configuration.get_configuration_files():
             if config_file.get_file_name() == "server.properties":
@@ -45,6 +45,10 @@ class AssemblerLinker:
 
             if config_file.get_file_name() in ["start.bat"]:
                 self.linked_files[config_file.config_file_name] = BatchStartScriptAssembler()
+                continue
+
+            if config_file.get_file_name() in ["eula.txt"]:
+                self.linked_files[config_file.config_file_name] = EulaAssembler()
                 continue
 
     def get_linked_files(self) -> dict[str, "Assembler"]:
