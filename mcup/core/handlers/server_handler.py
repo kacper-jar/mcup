@@ -10,6 +10,7 @@ from typing import Iterator
 import requests
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
+from mcup.core.configs import EulaFile
 from mcup.core.status import Status, StatusCode
 from mcup.core.utils.version import Version, LATEST_VERSION
 
@@ -297,6 +298,13 @@ class ServerHandler:
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
 
         config_files = assembler_linker_config.get_configuration_files()
+
+        if version >= Version(1, 7, 10):
+            config_files.append(EulaFile())
+            self.logger.debug(f"EULA file added to configuration files")
+        else:
+            self.logger.info("EULA file not required, creation skipped")
+
         self.logger.debug(f"Found {len(config_files)} configuration files to process")
 
         for config in config_files:
@@ -310,17 +318,6 @@ class ServerHandler:
         assembler_linker.assemble_linked_files(server_path)
 
         self.logger.info("Configuration files assembled successfully")
-
-        if version >= Version(1, 7, 10):
-            self.logger.info("Creating EULA file")
-            yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling eula.txt...", 1])
-            eula_file_path = server_path / "eula.txt"
-            with open(eula_file_path, "w") as file:
-                file.write("# Minecraft EULA available at https://aka.ms/MinecraftEULA\n")
-                file.write("eula=true")
-            self.logger.debug(f"EULA file created: {eula_file_path}")
-        else:
-            self.logger.info("EULA file not required, creation skipped")
 
         yield Status(StatusCode.PROGRESSBAR_FINISH_TASK)
         yield Status(StatusCode.PROGRESSBAR_END)
