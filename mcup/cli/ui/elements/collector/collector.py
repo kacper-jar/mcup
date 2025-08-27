@@ -28,10 +28,23 @@ class Collector:
             section_inputs = [
                 s_input for s_input in section.get_section_inputs()
                 if s_input.variable_min_version <= version <= s_input.variable_max_version
-                   and (advanced_mode_enabled or s_input.get_variable_input_mode() == CollectorInputMode.BASIC)
             ]
 
-            if not section_inputs:
+            filtered_section_inputs = [
+                s_input for s_input in section_inputs
+                if advanced_mode_enabled or s_input.get_variable_input_mode() == CollectorInputMode.BASIC
+            ]
+
+            skipped_section_inputs = [
+                s_input for s_input in section_inputs
+                if s_input not in filtered_section_inputs
+            ]
+
+            if skipped_section_inputs is not None:
+                for skipped_section_input in skipped_section_inputs:
+                    collector_output[skipped_section_input.get_variable_name()] = ""
+
+            if not filtered_section_inputs:
                 continue
 
             print(f"\n{self.get_title()} - {section.get_section_title()}")
@@ -40,7 +53,7 @@ class Collector:
             use_default = False if no_defaults else (input("Use default configuration? (Y/n): ").strip().lower()
                                                      in ["y", ""])
 
-            for section_input in section_inputs:
+            for section_input in filtered_section_inputs:
                 collector_output[section_input.get_variable_name()] = (
                     "" if use_default else self._process_input(section_input)
                 )
