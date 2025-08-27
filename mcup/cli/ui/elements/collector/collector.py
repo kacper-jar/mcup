@@ -47,6 +47,21 @@ class Collector:
 
         return collector_output
 
+    def get_version_appropriate_defaults(self, version: "Version") -> dict:
+        """Get default configuration values only for properties that are valid for the specified version."""
+        collector_output = {}
+
+        for section in self.sections:
+            section_inputs = [
+                s_input for s_input in section.get_section_inputs()
+                if s_input.variable_min_version <= version <= s_input.variable_max_version
+            ]
+
+            for section_input in section_inputs:
+                collector_output[section_input.get_variable_name()] = ""
+
+        return collector_output
+
     def _process_input(self, section_input):
         """Process user input for a given input type."""
         variable_type = section_input.get_variable_input_type()
