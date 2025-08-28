@@ -1,6 +1,6 @@
 name: mcup
 base: core22
-version: '1.0.0-beta3'
+version: '1.0.0-beta4'
 summary: Command-line tool for quickly creating Minecraft servers
 description: |
   Command-line tool for quickly creating Minecraft servers.
