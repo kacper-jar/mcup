@@ -1,3 +1,21 @@
+mcup (1.0.0-beta4) unstable; urgency=medium
+
+  * fix: UserConfig creating folder instead of config file by @kacper-jar in https://github.com/kacper-jar/mcup/pull/33
+  * fix: Improve Java version detection by @kacper-jar in https://github.com/kacper-jar/mcup/pull/34
+  * feat: UserConfig enhancements and new command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/35
+  * feat: Add warning for unsupported versions to prevent generation of broken configuration files by @kacper-jar in https://github.com/kacper-jar/mcup/pull/36
+  * fix: Add check if Java is installed before installing server by @kacper-jar in https://github.com/kacper-jar/mcup/pull/37
+  * refactor: Reorganize Paper World Defaults collector sections by @kacper-jar in https://github.com/kacper-jar/mcup/pull/38
+  * fix: Downloading progressbar stuck on 0% due to missing content-length by @kacper-jar in https://github.com/kacper-jar/mcup/pull/39
+  * chore: Remove unused dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/40
+  * fix: Retry input collection on validation errors instead of skipping by @kacper-jar in https://github.com/kacper-jar/mcup/pull/41
+  * fix: Prevent success message when locker is loaded without an update by @kacper-jar in https://github.com/kacper-jar/mcup/pull/42
+  * refactor: Extract eula file creation to config file and assembler by @kacper-jar in https://github.com/kacper-jar/mcup/pull/43
+  * fix: Invalid properties in configurations due to no version checks by @kacper-jar in https://github.com/kacper-jar/mcup/pull/44
+  * fix: Improve section inputs filtering to prevent skipping advanced inputs by @kacper-jar in https://github.com/kacper-jar/mcup/pull/45
+
+ -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Thu, 28 Aug 2025 22:23:22 +0200
+
 mcup (1.0.0-beta3) unstable; urgency=medium
 
   * fix: Change `$` prefix in locker dynamic variables (installer_args) to `%` by @kacper-jar in https://github.com/kacper-jar/mcup/pull/12
