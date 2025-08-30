@@ -89,3 +89,42 @@ class ConfigFile:
     def get_default_configuration(self) -> dict:
         """Get the default configuration dictionary."""
         return self.default_configuration
+
+    def get_default_values_for_variables(self, variable_names: list[str], version: Version) -> dict:
+        """Get default values for specific variables."""
+        defaults = {}
+
+        for variable_name in variable_names:
+            default_value = self._get_default_value_for_variable(variable_name, version)
+            defaults[variable_name] = default_value
+
+        return defaults
+
+    def _get_default_value_for_variable(self, variable_name: str, version: Version):
+        """Get the default value for a single variable."""
+        if self.default_configuration is None:
+            return None
+
+        if "/" in variable_name:
+            keys = variable_name.split("/")
+            current_dict = self.default_configuration
+
+            for key in keys:
+                if isinstance(current_dict, dict) and key in current_dict:
+                    current_dict = current_dict[key]
+                else:
+                    return None
+
+            if isinstance(current_dict, VersionDependantVariablePicker):
+                return current_dict.resolve(version)
+            else:
+                return current_dict
+        else:
+            if variable_name in self.default_configuration:
+                default_val = self.default_configuration[variable_name]
+                if isinstance(default_val, VersionDependantVariablePicker):
+                    return default_val.resolve(version)
+                else:
+                    return default_val
+            else:
+                return None
