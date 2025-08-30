@@ -43,6 +43,7 @@ class ServerConfigsCollector:
 
         server_properties = ServerPropertiesConfig()
         collector = ServerPropertiesCollector()
+        collector.set_config_file(server_properties)
 
         if all_defaults:
             output = collector.get_version_appropriate_defaults(version)
@@ -55,6 +56,7 @@ class ServerConfigsCollector:
         if "bukkit" in configs:
             bukkit_config = BukkitConfig()
             bukkit_collector = BukkitCollector()
+            bukkit_collector.set_config_file(bukkit_config)
 
             if all_defaults:
                 output = bukkit_collector.get_version_appropriate_defaults(version)
@@ -68,6 +70,7 @@ class ServerConfigsCollector:
         if "spigot" in configs:
             spigot_config = SpigotConfig()
             spigot_collector = SpigotCollector()
+            spigot_collector.set_config_file(spigot_config)
 
             if all_defaults:
                 output = spigot_collector.get_version_appropriate_defaults(version)
@@ -81,6 +84,7 @@ class ServerConfigsCollector:
         if "paper" in configs:
             paper_config = PaperConfig()
             paper_collector = PaperCollector()
+            paper_collector.set_config_file(paper_config)
 
             if all_defaults:
                 output = paper_collector.get_version_appropriate_defaults(version)
@@ -95,6 +99,7 @@ class ServerConfigsCollector:
             paper_global_config = PaperGlobalConfig()
             paper_global_config.set_configuration_default_property("_version", version)
             paper_global_config_collector = PaperGlobalCollector()
+            paper_global_config_collector.set_config_file(paper_global_config)
 
             if all_defaults:
                 output = paper_global_config_collector.get_version_appropriate_defaults(version)
@@ -109,6 +114,7 @@ class ServerConfigsCollector:
             paper_world_defaults_config = PaperWorldDefaultsConfig()
             paper_world_defaults_config.set_configuration_default_property("_version", version)
             paper_world_defaults_config_collector = PaperWorldDefaultsCollector()
+            paper_world_defaults_config_collector.set_config_file(paper_world_defaults_config)
 
             if all_defaults:
                 output = paper_world_defaults_config_collector.get_version_appropriate_defaults(version)
@@ -132,6 +138,7 @@ class ServerConfigsCollector:
                 start_script_config = BashStartScript()
 
             start_script_collector = StartScriptCollector()
+            start_script_collector.set_config_file(start_script_config)
 
             if all_defaults:
                 output = start_script_collector.get_version_appropriate_defaults(version)

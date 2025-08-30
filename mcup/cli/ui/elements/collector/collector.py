@@ -8,6 +8,7 @@ from .collector_input_mode import CollectorInputMode
 if TYPE_CHECKING:
     from .collector_section import CollectorSection
     from mcup.core.utils.version import Version
+    from mcup.core.configs import ConfigFile
 
 
 class Collector:
@@ -16,6 +17,11 @@ class Collector:
     def __init__(self, title: str):
         self.title: str = title
         self.sections: list[CollectorSection] = []
+        self.config_file: "ConfigFile"
+
+    def set_config_file(self, config_file: "ConfigFile"):
+        """Set the associated config file for getting default values."""
+        self.config_file = config_file
 
     def start_collector(self, version: "Version", no_defaults, advanced_mode_enabled) -> dict:
         """Collects user input into a configuration dictionary."""
@@ -50,6 +56,9 @@ class Collector:
             print(f"\n{self.get_title()} - {section.get_section_title()}")
             if section.get_section_header_key() != "":
                 print(language.get_string(section.get_section_header_key()))
+
+            self._show_default_configuration_preview(filtered_section_inputs, version)
+
             use_default = False if no_defaults else (input("Use default configuration? (Y/n): ").strip().lower()
                                                      in ["y", ""])
 
@@ -60,20 +69,52 @@ class Collector:
 
         return collector_output
 
-    def get_version_appropriate_defaults(self, version: "Version") -> dict:
-        """Get default configuration values only for properties that are valid for the specified version."""
-        collector_output = {}
+    def _show_default_configuration_preview(self, filtered_section_inputs, version: "Version"):
+        """Show a preview of the default configuration for the current section."""
+        if not filtered_section_inputs:
+            return
 
-        for section in self.sections:
-            section_inputs = [
-                s_input for s_input in section.get_section_inputs()
-                if s_input.variable_min_version <= version <= s_input.variable_max_version
-            ]
+        print("Default configuration preview:")
+        print("-" * 40)
 
-            for section_input in section_inputs:
-                collector_output[section_input.get_variable_name()] = ""
+        variable_names = [section_input.get_variable_name() for section_input in filtered_section_inputs]
 
-        return collector_output
+        if self.config_file is not None:
+            default_values = self.config_file.get_default_values_for_variables(variable_names, version)
+
+            for section_input in filtered_section_inputs:
+                variable_name = section_input.get_variable_name()
+                default_value = default_values.get(variable_name)
+
+                formatted_value = self._format_default_value_for_display(default_value,
+                                                                         section_input.get_variable_input_type())
+
+                print(f"  {variable_name}: {formatted_value}")
+        else:
+            for section_input in filtered_section_inputs:
+                variable_name = section_input.get_variable_name()
+                print(f"  {variable_name}: <use system default>")
+
+        print("-" * 40)
+
+    def _format_default_value_for_display(self, value, input_type: "CollectorInputType") -> str:
+        """Format a default value for user-friendly display."""
+        if value is None or value == "":
+            return "<empty>"
+
+        match input_type:
+            case CollectorInputType.BOOL:
+                return "true" if value else "false"
+            case CollectorInputType.STRING_LIST | CollectorInputType.INT_LIST | CollectorInputType.FLOAT_LIST | CollectorInputType.BOOL_LIST:
+                if isinstance(value, list):
+                    if input_type == CollectorInputType.BOOL_LIST:
+                        return ", ".join("true" if item else "false" for item in value)
+                    else:
+                        return ", ".join(str(item) for item in value)
+                else:
+                    return str(value)
+            case _:
+                return str(value)
 
     def _process_input(self, section_input):
         """Process user input for a given input type."""
@@ -168,6 +209,21 @@ class Collector:
                         return bool_list
                     continue
             return None
+
+    def get_version_appropriate_defaults(self, version: "Version") -> dict:
+        """Get default configuration values only for properties that are valid for the specified version."""
+        collector_output = {}
+
+        for section in self.sections:
+            section_inputs = [
+                s_input for s_input in section.get_section_inputs()
+                if s_input.variable_min_version <= version <= s_input.variable_max_version
+            ]
+
+            for section_input in section_inputs:
+                collector_output[section_input.get_variable_name()] = ""
+
+        return collector_output
 
     def get_title(self) -> str:
         """Get collector title."""
