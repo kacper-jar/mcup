@@ -69,17 +69,17 @@ mcup <command> [options]
 
 ### Commands
 
-- `server create <server_type> <server_version> [path]` – Create a new Minecraft server in the specified path (defaults
+- `server create <server_type> <server_version> [path]` - Create a new Minecraft server in the specified path (defaults
   to current directory)
 - `server list` - List all available server versions
-- `template use <template_name> [path]` – Create a server based on a saved template
-- `template create <template_name> ` – Create a new server template
-- `template import <path>` – Import a template from a file
-- `template export <template_name>` – Export a template to a file
-- `template delete <template_name>` – Remove a stored template
-- `template list` – List all stored templates
-- `template refresh <template_name>` – Update a stored template with new download links from a locker file
-- `update` – Update the locker file with the latest server metadata
+- `template use <template_name> [path]` - Create a server based on a saved template
+- `template create <template_name> ` - Create a new server template
+- `template import <path>` - Import a template from a file
+- `template export <template_name>` - Export a template to a file
+- `template delete <template_name>` - Remove a stored template
+- `template list` - List all stored templates
+- `template refresh <template_name>` - Update a stored template with new download links from a locker file
+- `update` - Update the locker file with the latest server metadata
 
 ## Build
 
@@ -106,22 +106,17 @@ To build the project locally, clone this repository and run:
 
 ## Locker System
 
-`mcup` maintains a list of supported server types and versions via a **locker file**, which contains metadata for downloading and configuring different server flavors.
-
-### Locker Files
-
-- `locker.json`: Main file with server data (downloaded from [GitHub repo](https://github.com/kacper-jar/mcup-locker-file))
-- `locker-meta.json`: Local file storing `last_updated` to avoid unnecessary downloads
-
-Locker updates check the last commit date on GitHub to determine if a new version should be downloaded.
+`mcup` maintains a list of supported server types and versions via a **locker file**, which contains metadata for
+downloading and configuring different server flavors. (downloaded
+from [GitHub repo](https://github.com/kacper-jar/mcup-locker-file))
 
 ## Project Structure
 
 - `.github/` - GitHub-related configuration files
 - `debian/` - Files for building the `.deb` package
 - `mcup/` - Project source code
-  - `mcup.core` – Main application logic code
-  - `mcup.cli` – CLI UI code
+    - `mcup.core` - Main application logic code
+    - `mcup.cli` - CLI UI code
   - `mcup.devtools` - Development tools to speed up development
 - `snap/` - Files for building the `.snap` package
 
