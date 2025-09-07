@@ -314,8 +314,16 @@ class ServerHandler:
                 config.set_configuration_property("server-args-instead-of-jar", args_instead_of_jar, version)
 
         assembler_linker = AssemblerLinker(assembler_linker_config)
-        assembler_linker.link()
-        assembler_linker.assemble_linked_files(server_path)
+
+        link_status = assembler_linker.link()
+        if link_status.status_code != StatusCode.SUCCESS:
+            yield link_status
+            return
+
+        assemble_status = assembler_linker.assemble_linked_files(server_path)
+        if assemble_status.status_code != StatusCode.SUCCESS:
+            yield assemble_status
+            return
 
         self.logger.info("Configuration files assembled successfully")
 

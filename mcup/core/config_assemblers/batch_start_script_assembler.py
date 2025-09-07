@@ -1,111 +1,99 @@
-from mcup.core.config_assemblers import Assembler
+import os
+from pathlib import Path
+
+from mcup.core.config_assemblers import Assembler, JavaFlagsBuilder, ScriptTemplateManager
+from mcup.core.status import StatusCode, Status
 
 
 class BatchStartScriptAssembler(Assembler):
     """Class representing batch start script assembler."""
 
     @staticmethod
-    def assemble(path: str, config):
+    def validate_configuration(config) -> Status:
+        """Validate required configuration keys."""
+        required_keys = [
+            'server-jar', 'initial-heap', 'max-heap', 'screen-name',
+            'max-restarts', 'restart-delay'
+        ]
+
+        if not hasattr(config, 'configuration') or not config.configuration:
+            return Status(StatusCode.ERROR_CONFIG_VALIDATION_FAILED, "Configuration is empty")
+
+        missing_keys = []
+        for key in required_keys:
+            if key not in config.configuration:
+                missing_keys.append(key)
+
+        if missing_keys:
+            return Status(StatusCode.ERROR_CONFIG_MISSING_REQUIRED_KEYS, missing_keys)
+
+        return Status(StatusCode.SUCCESS)
+
+    @staticmethod
+    def generate_script_content(config) -> tuple[str, Status]:
+        """Generate batch script content from configuration."""
+        try:
+            config_copy = config.configuration.copy()
+            config_copy['server-jar'] = '%SERVER_JAR%'
+
+            java_command, status = JavaFlagsBuilder.build_java_command(config_copy)
+            if status.status_code != StatusCode.SUCCESS:
+                return "", status
+
+            template = ScriptTemplateManager.get_batch_template()
+
+            template_vars = {
+                'server_jar': config.configuration['server-jar'],
+                'server_jar_clean': str(config.configuration['server-jar']).replace('@', ''),
+                'screen_name': config.configuration['screen-name'],
+                'max_restarts': config.configuration['max-restarts'],
+                'restart_delay': config.configuration['restart-delay'],
+                'use_aikars_flags': str(config.configuration.get('use-aikars-flags', False)).lower(),
+                'java_command': java_command
+            }
+
+            validation_status = ScriptTemplateManager.validate_template_variables(template, template_vars)
+            if validation_status.status_code != StatusCode.SUCCESS:
+                return "", validation_status
+
+            script_content = template.format(**template_vars)
+            return script_content, Status(StatusCode.SUCCESS)
+
+        except Exception as e:
+            return "", Status(StatusCode.ERROR_SCRIPT_TEMPLATE_INVALID, str(e))
+
+    @staticmethod
+    def write_script_file(path: Path, config, content: str) -> Status:
+        """Handle file writing with error handling."""
+        try:
+            full_dir = Path(os.path.join(path, config.config_file_path))
+            status = Assembler.create_directory_if_needed(full_dir)
+            if status.status_code != StatusCode.SUCCESS:
+                return status
+
+            full_path = Path(os.path.join(full_dir, config.config_file_name))
+            return Assembler.safe_write_file(full_path, content)
+
+        except Exception as e:
+            return Status(StatusCode.ERROR_CONFIG_FILE_WRITE_FAILED, [path, str(e)])
+
+    @staticmethod
+    def assemble(path: Path, config) -> Status:
         """Assemble the batch start script at the specified path."""
+        path_status = Assembler.validate_path(path)
+        if path_status.status_code != StatusCode.SUCCESS:
+            return path_status
 
-        java_flags = f"-Xms{config.configuration['initial-heap']}M -Xmx{config.configuration['max-heap']}M"
+        config_status = Assembler.validate_config(config)
+        if config_status.status_code != StatusCode.SUCCESS:
+            return config_status
 
-        jar_flag = "-jar" if config.configuration['server-args-instead-of-jar'] is False else ""
+        validation_status = BatchStartScriptAssembler.validate_configuration(config)
+        if validation_status.status_code != StatusCode.SUCCESS:
+            return validation_status
 
-        if config.configuration['use-aikars-flags']:
-            aikar_flags = (
-                "-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled "
-                "-XX:+PerfDisableSharedMem -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC "
-                "-XX:G1HeapRegionSize=8M -XX:G1HeapWastePercent=5 -XX:G1MaxNewSizePercent=40 "
-                "-XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 "
-                "-XX:G1NewSizePercent=30 -XX:G1RSetUpdatingPauseTimePercent=5 "
-                "-XX:G1ReservePercent=20 -XX:InitiatingHeapOccupancyPercent=15 "
-                "-XX:MaxGCPauseMillis=200 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 "
-                "-Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"
-            )
-            java_command = f"java {java_flags} {aikar_flags} {jar_flag} \"%SERVER_JAR%\" nogui"
-        else:
-            java_command = f"java {java_flags} {jar_flag} \"%SERVER_JAR%\" nogui"
+        content, generation_status = BatchStartScriptAssembler.generate_script_content(config)
+        if generation_status.status_code != StatusCode.SUCCESS:
+            return generation_status
 
-        with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
-            script_content = f"""@echo off
-setlocal enabledelayedexpansion
-
-set "SERVER_JAR={config.configuration['server-jar']}"
-set "SERVER_JAR_CLEAN={str(config.configuration['server-jar']).replace('@', '')}"
-set "SCREEN_NAME={config.configuration['screen-name']}"
-set "MAX_RESTARTS={config.configuration['max-restarts']}"
-set "RESTART_DELAY={config.configuration['restart-delay']}"
-set "USE_AIKARS_FLAGS={str(config.configuration['use-aikars-flags']).lower()}"
-
-set "CLEANUP_DONE=false"
-
-if "%DETACHED_SESSION%"=="true" goto :main_loop
-
-if not exist "%SERVER_JAR_CLEAN%" (
-    echo Error: %SERVER_JAR_CLEAN% not found
-    exit /b 1
-)
-
-echo Starting server in new console session: %SCREEN_NAME%
-echo A new console window will open for the server
-echo Close that window or press CTRL+C in it to stop the server
-
-start "%SCREEN_NAME%" cmd /c "set DETACHED_SESSION=true&& set SERVER_JAR=%SERVER_JAR%&& set SCREEN_NAME=%SCREEN_NAME%&& set MAX_RESTARTS=%MAX_RESTARTS%&& set RESTART_DELAY=%RESTART_DELAY%&& set USE_AIKARS_FLAGS=%USE_AIKARS_FLAGS%&& cd /d \"%CD%\"&& call \"%~f0\""
-exit /b 0
-
-:main_loop
-title %SCREEN_NAME%
-set /a restart_count=0
-
-echo Server starting in console session...
-echo Press CTRL + C to stop gracefully.
-
-:restart_loop
-if !restart_count! geq %MAX_RESTARTS% (
-    echo Maximum restart attempts ^^^(%MAX_RESTARTS%^^^) reached. Exiting.
-    goto :cleanup
-)
-
-if not exist "%SERVER_JAR_CLEAN%" (
-    echo Error: %SERVER_JAR_CLEAN% not found. Exiting.
-    goto :cleanup
-)
-
-set /a attempt=!restart_count! + 1
-echo Starting server ^^^(attempt !attempt!^^^)...
-
-{java_command}
-set "exit_code=!errorlevel!"
-
-set /a restart_count=!restart_count! + 1
-
-if !exit_code! equ 0 (
-    echo Server stopped normally.
-    goto :cleanup
-) else (
-    echo Server crashed with exit code !exit_code!
-    echo Restarting in %RESTART_DELAY% seconds... ^^^(Press CTRL + C to stop^^^)
-
-    timeout /t %RESTART_DELAY% /nobreak >nul 2>&1
-    if errorlevel 1 goto :cleanup
-
-    goto :restart_loop
-)
-
-:cleanup
-if "%CLEANUP_DONE%"=="false" (
-    set "CLEANUP_DONE=true"
-    echo Cleaning up...
-    taskkill /f /im java.exe /fi "WINDOWTITLE eq %SCREEN_NAME%*" 2>nul
-)
-
-echo Server restart script finished.
-if "%DETACHED_SESSION%"=="true" (
-    echo Press any key to close this window...
-    pause >nul
-)
-exit /b 0
-"""
-
-            config_file.write(script_content)
+        return BatchStartScriptAssembler.write_script_file(path, config, content)

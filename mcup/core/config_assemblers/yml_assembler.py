@@ -1,12 +1,16 @@
 import os
+from pathlib import Path
+
 import yaml
 
 from mcup.core.config_assemblers import Assembler
 from mcup.core.configs import ConfigFile
+from mcup.core.status import StatusCode, Status
 
 
 class YmlAssembler(Assembler):
     """Class representing YAML configuration files assembler."""
+
     @staticmethod
     def clean_config(data):
         """Clean configuration data by removing empty values."""
@@ -27,17 +31,44 @@ class YmlAssembler(Assembler):
         return data
 
     @staticmethod
-    def assemble(path: str, config: ConfigFile):
+    def assemble(path: Path, config: ConfigFile) -> Status:
         """Assemble and write YAML configuration to the specified path."""
-        if not os.path.exists(f"{path}/{config.config_file_path}"):
-            os.mkdir(f"{path}/{config.config_file_path}")
+        path_status = Assembler.validate_path(path)
+        if path_status.status_code != StatusCode.SUCCESS:
+            return path_status
 
-        with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
-            filtered_config = YmlAssembler.clean_config(config.get_configuration())
-            yaml.dump(
-                filtered_config,
-                config_file,
-                sort_keys=False,
-                default_flow_style=False,
-                default_style=None
-            )
+        config_status = Assembler.validate_config(config)
+        if config_status.status_code != StatusCode.SUCCESS:
+            return config_status
+
+        try:
+            full_dir = Path(os.path.join(path, config.config_file_path))
+            status = Assembler.create_directory_if_needed(full_dir)
+            if status.status_code != StatusCode.SUCCESS:
+                return status
+
+            configuration = config.get_configuration()
+            if configuration:
+                filtered_config = YmlAssembler.clean_config(configuration)
+            else:
+                filtered_config = {}
+
+            try:
+                full_path = os.path.join(full_dir, config.config_file_name)
+                with open(full_path, 'w', encoding='utf-8') as config_file:
+                    yaml.dump(
+                        filtered_config,
+                        config_file,
+                        sort_keys=False,
+                        default_flow_style=False,
+                        default_style=None
+                    )
+                return Status(StatusCode.SUCCESS)
+
+            except yaml.YAMLError as e:
+                return Status(StatusCode.ERROR_CONFIG_ASSEMBLY_FAILED, [config.get_file_name(), str(e)])
+            except (OSError, IOError) as e:
+                return Status(StatusCode.ERROR_CONFIG_FILE_WRITE_FAILED, [config.get_file_name(), str(e)])
+
+        except Exception as e:
+            return Status(StatusCode.ERROR_CONFIG_ASSEMBLY_FAILED, [config.get_file_name(), str(e)])

@@ -73,7 +73,7 @@ class ConfigFile:
                     config_dict[last_key] = default_dict[last_key]
         else:
             if isinstance(self.default_configuration[property_name], VersionDependantVariablePicker):
-                self.configuration[property_name] = self.default_configuration[property_name].resolve(version)
+                self.configuration[property_name] = self._get_default_value_for_variable(property_name, version)
             else:
                 self.configuration[property_name] = self.default_configuration[property_name]
 

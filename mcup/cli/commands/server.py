@@ -101,7 +101,18 @@ class ServerCommand:
                 StatusCode.ERROR_INSTALLER_NOT_FOUND: "ERROR_INSTALLER_NOT_FOUND",
                 StatusCode.ERROR_JAVA_VERSION_DETECTION_FAILED: "ERROR_JAVA_VERSION_DETECTION_FAILED",
                 StatusCode.ERROR_SERVER_JAR_NOT_FOUND: "ERROR_SERVER_JAR_NOT_FOUND",
-                StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED: "ERROR_SERVER_SOURCE_NOT_SUPPORTED"
+                StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED: "ERROR_SERVER_SOURCE_NOT_SUPPORTED",
+                StatusCode.ERROR_CONFIG_PATH_INVALID: "ERROR_CONFIG_PATH_INVALID",
+                StatusCode.ERROR_CONFIG_PATH_NOT_WRITABLE: "ERROR_CONFIG_PATH_NOT_WRITABLE",
+                StatusCode.ERROR_CONFIG_FILE_WRITE_FAILED: "ERROR_CONFIG_FILE_WRITE_FAILED",
+                StatusCode.ERROR_CONFIG_DIRECTORY_CREATE_FAILED: "ERROR_CONFIG_DIRECTORY_CREATE_FAILED",
+                StatusCode.ERROR_CONFIG_VALIDATION_FAILED: "ERROR_CONFIG_VALIDATION_FAILED",
+                StatusCode.ERROR_CONFIG_MISSING_REQUIRED_KEYS: "ERROR_CONFIG_MISSING_REQUIRED_KEYS",
+                StatusCode.ERROR_ASSEMBLER_NOT_FOUND: "ERROR_ASSEMBLER_NOT_FOUND",
+                StatusCode.ERROR_CONFIG_ASSEMBLY_FAILED: "ERROR_CONFIG_ASSEMBLY_FAILED",
+                StatusCode.ERROR_CONFIG_LINKING_FAILED: "ERROR_CONFIG_LINKING_FAILED",
+                StatusCode.ERROR_SCRIPT_TEMPLATE_INVALID: "ERROR_SCRIPT_TEMPLATE_INVALID",
+                StatusCode.ERROR_JAVA_FLAGS_GENERATION_FAILED: "ERROR_JAVA_FLAGS_GENERATION_FAILED"
             }
 
             for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf):
@@ -123,7 +134,10 @@ class ServerCommand:
                         print(language.get_string(java_info_codes[status_code]))
                     case status_code if status_code in error_codes:
                         progress.stop()
-                        error_msg = language.get_string(error_codes[status_code], status.status_details)
+                        if hasattr(status, 'status_details') and status.status_details:
+                            error_msg = language.get_string(error_codes[status_code], *status.status_details)
+                        else:
+                            error_msg = language.get_string(error_codes[status_code])
                         print(error_msg)
                         return None
 

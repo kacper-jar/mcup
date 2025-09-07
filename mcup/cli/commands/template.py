@@ -199,6 +199,39 @@ class TemplateCommand:
                     case StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED:
                         progress.stop()
                         print(language.get_string("ERROR_SERVER_SOURCE_NOT_SUPPORTED", status.status_details))
+                    case StatusCode.ERROR_CONFIG_PATH_INVALID:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_PATH_INVALID", status.status_details))
+                    case StatusCode.ERROR_CONFIG_PATH_NOT_WRITABLE:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_PATH_NOT_WRITABLE", *status.status_details))
+                    case StatusCode.ERROR_CONFIG_FILE_WRITE_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_FILE_WRITE_FAILED", *status.status_details))
+                    case StatusCode.ERROR_CONFIG_DIRECTORY_CREATE_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_DIRECTORY_CREATE_FAILED", *status.status_details))
+                    case StatusCode.ERROR_CONFIG_VALIDATION_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_VALIDATION_FAILED", status.status_details))
+                    case StatusCode.ERROR_CONFIG_MISSING_REQUIRED_KEYS:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_MISSING_REQUIRED_KEYS", status.status_details))
+                    case StatusCode.ERROR_ASSEMBLER_NOT_FOUND:
+                        progress.stop()
+                        print(language.get_string("ERROR_ASSEMBLER_NOT_FOUND"))
+                    case StatusCode.ERROR_CONFIG_ASSEMBLY_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_ASSEMBLY_FAILED", *status.status_details))
+                    case StatusCode.ERROR_CONFIG_LINKING_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_CONFIG_LINKING_FAILED", *status.status_details))
+                    case StatusCode.ERROR_SCRIPT_TEMPLATE_INVALID:
+                        progress.stop()
+                        print(language.get_string("ERROR_SCRIPT_TEMPLATE_INVALID", status.status_details))
+                    case StatusCode.ERROR_JAVA_FLAGS_GENERATION_FAILED:
+                        progress.stop()
+                        print(language.get_string("ERROR_JAVA_FLAGS_GENERATION_FAILED", status.status_details))
                     case StatusCode.SUCCESS:
                         print(language.get_string("SUCCESS_SERVER"))
 

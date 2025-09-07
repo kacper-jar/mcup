@@ -647,6 +647,17 @@ class Language:
         "ERROR_JAVA_VERSION_DETECTION_FAILED": "Failed to detect JDK version. ({}).",
         "ERROR_SERVER_JAR_NOT_FOUND": "Server JAR file not found. "
                                       "Check log file in server folder for more info.",
+        "ERROR_CONFIG_PATH_INVALID": "Invalid configuration path specified: {}",
+        "ERROR_CONFIG_PATH_NOT_WRITABLE": "Cannot write to configuration path: {}. Check permissions.",
+        "ERROR_CONFIG_FILE_WRITE_FAILED": "Failed to write configuration file: {}. {}",
+        "ERROR_CONFIG_DIRECTORY_CREATE_FAILED": "Failed to create configuration directory: {}. {}",
+        "ERROR_CONFIG_VALIDATION_FAILED": "Configuration validation failed. {}",
+        "ERROR_CONFIG_MISSING_REQUIRED_KEYS": "Missing required configuration keys: {}",
+        "ERROR_ASSEMBLER_NOT_FOUND": "No assembler found for configuration file: {}",
+        "ERROR_CONFIG_ASSEMBLY_FAILED": "Failed to assemble configuration file {}: {}",
+        "ERROR_CONFIG_LINKING_FAILED": "Failed to link configuration files: {}",
+        "ERROR_SCRIPT_TEMPLATE_INVALID": "Invalid script template: {}",
+        "ERROR_JAVA_FLAGS_GENERATION_FAILED": "Failed to generate Java flags: {}",
         "SUCCESS_SERVER": "Server created successfully.",
 
         # Template
@@ -693,6 +704,13 @@ class Language:
     }
 
     def get_string(self, key, *args):
-        if args is not None:
-            return self.strings.get(key, key).format(*args)
-        return self.strings.get(key, key)
+        """Get localized string with optional formatting arguments."""
+        base_string = self.strings.get(key, key)
+
+        if args:
+            try:
+                return base_string.format(*args)
+            except (IndexError, ValueError):
+                return base_string
+
+        return base_string
