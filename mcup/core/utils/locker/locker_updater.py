@@ -235,7 +235,7 @@ class LockerUpdater:
             self.logger.info(f"Using remote: {remote_url}, branch: {branch}")
 
         except ValueError as e:
-            yield Status(StatusCode.ERROR_CONFIG_READ_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_READ_FAILED, str(e))
             return
 
         config_changed = self._check_config_change(remote_url, branch)

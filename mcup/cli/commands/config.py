@@ -14,10 +14,10 @@ class ConfigCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_CONFIG_GET_VALUE", args.key, status.status_details))
-                case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
+                case StatusCode.ERROR_USERCONFIG_KEY_NOT_FOUND:
                     print(language.get_string("SUCCESS_CONFIG_GET_NO_VALUE", args.key))
-                case StatusCode.ERROR_CONFIG_READ_FAILED:
-                    print(language.get_string("ERROR_CONFIG_READ_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_READ_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_READ_FAILED", status.status_details))
 
     @staticmethod
     def set(args):
@@ -29,10 +29,10 @@ class ConfigCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_CONFIG_SET_VALUE", args.key, args.value))
-                case StatusCode.ERROR_CONFIG_SET_FAILED:
-                    print(language.get_string("ERROR_CONFIG_SET_FAILED", status.status_details))
-                case StatusCode.ERROR_CONFIG_SAVE_FAILED:
-                    print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_SET_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_SET_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_SAVE_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_SAVE_FAILED", status.status_details))
 
     @staticmethod
     def remove(args):
@@ -44,12 +44,12 @@ class ConfigCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_CONFIG_REMOVE", args.key))
-                case StatusCode.ERROR_CONFIG_KEY_NOT_FOUND:
-                    print(language.get_string("ERROR_CONFIG_KEY_NOT_FOUND", args.key))
-                case StatusCode.ERROR_CONFIG_REMOVE_FAILED:
-                    print(language.get_string("ERROR_CONFIG_REMOVE_FAILED", status.status_details))
-                case StatusCode.ERROR_CONFIG_SAVE_FAILED:
-                    print(language.get_string("ERROR_CONFIG_SAVE_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_KEY_NOT_FOUND:
+                    print(language.get_string("ERROR_USERCONFIG_KEY_NOT_FOUND", args.key))
+                case StatusCode.ERROR_USERCONFIG_REMOVE_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_REMOVE_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_SAVE_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_SAVE_FAILED", status.status_details))
 
     @staticmethod
     def clear(args):
@@ -61,10 +61,10 @@ class ConfigCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(language.get_string("SUCCESS_CONFIG_CLEAR"))
-                case StatusCode.ERROR_CONFIG_CLEAR_FAILED:
-                    print(language.get_string("ERROR_CONFIG_CLEAR_FAILED", status.status_details))
-                case StatusCode.ERROR_CONFIG_FILE_NOT_FOUND:
-                    print(language.get_string("ERROR_CONFIG_FILE_NOT_FOUND"))
+                case StatusCode.ERROR_USERCONFIG_CLEAR_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_CLEAR_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND:
+                    print(language.get_string("ERROR_USERCONFIG_FILE_NOT_FOUND"))
 
     @staticmethod
     def list(args):
@@ -76,7 +76,7 @@ class ConfigCommand:
             match status.status_code:
                 case StatusCode.SUCCESS:
                     print(status.status_details)
-                case StatusCode.ERROR_CONFIG_LIST_FAILED:
-                    print(language.get_string("ERROR_CONFIG_LIST_FAILED", status.status_details))
-                case StatusCode.ERROR_CONFIG_READ_FAILED:
-                    print(language.get_string("ERROR_CONFIG_READ_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_LIST_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_LIST_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_READ_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_READ_FAILED", status.status_details))

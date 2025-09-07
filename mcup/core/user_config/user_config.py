@@ -49,7 +49,7 @@ class UserConfig:
             yield Status(StatusCode.SUCCESS)
         except Exception as e:
             self.logger.error(f"Failed to save configuration to '{self.config_file}': {e}")
-            yield Status(StatusCode.ERROR_CONFIG_SAVE_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_SAVE_FAILED, str(e))
 
     def get_configuration(self, key, default=None):
         """
@@ -68,13 +68,13 @@ class UserConfig:
             value = self.user_config.get(key, default)
             if value is None and default is None:
                 self.logger.warning(f"Configuration key '{key}' not found and no default provided")
-                yield Status(StatusCode.ERROR_CONFIG_KEY_NOT_FOUND, key)
+                yield Status(StatusCode.ERROR_USERCONFIG_KEY_NOT_FOUND, key)
             else:
                 self.logger.debug(f"Configuration key '{key}' = {value}")
                 yield Status(StatusCode.SUCCESS, value)
         except Exception as e:
             self.logger.error(f"Failed to get configuration key '{key}': {e}")
-            yield Status(StatusCode.ERROR_CONFIG_READ_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_READ_FAILED, str(e))
 
     def set_configuration(self, key, value):
         """
@@ -104,7 +104,7 @@ class UserConfig:
                     yield status
         except Exception as e:
             self.logger.error(f"Failed to set configuration key '{key}': {e}")
-            yield Status(StatusCode.ERROR_CONFIG_SET_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_SET_FAILED, str(e))
 
     def remove_configuration(self, key):
         """
@@ -118,7 +118,7 @@ class UserConfig:
         try:
             if key not in self.user_config:
                 self.logger.warning(f"Configuration key '{key}' not found for removal")
-                yield Status(StatusCode.ERROR_CONFIG_KEY_NOT_FOUND, key)
+                yield Status(StatusCode.ERROR_USERCONFIG_KEY_NOT_FOUND, key)
                 return
 
             old_value = self.user_config[key]
@@ -135,7 +135,7 @@ class UserConfig:
                     yield status
         except Exception as e:
             self.logger.error(f"Failed to remove configuration key '{key}': {e}")
-            yield Status(StatusCode.ERROR_CONFIG_REMOVE_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_REMOVE_FAILED, str(e))
 
     def clear_configuration(self):
         """
@@ -147,7 +147,7 @@ class UserConfig:
         try:
             if not os.path.exists(self.config_file):
                 self.logger.warning(f"Configuration file '{self.config_file}' does not exist")
-                yield Status(StatusCode.ERROR_CONFIG_FILE_NOT_FOUND, str(self.config_file))
+                yield Status(StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND, str(self.config_file))
                 return
 
             keys_count = len(self.user_config)
@@ -163,13 +163,13 @@ class UserConfig:
         except FileNotFoundError:
             self.logger.warning(f"Configuration file '{self.config_file}' not found during clear operation")
             self.user_config.clear()
-            yield Status(StatusCode.ERROR_CONFIG_FILE_NOT_FOUND, str(self.config_file))
+            yield Status(StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND, str(self.config_file))
         except PermissionError as e:
             self.logger.error(f"Permission denied when trying to delete configuration file '{self.config_file}': {e}")
-            yield Status(StatusCode.ERROR_CONFIG_CLEAR_FAILED, f"Permission denied: {e}")
+            yield Status(StatusCode.ERROR_USERCONFIG_CLEAR_FAILED, f"Permission denied: {e}")
         except Exception as e:
             self.logger.error(f"Failed to clear configuration: {e}")
-            yield Status(StatusCode.ERROR_CONFIG_CLEAR_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_CLEAR_FAILED, str(e))
 
     def list_configuration(self):
         """
@@ -197,4 +197,4 @@ class UserConfig:
 
         except Exception as e:
             self.logger.error(f"Failed to list configuration: {e}")
-            yield Status(StatusCode.ERROR_CONFIG_LIST_FAILED, str(e))
+            yield Status(StatusCode.ERROR_USERCONFIG_LIST_FAILED, str(e))
