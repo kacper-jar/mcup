@@ -125,7 +125,6 @@ class ServerHandler:
         if response.status_code != 200:
             self.logger.error(f"Failed to download installer: {response.status_code}")
             yield Status(StatusCode.ERROR_DOWNLOAD_INSTALLER_FAILED, str(response.status_code))
-            yield None
             return
 
         file_name = locker_entry["installer_url"].split("/")[-1]
@@ -136,13 +135,11 @@ class ServerHandler:
         if not file_path.exists():
             self.logger.error(f"Installer file not found after download: {file_path}")
             yield Status(StatusCode.ERROR_INSTALLER_NOT_FOUND)
-            yield None
             return
 
-        java_version_status = self._validate_java_version_for_minecraft(version)
+        java_version_status = yield from self._validate_java_version_for_minecraft(version)
         if java_version_status:
             yield java_version_status
-            yield None
             return
 
         yield from self._run_installer(server_path, locker_entry, file_path, version)
@@ -153,10 +150,9 @@ class ServerHandler:
 
         if not server_jar_name:
             yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
-            yield None
             return
 
-        yield (server_jar_name, args_instead_of_jar)
+        return (server_jar_name, args_instead_of_jar)
 
     def _download_file(self, response: requests.Response, file_path: Path, file_type: str) -> Iterator[Status]:
         """Download a file with progress tracking."""
