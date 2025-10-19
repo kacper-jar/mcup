@@ -29,19 +29,15 @@ if [[ "$SKIP_SNAP" -eq 0 && ! -x "$(command -v snap)" ]]; then
 fi
 
 if command -v apt >/dev/null 2>&1; then
-    PKG_MANAGER="apt"
     UPDATE_CMD="sudo apt update"
     INSTALL_CMD="sudo apt install -y"
 elif command -v dnf >/dev/null 2>&1; then
-    PKG_MANAGER="dnf"
     UPDATE_CMD="sudo dnf makecache"
     INSTALL_CMD="sudo dnf install -y"
 elif command -v pacman >/dev/null 2>&1; then
-    PKG_MANAGER="pacman"
     UPDATE_CMD="sudo pacman -Sy"
     INSTALL_CMD="sudo pacman -S --noconfirm"
 elif command -v zypper >/dev/null 2>&1; then
-    PKG_MANAGER="zypper"
     UPDATE_CMD="sudo zypper refresh"
     INSTALL_CMD="sudo zypper install -y"
 else
