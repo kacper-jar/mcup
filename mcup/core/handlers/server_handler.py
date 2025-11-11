@@ -34,7 +34,7 @@ class ServerHandler:
             return
 
         version = Version.from_string(server_version)
-        self._check_version_support(version)
+        yield self._check_version_support(version)
 
         self._ensure_server_directory(server_path)
 
@@ -81,11 +81,12 @@ class ServerHandler:
             self.logger.error(f"Java is not installed or not accessible: {e}")
             return Status(StatusCode.ERROR_JAVA_NOT_FOUND)
 
-    def _check_version_support(self, version: Version) -> None:
+    def _check_version_support(self, version: Version) -> Status:
         """Check if the server version is supported."""
         if version > LATEST_VERSION:
             self.logger.warning(f"Server version {version} is not supported by this version of mcup - "
                                 f"configuration files won't be assembled")
+            return Status(StatusCode.INFO_VERSION_NEWER_THAN_SUPPORTED)
 
     def _ensure_server_directory(self, server_path: Path) -> None:
         """Create server directory if it doesn't exist."""
