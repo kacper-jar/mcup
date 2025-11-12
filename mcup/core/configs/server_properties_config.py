@@ -28,14 +28,14 @@ class ServerPropertiesConfig(ConfigFile):
             "force-gamemode": None,  # 1.5.2+
             "difficulty": None,
             "hardcore": None,  # 1.3.1+
-            "pvp": None,
+            "pvp": None,  # 1.2.5-1.21.8
             "allow-flight": None,
-            "allow-nether": None,
+            "allow-nether": None,  # 1.2.5-1.21.8
             "announce-player-achievements": None,  # 1.7.2-1.11.2
             "enable-command-block": None,  # 1.7.2+
             "spawn-protection": None,  # 1.14+
             "spawn-animals": None,  # 1.2.5-1.21.1
-            "spawn-monsters": None,  # 1.2.5+
+            "spawn-monsters": None,  # 1.2.5-1.21.8
             "spawn-npcs": None,  # 1.2.5-1.21.1
 
             # Server Access & Multiplayer
@@ -58,6 +58,7 @@ class ServerPropertiesConfig(ConfigFile):
             "enforce-secure-profile": None,  # 1.19+
             "previews-chat": None,  # 1.19-1.19.2
             "accepts-transfers": None,  # 1.20.5+
+            "enable-code-of-conduct": None,  # 1.21.9+
 
             # Sever Communication & Remote Access
             "enable-query": None,
@@ -70,6 +71,16 @@ class ServerPropertiesConfig(ConfigFile):
             "rate-limit": None,  # 1.16.2+
             "log-ips": None,  # 1.20.2+
             "bug-report-link": None,  # 1.21+
+
+            # Management Server
+            "management-server-enabled": None,  # 1.21.9+
+            "management-server-host": None,  # 1.21.9+
+            "management-server-port": None,  # 1.21.9+
+            "management-server-secret": None,  # 1.21.9+
+            "management-server-tls-enabled": None,  # 1.21.9+
+            "management-server-tls-keystore": None,  # 1.21.9+
+            "management-server-tls-keystore-password": None,  # 1.21.9+
+            "status-heartbeat-interval": None,  # 1.21.9+
 
             # Performance & Telemetry
             "view-distance": None,
@@ -159,6 +170,7 @@ class ServerPropertiesConfig(ConfigFile):
             ]),
             "previews-chat": "false",
             "accepts-transfers": "false",
+            "enable-code-of-conduct": None,
 
             # Sever Communication & Remote Access
             "enable-query": "false",
@@ -171,6 +183,16 @@ class ServerPropertiesConfig(ConfigFile):
             "rate-limit": "0",
             "log-ips": "true",
             "bug-report-link": "",
+
+            # Management Server
+            "management-server-enabled": "false",
+            "management-server-host": "localhost",
+            "management-server-port": "0",
+            "management-server-secret": "",
+            "management-server-tls-enabled": "true",
+            "management-server-tls-keystore": "",
+            "management-server-tls-keystore-password": "",
+            "status-heartbeat-interval": "0",
 
             # Performance & Telemetry
             "view-distance": "10",
