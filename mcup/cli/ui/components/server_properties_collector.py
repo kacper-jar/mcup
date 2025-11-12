@@ -45,11 +45,11 @@ class ServerPropertiesCollector(Collector):
                 CollectorInput("hardcore", "COLLECTOR_SRV_PROP_HARDCORE", CollectorInputType.BOOL,
                                CollectorInputMode.BASIC, Version(1, 3, 1), LATEST_VERSION),
                 CollectorInput("pvp", "COLLECTOR_SRV_PROP_PVP", CollectorInputType.BOOL,
-                               CollectorInputMode.BASIC, Version(1, 2, 5), LATEST_VERSION),
+                               CollectorInputMode.BASIC, Version(1, 2, 5), Version(1, 21, 8)),
                 CollectorInput("allow-flight", "COLLECTOR_SRV_PROP_ALLOW_FLIGHT", CollectorInputType.BOOL,
                                CollectorInputMode.BASIC, Version(1, 2, 5), LATEST_VERSION),
                 CollectorInput("allow-nether", "COLLECTOR_SRV_PROP_ALLOW_NETHER", CollectorInputType.BOOL,
-                               CollectorInputMode.BASIC, Version(1, 2, 5), LATEST_VERSION),
+                               CollectorInputMode.BASIC, Version(1, 2, 5), Version(1, 21, 8)),
                 CollectorInput("announce-player-achievements", "COLLECTOR_SRV_PROP_ANNOUNCE_PLAYER_ACHIEVEMENTS",
                                CollectorInputType.BOOL, CollectorInputMode.BASIC, Version(1, 7, 2), Version(1, 11, 2)),
                 CollectorInput("enable-command-block", "COLLECTOR_SRV_PROP_ENABLE_COMMAND_BLOCK",
@@ -59,7 +59,7 @@ class ServerPropertiesCollector(Collector):
                 CollectorInput("spawn-animals", "COLLECTOR_SRV_PROP_SPAWN_ANIMALS", CollectorInputType.BOOL,
                                CollectorInputMode.BASIC, Version(1, 2, 5), Version(1, 21, 1)),
                 CollectorInput("spawn-monsters", "COLLECTOR_SRV_PROP_SPAWN_MONSTERS", CollectorInputType.BOOL,
-                               CollectorInputMode.BASIC, Version(1, 2, 5), LATEST_VERSION),
+                               CollectorInputMode.BASIC, Version(1, 2, 5), Version(1, 21, 8)),
                 CollectorInput("spawn-npcs", "COLLECTOR_SRV_PROP_SPAWN_NPCS", CollectorInputType.BOOL,
                                CollectorInputMode.BASIC, Version(1, 2, 5), Version(1, 21, 1)),
             ]
@@ -106,6 +106,8 @@ class ServerPropertiesCollector(Collector):
                                CollectorInputMode.ADVANCED, Version(1, 19, 0), Version(1, 19, 2)),
                 CollectorInput("accepts-transfers", "COLLECTOR_SRV_PROP_ACCEPTS_TRANSFERS", CollectorInputType.BOOL,
                                CollectorInputMode.ADVANCED, Version(1, 20, 5), LATEST_VERSION),
+                CollectorInput("enable-code-of-conduct", "COLLECTOR_SRV_PROP_ENABLE_CODE_OF_CONDUCT",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 20, 5), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
@@ -131,6 +133,32 @@ class ServerPropertiesCollector(Collector):
                                CollectorInputMode.ADVANCED, Version(1, 20, 2), LATEST_VERSION),
                 CollectorInput("bug-report-link", "COLLECTOR_SRV_PROP_BUG_REPORT_LINK", CollectorInputType.STRING,
                                CollectorInputMode.ADVANCED, Version(1, 20, 2), LATEST_VERSION),
+            ]
+        ))
+        self.add_section(CollectorSection(
+            "Management Server",
+            [
+                CollectorInput("management-server-enabled", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_ENABLED",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 21, 9), LATEST_VERSION),
+                CollectorInput("management-server-host", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_HOST",
+                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 21, 9),
+                               LATEST_VERSION),
+                CollectorInput("management-server-port", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_PORT",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 21, 9), LATEST_VERSION),
+                CollectorInput("management-server-secret", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_SECRET",
+                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 21, 9),
+                               LATEST_VERSION),
+                CollectorInput("management-server-tls-enabled", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_TLS_ENABLED",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 21, 9), LATEST_VERSION),
+                CollectorInput("management-server-tls-keystore", "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_TLS_KEYSTORE",
+                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 21, 9),
+                               LATEST_VERSION),
+                CollectorInput("management-server-tls-keystore-password",
+                               "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_TLS_KEYSTORE_PASSWORD",
+                               CollectorInputType.STRING, CollectorInputMode.ADVANCED, Version(1, 21, 9),
+                               LATEST_VERSION),
+                CollectorInput("status-heartbeat-interval", "COLLECTOR_SRV_PROP_STATUS_HEARTBEAT_INTERVAL",
+                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 21, 9), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
