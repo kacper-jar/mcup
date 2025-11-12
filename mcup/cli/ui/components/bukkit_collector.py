@@ -20,6 +20,8 @@ class BukkitCollector(Collector):
                 CollectorInput("settings/compatibility/enum-compatibility-mode",
                                "COLLECTOR_BUKKIT_ENABLE_ENUM_COMPATIBILITY_MODE",
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 21, 1), LATEST_VERSION),
+                CollectorInput("settings/allow-nether", "COLLECTOR_BUKKIT_ALLOW_NETHER", CollectorInputType.BOOL,
+                               CollectorInputMode.BASIC, Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("settings/allow-end", "COLLECTOR_BUKKIT_ALLOW_END", CollectorInputType.BOOL,
                                CollectorInputMode.BASIC, Version(1, 8, 0), LATEST_VERSION),
                 CollectorInput("settings/warn-on-overload", "COLLECTOR_BUKKIT_WARN_ON_OVERLOAD",

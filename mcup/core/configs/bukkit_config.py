@@ -17,6 +17,7 @@ class BukkitConfig(ConfigFile):
                     "allow-old-keys-in-registry": None,  # 1.20.6+
                     "enum-compatibility-mode": None  # 1.21.1+
                 },
+                "allow-nether": None,  # 1.21.9+
                 "allow-end": None,
                 "warn-on-overload": None,
                 "permissions-file": None,
@@ -78,6 +79,7 @@ class BukkitConfig(ConfigFile):
                     "allow-old-keys-in-registry": False,
                     "enum-compatibility-mode": False
                 },
+                "allow-nether": True,
                 "allow-end": True,
                 "warn-on-overload": True,
                 "permissions-file": "permissions.yml",

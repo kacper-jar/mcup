@@ -89,6 +89,7 @@ class Language:
         "COLLECTOR_BUKKIT_USE_MAP_COLOR_CACHE": "Enable color cache for maps",
         "COLLECTOR_BUKKIT_ALLOW_OLD_KEYS_IN_REGISTRY": "Allow old keys in registry",
         "COLLECTOR_BUKKIT_ENABLE_ENUM_COMPATIBILITY_MODE": "Enable enum compatibility mode",
+        "COLLECTOR_BUKKIT_ALLOW_NETHER": "Allow Nether",
         "COLLECTOR_BUKKIT_ALLOW_END": "Allow End",
         "COLLECTOR_BUKKIT_WARN_ON_OVERLOAD": "Warn on overload",
         "COLLECTOR_BUKKIT_PERMISSION_FILENAME": "Permission filename",
