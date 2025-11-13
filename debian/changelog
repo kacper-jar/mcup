@@ -1,3 +1,18 @@
+mcup (1.0.0-beta5) unstable; urgency=medium
+
+  * feat: Add default configuration preview to collector UI by @kacper-jar in https://github.com/kacper-jar/mcup/pull/47
+  * docs: Cleanup README by @kacper-jar in https://github.com/kacper-jar/mcup/pull/48
+  * refactor: Project overhaul by @kacper-jar in https://github.com/kacper-jar/mcup/pull/50
+  * build: Remove the `PKG_MANAGER` variable as it is unused by @kacper-jar in https://github.com/kacper-jar/mcup/pull/51
+  * feat: Add support for resolving logging level from user configuration by @kacper-jar in https://github.com/kacper-jar/mcup/pull/52
+  * fix: Set proper translation keys for missing userconfig translations by @kacper-jar in https://github.com/kacper-jar/mcup/pull/53
+  * fix: Add INF_VERSION to keep certain collector fields active for newer versions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/54
+  * fix: Update `_check_version_support` to properly display the warning by @kacper-jar in https://github.com/kacper-jar/mcup/pull/55
+  * feat: Add support for Minecraft 1.21.9 and 1.21.10 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/56
+  * fix: Resolve AttributeError caused by yield of None by @kacper-jar in https://github.com/kacper-jar/mcup/pull/57 
+
+ -- Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh>  Thu, 13 Nov 2025 21:35:54 +0100
+
 mcup (1.0.0-beta4) unstable; urgency=medium
 
   * fix: UserConfig creating folder instead of config file by @kacper-jar in https://github.com/kacper-jar/mcup/pull/33
