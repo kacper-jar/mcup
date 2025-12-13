@@ -910,6 +910,13 @@ class Language:
         "SUCCESS_USERCONFIG_SET_VALUE": "Saved value for key '{}': '{}'",
         "SUCCESS_USERCONFIG_REMOVE": "Configuration key '{}' removed successfully",
         "SUCCESS_USERCONFIG_CLEAR": "All user configuration cleared successfully",
+
+        # About
+        "ABOUT_TITLE": "mcup (version {}) by Kacper Jarosławski",
+        "ABOUT_DESCRIPTION": "Command-line tool for quickly creating Minecraft servers\n",
+        "ABOUT_LICENSE": "License: MIT",
+        "ABOUT_SOURCE_CODE": "Source Code: https://github.com/kacper-jar/mcup",
+        "ABOUT_ISSUES": "Bug Report/Feature Request: https://github.com/kacper-jar/mcup/issues/new/choose",
     }
 
     def get_string(self, key, *args):
