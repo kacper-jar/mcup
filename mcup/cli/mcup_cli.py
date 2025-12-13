@@ -2,7 +2,7 @@ import argparse
 import logging
 
 from mcup import __version__
-from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand, ConfigCommand
+from mcup.cli.commands import ServerCommand, TemplateCommand, UpdateCommand, ConfigCommand, AboutCommand
 from mcup.core.status import StatusCode
 from mcup.core.user_config import UserConfig
 from mcup.devtools.confdiff import ConfDiff
@@ -31,6 +31,7 @@ class McupCLI:
             self._register_template_commands()
             self._register_update_command()
             self._register_config_commands()
+            self._register_about_command()
             self._register_devtools_commands()
 
             self.logger.info("CLI initialized successfully")
@@ -126,6 +127,11 @@ class McupCLI:
 
         list_parser = config_subparsers.add_parser("list", help="List all configuration keys and values")
         list_parser.set_defaults(func=ConfigCommand.list)
+
+    def _register_about_command(self):
+        """Register about command."""
+        about_parser = self.subparsers.add_parser("about", help="About mcup")
+        about_parser.set_defaults(func=AboutCommand.run)
 
     def _register_devtools_commands(self):
         """Register devtools commands."""
