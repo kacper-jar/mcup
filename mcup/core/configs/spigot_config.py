@@ -1,4 +1,5 @@
 from mcup.core.configs import ConfigFile
+from mcup.core.utils.version import Version, LATEST_VERSION, VersionDependantVariable
 
 
 class SpigotConfig(ConfigFile):
@@ -10,14 +11,23 @@ class SpigotConfig(ConfigFile):
 
         self.configuration = {
             "config-version": None,
+            "advancements": {
+                "disable-saving": None,
+                "disabled": None
+            },
+            "players": {
+                "disable-saving": None
+            },
             "settings": {
                 "debug": None,
                 "save-user-cache-on-stop-only": None,
                 "filter-creative-items": None,
                 "moved-wrongly-threshold": None,
                 "moved-too-quickly-threshold": None,
+                "moved-too-quickly-multiplier": None,
                 "bungeecord": None,
                 "late-bind": None,
+                "item-dirty-ticks": None,
                 "sample-count": None,
                 "player-shuffle": None,
                 "user-cache-size": None,
@@ -26,8 +36,11 @@ class SpigotConfig(ConfigFile):
                 "restart-on-crash": None,
                 "restart-script": None,
                 "netty-threads": None,
+                "log-villager-deaths": None,
+                "log-named-deaths": None,
                 "attribute": {
                     "maxHealth": {"max": None},
+                    "maxAbsorption": {"max": None},
                     "movementSpeed": {"max": None},
                     "attackDamage": {"max": None}
                 }
@@ -37,6 +50,7 @@ class SpigotConfig(ConfigFile):
                 "log": None,
                 "spam-exclusions": None,
                 "replace-commands": None,
+                "send-namespaced": None,
                 "tab-complete": None
             },
             "messages": {
@@ -56,10 +70,12 @@ class SpigotConfig(ConfigFile):
                     "verbose": None,
                     "enable-zombie-pigmen-portal-spawns": None,
                     "wither-spawn-sound-radius": None,
+                    "end-portal-sound-radius": None,
                     "zombie-aggressive-towards-villager": None,
                     "hanging-tick-frequency": None,
                     "dragon-death-sound-radius": None,
                     "mob-spawn-range": None,
+                    "squid-spawn-range": {"min": None},
                     "anti-xray": {
                         "enabled": None,
                         "engine-mode": None,
@@ -74,15 +90,31 @@ class SpigotConfig(ConfigFile):
                         "mushroom-modifier": None,
                         "pumpkin-modifier": None,
                         "sapling-modifier": None,
-                        "wheat-modifier": None
+                        "wheat-modifier": None,
+                        "netherwart-modifier": None,
+                        "vine-modifier": None,
+                        "cocoa-modifier": None,
+                        "beetroot-modifier": None,
+                        "carrot-modifier": None,
+                        "potato-modifier": None,
+                        "bamboo-modifier": None,
+                        "kelp-modifier": None,
+                        "sweetberry-modifier": None,
+                        "cavevines-modifier": None,
+                        "twistingvines-modifier": None,
+                        "weepingvines-modifier": None
                     },
                     "entity-activation-range": {
                         "animals": None,
                         "monsters": None,
-                        "misc": None
+                        "raiders": None,
+                        "misc": None,
+                        "tick-inactive-villagers": None,
+                        "ignore-spectators": None
                     },
                     "entity-tracking-range": {
                         "players": None,
+                        "display": None,
                         "animals": None,
                         "monsters": None,
                         "misc": None,
@@ -94,17 +126,39 @@ class SpigotConfig(ConfigFile):
                         "hopper-check": None
                     },
                     "hopper-amount": None,
+                    "hopper-can-load-chunks": None,
                     "random-light-updates": None,
                     "save-structure-info": None,
                     "max-bulk-chunks": None,
                     "max-entity-collisions": None,
                     "seed-village": None,
+                    "seed-desert": None,
+                    "seed-igloo": None,
+                    "seed-jungle": None,
+                    "seed-swamp": None,
+                    "seed-monument": None,
+                    "seed-shipwreck": None,
+                    "seed-ocean": None,
+                    "seed-outpost": None,
+                    "seed-endcity": None,
+                    "seed-slime": None,
+                    "seed-nether": None,
+                    "seed-mansion": None,
+                    "seed-fossil": None,
+                    "seed-portal": None,
+                    "seed-bastion": None,
+                    "seed-fortress": None,
                     "seed-feature": None,
                     "hunger": {
                         "walk-exhaustion": None,
                         "sprint-exhaustion": None,
                         "combat-exhaustion": None,
-                        "regen-exhaustion": None
+                        "regen-exhaustion": None,
+                        "jump-sprint-exhaustion": None,
+                        "jump-walk-exhaustion": None,
+                        "sprint-multiplier": None,
+                        "swim-multiplier": None,
+                        "other-multiplier": None
                     },
                     "max-tnt-per-tick": None,
                     "max-tick-time": {
@@ -117,23 +171,41 @@ class SpigotConfig(ConfigFile):
                         "exp": None
                     },
                     "arrow-despawn-rate": None,
+                    "trident-despawn-rate": None,
                     "view-distance": None,
+                    "simulation-distance": None,
                     "chunks-per-tick": None,
-                    "clear-tick-list": None
+                    "clear-tick-list": None,
+                    "thunder-chance": None,
+                    "unload-frozen-chunks": None
                 }
             }
         }
 
         self.default_configuration = {
-            "config-version": 8,
+            "config-version": [
+                VersionDependantVariable(Version(1, 8, 0), Version(1, 11, 0), 8),
+                VersionDependantVariable(Version(1, 11, 0), Version(1, 11, 2), 10),
+                VersionDependantVariable(Version(1, 11, 2), Version(1, 13, 2), 11),
+                VersionDependantVariable(Version(1, 13, 2), LATEST_VERSION, 12)
+            ],
+            "advancements": {
+                "disable-saving": False,
+                "disabled": ["minecraft:story/disabled"]
+            },
+            "players": {
+                "disable-saving": False
+            },
             "settings": {
                 "debug": False,
                 "save-user-cache-on-stop-only": False,
                 "filter-creative-items": True,
                 "moved-wrongly-threshold": 0.0625,
                 "moved-too-quickly-threshold": 100.0,
+                "moved-too-quickly-multiplier": 10.0,
                 "bungeecord": False,
                 "late-bind": False,
+                "item-dirty-ticks": 20,
                 "sample-count": 12,
                 "player-shuffle": 0,
                 "user-cache-size": 1000,
@@ -142,8 +214,11 @@ class SpigotConfig(ConfigFile):
                 "restart-on-crash": True,
                 "restart-script": "./start.sh",
                 "netty-threads": 4,
+                "log-villager-deaths": True,
+                "log-named-deaths": True,
                 "attribute": {
                     "maxHealth": {"max": 2048.0},
+                    "maxAbsorption": {"max": 2048.0},
                     "movementSpeed": {"max": 2048.0},
                     "attackDamage": {"max": 2048.0}
                 }
@@ -153,6 +228,7 @@ class SpigotConfig(ConfigFile):
                 "log": True,
                 "spam-exclusions": ["/skill"],
                 "replace-commands": ["setblock", "summon", "testforblock", "tellraw"],
+                "send-namespaced": True,
                 "tab-complete": 0
             },
             "messages": {
@@ -172,10 +248,13 @@ class SpigotConfig(ConfigFile):
                     "verbose": True,
                     "enable-zombie-pigmen-portal-spawns": True,
                     "wither-spawn-sound-radius": 0,
+                    "end-portal-sound-radius": 0,
                     "zombie-aggressive-towards-villager": True,
                     "hanging-tick-frequency": 100,
                     "dragon-death-sound-radius": 0,
-                    "mob-spawn-range": 4,
+                    "mob-spawn-range": [VersionDependantVariable(Version(1, 8, 0), Version(1, 13, 0), 4),
+                                        VersionDependantVariable(Version(1, 13, 0), LATEST_VERSION, 6)],
+                    "squid-spawn-range": {"min": 45.0},
                     "anti-xray": {
                         "enabled": True,
                         "engine-mode": 1,
@@ -190,15 +269,31 @@ class SpigotConfig(ConfigFile):
                         "mushroom-modifier": 100,
                         "pumpkin-modifier": 100,
                         "sapling-modifier": 100,
-                        "wheat-modifier": 100
+                        "wheat-modifier": 100,
+                        "netherwart-modifier": 100,
+                        "vine-modifier": 100,
+                        "cocoa-modifier": 100,
+                        "beetroot-modifier": 100,
+                        "carrot-modifier": 100,
+                        "potato-modifier": 100,
+                        "bamboo-modifier": 100,
+                        "kelp-modifier": 100,
+                        "sweetberry-modifier": 100,
+                        "cavevines-modifier": 100,
+                        "twistingvines-modifier": 100,
+                        "weepingvines-modifier": 100
                     },
                     "entity-activation-range": {
                         "animals": 32,
                         "monsters": 32,
-                        "misc": 16
+                        "raiders": 48,
+                        "misc": 16,
+                        "tick-inactive-villagers": True,
+                        "ignore-spectators": False
                     },
                     "entity-tracking-range": {
                         "players": 48,
+                        "display": 128,
                         "animals": 48,
                         "monsters": 48,
                         "misc": 32,
@@ -207,20 +302,45 @@ class SpigotConfig(ConfigFile):
                     "hopper-alt-ticking": False,
                     "ticks-per": {
                         "hopper-transfer": 8,
-                        "hopper-check": 8
+                        "hopper-check": [VersionDependantVariable(Version(1, 8, 0), Version(1, 11, 0), 8),
+                                         VersionDependantVariable(Version(1, 11, 0), LATEST_VERSION, 1)]
                     },
                     "hopper-amount": 1,
+                    "hopper-can-load-chunks": False,
                     "random-light-updates": False,
                     "save-structure-info": True,
                     "max-bulk-chunks": 10,
                     "max-entity-collisions": 8,
                     "seed-village": 10387312,
+                    "seed-desert": 14357617,
+                    "seed-igloo": 14357618,
+                    "seed-jungle": 14357619,
+                    "seed-swamp": 14357620,
+                    "seed-monument": 10387313,
+                    "seed-shipwreck": 165745295,
+                    "seed-ocean": 14357621,
+                    "seed-outpost": 165745296,
+                    "seed-endcity": 10387313,
+                    "seed-slime": 987234911,
+                    "seed-nether": 30084232,
+                    "seed-mansion": 10387319,
+                    "seed-fossil": 14357921,
+                    "seed-portal": 34222645,
+                    "seed-bastion": 30084232,
+                    "seed-fortress": 30084232,
                     "seed-feature": 14357617,
                     "hunger": {
                         "walk-exhaustion": 0.2,
                         "sprint-exhaustion": 0.8,
-                        "combat-exhaustion": 0.3,
-                        "regen-exhaustion": 3.0
+                        "combat-exhaustion": [VersionDependantVariable(Version(1, 8, 0), Version(1, 11, 0), 0.3),
+                                              VersionDependantVariable(Version(1, 11, 0), LATEST_VERSION, 0.1)],
+                        "regen-exhaustion": [VersionDependantVariable(Version(1, 8, 0), Version(1, 11, 0), 3.0),
+                                             VersionDependantVariable(Version(1, 11, 0), LATEST_VERSION, 6.0)],
+                        "jump-sprint-exhaustion": 0.2,
+                        "jump-walk-exhaustion": 0.05,
+                        "sprint-multiplier": 0.1,
+                        "swim-multiplier": 0.01,
+                        "other-multiplier": 0.0
                     },
                     "max-tnt-per-tick": 100,
                     "max-tick-time": {
@@ -233,9 +353,14 @@ class SpigotConfig(ConfigFile):
                         "exp": 3.0
                     },
                     "arrow-despawn-rate": 1200,
-                    "view-distance": 10,
+                    "trident-despawn-rate": 1200,
+                    "view-distance": [VersionDependantVariable(Version(1, 8, 0), Version(1, 14, 3), 10),
+                                      VersionDependantVariable(Version(1, 14, 3), LATEST_VERSION, "default")],
+                    "simulation-distance": "default",
                     "chunks-per-tick": 650,
-                    "clear-tick-list": False
+                    "clear-tick-list": False,
+                    "thunder-chance": 100000,
+                    "unload-frozen-chunks": False
                 }
             }
         }
