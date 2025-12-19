@@ -76,6 +76,7 @@ class ServerPropertiesConfig(ConfigFile):
             "management-server-enabled": None,  # 1.21.9+
             "management-server-host": None,  # 1.21.9+
             "management-server-port": None,  # 1.21.9+
+            "management-server-allowed-origins": None,  # 1.21.11+
             "management-server-secret": None,  # 1.21.9+
             "management-server-tls-enabled": None,  # 1.21.9+
             "management-server-tls-keystore": None,  # 1.21.9+
@@ -188,6 +189,7 @@ class ServerPropertiesConfig(ConfigFile):
             "management-server-enabled": "false",
             "management-server-host": "localhost",
             "management-server-port": "0",
+            "management-server-allowed-origins": "",
             "management-server-secret": "",
             "management-server-tls-enabled": "true",
             "management-server-tls-keystore": "",
