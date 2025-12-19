@@ -23,15 +23,18 @@ class ServerHandler:
         self.logger = logging.getLogger(__name__)
 
     def create(self, server_path: Path, server_type: str, server_version: str, locker_entry: dict,
-               assembler_linker_config: AssemblerLinkerConfig) -> Iterator[Status]:
+               assembler_linker_config: AssemblerLinkerConfig, skip_java_check: bool = False) -> Iterator[Status]:
         """Downloads/Builds server in a specified path along with all required configuration files."""
         self.logger.info(f"Creating server: type={server_type}, version={server_version}, path={server_path}")
         self.logger.debug(f"Locker entry: {locker_entry}")
 
-        java_validation_status = self._validate_java_installation()
-        if java_validation_status:
-            yield java_validation_status
-            return
+        if not skip_java_check:
+            java_validation_status = self._validate_java_installation()
+            if java_validation_status:
+                yield java_validation_status
+                return
+        else:
+            self.logger.info("Skipping Java installation check")
 
         version = Version.from_string(server_version)
         if not self._check_version_support(version):
@@ -46,7 +49,8 @@ class ServerHandler:
             server_jar_name = locker_entry["server_url"].split("/")[-1]
             args_instead_of_jar = False
         elif locker_entry["source"] == "INSTALLER":
-            result = yield from self._handle_installer_source(server_path, server_type, locker_entry, version)
+            result = yield from self._handle_installer_source(server_path, server_type, locker_entry, version,
+                                                              skip_java_check)
             if result is None:
                 return
             server_jar_name, args_instead_of_jar = result
@@ -119,7 +123,7 @@ class ServerHandler:
             yield Status(StatusCode.ERROR_SERVER_JAR_NOT_FOUND)
 
     def _handle_installer_source(self, server_path: Path, server_type: str, locker_entry: dict,
-                                 version: Version) -> Iterator[Tuple[str, bool]]:
+                                 version: Version, skip_java_check: bool = False) -> Iterator[Tuple[str, bool]]:
         """Handle downloading and running installer source."""
         self.logger.info(f"Downloading installer from: {locker_entry['installer_url']}")
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Preparing to download installer...", 1])
@@ -141,10 +145,13 @@ class ServerHandler:
             yield Status(StatusCode.ERROR_INSTALLER_NOT_FOUND)
             return
 
-        java_version_status = yield from self._validate_java_version_for_minecraft(version)
-        if java_version_status:
-            yield java_version_status
-            return
+        if not skip_java_check:
+            java_version_status = yield from self._validate_java_version_for_minecraft(version)
+            if java_version_status:
+                yield java_version_status
+                return
+        else:
+            self.logger.info("Skipping Java version check for installer")
 
         yield from self._run_installer(server_path, locker_entry, file_path, version)
 

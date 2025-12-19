@@ -56,6 +56,8 @@ class McupCLI:
                                    help="Prompt for all configuration values")
         configs_group.add_argument("--all-defaults", action="store_true",
                                    help="Use default configuration values for all configuration files")
+        create_parser.add_argument("--skip-java-check", action="store_true",
+                                   help="Skip Java installation and version checks")
         create_parser.set_defaults(func=ServerCommand.create)
 
         list_parser = server_subparsers.add_parser("list", help="List available server types and versions")
