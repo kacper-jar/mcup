@@ -6,7 +6,7 @@ description: |
   Command-line tool for quickly creating Minecraft servers.
 
 grade: stable
-confinement: strict
+confinement: classic
 
 apps:
   mcup:
