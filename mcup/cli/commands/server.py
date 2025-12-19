@@ -104,7 +104,8 @@ class ServerCommand:
                 StatusCode.ERROR_SERVER_SOURCE_NOT_SUPPORTED: "ERROR_SERVER_SOURCE_NOT_SUPPORTED"
             }
 
-            for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf):
+            for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf,
+                                        skip_java_check=args.skip_java_check):
                 match status.status_code:
                     case StatusCode.PROGRESSBAR_NEXT:
                         if task is not None:
