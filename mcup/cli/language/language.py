@@ -59,6 +59,7 @@ class Language:
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_ENABLED": "Enable management server",
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_HOST": "Management server host",
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_PORT": "Management server port",
+        "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_ALLOWED_ORIGINS": "Management server allowed origins",
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_SECRET": "Management server secret",
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_TLS_ENABLED": "Enable management server TLS encryption",
         "COLLECTOR_SRV_PROP_MANAGEMENT_SERVER_TLS_KEYSTORE": "Management server TLS encryption keystore",
