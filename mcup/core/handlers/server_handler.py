@@ -279,6 +279,7 @@ class ServerHandler:
             file_path if arg == "%file_path"
             else version.get_string() if arg == "%version"
             else arg
+            for arg in locker_entry["installer_args"]
         ]
 
         java_cmd = self._get_java_command()
