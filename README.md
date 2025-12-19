@@ -80,6 +80,7 @@ mcup <command> [options]
 - `template list` - List all stored templates
 - `template refresh <template_name>` - Update a stored template with new download links from a locker file
 - `update` - Update the locker file with the latest server metadata
+- `about` - Display information about the current version of mcup
 
 ## Build
 
