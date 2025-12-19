@@ -13,6 +13,7 @@ from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
 from mcup.core.configs import EulaFile
 from mcup.core.status import Status, StatusCode
 from mcup.core.utils.version import Version, LATEST_VERSION
+from mcup.core.user_config import UserConfig
 
 
 class ServerHandler:
@@ -21,6 +22,7 @@ class ServerHandler:
     def __init__(self):
         """Initialize the server handler."""
         self.logger = logging.getLogger(__name__)
+        self.user_config = UserConfig()
 
     def create(self, server_path: Path, server_type: str, server_version: str, locker_entry: dict,
                assembler_linker_config: AssemblerLinkerConfig) -> Iterator[Status]:
@@ -68,11 +70,22 @@ class ServerHandler:
         yield Status(StatusCode.PROGRESSBAR_END)
         yield Status(StatusCode.SUCCESS)
 
+    def _get_java_command(self) -> str:
+        """Get the Java command from configuration or default to 'java'."""
+        status_gen = self.user_config.get_configuration("java.path", default="java")
+        java_cmd = "java"
+        for status in status_gen:
+            if status.status_code == StatusCode.SUCCESS:
+                java_cmd = status.status_details
+                break
+        return java_cmd
+
     def _validate_java_installation(self) -> Optional[Status]:
         """Validate that Java is installed and accessible."""
+        java_cmd = self._get_java_command()
         try:
             subprocess.check_output(
-                ["java", "-version"],
+                [java_cmd, "-version"],
                 stderr=subprocess.STDOUT,
                 text=True
             )
@@ -192,8 +205,9 @@ class ServerHandler:
     def _get_java_major_version(self) -> Optional[int]:
         """Get the major version of the installed Java."""
         try:
+            java_cmd = self._get_java_command()
             java_version_output = subprocess.check_output(
-                ["java", "-version"],
+                [java_cmd, "-version"],
                 stderr=subprocess.STDOUT,
                 text=True
             )
@@ -265,8 +279,11 @@ class ServerHandler:
             file_path if arg == "%file_path"
             else version.get_string() if arg == "%version"
             else arg
-            for arg in locker_entry["installer_args"]
         ]
+
+        java_cmd = self._get_java_command()
+        if installer_args and installer_args[0] == "java":
+            installer_args[0] = java_cmd
 
         self.logger.info(f"Running installer with args: {installer_args}")
         subprocess.run(
