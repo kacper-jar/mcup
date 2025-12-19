@@ -27,10 +27,12 @@ class UserConfig:
         """Load configuration from the user configuration file."""
         try:
             self.logger.debug(f"Loading configuration from: {self.config_file}")
-            if os.path.exists(self.config_path):
+            if os.path.exists(self.config_file):
                 with open(self.config_file, 'r', encoding='utf-8') as f:
                     self.user_config = json.load(f)
-            self.logger.info(f"Configuration loaded successfully with {len(self.user_config)} keys")
+                self.logger.info(f"Configuration loaded successfully with {len(self.user_config)} keys")
+            else:
+                self.logger.info("Configuration file not found, using defaults")
         except Exception as e:
             self.logger.error(f"Failed to load configuration from '{self.config_file}': {e}")
             self.user_config = {}
