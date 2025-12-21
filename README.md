@@ -13,24 +13,24 @@ Made for both advanced server managers and beginners setting up their first serv
 
 ## Installation
 
-### 📦 Snap (Linux)
+### Snap (Linux)
 
 Install from the Snap Store:
 
 ```sh
-sudo snap install mcup
+sudo snap install mcup --classic
 ```
 
 Or install from a local `.snap` file (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
 
 ```sh
-sudo snap install --dangerous ./mcup_*.snap
+sudo snap install --dangerous --classic ./mcup_*.snap
 ```
 
 > [!IMPORTANT]
 > Replace `./mcup_*.snap` with the actual path to your downloaded file.
 
-### 🧊 APT / .deb (Linux)
+### APT / .deb (Linux)
 
 > [!NOTE]
 > An APT release is planned.
@@ -46,7 +46,7 @@ sudo apt-get install -f
 > [!IMPORTANT]
 > Replace `./mcup_*.deb` with the actual path to your downloaded file.
 
-### 🔧 Manual (All platforms)
+### Manual (All platforms)
 
 Clone this repository and run the appropriate script:
 
