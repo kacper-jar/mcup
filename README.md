@@ -34,7 +34,7 @@ sudo snap install --dangerous --classic ./mcup_*.snap
 
 > [!NOTE]
 > An APT release is planned.
-> In the meantime, please use the Snapcraft version or install mcup using the `.deb` file.
+> In the meantime, please install mcup using the `.deb` file.
 
 Install from a local `.deb` package (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
 
