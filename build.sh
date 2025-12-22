@@ -127,7 +127,7 @@ fi
 
 echo "Building $PROJECT_NAME version $VERSION..."
 
-echo "🧹 Cleaning build artifacts..."
+echo "Cleaning build artifacts..."
 rm -rf dist snap/parts snap/stage snap/prime debian/mcup .pybuild
 mkdir -p "$DIST_DIR"
 
