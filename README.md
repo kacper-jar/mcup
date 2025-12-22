@@ -15,13 +15,15 @@ Made for both advanced server managers and beginners setting up their first serv
 
 ### Snap (Linux)
 
-Install from the Snap Store:
+> [!WARNING]
+> **mcup** is currently unavailable on the Snap Store. Older versions found there may not work properly.
+>
+> Currently, the only option is to use the snap package from **GitHub Releases**.
+>
+> *Note: We are considering dropping support for Snap as it requires significant maintenance due to the sandboxed
+environment and is much slower compared to the `.deb` / `.rpm` counterparts.*
 
-```sh
-sudo snap install mcup --classic
-```
-
-Or install from a local `.snap` file (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
+Install from a local `.snap` file (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
 
 ```sh
 sudo snap install --dangerous --classic ./mcup_*.snap
