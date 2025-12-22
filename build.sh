@@ -128,7 +128,7 @@ fi
 echo "Building $PROJECT_NAME version $VERSION..."
 
 echo "Cleaning build artifacts..."
-rm -rf dist snap/parts snap/stage snap/prime debian/mcup .pybuild
+rm -rf dist snap/parts snap/stage snap/prime debian/mcup .pybuild rpm/SOURCES rpm/BUILD rpm/RPMS rpm/SRPMS rpm/BUILDROOT
 mkdir -p "$DIST_DIR"
 
 if [[ "$SKIP_SNAP" -eq 1 ]]; then
