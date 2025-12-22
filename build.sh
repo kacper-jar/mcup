@@ -20,17 +20,19 @@ RPM_OUT="${DIST_DIR}/${RPM_NAME}"
 
 SKIP_SNAP=0
 SKIP_RPM=0
+SKIP_DEB=0
 
 for arg in "$@"; do
     if [[ "$arg" == "--skip-snap" ]]; then
         SKIP_SNAP=1
     fi
+    if [[ "$arg" == "--skip-deb" ]]; then
+        SKIP_DEB=1
+    fi
+    if [[ "$arg" == "--skip-rpm" ]]; then
+        SKIP_RPM=1
+    fi
 done
-
-if ! command -v rpmbuild >/dev/null 2>&1; then
-    echo "rpmbuild is not installed. Skipping RPM build..."
-    SKIP_RPM=1
-fi
 
 if [[ "$SKIP_SNAP" -eq 0 && ! -x "$(command -v snap)" ]]; then
     echo "Snap is not installed on this system. Skipping snap build..."
@@ -40,36 +42,72 @@ fi
 if command -v apt >/dev/null 2>&1; then
     UPDATE_CMD="sudo apt update"
     INSTALL_CMD="sudo apt install -y"
+    INSTALL_PACKAGES=(
+        python3
+        python3-all
+        python3-setuptools
+        python3-wheel
+        python3-hatchling
+        pybuild-plugin-pyproject
+        devscripts
+        debhelper
+        fakeroot
+        build-essential
+        dh-python
+        rpm
+        python3-pip
+    )
 elif command -v dnf >/dev/null 2>&1; then
     UPDATE_CMD="sudo dnf makecache"
     INSTALL_CMD="sudo dnf install -y"
+    INSTALL_PACKAGES=(
+        python3
+        python3-devel
+        python3-setuptools
+        python3-pip
+        python3-wheel
+        python3-hatchling
+        rpm-build
+    )
 elif command -v pacman >/dev/null 2>&1; then
     UPDATE_CMD="sudo pacman -Sy"
     INSTALL_CMD="sudo pacman -S --noconfirm"
+    INSTALL_PACKAGES=(
+        python
+        python-setuptools
+        python-pip
+        python-wheel
+        python-hatchling
+        rpm-tools
+        base-devel
+    )
 elif command -v zypper >/dev/null 2>&1; then
     UPDATE_CMD="sudo zypper refresh"
     INSTALL_CMD="sudo zypper install -y"
+    INSTALL_PACKAGES=(
+        python3
+        python3-devel
+        python3-setuptools
+        python3-pip
+        python3-wheel
+        python3-hatchling
+        rpm-build
+    )
 else
     echo "Unsupported package manager. Install dependencies manually."
     exit 1
 fi
 
-echo "Installing APT dependencies..."
-APT_PACKAGES=(
-    python3
-    python3-all
-    python3-setuptools
-    python3-wheel
-    python3-hatchling
-    pybuild-plugin-pyproject
-    devscripts
-    debhelper
-    fakeroot
-    build-essential
-    dh-python
-)
+echo "Installing build dependencies..."
 $UPDATE_CMD
-$INSTALL_CMD "${APT_PACKAGES[@]}"
+$INSTALL_CMD "${INSTALL_PACKAGES[@]}"
+
+if [[ "$SKIP_RPM" -eq 0 ]]; then
+    if ! command -v rpmbuild >/dev/null 2>&1; then
+        echo "rpmbuild is not installed. Skipping RPM build..."
+        SKIP_RPM=1
+    fi
+fi
 
 if [[ "$SKIP_SNAP" -eq 0 ]]; then
     echo "Installing Snap dependencies..."
@@ -109,14 +147,22 @@ else
     mv "$SNAP_NAME" "$SNAP_OUT"
 fi
 
-echo "Building Debian package..."
-python3 -m hatchling build
-dpkg-buildpackage -us -uc -b
+if [[ "$SKIP_DEB" -eq 1 ]]; then
+    echo "Skipping Debian package build..."
+else
+    if command -v dpkg-buildpackage >/dev/null 2>&1; then
+        echo "Building Debian package..."
+        python3 -m hatchling build
+        dpkg-buildpackage -us -uc -b
 
-echo "Moving Debian artifacts to dist folder..."
-mv "../$DEB_NAME" "$DEB_OUT"
-mv "../$BUILDINFO_NAME" "$BUILDINFO_OUT"
-mv "../$CHANGES_NAME" "$CHANGES_OUT"
+        echo "Moving Debian artifacts to dist folder..."
+        mv "../$DEB_NAME" "$DEB_OUT"
+        mv "../$BUILDINFO_NAME" "$BUILDINFO_OUT"
+        mv "../$CHANGES_NAME" "$CHANGES_OUT"
+    else
+        echo "dpkg-buildpackage not found. Skipping Debian build."
+    fi
+fi
 
 if [[ "$SKIP_RPM" -eq 1 ]]; then
     echo "Skipping RPM build..."
@@ -137,6 +183,6 @@ fi
 
 echo "Build complete!"
 echo "Output files:"
-[[ "$SKIP_SNAP" -eq 0 ]] && ls "$SNAP_OUT"
-ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT"
-[[ "$SKIP_RPM" -eq 0 ]] && ls "$DIST_DIR"/*.rpm
+[[ "$SKIP_SNAP" -eq 0 ]] && ls "$SNAP_OUT" 2>/dev/null
+[[ "$SKIP_DEB" -eq 0 ]] && ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT" 2>/dev/null
+[[ "$SKIP_RPM" -eq 0 ]] && ls "$DIST_DIR"/*.rpm 2>/dev/null
