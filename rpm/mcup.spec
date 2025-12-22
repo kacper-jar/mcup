@@ -36,3 +36,7 @@ python3 -m pip install $wheel_file --root %{buildroot} --no-deps --ignore-instal
 %{_bindir}/mcup
 %{python3_sitelib}/mcup
 %{python3_sitelib}/mcup-*.dist-info
+
+%changelog
+* Mon Dec 22 2025 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - %{?version}-1
+- Initial RPM release
