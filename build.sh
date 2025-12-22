@@ -185,4 +185,4 @@ echo "Build complete!"
 echo "Output files:"
 [[ "$SKIP_SNAP" -eq 0 ]] && ls "$SNAP_OUT" 2>/dev/null
 [[ "$SKIP_DEB" -eq 0 ]] && ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT" 2>/dev/null
-[[ "$SKIP_RPM" -eq 0 ]] && ls "$DIST_DIR"/*.rpm 2>/dev/null
+[[ "$SKIP_RPM" -eq 0 ]] && ls -1 "$DIST_DIR"/*.rpm
