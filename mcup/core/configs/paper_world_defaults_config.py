@@ -105,6 +105,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "player-insomnia-start-ticks": None,  # 1.19.2+
                     "should-remove-dragon": None,
                     "spawner-nerfed-mobs-should-jump": None,
+                    "stuck-entity-poi-retry-delay": None,  # 1.21.10+
                     "zombie-villager-infection-chance": None,
                     "zombies-target-turtle-eggs": None
                 },
@@ -319,9 +320,10 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "disable-sprint-interruption-on-attack": None,
                 "legacy-ender-pearl-behavior": None,  # 1.21.3+
                 "light-queue-size": None,  # 1.19-1.21.4
+                "allow-remote-ender-dragon-respawning": None,  # 1.21.10+
                 "max-leash-distance": None,
                 "redstone-implementation": None,
-                "shield-blocking-delay": None,
+                "shield-blocking-delay": None,  # 1.19-1.21.9
                 "show-sign-click-command-failure-msgs-to-player": None,
                 "update-pathfinding-on-block-update": None
             },
@@ -362,7 +364,8 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 VersionDependantVariable(Version(1, 19), Version(1, 19, 1), 28),
                 VersionDependantVariable(Version(1, 19, 2), Version(1, 19, 2), 29),
                 VersionDependantVariable(Version(1, 19, 3), Version(1, 20, 4), 30),
-                VersionDependantVariable(Version(1, 20, 6), LATEST_VERSION, 31),
+                VersionDependantVariable(Version(1, 20, 6), Version(1, 21, 9), 31),
+                VersionDependantVariable(Version(1, 21, 10), LATEST_VERSION, 32)
             ]),
             "anticheat": {
                 "anti-xray": {
@@ -474,6 +477,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "player-insomnia-start-ticks": 72000,
                     "should-remove-dragon": False,
                     "spawner-nerfed-mobs-should-jump": False,
+                    "stuck-entity-poi-retry-delay": 200,
                     "zombie-villager-infection-chance": VersionDependantVariablePicker([
                         VersionDependantVariable(Version(1, 19), Version(1, 20, 1), -1.0),
                         VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, "default")
@@ -761,6 +765,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                 "disable-sprint-interruption-on-attack": False,
                 "legacy-ender-pearl-behavior": False,
                 "light-queue-size": 20,
+                "allow-remote-ender-dragon-respawning": False,
                 "max-leash-distance": VersionDependantVariablePicker([
                     VersionDependantVariable(Version(1, 19), Version(1, 21), 10.0),
                     VersionDependantVariable(Version(1, 21, 1), LATEST_VERSION, "default")
