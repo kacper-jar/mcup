@@ -48,6 +48,31 @@ sudo apt-get install -f
 > [!IMPORTANT]
 > Replace `./mcup_*.deb` with the actual path to your downloaded file.
 
+### .rpm (Linux)
+
+Install from a local `.rpm` package (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
+
+**Fedora/RHEL 8+/Rocky/Alma:**
+
+```sh
+sudo dnf install ./mcup_*.rpm
+```
+
+**Older RHEL/CentOS (6-7):**
+
+```sh
+sudo yum localinstall ./mcup_*.rpm
+```
+
+**openSUSE:**
+
+```sh
+sudo zypper install ./mcup_*.rpm
+```
+
+> [!IMPORTANT]
+> Replace `./mcup_*.rpm` with the actual path to your downloaded file.
+
 ### Manual (All platforms)
 
 Clone this repository and run the appropriate script:
