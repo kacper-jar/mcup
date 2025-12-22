@@ -91,11 +91,10 @@ To build the project locally, clone this repository and run:
 ```
 
 > [!NOTE]
-> You can disable Snap package creation by passing the `--skip-snap` flag:
-> 
-> ```sh
-> ./build.sh --skip-snap
-> ```
+> You can disable selected package(s) creation by passing the appropriate flag(s):
+> * `--no-snap` - Skips building the `.snap` package
+> * `--no-deb` - Skips building the `.deb` package
+> * `--no-rpm` - Skips building the `.rpm` package
 
 > [!IMPORTANT]
 > If you're using LXD (only Snap builds), make sure your user is added to the `lxd` group:
