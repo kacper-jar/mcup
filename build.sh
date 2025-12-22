@@ -169,10 +169,10 @@ if [[ "$SKIP_RPM" -eq 1 ]]; then
 else
     echo "Building RPM package..."
     mkdir -p rpm/SOURCES
-    mkdir -p dist/rpm-src/mcup-${VERSION}
-    rsync -av --exclude 'dist' --exclude '.git' --exclude '.venv' --exclude 'rpm' . dist/rpm-src/mcup-${VERSION}/
+    mkdir -p dist/rpm-src/mcup-${RPM_VERSION}
+    rsync -av --exclude 'dist' --exclude '.git' --exclude '.venv' --exclude 'rpm' . dist/rpm-src/mcup-${RPM_VERSION}/
 
-    tar -czf rpm/SOURCES/mcup-${RPM_VERSION}.tar.gz -C dist/rpm-src mcup-${VERSION}
+    tar -czf rpm/SOURCES/mcup-${RPM_VERSION}.tar.gz -C dist/rpm-src mcup-${RPM_VERSION}
     rm -rf dist/rpm-src
 
     rpmbuild --define "_topdir $(pwd)/rpm" --define "version ${RPM_VERSION}" -ba rpm/mcup.spec
