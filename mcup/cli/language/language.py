@@ -554,6 +554,7 @@ class Language:
         "COLLECTOR_PAPER_GLOBAL_MISC_CHAT_THREADS_CHAT_EXECUTOR_MAX_SIZE": "Maximum number of threads to allow in the chat thread pool",
         "COLLECTOR_PAPER_GLOBAL_MISC_CLIENT_INTERACTION_LENIENCY_DISTANCE": "Client interaction leniency distance",
         "COLLECTOR_PAPER_GLOBAL_MISC_COMPRESSION_LEVEL": "Compression level",
+        "COLLECTOR_PAPER_GLOBAL_MISC_ENABLE_NETHER": "Enable Nether",
         "COLLECTOR_PAPER_GLOBAL_MISC_FIX_ENTITY_POSITION_DESYNC": "Prevent desync by loosing precision for entities ",
         "COLLECTOR_PAPER_GLOBAL_MISC_LAG_COMPENSATE_BLOCK_BREAKING": "Enable Lag compensating block breaking",
         "COLLECTOR_PAPER_GLOBAL_MISC_LOAD_PERMISSIONS_YML_BEFORE_PLUGINS": "Load bukkit’s permission.yml file before plugins",

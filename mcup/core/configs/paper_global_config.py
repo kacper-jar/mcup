@@ -118,6 +118,7 @@ class PaperGlobalConfig(ConfigFile):
                 "region-file-cache-size": None,
                 "send-full-pos-for-item-entities": None,  # 1.21.6+
                 "strict-advancement-dimension-check": None,
+                "enable-nether": None,  # 1.21.10+
                 "use-alternative-luck-formula": None,
                 "use-dimension-type-for-custom-spawners": None,
                 "xp-orb-groups-per-area": None  # 1.21.6+
@@ -197,7 +198,8 @@ class PaperGlobalConfig(ConfigFile):
             "_version": VersionDependantVariablePicker([
                 VersionDependantVariable(Version(1, 19), Version(1, 20, 1), 28),
                 VersionDependantVariable(Version(1, 20, 2), Version(1, 21, 7), 29),
-                VersionDependantVariable(Version(1, 21, 8), LATEST_VERSION, 30)
+                VersionDependantVariable(Version(1, 21, 8), Version(1, 21, 9), 30),
+                VersionDependantVariable(Version(1, 21, 10), LATEST_VERSION, 31)
             ]),
             "anticheat": {
                 "obfuscation": {
@@ -315,6 +317,7 @@ class PaperGlobalConfig(ConfigFile):
                 "region-file-cache-size": 256,
                 "send-full-pos-for-item-entities": False,
                 "strict-advancement-dimension-check": False,
+                "enable-nether": True,
                 "use-alternative-luck-formula": False,
                 "use-dimension-type-for-custom-spawners": False,
                 "xp-orb-groups-per-area": "default"
