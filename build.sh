@@ -6,26 +6,20 @@ VERSION=$(grep '^version' pyproject.toml | cut -d'"' -f2)
 RPM_VERSION="${VERSION//-/_}"
 DIST_DIR="./dist"
 
-SNAP_NAME="${PROJECT_NAME}_${VERSION}_amd64.snap"
 DEB_NAME="${PROJECT_NAME}_${VERSION}_all.deb"
 BUILDINFO_NAME="${PROJECT_NAME}_${VERSION}_amd64.buildinfo"
 CHANGES_NAME="${PROJECT_NAME}_${VERSION}_amd64.changes"
 RPM_NAME="${PROJECT_NAME}-${RPM_VERSION}-1.noarch.rpm"
 
-SNAP_OUT="${DIST_DIR}/${SNAP_NAME}"
 DEB_OUT="${DIST_DIR}/${DEB_NAME}"
 BUILDINFO_OUT="${DIST_DIR}/${BUILDINFO_NAME}"
 CHANGES_OUT="${DIST_DIR}/${CHANGES_NAME}"
 RPM_OUT="${DIST_DIR}/${RPM_NAME}"
 
-SKIP_SNAP=0
 SKIP_RPM=0
 SKIP_DEB=0
 
 for arg in "$@"; do
-    if [[ "$arg" == "--skip-snap" ]]; then
-        SKIP_SNAP=1
-    fi
     if [[ "$arg" == "--skip-deb" ]]; then
         SKIP_DEB=1
     fi
@@ -34,10 +28,6 @@ for arg in "$@"; do
     fi
 done
 
-if [[ "$SKIP_SNAP" -eq 0 && ! -x "$(command -v snap)" ]]; then
-    echo "Snap is not installed on this system. Skipping snap build..."
-    SKIP_SNAP=1
-fi
 
 if command -v apt >/dev/null 2>&1; then
     UPDATE_CMD="sudo apt update"
@@ -109,43 +99,13 @@ if [[ "$SKIP_RPM" -eq 0 ]]; then
     fi
 fi
 
-if [[ "$SKIP_SNAP" -eq 0 ]]; then
-    echo "Installing Snap dependencies..."
-    if ! snap list | grep -q snapcraft; then
-        sudo snap install snapcraft --classic
-    else
-        echo "Snapcraft is already installed."
-    fi
-
-    if ! snap list | grep -q lxd; then
-        sudo snap install lxd
-        sudo lxd init --auto
-    else
-        echo "LXD is already installed."
-    fi
-fi
 
 echo "Building $PROJECT_NAME version $VERSION..."
 
 echo "Cleaning build artifacts..."
-rm -rf dist snap/parts snap/stage snap/prime debian/mcup .pybuild rpm/SOURCES rpm/BUILD rpm/RPMS rpm/SRPMS rpm/BUILDROOT
+rm -rf dist debian/mcup .pybuild rpm/SOURCES rpm/BUILD rpm/RPMS rpm/SRPMS rpm/BUILDROOT
 mkdir -p "$DIST_DIR"
 
-if [[ "$SKIP_SNAP" -eq 1 ]]; then
-    echo "Skipping snap build..."
-else
-    if command -v lxc >/dev/null 2>&1 && snap list | grep -q lxd; then
-        echo "Building Snap with LXD..."
-        snapcraft --use-lxd --output "$SNAP_NAME"
-    else
-        echo "LXD not found or not working."
-        echo "Building Snap using destructive mode (may be fragile)..."
-        snapcraft --destructive-mode --output "$SNAP_NAME"
-    fi
-
-    echo "Moving Snap to dist folder..."
-    mv "$SNAP_NAME" "$SNAP_OUT"
-fi
 
 if [[ "$SKIP_DEB" -eq 1 ]]; then
     echo "Skipping Debian package build..."
@@ -183,6 +143,5 @@ fi
 
 echo "Build complete!"
 echo "Output files:"
-[[ "$SKIP_SNAP" -eq 0 ]] && ls "$SNAP_OUT" 2>/dev/null
 [[ "$SKIP_DEB" -eq 0 ]] && ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT" 2>/dev/null
 [[ "$SKIP_RPM" -eq 0 ]] && ls -1 "$DIST_DIR"/*.rpm
