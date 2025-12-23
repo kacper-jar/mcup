@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mcup"
-version = "1.0.0-beta5"
+version = "1.0.0-beta6"
 description = "Command-line tool for quickly creating Minecraft servers"
 readme = "README.md"
 license = {text = "MIT"}
