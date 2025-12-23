@@ -865,7 +865,7 @@ class Language:
                                              "sure your mcup installation is up-to-date.",
         "ERROR_INVALID_SERVER_VERSION": "Invalid or unsupported server version: {}",
         "ERROR_JAVA_NOT_FOUND": "Java not found. Please install Java first and try again.\n"
-                                "If you are using Snap or custom installation, you may need to set Java path manually:\n"
+                                "If you are using custom installation, you may need to set Java path manually:\n"
                                 "mcup config set java.path /path/to/java",
         "ERROR_DOWNLOAD_SERVER_FAILED": "Failed to download server. HTTP {}",
         "ERROR_DOWNLOAD_INSTALLER_FAILED": "Failed to download installer. HTTP {}",
