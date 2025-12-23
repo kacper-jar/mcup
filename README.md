@@ -16,21 +16,13 @@ Made for both advanced server managers and beginners setting up their first serv
 ### Snap (Linux)
 
 > [!WARNING]
-> **mcup** is currently unavailable on the Snap Store. Older versions found there may not work properly.
+> Support for the Snap package has been dropped.
 >
-> Currently, the only option is to use the snap package from **GitHub Releases**.
+> We have decided to discontinue Snap support due to significant maintenance overhead caused by the sandboxed
+> environment and performance issues compared to native packages.
 >
-> *Note: We are considering dropping support for Snap as it requires significant maintenance due to the sandboxed
-environment and is much slower compared to the `.deb` / `.rpm` counterparts.*
-
-Install from a local `.snap` file (download from [GitHub Releases](https://github.com/kacper-jar/mcup/releases)):
-
-```sh
-sudo snap install --dangerous --classic ./mcup_*.snap
-```
-
-> [!IMPORTANT]
-> Replace `./mcup_*.snap` with the actual path to your downloaded file.
+> Existing Snap installations will no longer receive updates. We strongly recommend migrating to the **.deb** or **.rpm
+** packages.
 
 ### APT / .deb (Linux)
 
@@ -119,17 +111,8 @@ To build the project locally, clone this repository and run:
 
 > [!NOTE]
 > You can disable selected package(s) creation by passing the appropriate flag(s):
-> * `--no-snap` - Skips building the `.snap` package
 > * `--no-deb` - Skips building the `.deb` package
 > * `--no-rpm` - Skips building the `.rpm` package
-
-> [!IMPORTANT]
-> If you're using LXD (only Snap builds), make sure your user is added to the `lxd` group:
-> 
-> ```sh
-> sudo usermod -aG lxd $USER
-> newgrp lxd
-> ```
 
 ## Locker System
 
@@ -142,10 +125,10 @@ from [GitHub repo](https://github.com/kacper-jar/mcup-locker-file))
 - `.github/` - GitHub-related configuration files
 - `debian/` - Files for building the `.deb` package
 - `mcup/` - Project source code
-    - `mcup.core` - Main application logic code
-    - `mcup.cli` - CLI UI code
+  - `mcup.core` - Main application logic code
+  - `mcup.cli` - CLI UI code
   - `mcup.devtools` - Development tools to speed up development
-- `snap/` - Files for building the `.snap` package
+- `rpm/` - Files for building the `.rpm` package
 
 ## Contributing
 
