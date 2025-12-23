@@ -21,8 +21,8 @@ Made for both advanced server managers and beginners setting up their first serv
 > We have decided to discontinue Snap support due to significant maintenance overhead caused by the sandboxed
 > environment and performance issues compared to native packages.
 >
-> Existing Snap installations will no longer receive updates. We strongly recommend migrating to the **.deb** or **.rpm
-** packages.
+> Existing Snap installations will no longer receive updates. We strongly recommend migrating to the
+> **.deb** or **.rpm** packages.
 
 ### APT / .deb (Linux)
 
