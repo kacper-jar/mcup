@@ -1,0 +1,96 @@
+site_name: mcup
+site_description: A command-line tool for quickly creating Minecraft servers with template support and version management across multiple server types.
+site_author: Kacper Jarosławski
+repo_url: https://github.com/kacper-jar/mcup
+repo_name: kacper-jar/mcup
+copyright: Copyright &copy; 2025 - 2026 Kacper Jarosławski
+
+theme:
+  name: material
+  icon:
+    logo: material/minecraft
+    repo: fontawesome/brands/github
+  palette:
+    - scheme: default
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - toc.integrate
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      exclude:
+        - index.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Creating Your First Server: getting-started/creating-first-server.md
+      - Next Steps: getting-started/next-steps.md
+  - Commands:
+      - Overview: commands/index.md
+      - Server Management: commands/server.md
+      - User Configuration: commands/userconfig.md
+      - Templates: commands/template.md
+      - Updates: commands/update.md
+      - About: commands/about.md
+  #  - Configuration Files:
+  #    - Overview: config-files/index.md
+  #    - server.properties: config-files/server-properties.md
+  #    - bukkit.yml: config-files/bukkit.md
+  #    - spigot.yml: config-files/spigot.md
+  #    - paper-global.yml: config-files/paper-global.md
+  #    - paper-world-defaults.yml: config-files/paper-world-defaults.md
+  #    - Start Scripts: config-files/start-scripts.md
+  - About:
+      - License: about/license.md
+      - Changelog: about/changelog.md
+      - Contributing: about/contributing.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kacper-jar/mcup
+  version:
+    provider: mike
