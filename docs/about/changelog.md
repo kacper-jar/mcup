@@ -1,0 +1,108 @@
+# 1.0.0-beta6
+
+* fix: Add missing Spigot config variables by @kacper-jar in https://github.com/kacper-jar/mcup/pull/59
+* fix: Add missing Paper config variables by @kacper-jar in https://github.com/kacper-jar/mcup/pull/60
+* feat: Implement about command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/61
+* fix: Resolve snap-related Java detection issues by @kacper-jar in https://github.com/kacper-jar/mcup/pull/62
+* feat: Add --skip-java-check flag to server create command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/63
+* build: Change snap confinement to classic for better Java compatibility by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/64
+* build: Modify build to use dump plugin instead of python by @kacper-jar in https://github.com/kacper-jar/mcup/pull/65
+* feat: Add support for Vanilla 1.21.11 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/66
+* feat: Add support for Paper 1.21.10 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/67
+* fix: Add missing Paper values (that I forgot to add) by @kacper-jar in https://github.com/kacper-jar/mcup/pull/68
+* build: Add RPM package build support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/69
+* docs: Update README by @kacper-jar in https://github.com/kacper-jar/mcup/pull/70
+
+# 1.0.0-beta5
+
+* feat: Add default configuration preview to collector UI by @kacper-jar in https://github.com/kacper-jar/mcup/pull/47
+* docs: Cleanup README by @kacper-jar in https://github.com/kacper-jar/mcup/pull/48
+* refactor: Project overhaul by @kacper-jar in https://github.com/kacper-jar/mcup/pull/50
+* build: Remove the `PKG_MANAGER` variable as it is unused by @kacper-jar in https://github.com/kacper-jar/mcup/pull/51
+* feat: Add support for resolving logging level from user configuration by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/52
+* fix: Set proper translation keys for missing userconfig translations by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/53
+* fix: Add INF_VERSION to keep certain collector fields active for newer versions by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/54
+* fix: Update `_check_version_support` to properly display the warning by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/55
+* feat: Add support for Minecraft 1.21.9 and 1.21.10 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/56
+* fix: Resolve AttributeError caused by yield of None by @kacper-jar in https://github.com/kacper-jar/mcup/pull/57
+
+# 1.0.0-beta4
+
+* fix: UserConfig creating folder instead of config file by @kacper-jar in https://github.com/kacper-jar/mcup/pull/33
+* fix: Improve Java version detection by @kacper-jar in https://github.com/kacper-jar/mcup/pull/34
+* feat: UserConfig enhancements and new command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/35
+* feat: Add warning for unsupported versions to prevent generation of broken configuration files by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/36
+* fix: Add check if Java is installed before installing server by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/37
+* refactor: Reorganize Paper World Defaults collector sections by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/38
+* fix: Downloading progressbar stuck on 0% due to missing content-length by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/39
+* chore: Remove unused dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/40
+* fix: Retry input collection on validation errors instead of skipping by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/41
+* fix: Prevent success message when locker is loaded without an update by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/42
+* refactor: Extract eula file creation to config file and assembler by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/43
+* fix: Invalid properties in configurations due to no version checks by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/44
+* fix: Improve section inputs filtering to prevent skipping advanced inputs by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/45
+
+# 1.0.0-beta3
+
+* fix: Change `$` prefix in locker dynamic variables (installer_args) to `%` by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/12
+* refactor: Extract hardcoded collector titles to variables for dynamic title composition by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/13
+* feat: Add `mcup server list` command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/14
+* feat: Rework `server create` command by @kacper-jar in https://github.com/kacper-jar/mcup/pull/15
+* feat: Add warning for unsupported configurations by @kacper-jar in https://github.com/kacper-jar/mcup/pull/16
+* refactor: Replace ServerInfoPrompt by @kacper-jar in https://github.com/kacper-jar/mcup/pull/17
+* feat: Overhaul start script(s) by @kacper-jar in https://github.com/kacper-jar/mcup/pull/18
+* chore: Update dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/19
+* docs: Update Commands section in README by @kacper-jar in https://github.com/kacper-jar/mcup/pull/20
+* feat: Add user config by @kacper-jar in https://github.com/kacper-jar/mcup/pull/21
+* refactor: Improve user config handling by @kacper-jar in https://github.com/kacper-jar/mcup/pull/22
+* feat: Disable devtools by default by @kacper-jar in https://github.com/kacper-jar/mcup/pull/23
+* feat: Add 3rd party locker support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/24
+* chore: Improve logging by @kacper-jar in https://github.com/kacper-jar/mcup/pull/25
+* fix: Add new meta fields to lockermgr to prevent broken meta by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/26
+* feat: Add support for Forge and NeoForge by @kacper-jar in https://github.com/kacper-jar/mcup/pull/27
+* fix: Improve path handling in user config to avoid issues on Windows by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/28
+* fix: Add missing strings for user config by @kacper-jar in https://github.com/kacper-jar/mcup/pull/29
+* feat: Implement input modes to simplify server creation for basic users by @kacper-jar
+  in https://github.com/kacper-jar/mcup/pull/30
+* fix: Adjust `server_jar_name` to work with NeoForge by @kacper-jar in https://github.com/kacper-jar/mcup/pull/31
+
+# 1.0.0-beta2
+
+* ci: Add commitlint GitHub Action
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/1)
+* chore: Update bug_report issue template
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/2)
+* fix: Adjust error handling for unsupported server source types
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/4)
+* feat: Implement LockerManager as a development tool
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/5)
+* feat: Locker v2 implementation
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/6)
+* feat: Add 1.21.8 support
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/7)
+* feat: Simplify Locker v2 structure
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/8)
+* fix: Prevent invalid server jar from start script
+  (by @kacper-jar in https://github.com/kacper-jar/mcup/pull/9)
+
+# 1.0.0-beta1
+
+* Initial beta release.
