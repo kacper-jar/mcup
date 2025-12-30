@@ -71,9 +71,9 @@ nav:
   - Commands:
       - Overview: commands/index.md
       - Server Management: commands/server.md
+      - Template Management: commands/template.md
       - User Configuration: commands/userconfig.md
-      - Templates: commands/template.md
-      - Updates: commands/update.md
+      - Update Management: commands/update.md
       - About: commands/about.md
   #  - Configuration Files:
   #    - Overview: config-files/index.md
