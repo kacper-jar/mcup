@@ -48,6 +48,19 @@ Install the project dependencies and the project itself in editable mode:
 pip install -e .
 ```
 
+## Project Structure
+
+Here is a quick overview of the project's structure to help you navigate the codebase:
+
+- `.github/`: GitHub-related configuration files (workflows, issue templates).
+- `debian/`: Files for building the `.deb` package.
+- `mcup/`: The main source code directory.
+    - `mcup.core`: Core application logic (handlers, utils, status codes).
+    - `mcup.cli`: Command-line interface code (commands, UI components).
+    - `mcup.devtools`: Development tools to assist with testing and maintenance.
+- `rpm/`: Files for building the `.rpm` package.
+- `docs/`: Documentation files (MkDocs).
+
 ## Running Locally
 
 You can run the CLI directly from the source code to test your changes.
