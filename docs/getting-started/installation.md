@@ -8,8 +8,8 @@ the repository.
 ### Snap
 
 !!! warning "Snap Support Dropped"
-**Support for the Snap package has been dropped.**
-
+    **Support for the Snap package has been dropped.**
+    
     We have decided to discontinue Snap support due to significant maintenance overhead caused by the sandboxed environment and performance issues compared to native packages.
     
     Existing Snap installations will no longer receive updates. We strongly recommend migrating to the **.deb** or **.rpm** packages.
@@ -17,18 +17,18 @@ the repository.
 ### Debian / Ubuntu (.deb)
 
 !!! note
-An APT release is planned. In the meantime, please install mcup using the `.deb` file.
+    An APT release is planned. In the meantime, please install mcup using the `.deb` file.
 
 1. Download the latest `.deb` package from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
 2. Install it using `dpkg`:
 
-   ```sh
-   sudo dpkg -i ./mcup_*.deb
-   sudo apt-get install -f
-   ```
+```sh
+sudo dpkg -i ./mcup_*.deb
+sudo apt-get install -f
+```
 
-   !!! important
-   Replace `./mcup_*.deb` with the actual path to your downloaded file.
+!!! important
+    Replace `./mcup_*.deb` with the actual path to your downloaded file.
 
 ### RPM-based Distributions (.rpm)
 
@@ -53,7 +53,7 @@ sudo zypper install ./mcup_*.rpm
 ```
 
 !!! important
-Replace `./mcup_*.rpm` with the actual path to your downloaded file.
+    Replace `./mcup_*.rpm` with the actual path to your downloaded file.
 
 ## Manual Installation (All Platforms)
 
@@ -68,19 +68,19 @@ You can install `mcup` manually by cloning the repository. This works on Linux, 
 
 1. Clone the repository:
 
-   ```sh
-   git clone https://github.com/kacper-jar/mcup.git
-   cd mcup
-   ```
+```sh
+git clone https://github.com/kacper-jar/mcup.git
+cd mcup
+```
 
 2. Run the appropriate startup script:
 
-   === "Linux / macOS"
-   ```sh
-   ./mcup.sh <args>
-   ```
+=== "Linux / macOS"
+    ```sh
+    ./mcup.sh <args>
+    ```
 
-   === "Windows"
-   ```sh
-   mcup.bat <args>
-   ```
+=== "Windows"
+    ```sh
+    mcup.bat <args>
+    ```
