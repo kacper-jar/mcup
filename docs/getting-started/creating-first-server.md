@@ -47,14 +47,7 @@ but you are responsible for reading and complying with the agreement.
 ### Server Properties
 
 Next, you will configure basic `server.properties` settings. 
-Press `Enter` to accept the default values (shown in brackets `[]`) or type your own.
-
-Common settings include:
-
--   **message-of-the-day (motd)**: The text displayed in the server list.
--   **max-players**: The maximum number of players allowed on the server.
--   **online-mode**: Whether to verify player accounts with Mojang servers.
-
+Press ++enter++ or type ++y++ to accept the default values (shown in the defaults preview) or type ++n++ to type your own.
 These core settings are presented for all server types.
 
 ### Advanced Configuration
@@ -81,7 +74,7 @@ You may be asked for:
 
 ## Running the Server
 
-After configuration, `mcup` downloads the necessary files and generates the start scripts.
+After configuration, `mcup` downloads the necessary files and generates the configuration files and start script.
 
 Navigate to your new server directory:
 
