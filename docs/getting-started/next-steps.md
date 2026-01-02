@@ -3,7 +3,7 @@
 Congratulations! You have successfully installed and started your first Minecraft server using `mcup`.
 Now that your server is running, here are some recommended steps to manage and customize it.
 
-## Setup Firewall & Port Forwarding
+## Set up Firewall & Port Forwarding
 
 By default, Minecraft servers listen on port `25565`. 
 For players outside your local network to connect, you need to allow traffic through this port.
@@ -57,7 +57,7 @@ If you want to create a private server for friends, it is highly recommended to 
 
 ### Automated Backups
 
-Your server "world" is precious. Regular backups are essential to prevent data loss from griefing or corruption.
+Your server world is precious. Regular backups are essential to prevent data loss from griefing or corruption.
 
 -   **Manual:** Regularly copy the `world` folder (and `world_nether`, `world_the_end`) to a safe location.
 -   **Automated:** Install a backup plugin or mod (e.g., DriveBackupV2, FTB Backups) to handle this automatically on a schedule.
