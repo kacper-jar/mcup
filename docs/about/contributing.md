@@ -25,18 +25,18 @@ cd mcup
 It is recommended to use a virtual environment to manage dependencies:
 
 === "Linux / macOS"
-```bash
-# Create a virtual environment
-python3 -m venv .venv
-
+    ```bash
+    # Create a virtual environment
+    python3 -m venv .venv
+    
     # Activate the virtual environment
     source .venv/bin/activate
     ```
 
 === "Windows"
-```bat
-# Create a virtual environment
-python -m venv .venv
+    ```bat
+    # Create a virtual environment
+    python -m venv .venv
 
     # Activate the virtual environment
     .venv/Scripts/activate
@@ -74,9 +74,9 @@ reflected.
 1. Ensure your virtual environment is activated.
 2. Run the command:
 
-   ```bash
-   mcup [command]
-   ```
+```bash
+mcup [command]
+```
 
 ### Using Helper Scripts
 
@@ -84,14 +84,14 @@ We provide helper scripts that handle the execution for you, which can be useful
 environment manually.
 
 === "Linux / macOS"
-```bash
-./mcup.sh [command]
-```
+    ```bash
+    ./mcup.sh [command]
+    ```
 
 === "Windows"
-```bat
-mcup.bat [command]
-```
+    ```bat
+    mcup.bat [command]
+    ```
 
 ### Using Python Module
 
@@ -112,7 +112,7 @@ To build the distributable packages (DEB, RPM), use the provided build script.
 This will generate the packages in the `dist` directory.
 
 !!! note
-You can skip specific package builds using flags:
+    You can skip specific package builds using flags:
 
     *   `--skip-deb`: Skip building the Debian package.
     *   `--skip-rpm`: Skip building the RPM package.
