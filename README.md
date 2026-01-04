@@ -17,7 +17,6 @@ Made for both advanced server managers and beginners setting up their first serv
 - [Commands Overview](https://mcup.kzl21.ovh/commands/)
 - [Contributing Guide](https://mcup.kzl21.ovh/about/contributing/)
 
-
 ## Locker System
 
 `mcup` maintains a list of supported server types and versions via a **locker file**, which contains metadata for
