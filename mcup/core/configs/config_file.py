@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from mcup.core.utils.version import VersionDependantVariablePicker, Version
+from mcup.core.utils.version import VersionDependantVariablePicker, Version, VersionDependantVariable
 
 
 @dataclass
@@ -69,11 +69,21 @@ class ConfigFile:
             if last_key in default_dict:
                 if isinstance(default_dict[last_key], VersionDependantVariablePicker):
                     config_dict[last_key] = default_dict[last_key].resolve(version)
+                elif isinstance(default_dict[last_key], list):
+                    if len(default_dict[last_key]) > 0 and isinstance(default_dict[last_key][0], VersionDependantVariable):
+                        config_dict[last_key] = VersionDependantVariablePicker(default_dict[last_key]).resolve(version)
+                    else:
+                        config_dict[last_key] = default_dict[last_key]
                 else:
                     config_dict[last_key] = default_dict[last_key]
         else:
             if isinstance(self.default_configuration[property_name], VersionDependantVariablePicker):
                 self.configuration[property_name] = self.default_configuration[property_name].resolve(version)
+            elif isinstance(self.default_configuration[property_name], list):
+                if len(self.default_configuration[property_name]) > 0 and isinstance(self.default_configuration[property_name][0], VersionDependantVariable):
+                    self.configuration[property_name] = VersionDependantVariablePicker(self.default_configuration[property_name]).resolve(version)
+                else:
+                    self.configuration[property_name] = self.default_configuration[property_name]
             else:
                 self.configuration[property_name] = self.default_configuration[property_name]
 
@@ -117,6 +127,11 @@ class ConfigFile:
 
             if isinstance(current_dict, VersionDependantVariablePicker):
                 return current_dict.resolve(version)
+            elif isinstance(current_dict, list):
+                if len(current_dict) > 0 and isinstance(current_dict[0], VersionDependantVariable):
+                    return VersionDependantVariablePicker(current_dict).resolve(version)
+                else:
+                    return current_dict
             else:
                 return current_dict
         else:
@@ -124,6 +139,11 @@ class ConfigFile:
                 default_val = self.default_configuration[variable_name]
                 if isinstance(default_val, VersionDependantVariablePicker):
                     return default_val.resolve(version)
+                elif isinstance(default_val, list):
+                    if len(default_val) > 0 and isinstance(default_val[0], VersionDependantVariable):
+                        return VersionDependantVariablePicker(default_val).resolve(version)
+                    else:
+                        return default_val
                 else:
                     return default_val
             else:
