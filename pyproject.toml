@@ -10,9 +10,9 @@ readme = "README.md"
 license = "MIT"
 authors = [{name = "Kacper Jarosławski", email = "kacper.jaroslawski@kzl21.ovh"}]
 dependencies = [
-    "requests>=2.32.0",
-    "rich>=14.0.0",
-    "pyyaml>=6.0.0"
+    "requests>=2.32.4",
+    "rich>=14.1.0",
+    "pyyaml>=6.0.2"
 ]
 requires-python = ">=3.8"
 classifiers = [
