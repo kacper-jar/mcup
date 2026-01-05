@@ -106,13 +106,15 @@ echo "Cleaning build artifacts..."
 rm -rf dist debian/mcup .pybuild rpm/SOURCES rpm/BUILD rpm/RPMS rpm/SRPMS rpm/BUILDROOT
 mkdir -p "$DIST_DIR"
 
+echo "Building Python package..."
+python3 -m hatchling build
+
 
 if [[ "$SKIP_DEB" -eq 1 ]]; then
     echo "Skipping Debian package build..."
 else
     if command -v dpkg-buildpackage >/dev/null 2>&1; then
         echo "Building Debian package..."
-        python3 -m hatchling build
         dpkg-buildpackage -us -uc -b
 
         echo "Moving Debian artifacts to dist folder..."
@@ -145,3 +147,4 @@ echo "Build complete!"
 echo "Output files:"
 [[ "$SKIP_DEB" -eq 0 ]] && ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT" 2>/dev/null
 [[ "$SKIP_RPM" -eq 0 ]] && ls -1 "$DIST_DIR"/*.rpm
+ls -1 "$DIST_DIR"/*.whl "$DIST_DIR"/*.tar.gz 2>/dev/null
