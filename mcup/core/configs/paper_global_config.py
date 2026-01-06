@@ -112,6 +112,7 @@ class PaperGlobalConfig(ConfigFile):
                 "client-interaction-leniency-distance": None,  # 1.21+
                 "compression-level": None,  # 1.20.1+
                 "fix-entity-position-desync": None,  # 1.19-1.21.4
+                "fix-far-end-terrain-generation": None,  # 1.21.11+
                 "lag-compensate-block-breaking": None,  # 1.19-1.20
                 "load-permissions-yml-before-plugins": None,
                 "max-joins-per-tick": None,  # 1.21.6+
@@ -307,6 +308,7 @@ class PaperGlobalConfig(ConfigFile):
                 "client-interaction-leniency-distance": "default",
                 "compression-level": "default",
                 "fix-entity-position-desync": True,
+                "fix-far-end-terrain-generation": True,
                 "lag-compensate-block-breaking": True,
                 "load-permissions-yml-before-plugins": True,
                 "max-joins-per-tick": VersionDependantVariablePicker([
