@@ -183,6 +183,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     "filtered-entity-tag-nbt-paths": None,  # 1.19.3+
                     "filter-nbt-data-from-spawn-eggs-and-related": None,  # 1.19-1.19.3
                     "iron-golems-can-spawn-in-air": None,
+                    "max-arrow-despawn-invulnerability": None,  # 1.21.11+
                     "monster-spawn-max-light-level": None,
                     "non-player-arrow-despawn-rate": None,
                     "per-player-mob-spawns": None,
@@ -613,6 +614,7 @@ class PaperWorldDefaultsConfig(ConfigFile):
                     ]),
                     "filter-nbt-data-from-spawn-eggs-and-related": True,
                     "iron-golems-can-spawn-in-air": False,
+                    "max-arrow-despawn-invulnerability": 200,
                     "monster-spawn-max-light-level": VersionDependantVariablePicker([
                         VersionDependantVariable(Version(1, 19), Version(1, 20, 1), -1),
                         VersionDependantVariable(Version(1, 20, 2), LATEST_VERSION, "default")
