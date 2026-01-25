@@ -17,7 +17,7 @@ class Collector:
     def __init__(self, title: str):
         self.title: str = title
         self.sections: list[CollectorSection] = []
-        self.config_file: "ConfigFile"
+        self.config_file: "ConfigFile" = None
 
     def set_config_file(self, config_file: "ConfigFile"):
         """Set the associated config file for getting default values."""
