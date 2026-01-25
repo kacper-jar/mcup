@@ -53,6 +53,37 @@ class TestCollector:
         result = collector._process_input(mock_input_list)
         assert result == [1, 2, 3]
 
+        mock_input_str = MagicMock(spec=CollectorInput)
+        mock_input_str.get_variable_input_type.return_value = CollectorInputType.STRING
+        mock_input_str.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = ["text"]
+        assert collector._process_input(mock_input_str) == "text"
+
+        mock_input_float = MagicMock(spec=CollectorInput)
+        mock_input_float.get_variable_input_type.return_value = CollectorInputType.FLOAT
+        mock_input_float.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = ["invalid", "1.5"]
+        assert collector._process_input(mock_input_float) == 1.5
+
+        mock_input_mixed = MagicMock(spec=CollectorInput)
+        mock_input_mixed.get_variable_input_type.return_value = CollectorInputType.STRING_OR_INT
+        mock_input_mixed.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = ["123", "abc"]
+        assert collector._process_input(mock_input_mixed) == 123
+        assert collector._process_input(mock_input_mixed) == "abc"
+
+        mock_input_fl = MagicMock(spec=CollectorInput)
+        mock_input_fl.get_variable_input_type.return_value = CollectorInputType.FLOAT_LIST
+        mock_input_fl.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = ["1.1, 2.2"]
+        assert collector._process_input(mock_input_fl) == [1.1, 2.2]
+
+        mock_input_bl = MagicMock(spec=CollectorInput)
+        mock_input_bl.get_variable_input_type.return_value = CollectorInputType.BOOL_LIST
+        mock_input_bl.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = ["y, n, true, false"]
+        assert collector._process_input(mock_input_bl) == [True, False, True, False]
+
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
     def test_version_filtering(self, mock_user_config, mock_section, mock_input):
         collector = Collector("Test collector")
@@ -62,10 +93,6 @@ class TestCollector:
 
         mock_section.get_section_inputs.return_value = [mock_input]
         collector.add_section(mock_section)
-
-        # Test with 1.17 (should be skipped)
-        # We need to mock _show_default_configuration_preview and inputs to avoid actual interaction if it reaches there
-        # But start_collector logic filters before loop if section is empty? No, filters inside loop.
 
         with patch.object(collector, '_process_input') as mock_process:
             result = collector.start_collector(Version(1, 17), no_defaults=True, advanced_mode_enabled=False)

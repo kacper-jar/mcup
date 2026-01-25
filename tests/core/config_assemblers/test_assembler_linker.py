@@ -75,3 +75,17 @@ class TestAssemblerLinker:
         linked = linker.get_linked_files()
 
         assert isinstance(linked["eula.txt"], EulaAssembler)
+
+    def test_assemble_linked_files(self, linker):
+        """Verify assemble is called on linked assemblers."""
+        mock_assembler = MagicMock()
+        mock_file = MagicMock(spec=ConfigFile)
+        mock_file.get_file_name.return_value = "custom.conf"
+        mock_file.config_file_name = "custom.conf"
+
+        linker.linked_files["custom.conf"] = mock_assembler
+        linker.configuration.add_configuration_file(mock_file)
+
+        linker.assemble_linked_files("/path/to/server")
+
+        mock_assembler.assemble.assert_called_with("/path/to/server", mock_file)
