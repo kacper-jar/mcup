@@ -120,7 +120,7 @@ class TemplateHandler:
             yield Status(StatusCode.ERROR_TEMPLATE_NOT_FOUND)
             return
 
-        template_config = self._load_template_for_use(template_name)
+        template_config = yield from self._load_template_for_use(template_name)
         if template_config is None:
             return
 
@@ -315,12 +315,10 @@ class TemplateHandler:
         for status in locker_manager.load_locker():
             if status.status_code != StatusCode.SUCCESS:
                 yield status
-                yield None
                 return
             else:
                 locker_data = status.status_details
-                yield locker_data
-                return
+                return locker_data
 
     def _find_updated_locker_entry(self, locker_data: Dict[str, Any], server_type: str,
                                    server_version: str) -> Optional[Dict[str, Any]]:
