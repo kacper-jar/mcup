@@ -142,3 +142,42 @@ class TestServerHandler:
 
             assert any(s.status_code == StatusCode.SUCCESS for s in statuses)
             mock_run.assert_called()
+
+    @patch("mcup.core.handlers.server_handler.ServerHandler._get_java_major_version")
+    def test_validate_java_version_logic(self, mock_get_java_version, handler):
+        """Verify Java version validation matrix."""
+
+        cases = [
+            (Version(1, 20, 6), 21, None, True),
+            (Version(1, 20, 6), 17, StatusCode.INFO_JAVA_MINIMUM_21, False),
+            (Version(1, 21), 21, None, True),
+
+            (Version(1, 18), 17, None, True),
+            (Version(1, 18), 16, StatusCode.INFO_JAVA_MINIMUM_17, False),
+
+            (Version(1, 17), 16, None, True),
+            (Version(1, 17), 11, StatusCode.INFO_JAVA_MINIMUM_16, False),
+
+            (Version(1, 16, 5), 8, None, True),
+            (Version(1, 12, 2), 8, None, True),
+            (Version(1, 12, 2), 7, StatusCode.INFO_JAVA_MINIMUM_8, False),
+        ]
+
+        for mc_ver, java_ver, expected_code, expect_none in cases:
+            mock_get_java_version.return_value = java_ver
+
+            gen = handler._validate_java_version_for_minecraft(mc_ver)
+
+            next(gen)
+
+            try:
+                next(gen)
+                assert False, f"Should have returned via StopIteration for {mc_ver} / Java {java_ver}"
+            except StopIteration as e:
+                returned_status = e.value
+                if expect_none:
+                    assert returned_status is None, f"Expected None for {mc_ver} / Java {java_ver}, got {returned_status}"
+                else:
+                    assert returned_status is not None
+                    assert returned_status.status_code == expected_code, \
+                        f"Expected {expected_code} for {mc_ver} / Java {java_ver}, got {returned_status.status_code}"

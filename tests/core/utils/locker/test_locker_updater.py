@@ -96,3 +96,26 @@ class TestLockerUpdater:
 
             assert StatusCode.INFO_LOCKER_UPDATING in codes
             assert StatusCode.ERROR_LOCKER_DOWNLOAD_FAILED in codes
+
+    def test_load_locker_success(self, mock_deps):
+        updater = LockerUpdater()
+
+        with patch.object(updater, 'update_locker', return_value=iter([])), \
+                patch("os.path.exists", return_value=True), \
+                patch("builtins.open", mock_open(read_data='{"servers": {"paper": []}}')):
+            statuses = list(updater.load_locker())
+            result = statuses[-1]
+
+            assert result.status_code == StatusCode.SUCCESS
+            assert result.status_details == {"servers": {"paper": []}}
+
+    def test_load_locker_missing(self, mock_deps):
+        updater = LockerUpdater()
+
+        with patch.object(updater, 'update_locker', return_value=iter([])), \
+                patch("os.path.exists", return_value=False):
+            statuses = list(updater.load_locker())
+            result = statuses[-1]
+
+            assert result.status_code == StatusCode.SUCCESS
+            assert result.status_details == {"servers": {}}
