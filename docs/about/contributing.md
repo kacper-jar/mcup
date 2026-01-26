@@ -157,6 +157,20 @@ fix(config): handle missing default values
 - Use the imperative mood ("fix bug" not "fixed bug").
 - Explain *what* and *why* briefly.
 
+## Testing Changes
+
+Before submitting your changes, please run the tests to ensure that everything is working correctly and to
+avoid regressions.
+
+We use `pytest` for testing. You can run the tests using the following command:
+
+```bash
+pytest
+```
+
+If you are adding a new feature, please consider adding new tests to cover it. This helps ensure that your feature works
+as expected and will continue to work in the future.
+
 ## Submitting a Pull Request
 
 1. Create a new branch for your feature or fix: `git checkout -b feat/my-new-feature`.
@@ -165,5 +179,8 @@ fix(config): handle missing default values
 4. Push your branch to your fork: `git push origin feat/my-new-feature`.
 5. Open a Pull Request on the main repository.
 6. Provide a clear description of your changes and why they are necessary.
+
+!!! note
+    All test cases must pass in order for the Pull Request to be merged.
 
 We will review your PR and provide feedback. Thank you for contributing!
