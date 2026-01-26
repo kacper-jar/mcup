@@ -129,16 +129,19 @@ Each commit message should start with a **type prefix**, followed by a colon and
 
 ### Common Types
 
-| Type         | Description                                | Example                                          |
-|:-------------|:-------------------------------------------|:-------------------------------------------------|
-| **feat**     | A new feature                              | `feat: add support for YAML config loading`      |
-| **fix**      | A bug fix                                  | `fix: prevent crash when config file is missing` |
-| **docs**     | Documentation only changes                 | `docs: update usage section in README.md`        |
-| **style**    | Code style changes (formatting, etc)       | `style: reformat code with Black`                |
-| **refactor** | Refactoring code without changing behavior | `refactor: extract validation logic`             |
-| **test**     | Adding or updating tests                   | `test: add unit tests for CLI argument parser`   |
-| **build**    | Changes to build scripts or dependencies   | `build: upgrade rich library`                    |
-| **chore**    | Other changes                              | `chore: update license year`                     |
+| Type         | Description                                   | Example                                             |
+|:-------------|:----------------------------------------------|:----------------------------------------------------|
+| **feat**     | A new feature                                 | `feat: add support for YAML config loading`         |
+| **fix**      | A bug fix                                     | `fix: prevent crash when config file is missing`    |
+| **docs**     | Documentation only changes                    | `docs: update usage section in README.md`           |
+| **style**    | Code style changes (formatting, etc)          | `style: reformat code with Black`                   |
+| **refactor** | Refactoring code without changing behavior    | `refactor: extract validation logic`                |
+| **perf**     | Performance improvements                      | `perf: optimize server installation time`           |
+| **test**     | Adding or updating tests                      | `test: add unit tests for CLI argument parser`      |
+| **build**    | Changes to build scripts or dependencies      | `build: upgrade rich library`                       |
+| **ci**       | Changes to CI configuration files and scripts | `ci: fix github actions workflow`                   |
+| **chore**    | Other changes                                 | `chore: update license year`                        |
+| **revert**   | Reverts a previous commit                     | `revert: feat: add support for YAML config loading` |
 
 ### Optional Scope
 
