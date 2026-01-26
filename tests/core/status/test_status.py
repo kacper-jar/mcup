@@ -1,4 +1,3 @@
-import pytest
 from mcup.core.status.status import Status
 from mcup.core.status.status_code import StatusCode
 

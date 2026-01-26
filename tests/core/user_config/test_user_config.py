@@ -73,12 +73,11 @@ class TestUserConfig:
 
     def test_list_configuration(self, mock_deps):
         with patch("os.path.exists", return_value=True), \
-             patch("builtins.open", mock_open(read_data='{"a": 1, "b": 2}')):
+                patch("builtins.open", mock_open(read_data='{"a": 1, "b": 2}')):
             config = UserConfig()
-            
+
             statuses = list(config.list_configuration())
             assert statuses[0].status_code == StatusCode.SUCCESS
             assert "Current configuration (2 entries):" in statuses[0].status_details
             assert "  a = 1" in statuses[0].status_details
             assert "  b = 2" in statuses[0].status_details
-

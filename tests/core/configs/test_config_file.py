@@ -1,4 +1,3 @@
-import pytest
 from mcup.core.configs.config_file import ConfigFile
 from mcup.core.utils.version import Version, VersionDependantVariable, VersionDependantVariablePicker
 

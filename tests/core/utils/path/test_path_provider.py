@@ -1,4 +1,3 @@
-import pytest
 from pathlib import Path
 from unittest.mock import patch
 from mcup.core.utils.path.path_provider import PathProvider

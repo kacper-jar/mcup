@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock, patch, mock_open
 from mcup.core.config_assemblers.eula_assembler import EulaAssembler
 

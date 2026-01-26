@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock, patch, mock_open
 from mcup.core.config_assemblers.server_properties_assembler import ServerPropertiesAssembler
 from mcup.core.configs import ServerPropertiesConfig

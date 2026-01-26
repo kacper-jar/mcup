@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock, patch, mock_open
 from mcup.core.template import TemplateManager, Template
 
