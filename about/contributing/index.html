@@ -1102,6 +1102,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#testing-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#submitting-a-pull-request" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1285,6 +1296,11 @@ environment manually.</p>
 <td style="text-align: left;"><code>refactor: extract validation logic</code></td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>perf</strong></td>
+<td style="text-align: left;">Performance improvements</td>
+<td style="text-align: left;"><code>perf: optimize server installation time</code></td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>test</strong></td>
 <td style="text-align: left;">Adding or updating tests</td>
 <td style="text-align: left;"><code>test: add unit tests for CLI argument parser</code></td>
@@ -1295,9 +1311,19 @@ environment manually.</p>
 <td style="text-align: left;"><code>build: upgrade rich library</code></td>
 </tr>
 <tr>
+<td style="text-align: left;"><strong>ci</strong></td>
+<td style="text-align: left;">Changes to CI configuration files and scripts</td>
+<td style="text-align: left;"><code>ci: fix github actions workflow</code></td>
+</tr>
+<tr>
 <td style="text-align: left;"><strong>chore</strong></td>
 <td style="text-align: left;">Other changes</td>
 <td style="text-align: left;"><code>chore: update license year</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>revert</strong></td>
+<td style="text-align: left;">Reverts a previous commit</td>
+<td style="text-align: left;"><code>revert: feat: add support for YAML config loading</code></td>
 </tr>
 </tbody>
 </table>
@@ -1311,6 +1337,14 @@ environment manually.</p>
 <li>Use the imperative mood ("fix bug" not "fixed bug").</li>
 <li>Explain <em>what</em> and <em>why</em> briefly.</li>
 </ul>
+<h2 id="testing-changes">Testing Changes<a class="headerlink" href="#testing-changes" title="Permanent link">&para;</a></h2>
+<p>Before submitting your changes, please run the tests to ensure that everything is working correctly and to
+avoid regressions.</p>
+<p>We use <code>pytest</code> for testing. You can run the tests using the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pytest
+</code></pre></div>
+<p>If you are adding a new feature, please consider adding new tests to cover it. This helps ensure that your feature works
+as expected and will continue to work in the future.</p>
 <h2 id="submitting-a-pull-request">Submitting a Pull Request<a class="headerlink" href="#submitting-a-pull-request" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Create a new branch for your feature or fix: <code>git checkout -b feat/my-new-feature</code>.</li>
@@ -1320,6 +1354,10 @@ environment manually.</p>
 <li>Open a Pull Request on the main repository.</li>
 <li>Provide a clear description of your changes and why they are necessary.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All test cases must pass in order for the Pull Request to be merged.</p>
+</div>
 <p>We will review your PR and provide feedback. Thank you for contributing!</p>
 
 
@@ -1343,7 +1381,7 @@ environment manually.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 2, 2026 10:47:24 UTC">January 2, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 26, 2026 10:24:55 UTC">January 26, 2026</span>
   </span>
 
     
