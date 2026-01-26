@@ -1,6 +1,7 @@
 import pytest
 from mcup.cli.language import Language
 
+
 class TestLanguage:
 
     def test_get_existing_string(self):

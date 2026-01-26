@@ -1,4 +1,3 @@
-import pytest
 from mcup.core.utils.version import Version, VersionDependantVariable, VersionDependantVariablePicker
 
 
