@@ -38,6 +38,19 @@ python3 -m pip install $wheel_file --root %{buildroot} --no-deps --ignore-instal
 %{python3_sitelib}/mcup-*.dist-info
 
 %changelog
+* Tue Jan 28 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_beta7-1
+- build: Drop Snap support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/72
+- docs: Fix formatting by @kacper-jar in https://github.com/kacper-jar/mcup/pull/73
+- docs: Add MkDocs-based documentation by @kacper-jar in https://github.com/kacper-jar/mcup/pull/74
+- ci: Update documentation deployment workflow branch by @kacper-jar in https://github.com/kacper-jar/mcup/pull/75
+- chore: Update copyright year range by @kacper-jar in https://github.com/kacper-jar/mcup/pull/76
+- fix: Support resolving VersionDependantVariable lists in config files to prevent UI defaults preview issues by @kacper-jar in https://github.com/kacper-jar/mcup/pull/77
+- docs: Simplify README in favor of quick links to documentation by @kacper-jar in https://github.com/kacper-jar/mcup/pull/78
+- build: Prepare package for PyPI release by @kacper-jar in https://github.com/kacper-jar/mcup/pull/79
+- feat: Add support for Paper 1.21.11 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/80
+- test: Add unit and integration tests by @kacper-jar in https://github.com/kacper-jar/mcup/pull/81
+- docs: Update contributing guide by @kacper-jar in https://github.com/kacper-jar/mcup/pull/82
+
 * Tue Dec 23 2025 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_beta6-1
 - fix: Add missing Spigot config variables by @kacper-jar in https://github.com/kacper-jar/mcup/pull/59
 - fix: Add missing Paper config variables by @kacper-jar in https://github.com/kacper-jar/mcup/pull/60

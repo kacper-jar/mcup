@@ -1,3 +1,17 @@
+# 1.0.0-beta7
+
+* build: Drop Snap support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/72
+* docs: Fix formatting by @kacper-jar in https://github.com/kacper-jar/mcup/pull/73
+* docs: Add MkDocs-based documentation by @kacper-jar in https://github.com/kacper-jar/mcup/pull/74
+* ci: Update documentation deployment workflow branch by @kacper-jar in https://github.com/kacper-jar/mcup/pull/75
+* chore: Update copyright year range by @kacper-jar in https://github.com/kacper-jar/mcup/pull/76
+* fix: Support resolving VersionDependantVariable lists in config files to prevent UI defaults preview issues by @kacper-jar in https://github.com/kacper-jar/mcup/pull/77
+* docs: Simplify README in favor of quick links to documentation by @kacper-jar in https://github.com/kacper-jar/mcup/pull/78
+* build: Prepare package for PyPI release by @kacper-jar ian https://github.com/kacper-jar/mcup/pull/79
+* feat: Add support for Paper 1.21.11 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/80
+* test: Add unit and integration tests by @kacper-jar in https://github.com/kacper-jar/mcup/pull/81
+* docs: Update contributing guide by @kacper-jar in https://github.com/kacper-jar/mcup/pull/82
+
 # 1.0.0-beta6
 
 * fix: Add missing Spigot config variables by @kacper-jar in https://github.com/kacper-jar/mcup/pull/59
