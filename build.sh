@@ -29,6 +29,18 @@ for arg in "$@"; do
 done
 
 
+if [[ ! -f ".venv/bin/activate" ]]; then
+    echo "ERROR: Virtual environment not found!"
+    echo "Please create a virtual environment first:"
+    echo "  python3 -m venv .venv"
+    exit 1
+fi
+
+if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "Ensuring required Python packages are installed in venv..."
+    python3 -m pip install --upgrade hatchling build trove-classifiers wheel setuptools
+fi
+
 if command -v apt >/dev/null 2>&1; then
     UPDATE_CMD="sudo apt update"
     INSTALL_CMD="sudo apt install -y"
@@ -37,7 +49,6 @@ if command -v apt >/dev/null 2>&1; then
         python3-all
         python3-setuptools
         python3-wheel
-        python3-hatchling
         pybuild-plugin-pyproject
         devscripts
         debhelper
@@ -46,6 +57,7 @@ if command -v apt >/dev/null 2>&1; then
         dh-python
         rpm
         python3-pip
+        python3-venv
     )
 elif command -v dnf >/dev/null 2>&1; then
     UPDATE_CMD="sudo dnf makecache"
@@ -56,7 +68,6 @@ elif command -v dnf >/dev/null 2>&1; then
         python3-setuptools
         python3-pip
         python3-wheel
-        python3-hatchling
         rpm-build
     )
 elif command -v pacman >/dev/null 2>&1; then
@@ -67,7 +78,6 @@ elif command -v pacman >/dev/null 2>&1; then
         python-setuptools
         python-pip
         python-wheel
-        python-hatchling
         rpm-tools
         base-devel
     )
@@ -80,7 +90,6 @@ elif command -v zypper >/dev/null 2>&1; then
         python3-setuptools
         python3-pip
         python3-wheel
-        python3-hatchling
         rpm-build
     )
 else
@@ -146,5 +155,5 @@ fi
 echo "Build complete!"
 echo "Output files:"
 [[ "$SKIP_DEB" -eq 0 ]] && ls "$DEB_OUT" "$BUILDINFO_OUT" "$CHANGES_OUT" 2>/dev/null
-[[ "$SKIP_RPM" -eq 0 ]] && ls -1 "$DIST_DIR"/*.rpm
+[[ "$SKIP_RPM" -eq 0 ]] && ls -1 "$DIST_DIR"/*.rpm 2>/dev/null
 ls -1 "$DIST_DIR"/*.whl "$DIST_DIR"/*.tar.gz 2>/dev/null
