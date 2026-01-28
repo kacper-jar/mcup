@@ -8,7 +8,7 @@ version = "1.0.0-beta7"
 description = "Command-line tool for quickly creating Minecraft servers"
 readme = "README.md"
 license = "MIT"
-authors = [{name = "Kacper Jarosławski", email = "kacper.jaroslawski@kzl21.ovh"}]
+authors = [{ name = "Kacper Jarosławski", email = "kacper.jaroslawski@kzl21.ovh" }]
 dependencies = [
     "requests>=2.32.4",
     "rich>=14.1.0",
@@ -48,5 +48,6 @@ mcup = "mcup.__main__:main"
 
 [tool.hatch.build]
 exclude = [
-  "build.sh",
+    "build.sh",
+    "commitlint.config.js"
 ]
