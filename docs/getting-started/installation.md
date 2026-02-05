@@ -55,6 +55,28 @@ sudo zypper install ./mcup_*.rpm
 !!! important
     Replace `./mcup_*.rpm` with the actual path to your downloaded file.
 
+### Distro-agnostic (pip)
+
+Download the latest `.tar.gz` or `.whl` package from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
+
+Install it using pip:
+
+```sh
+pip install ./mcup-*.whl
+```
+
+or
+
+```sh
+pip install ./mcup-*.tar.gz
+```
+
+!!! important
+    Replace `./mcup-*` with the actual path to your downloaded file.
+
+!!! tip
+    If the `pip` command is not available, try using `python3 -m pip install ...` instead.
+
 ## Manual Installation (All Platforms)
 
 You can install `mcup` manually by cloning the repository. This works on Linux, macOS, and Windows.
