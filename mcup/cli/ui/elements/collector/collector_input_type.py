@@ -15,3 +15,4 @@ class CollectorInputType(enum.Enum):
 
     # Specific server-related input types
     PAPER_OBFUSCATION_MODEL_OVERRIDES = enum.auto()
+    PAPER_PACKET_LIMITER_OVERRIDES = enum.auto()
