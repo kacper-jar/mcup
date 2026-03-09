@@ -23,8 +23,12 @@ class PaperGlobalCollector(Collector):
                                CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 21, 4), LATEST_VERSION),
                 CollectorInput("anticheat/obfuscation/items/enable-item-obfuscation",
                                "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ENABLE_ITEM_OBFUSCATION",
-                               CollectorInputType.STRING_LIST, CollectorInputMode.ADVANCED, Version(1, 21, 4),
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 21, 4),
                                LATEST_VERSION),
+                CollectorInput("anticheat/obfuscation/items/model-overrides",
+                               "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_MODEL_OVERRIDES",
+                               CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES, CollectorInputMode.ADVANCED,
+                               Version(1, 21, 4), LATEST_VERSION),
             ],
             "COLLECTOR_HEADER_DEFAULT_RECOMMENDED"
         ))

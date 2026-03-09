@@ -504,6 +504,7 @@ class Language:
         "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_DONT_OBFUSCATE": "Data components to not hide from other players",
         "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ALL_MODELS_SANITIZE_COUNT": "Hide item counts from other players",
         "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_ENABLE_ITEM_OBFUSCATION": "Send unnecessary data to other players",
+        "COLLECTOR_PAPER_GLOBAL_ANTICHEAT_OBFUSCATION_ITEMS_MODEL_OVERRIDES": "Model overrides (Minecraft Namespaced IDs to override all-models properties)",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_CHORUS_PLANT_UPDATES": "Disable block updates for chorus plants",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_MUSHROOM_BLOCK_UPDATES": "Disable block updates for mushroom blocks",
         "COLLECTOR_PAPER_GLOBAL_BLOCK_UPDATES_DISABLE_NOTEBLOCK_UPDATES": "Disable block updates for noteblocks",
