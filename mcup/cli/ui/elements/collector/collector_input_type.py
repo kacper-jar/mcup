@@ -12,3 +12,6 @@ class CollectorInputType(enum.Enum):
     INT_LIST = enum.auto()
     FLOAT_LIST = enum.auto()
     BOOL_LIST = enum.auto()
+
+    # Specific server-related input types
+    PAPER_OBFUSCATION_MODEL_OVERRIDES = enum.auto()

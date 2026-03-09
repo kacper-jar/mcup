@@ -139,13 +139,22 @@ class Collector:
                 example_input = "numbers divided by commas"
             case CollectorInputType.BOOL_LIST:
                 example_input = "true/false divided by commas"
+            case CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES:
+                example_input = ""
             case _:
                 example_input = ""
 
         language = Language()
 
         while True:
-            var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
+            overrides = [CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES]
+
+            if variable_type in overrides:
+                print(f"{language.get_string(section_input.get_variable_prompt_key())}:")
+                var = "override"
+                # dummy value to skip the initial var loop validation since there is a custom loop inside.
+            else:
+                var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
 
             if var == "":
                 return var
@@ -208,6 +217,43 @@ class Collector:
                     if valid_list:
                         return bool_list
                     continue
+                case CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES:
+                    overrides = {}
+                    print("  Enter Minecraft Namespaced IDs to configure overrides (e.g. 'minecraft:elytra').")
+                    print("  Leave empty and press Enter to finish adding overrides.")
+                    while True:
+                        obj_name = input("  Minecraft Namespaced ID: ").strip()
+                        if obj_name == "":
+                            break
+
+                        also_obfuscate_str = input("    also-obfuscate (texts divided by commas): ").strip()
+                        also_obfuscate = [x.strip() for x in
+                                          also_obfuscate_str.split(',')] if also_obfuscate_str else []
+
+                        dont_obfuscate_str = input("    dont-obfuscate (texts divided by commas): ").strip()
+                        dont_obfuscate = [x.strip() for x in
+                                          dont_obfuscate_str.split(',')] if dont_obfuscate_str else []
+
+                        while True:
+                            sanitize_count_str = input("    sanitize-count (true/false): ").strip()
+                            if sanitize_count_str == "":
+                                sanitize_count = True
+                                break
+                            elif sanitize_count_str.lower() in ["y", "yes", "true"]:
+                                sanitize_count = True
+                                break
+                            elif sanitize_count_str.lower() in ["n", "no", "false"]:
+                                sanitize_count = False
+                                break
+                            else:
+                                print("    Invalid boolean value. Please try again.")
+
+                        overrides[obj_name] = {
+                            "also-obfuscate": also_obfuscate,
+                            "dont-obfuscate": dont_obfuscate,
+                            "sanitize-count": sanitize_count
+                        }
+                    return overrides if overrides else None
             return None
 
     def get_version_appropriate_defaults(self, version: "Version") -> dict:
