@@ -84,6 +84,24 @@ class TestCollector:
         mock_builtin_input.side_effect = ["y, n, true, false"]
         assert collector._process_input(mock_input_bl) == [True, False, True, False]
 
+        mock_input_paper_overrides = MagicMock(spec=CollectorInput)
+        mock_input_paper_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES
+        mock_input_paper_overrides.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "minecraft:elytra",
+            "opt1, opt2",
+            "opt3",
+            "y",
+            ""
+        ]
+        assert collector._process_input(mock_input_paper_overrides) == {
+            "minecraft:elytra": {
+                "also-obfuscate": ["opt1", "opt2"],
+                "dont-obfuscate": ["opt3"],
+                "sanitize-count": True
+            }
+        }
+
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
     def test_version_filtering(self, mock_user_config, mock_section, mock_input):
         collector = Collector("Test collector")
