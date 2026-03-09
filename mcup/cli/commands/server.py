@@ -1,6 +1,5 @@
 from pathlib import Path
-
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeElapsedColumn
 
 from mcup.cli.language import Language
 from mcup.cli.ui.components import ServerConfigsCollector, ServerConfigsCollectorFlags
@@ -82,6 +81,7 @@ class ServerCommand:
                 TextColumn("[progress.description]{task.description}"),
                 BarColumn(),
                 TaskProgressColumn(),
+                TimeElapsedColumn()
         ) as progress:
             server = ServerHandler()
             task = None
