@@ -276,8 +276,8 @@ class PaperGlobalCollector(Collector):
                                CollectorInputType.STRING, CollectorInputMode.BASIC, Version(1, 19), LATEST_VERSION),
                 CollectorInput("packet-limiter/overrides",
                                "COLLECTOR_PAPER_GLOBAL_PACKET_LIMITER_ALL_PACKETS_OVERRIDES",
-                               CollectorInputType.STRING_LIST, CollectorInputMode.ADVANCED, Version(1, 19),
-                               LATEST_VERSION),
+                               CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES, CollectorInputMode.ADVANCED,
+                               Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(

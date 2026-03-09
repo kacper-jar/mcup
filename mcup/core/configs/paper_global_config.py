@@ -4,6 +4,7 @@ from mcup.core.utils.version import VersionDependantVariablePicker, VersionDepen
 
 class PaperGlobalConfig(ConfigFile):
     """Class representing a paper-global.yml Minecraft server configuration file."""
+
     def __init__(self):
         """Initialize the paper-global.yml configuration with default values."""
         self.config_file_name = "paper-global.yml"
@@ -331,7 +332,7 @@ class PaperGlobalConfig(ConfigFile):
                     "max-packet-rate": 500.0
                 },
                 "kick-message": "<red><lang:disconnect.exceeded_packet_rate>",
-                "overrides": []
+                "overrides": {}
             },
             "player-auto-save": {
                 "max-per-tick": -1,

@@ -147,7 +147,10 @@ class Collector:
         language = Language()
 
         while True:
-            overrides = [CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES]
+            overrides = [
+                CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES,
+                CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
+            ]
 
             if variable_type in overrides:
                 print(f"{language.get_string(section_input.get_variable_prompt_key())}:")
@@ -252,6 +255,47 @@ class Collector:
                             "also-obfuscate": also_obfuscate,
                             "dont-obfuscate": dont_obfuscate,
                             "sanitize-count": sanitize_count
+                        }
+                    return overrides if overrides else None
+                case CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES:
+                    overrides = {}
+                    print(
+                        "  Enter packet class names to configure limit overrides (e.g. 'ServerboundMovePlayerPacket').")
+                    print("  Leave empty and press Enter to finish adding overrides.")
+                    while True:
+                        packet_name = input("  Packet name: ").strip()
+                        if packet_name == "":
+                            break
+
+                        action_str = input("    action (DROP, KICK): ").strip().upper()
+                        action = action_str if action_str else "KICK"
+
+                        while True:
+                            interval_str = input("    interval (number) [7.0]: ").strip()
+                            if interval_str == "":
+                                interval = 7.0
+                                break
+                            try:
+                                interval = float(interval_str)
+                                break
+                            except ValueError:
+                                print("    Invalid floating point number. Please try again.")
+
+                        while True:
+                            max_packet_rate_str = input("    max-packet-rate (number): ").strip()
+                            if max_packet_rate_str == "":
+                                max_packet_rate = 500.0
+                                break
+                            try:
+                                max_packet_rate = float(max_packet_rate_str)
+                                break
+                            except ValueError:
+                                print("    Invalid floating point number. Please try again.")
+
+                        overrides[packet_name] = {
+                            "action": action,
+                            "interval": interval,
+                            "max-packet-rate": max_packet_rate
                         }
                     return overrides if overrides else None
             return None

@@ -102,6 +102,33 @@ class TestCollector:
             }
         }
 
+        mock_input_packet_overrides = MagicMock(spec=CollectorInput)
+        mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
+        mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "ServerboundMovePlayerPacket",
+            "DROP",
+            "1.5",
+            "100.0",
+            "ServerboundInteractPacket",
+            "",
+            "",
+            "",
+            ""
+        ]
+        assert collector._process_input(mock_input_packet_overrides) == {
+            "ServerboundMovePlayerPacket": {
+                "action": "DROP",
+                "interval": 1.5,
+                "max-packet-rate": 100.0
+            },
+            "ServerboundInteractPacket": {
+                "action": "KICK",
+                "interval": 7.0,
+                "max-packet-rate": 500.0
+            }
+        }
+
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
     def test_version_filtering(self, mock_user_config, mock_section, mock_input):
         collector = Collector("Test collector")
