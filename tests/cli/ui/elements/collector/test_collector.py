@@ -109,6 +109,15 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
         ) == "unknown"
 
+        # PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+        assert collector._format_default_value_for_display(
+            {"husk": ["HARD"], "zombie": ["HARD", "NORMAL"]},
+            CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+        ) == "husk: [HARD], zombie: [HARD, NORMAL]"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -153,6 +162,24 @@ class TestCollector:
             "arrow": 100,
             "ender_pearl": -1,
             "snowball": 50
+        }
+
+        mock_input_door_breaking = MagicMock(spec=CollectorInput)
+        mock_input_door_breaking.get_variable_input_type.return_value = CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+        mock_input_door_breaking.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "husk",
+            "HARD, NORMAL",
+            "zombie",
+            "HARD",
+            "vindicator",
+            "",
+            ""
+        ]
+        assert collector._process_input(mock_input_door_breaking) == {
+            "husk": ["HARD", "NORMAL"],
+            "zombie": ["HARD"],
+            "vindicator": []
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")

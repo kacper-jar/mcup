@@ -117,6 +117,11 @@ class Collector:
                 if isinstance(value, dict):
                     return ", ".join(f"{k}: {v}" for k, v in value.items())
                 return str(value)
+            case CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE:
+                if isinstance(value, dict):
+                    return ", ".join(
+                        f"{k}: [{', '.join(v) if isinstance(v, list) else str(v)}]" for k, v in value.items())
+                return str(value)
             case _:
                 return str(value)
 
@@ -154,7 +159,8 @@ class Collector:
             custom_types = [
                 CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES,
                 CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES,
-                CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
+                CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE,
+                CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
             ]
 
             if variable_type in custom_types:
@@ -324,6 +330,20 @@ class Collector:
                                 print("    Invalid integer number. Please try again.")
 
                         overrides[entity_type] = amount
+                    return overrides if overrides else None
+                case CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE:
+                    overrides = {}
+                    print("  Enter door breaking difficulty.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        entity_type = input("  Entity type (e.g. husk, zombie): ").strip().lower()
+                        if entity_type == "":
+                            break
+
+                        difficulties_str = input("    Difficulties (texts divided by commas): ").strip()
+                        difficulties = [x.strip() for x in difficulties_str.split(',')] if difficulties_str else []
+
+                        overrides[entity_type] = difficulties
                     return overrides if overrides else None
             return None
 
