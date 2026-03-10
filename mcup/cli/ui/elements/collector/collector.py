@@ -113,7 +113,7 @@ class Collector:
                         return ", ".join(str(item) for item in value)
                 else:
                     return str(value)
-            case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE | CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE:
+            case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE | CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE | CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE:
                 if isinstance(value, dict):
                     return ", ".join(f"{k}: {v}" for k, v in value.items())
                 return str(value)
@@ -177,7 +177,8 @@ class Collector:
                 CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE,
                 CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE,
                 CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE,
-                CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
+                CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY,
+                CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
             ]
 
             if variable_type in custom_types:
@@ -418,6 +419,27 @@ class Collector:
                             }
                         }
                     return ranges if ranges else None
+                case CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE:
+                    overrides = {}
+                    print("  Enter despawn time per entity type.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        entity_type = input("  Entity type (e.g. llama_spit, snowball): ").strip().lower()
+                        if entity_type == "":
+                            break
+                        
+                        while True:
+                            val = input("    Time (seconds as number or 'disabled'): ").strip()
+                            if val.lower() == "disabled":
+                                overrides[entity_type] = "disabled"
+                                break
+                            try:
+                                overrides[entity_type] = int(val)
+                                break
+                            except ValueError:
+                                print("    Invalid input. Please enter 'disabled' or an integer.")
+                    
+                    return overrides if overrides else None
             return None
 
     def get_version_appropriate_defaults(self, version: "Version") -> dict:

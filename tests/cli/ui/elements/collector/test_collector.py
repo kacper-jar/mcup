@@ -137,6 +137,14 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
         ) == "unknown"
 
+        assert collector._format_default_value_for_display(
+            {"llama_spit": "disabled", "snowball": 60},
+            CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
+        ) == "llama_spit: disabled, snowball: 60"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -246,6 +254,22 @@ class TestCollector:
                 "hard": {"horizontal": "default", "vertical": "default"},
                 "soft": {"horizontal": 16, "vertical": 16}
             }
+        }
+
+        mock_input_despawn_time = MagicMock(spec=CollectorInput)
+        mock_input_despawn_time.get_variable_input_type.return_value = CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
+        mock_input_despawn_time.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "llama_spit",
+            "invalid",
+            "disabled",
+            "snowball",
+            "60",
+            ""
+        ]
+        assert collector._process_input(mock_input_despawn_time) == {
+            "llama_spit": "disabled",
+            "snowball": 60
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
