@@ -137,6 +137,13 @@ class Collector:
                             formatted_categories.append(f"{category}: {ranges}")
                     return ", ".join(formatted_categories)
                 return str(value)
+            case CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE:
+                if isinstance(value, dict):
+                    filtered_items = {k: v for k, v in value.items() if k != "generate-random-seeds-for-all"}
+                    if not filtered_items:
+                        return "unknown"
+                    return ", ".join(f"{k}: {v}" for k, v in filtered_items.items())
+                return str(value)
             case _:
                 return str(value)
 
@@ -178,7 +185,8 @@ class Collector:
                 CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE,
                 CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE,
                 CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY,
-                CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
+                CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE,
+                CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
             ]
 
             if variable_type in custom_types:
@@ -427,7 +435,7 @@ class Collector:
                         entity_type = input("  Entity type (e.g. llama_spit, snowball): ").strip().lower()
                         if entity_type == "":
                             break
-                        
+
                         while True:
                             val = input("    Time (seconds as number or 'disabled'): ").strip()
                             if val.lower() == "disabled":
@@ -438,8 +446,25 @@ class Collector:
                                 break
                             except ValueError:
                                 print("    Invalid input. Please enter 'disabled' or an integer.")
-                    
+
                     return overrides if overrides else None
+                case CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE:
+                    seeds = {}
+                    print("  Enter feature seeds per feature namespace.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        namespace = input("  Feature namespace: ").strip().lower()
+                        if namespace == "":
+                            break
+
+                        while True:
+                            val = input("    Seed (number): ").strip()
+                            try:
+                                seeds[namespace] = int(val)
+                                break
+                            except ValueError:
+                                print("    Invalid input. Please enter a valid integer seed.")
+                    return seeds if seeds else None
             return None
 
     def get_version_appropriate_defaults(self, version: "Version") -> dict:

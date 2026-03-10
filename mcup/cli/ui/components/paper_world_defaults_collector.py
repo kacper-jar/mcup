@@ -498,9 +498,13 @@ class PaperWorldDefaultsCollector(Collector):
                 CollectorInput("environment/water-over-lava-flow-speed",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_ENVIRONMENT_WATER_OVER_LAVA_FLOW_SPEED",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
-                CollectorInput("environment/feature-seeds/generate-random-seeds-for-all",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_ENVIRONMENT_FEATURE_SEEDS_GENERATE_RANDOM_SEEDS_FOR_ALL",
-                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION)
+                CollectorInput("feature-seeds/generate-random-seeds-for-all",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_FEATURE_SEEDS_GENERATE_RANDOM_SEEDS_FOR_ALL",
+                               CollectorInputType.BOOL, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                CollectorInput("feature-seeds",
+                               "COLLECTOR_PAPER_WORLD_DEFAULTS_FEATURE_SEEDS",
+                               CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE, CollectorInputMode.ADVANCED,
+                               Version(1, 19), LATEST_VERSION)
             ]
         ))
         self.add_section(CollectorSection(

@@ -145,6 +145,18 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE
         ) == "unknown"
 
+        assert collector._format_default_value_for_display(
+            {"generate-random-seeds-for-all": False, "minecraft:desert_pyramid": 12345},
+            CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
+        ) == "minecraft:desert_pyramid: 12345"
+        assert collector._format_default_value_for_display(
+            {"generate-random-seeds-for-all": True},
+            CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
+        ) == "unknown"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -270,6 +282,22 @@ class TestCollector:
         assert collector._process_input(mock_input_despawn_time) == {
             "llama_spit": "disabled",
             "snowball": 60
+        }
+
+        mock_input_feature_seeds = MagicMock(spec=CollectorInput)
+        mock_input_feature_seeds.get_variable_input_type.return_value = CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
+        mock_input_feature_seeds.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "minecraft:desert_pyramid",
+            "invalid",
+            "123456",
+            "minecraft:end_city",
+            "654321",
+            ""
+        ]
+        assert collector._process_input(mock_input_feature_seeds) == {
+            "minecraft:desert_pyramid": 123456,
+            "minecraft:end_city": 654321
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
