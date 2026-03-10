@@ -109,13 +109,20 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
         ) == "unknown"
 
-        # PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
         assert collector._format_default_value_for_display(
             {"husk": ["HARD"], "zombie": ["HARD", "NORMAL"]},
             CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
         ) == "husk: [HARD], zombie: [HARD, NORMAL]"
         assert collector._format_default_value_for_display(
             "unknown", CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+        ) == "unknown"
+
+        assert collector._format_default_value_for_display(
+            {"cobblestone": 300},
+            CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
+        ) == "cobblestone: 300"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
         ) == "unknown"
 
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
@@ -180,6 +187,25 @@ class TestCollector:
             "husk": ["HARD", "NORMAL"],
             "zombie": ["HARD"],
             "vindicator": []
+        }
+
+        mock_input_alt_item_despawn_rate = MagicMock(spec=CollectorInput)
+        mock_input_alt_item_despawn_rate.get_variable_input_type.return_value = CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
+        mock_input_alt_item_despawn_rate.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "cobblestone",
+            "300",
+            "dirt",
+            "",
+            "invalid",
+            "bad_number",
+            "100",
+            ""
+        ]
+        assert collector._process_input(mock_input_alt_item_despawn_rate) == {
+            "cobblestone": 300,
+            "dirt": -1,
+            "invalid": 100
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")

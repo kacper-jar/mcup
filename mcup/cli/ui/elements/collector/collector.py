@@ -113,7 +113,7 @@ class Collector:
                         return ", ".join(str(item) for item in value)
                 else:
                     return str(value)
-            case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE:
+            case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE | CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE:
                 if isinstance(value, dict):
                     return ", ".join(f"{k}: {v}" for k, v in value.items())
                 return str(value)
@@ -160,7 +160,8 @@ class Collector:
                 CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES,
                 CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES,
                 CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE,
-                CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE
+                CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE,
+                CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
             ]
 
             if variable_type in custom_types:
@@ -344,6 +345,28 @@ class Collector:
                         difficulties = [x.strip() for x in difficulties_str.split(',')] if difficulties_str else []
 
                         overrides[entity_type] = difficulties
+                    return overrides if overrides else None
+                case CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE:
+                    overrides = {}
+                    print("  Enter alternative item despawn rate per item.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        item_type = input("  Item type (e.g. cobblestone, dirt): ").strip().lower()
+                        if item_type == "":
+                            break
+
+                        while True:
+                            amount_str = input("    Amount (number): ").strip()
+                            if amount_str == "":
+                                amount = -1
+                                break
+                            try:
+                                amount = int(amount_str)
+                                break
+                            except ValueError:
+                                print("    Invalid integer number. Please try again.")
+
+                        overrides[item_type] = amount
                     return overrides if overrides else None
             return None
 
