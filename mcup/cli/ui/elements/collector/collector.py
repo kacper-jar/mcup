@@ -144,7 +144,7 @@ class Collector:
                         return "unknown"
                     return ", ".join(f"{k}: {v}" for k, v in filtered_items.items())
                 return str(value)
-            case CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME:
+            case CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME | CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME:
                 if isinstance(value, dict):
                     formatted_entities = []
                     for entity, behaviors in value.items():
@@ -198,7 +198,8 @@ class Collector:
                 CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY,
                 CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE,
                 CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE,
-                CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
+                CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME,
+                CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME
             ]
 
             if variable_type in custom_types:
@@ -502,6 +503,32 @@ class Collector:
                                     print("      Invalid input. Please enter a valid integer.")
                         if entity_behaviors:
                             tick_rates[entity_type] = entity_behaviors
+                    return tick_rates if tick_rates else None
+                case CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME:
+                    tick_rates = {}
+                    print("  Enter tick rates sensor per entity type.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        entity_type = input("  Entity type (e.g. villager): ").strip().lower()
+                        if entity_type == "":
+                            break
+
+                        entity_sensors = {}
+                        while True:
+                            sensor_name = input(
+                                "    Sensor name: ").strip().lower()
+                            if sensor_name == "":
+                                break
+
+                            while True:
+                                val = input("      Value (number): ").strip()
+                                try:
+                                    entity_sensors[sensor_name] = int(val)
+                                    break
+                                except ValueError:
+                                    print("      Invalid input. Please enter a valid integer.")
+                        if entity_sensors:
+                            tick_rates[entity_type] = entity_sensors
                     return tick_rates if tick_rates else None
             return None
 

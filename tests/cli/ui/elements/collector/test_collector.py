@@ -169,6 +169,18 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
         ) == "unknown"
 
+        assert collector._format_default_value_for_display(
+            {"villager": {"secondarypoisensor": 40}},
+            CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME
+        ) == "villager: [secondarypoisensor: 40]"
+        assert collector._format_default_value_for_display(
+            {"villager": {"secondarypoisensor": 40, "nearestlivingentitysensor": 20}, "zombie": {"other": 10}},
+            CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME
+        ) == "villager: [secondarypoisensor: 40, nearestlivingentitysensor: 20], zombie: [other: 10]"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -330,6 +342,26 @@ class TestCollector:
         assert collector._process_input(mock_input_tick_rates) == {
             "villager": {"validatenearbypoi": -1},
             "zombie": {"brain": 20}
+        }
+
+        mock_input_sensor_rates = MagicMock(spec=CollectorInput)
+        mock_input_sensor_rates.get_variable_input_type.return_value = CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME
+        mock_input_sensor_rates.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "villager",
+            "secondarypoisensor",
+            "invalid",
+            "40",
+            "",
+            "zombie",
+            "vision",
+            "10",
+            "",
+            ""
+        ]
+        assert collector._process_input(mock_input_sensor_rates) == {
+            "villager": {"secondarypoisensor": 40},
+            "zombie": {"vision": 10}
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
