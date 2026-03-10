@@ -22,3 +22,4 @@ class CollectorInputType(enum.Enum):
     PAPER_DESPAWN_RANGES_MOB_CATEGORY = enum.auto()
     PAPER_DESPAWN_TIME_ENTITY_TYPE = enum.auto()
     PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE = enum.auto()
+    PAPER_TICK_RATES_BEHAVIOR_NAME = enum.auto()
