@@ -799,7 +799,7 @@ class Language:
         "COLLECTOR_PAPER_WORLD_DEFAULTS_SPAWN_ALLOW_USING_SIGNS_INSIDE_SPAWN_PROTECTION": "Allow using signs inside spawn protection area",
         "COLLECTOR_PAPER_WORLD_DEFAULTS_SPAWN_KEEP_SPAWN_LOADED": "Keep spawn loaded",
         "COLLECTOR_PAPER_WORLD_DEFAULTS_SPAWN_KEEP_SPAWN_LOADED_RANGE": "Spawn loaded range in blocks",
-        "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_BEHAVIOR_VILLAGER_VALIDATENEARBYPOI": "Tick rate of VALIDATENEARBYPOI behavior of villagers",
+        "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_BEHAVIOR": "Tick rates behavior per entity type",
         "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_CONTAINER_UPDATE": "Tick rate at which server updates containers and inventories",
         "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_DRY_FARMLAND": "Dry farmland tick rate",
         "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_WET_FARMLAND": "Wet farmland tick rate",

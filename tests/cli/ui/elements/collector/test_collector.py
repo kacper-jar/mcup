@@ -157,6 +157,18 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
         ) == "unknown"
 
+        assert collector._format_default_value_for_display(
+            {"villager": {"validatenearbypoi": -1}},
+            CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
+        ) == "villager: [validatenearbypoi: -1]"
+        assert collector._format_default_value_for_display(
+            {"villager": {"validatenearbypoi": -1, "acquirepoi": 120}, "zombie": {"other": 10}},
+            CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
+        ) == "villager: [validatenearbypoi: -1, acquirepoi: 120], zombie: [other: 10]"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -298,6 +310,26 @@ class TestCollector:
         assert collector._process_input(mock_input_feature_seeds) == {
             "minecraft:desert_pyramid": 123456,
             "minecraft:end_city": 654321
+        }
+
+        mock_input_tick_rates = MagicMock(spec=CollectorInput)
+        mock_input_tick_rates.get_variable_input_type.return_value = CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
+        mock_input_tick_rates.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "villager",
+            "validatenearbypoi",
+            "invalid",
+            "-1",
+            "",
+            "zombie",
+            "brain",
+            "20",
+            "",
+            ""
+        ]
+        assert collector._process_input(mock_input_tick_rates) == {
+            "villager": {"validatenearbypoi": -1},
+            "zombie": {"brain": 20}
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")

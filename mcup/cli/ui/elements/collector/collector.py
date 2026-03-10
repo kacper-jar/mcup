@@ -144,6 +144,17 @@ class Collector:
                         return "unknown"
                     return ", ".join(f"{k}: {v}" for k, v in filtered_items.items())
                 return str(value)
+            case CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME:
+                if isinstance(value, dict):
+                    formatted_entities = []
+                    for entity, behaviors in value.items():
+                        if isinstance(behaviors, dict):
+                            behaviors_str = ", ".join(f"{k}: {v}" for k, v in behaviors.items())
+                            formatted_entities.append(f"{entity}: [{behaviors_str}]")
+                        else:
+                            formatted_entities.append(f"{entity}: {behaviors}")
+                    return ", ".join(formatted_entities)
+                return str(value)
             case _:
                 return str(value)
 
@@ -186,7 +197,8 @@ class Collector:
                 CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE,
                 CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY,
                 CollectorInputType.PAPER_DESPAWN_TIME_ENTITY_TYPE,
-                CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE
+                CollectorInputType.PAPER_FEATURE_SEEDS_FEATURE_NAMESPACE,
+                CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME
             ]
 
             if variable_type in custom_types:
@@ -465,6 +477,32 @@ class Collector:
                             except ValueError:
                                 print("    Invalid input. Please enter a valid integer seed.")
                     return seeds if seeds else None
+                case CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME:
+                    tick_rates = {}
+                    print("  Enter tick rates behavior per entity type.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        entity_type = input("  Entity type (e.g. villager): ").strip().lower()
+                        if entity_type == "":
+                            break
+
+                        entity_behaviors = {}
+                        while True:
+                            behavior_name = input(
+                                "    Behavior name: ").strip().lower()
+                            if behavior_name == "":
+                                break
+
+                            while True:
+                                val = input("      Value (number): ").strip()
+                                try:
+                                    entity_behaviors[behavior_name] = int(val)
+                                    break
+                                except ValueError:
+                                    print("      Invalid input. Please enter a valid integer.")
+                        if entity_behaviors:
+                            tick_rates[entity_type] = entity_behaviors
+                    return tick_rates if tick_rates else None
             return None
 
     def get_version_appropriate_defaults(self, version: "Version") -> dict:
