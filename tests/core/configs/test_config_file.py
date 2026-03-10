@@ -46,6 +46,32 @@ class TestConfigFile:
         config.set_configuration_default_property("key", Version(1, 17))
         assert config.configuration["key"] == "v_old_val"
 
+    def test_nested_version_dependant_resolution(self):
+        config = ConfigFile()
+        config.configuration = {"outer": {"inner": "old"}}
+
+        v_new = VersionDependantVariable(Version(1, 19), Version(999, 999), "v_new_val")
+        v_old = VersionDependantVariable(Version(1, 0), Version(1, 18), "v_old_val")
+
+        picker = VersionDependantVariablePicker([v_new, v_old])
+
+        config.default_configuration = {
+            "outer": {
+                "inner": picker,
+                "inner_list": [picker]
+            }
+        }
+
+        config.set_configuration_default_property("outer/inner", Version(1, 20))
+        assert config.configuration["outer"]["inner"] == "v_new_val"
+
+        config.set_configuration_default_property("outer/inner_list", Version(1, 20))
+        assert config.configuration["outer"]["inner_list"] == ["v_new_val"]
+
+        defaults = config.get_default_values_for_variables(["outer"], Version(1, 17))
+        assert defaults["outer"]["inner"] == "v_old_val"
+        assert defaults["outer"]["inner_list"] == ["v_old_val"]
+
     def test_get_default_values_return_none(self):
         config = ConfigFile()
         config.default_configuration = {"key": "value"}
