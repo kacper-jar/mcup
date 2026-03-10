@@ -125,6 +125,18 @@ class TestCollector:
             "unknown", CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
         ) == "unknown"
 
+        assert collector._format_default_value_for_display(
+            {"ambient": {"hard": {"horizontal": 128, "vertical": "default"}}},
+            CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
+        ) == "ambient: [hard: (128, default)]"
+        assert collector._format_default_value_for_display(
+            {"ambient": {"hard": {"horizontal": 128, "vertical": "default"}, "soft": {"horizontal": 32, "vertical": 32}}, "axolotls": "default"},
+            CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
+        ) == "ambient: [hard: (128, default), soft: (32, 32)], axolotls: default"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -206,6 +218,34 @@ class TestCollector:
             "cobblestone": 300,
             "dirt": -1,
             "invalid": 100
+        }
+
+        mock_input_despawn_ranges = MagicMock(spec=CollectorInput)
+        mock_input_despawn_ranges.get_variable_input_type.return_value = CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
+        mock_input_despawn_ranges.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "ambient",
+            "128",
+            "default",
+            "32",
+            "32",
+            "axolotls",
+            "invalid",
+            "default",
+            "default",
+            "16",
+            "16",
+            ""
+        ]
+        assert collector._process_input(mock_input_despawn_ranges) == {
+            "ambient": {
+                "hard": {"horizontal": 128, "vertical": "default"},
+                "soft": {"horizontal": 32, "vertical": 32}
+            },
+            "axolotls": {
+                "hard": {"horizontal": "default", "vertical": "default"},
+                "soft": {"horizontal": 16, "vertical": 16}
+            }
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
