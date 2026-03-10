@@ -2,7 +2,7 @@ import enum
 
 
 class CollectorInputType(enum.Enum):
-    """Class representing collector input type."""
+    """Class representing a collector input type."""
     STRING = enum.auto()
     INT = enum.auto()
     STRING_OR_INT = enum.auto()
@@ -19,3 +19,4 @@ class CollectorInputType(enum.Enum):
     PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE = enum.auto()
     PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE = enum.auto()
     PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE = enum.auto()
+    PAPER_DESPAWN_RANGES_MOB_CATEGORY = enum.auto()

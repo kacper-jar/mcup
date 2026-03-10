@@ -122,6 +122,21 @@ class Collector:
                     return ", ".join(
                         f"{k}: [{', '.join(v) if isinstance(v, list) else str(v)}]" for k, v in value.items())
                 return str(value)
+            case CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY:
+                if isinstance(value, dict):
+                    formatted_categories = []
+                    for category, ranges in value.items():
+                        if isinstance(ranges, dict):
+                            ranges_str = ", ".join(
+                                f"{k}: ({v.get('horizontal', 'default')}, {v.get('vertical', 'default')})" if isinstance(
+                                    v, dict) else f"{k}: {v}"
+                                for k, v in ranges.items()
+                            )
+                            formatted_categories.append(f"{category}: [{ranges_str}]")
+                        else:
+                            formatted_categories.append(f"{category}: {ranges}")
+                    return ", ".join(formatted_categories)
+                return str(value)
             case _:
                 return str(value)
 
@@ -161,7 +176,8 @@ class Collector:
                 CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES,
                 CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE,
                 CollectorInputType.PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE,
-                CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE
+                CollectorInputType.PAPER_ALT_ITEM_DESPAWN_RATE_ITEM_TYPE,
+                CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY
             ]
 
             if variable_type in custom_types:
@@ -368,6 +384,40 @@ class Collector:
 
                         overrides[item_type] = amount
                     return overrides if overrides else None
+                case CollectorInputType.PAPER_DESPAWN_RANGES_MOB_CATEGORY:
+                    ranges = {}
+                    print("  Enter despawn ranges per mob category.")
+                    print("  Leave empty and press Enter to finish.")
+                    while True:
+                        category = input("  Mob category (e.g. ambient, axolotls): ").strip().lower()
+                        if category == "":
+                            break
+
+                        def prompt_value(prompt: str):
+                            while True:
+                                val = input(f"    {prompt} ").strip()
+                                if val.lower() == "default":
+                                    return "default"
+                                try:
+                                    return int(val)
+                                except ValueError:
+                                    print("    Invalid input. Please enter 'default' or an integer.")
+
+                        ranges[category] = {
+                            "hard": {
+                                "horizontal": prompt_value(
+                                    "Horizontal number of blocks away from player to be forcibly despawned (default or int):"),
+                                "vertical": prompt_value(
+                                    "Vertical number of blocks away from player to be forcibly despawned (default or int):")
+                            },
+                            "soft": {
+                                "horizontal": prompt_value(
+                                    "Horizontal number of blocks away from player to be randomly picked to despawn (default or int):"),
+                                "vertical": prompt_value(
+                                    "Vertical number of blocks away from player to be randomly picked to despawn (default or int):")
+                            }
+                        }
+                    return ranges if ranges else None
             return None
 
     def get_version_appropriate_defaults(self, version: "Version") -> dict:
