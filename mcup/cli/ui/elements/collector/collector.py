@@ -113,6 +113,10 @@ class Collector:
                         return ", ".join(str(item) for item in value)
                 else:
                     return str(value)
+            case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE:
+                if isinstance(value, dict):
+                    return ", ".join(f"{k}: {v}" for k, v in value.items())
+                return str(value)
             case _:
                 return str(value)
 
@@ -147,14 +151,15 @@ class Collector:
         language = Language()
 
         while True:
-            overrides = [
+            custom_types = [
                 CollectorInputType.PAPER_OBFUSCATION_MODEL_OVERRIDES,
-                CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
+                CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES,
+                CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
             ]
 
-            if variable_type in overrides:
+            if variable_type in custom_types:
                 print(f"{language.get_string(section_input.get_variable_prompt_key())}:")
-                var = "override"
+                var = "custom_type"
                 # dummy value to skip the initial var loop validation since there is a custom loop inside.
             else:
                 var = input(f"{language.get_string(section_input.get_variable_prompt_key())} ({example_input}): ")
@@ -297,6 +302,28 @@ class Collector:
                             "interval": interval,
                             "max-packet-rate": max_packet_rate
                         }
+                    return overrides if overrides else None
+                case CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE:
+                    overrides = {}
+                    print("  Enter entity limits.")
+                    print("  Leave empty and press Enter to finish adding limits.")
+                    while True:
+                        entity_type = input("  Entity type (e.g. arrow, ender_pearl): ").strip().lower()
+                        if entity_type == "":
+                            break
+
+                        while True:
+                            amount_str = input("    Amount (number): ").strip()
+                            if amount_str == "":
+                                amount = -1
+                                break
+                            try:
+                                amount = int(amount_str)
+                                break
+                            except ValueError:
+                                print("    Invalid integer number. Please try again.")
+
+                        overrides[entity_type] = amount
                     return overrides if overrides else None
             return None
 

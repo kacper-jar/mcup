@@ -102,6 +102,13 @@ class TestCollector:
             }
         }
 
+        assert collector._format_default_value_for_display(
+            {"arrow": -1, "ender_pearl": -1}, CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
+        ) == "arrow: -1, ender_pearl: -1"
+        assert collector._format_default_value_for_display(
+            "unknown", CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
+        ) == "unknown"
+
         mock_input_packet_overrides = MagicMock(spec=CollectorInput)
         mock_input_packet_overrides.get_variable_input_type.return_value = CollectorInputType.PAPER_PACKET_LIMITER_OVERRIDES
         mock_input_packet_overrides.get_variable_prompt_key.return_value = "prompt"
@@ -127,6 +134,25 @@ class TestCollector:
                 "interval": 7.0,
                 "max-packet-rate": 500.0
             }
+        }
+
+        mock_input_entity_limits = MagicMock(spec=CollectorInput)
+        mock_input_entity_limits.get_variable_input_type.return_value = CollectorInputType.PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE
+        mock_input_entity_limits.get_variable_prompt_key.return_value = "prompt"
+        mock_builtin_input.side_effect = [
+            "arrow",
+            "100",
+            "ender_pearl",
+            "",
+            "snowball",
+            "invalid",
+            "50",
+            ""
+        ]
+        assert collector._process_input(mock_input_entity_limits) == {
+            "arrow": 100,
+            "ender_pearl": -1,
+            "snowball": 50
         }
 
     @patch("mcup.cli.ui.elements.collector.collector.UserConfig")
