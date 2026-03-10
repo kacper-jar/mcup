@@ -685,9 +685,9 @@ class PaperWorldDefaultsCollector(Collector):
         self.add_section(CollectorSection(
             "Tick Rates",
             [
-                CollectorInput("tick-rates/behavior",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_BEHAVIOR",
-                               CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                CollectorInput("tick-rates/behavior", "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_BEHAVIOR",
+                               CollectorInputType.PAPER_TICK_RATES_BEHAVIOR_NAME, CollectorInputMode.ADVANCED,
+                               Version(1, 19), LATEST_VERSION),
                 CollectorInput("tick-rates/container-update",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_CONTAINER_UPDATE",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
@@ -703,9 +703,9 @@ class PaperWorldDefaultsCollector(Collector):
                 CollectorInput("tick-rates/mob-spawner",
                                "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_MOB_SPAWNER",
                                CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
-                CollectorInput("tick-rates/sensor/villager/secondarypoisensor",
-                               "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_SENSOR_VILLAGER_SECONDARYPOISENSOR",
-                               CollectorInputType.INT, CollectorInputMode.ADVANCED, Version(1, 19), LATEST_VERSION),
+                CollectorInput("tick-rates/sensor", "COLLECTOR_PAPER_WORLD_DEFAULTS_TICK_RATES_SENSOR",
+                               CollectorInputType.PAPER_TICK_RATES_SENSOR_NAME, CollectorInputMode.ADVANCED,
+                               Version(1, 19), LATEST_VERSION),
             ]
         ))
         self.add_section(CollectorSection(
