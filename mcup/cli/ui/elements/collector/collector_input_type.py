@@ -17,3 +17,4 @@ class CollectorInputType(enum.Enum):
     PAPER_OBFUSCATION_MODEL_OVERRIDES = enum.auto()
     PAPER_PACKET_LIMITER_OVERRIDES = enum.auto()
     PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_ENTITY_TYPE = enum.auto()
+    PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE = enum.auto()
