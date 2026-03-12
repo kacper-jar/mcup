@@ -220,7 +220,7 @@ class Collector:
                     try:
                         return int(var)
                     except ValueError:
-                        print("Invalid integer value. Please try again.")
+                        print(language.get_string("ERROR_INVALID_INTEGER_VALUE"))
                         continue
                 case CollectorInputType.STRING_OR_INT:
                     try:
@@ -231,7 +231,7 @@ class Collector:
                     try:
                         return float(var)
                     except ValueError:
-                        print("Invalid floating point number value. Please try again.")
+                        print(language.get_string("ERROR_INVALID_FLOAT_VALUE"))
                         continue
                 case CollectorInputType.BOOL:
                     if var.lower() in ["y", "yes", "true"]:
@@ -239,7 +239,7 @@ class Collector:
                     elif var.lower() in ["n", "no", "false"]:
                         return False
                     else:
-                        print("Invalid boolean value. Please try again.")
+                        print(language.get_string("ERROR_INVALID_BOOLEAN_VALUE"))
                         continue
                 case CollectorInputType.STRING_LIST:
                     return var.split(',')
@@ -247,13 +247,13 @@ class Collector:
                     try:
                         return [int(item.strip()) for item in var.split(',')]
                     except ValueError:
-                        print("Invalid integer value in list. Please try again.")
+                        print(language.get_string("ERROR_INVALID_INTEGER_LIST_VALUE"))
                         continue
                 case CollectorInputType.FLOAT_LIST:
                     try:
                         return [float(item.strip()) for item in var.split(',')]
                     except ValueError:
-                        print("Invalid floating point number value in list. Please try again.")
+                        print(language.get_string("ERROR_INVALID_FLOAT_LIST_VALUE"))
                         continue
                 case CollectorInputType.BOOL_LIST:
                     bool_list = []
@@ -265,7 +265,7 @@ class Collector:
                         elif item in ["n", "no", "false"]:
                             bool_list.append(False)
                         else:
-                            print(f"Invalid boolean value '{item}' in list. Please try again.")
+                            print(language.get_string("ERROR_INVALID_BOOLEAN_LIST_VALUE", item))
                             valid_list = False
                             break
                     if valid_list:

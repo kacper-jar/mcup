@@ -820,6 +820,76 @@ class Language:
         # Collector headers
         "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
 
+        # Collector errors
+        "ERROR_INVALID_INTEGER_VALUE": "Invalid integer value. Please try again.",
+        "ERROR_INVALID_FLOAT_VALUE": "Invalid floating point number value. Please try again.",
+        "ERROR_INVALID_BOOLEAN_VALUE": "Invalid boolean value. Please try again.",
+        "ERROR_INVALID_INTEGER_LIST_VALUE": "Invalid integer value in list. Please try again.",
+        "ERROR_INVALID_FLOAT_LIST_VALUE": "Invalid floating point number value in list. Please try again.",
+        "ERROR_INVALID_BOOL_LIST_VALUE": "Invalid boolean value '{}' in list. Please try again.",
+
+        # Nested collector messages
+        "INFO_NESTED_COLLECTOR_LEAVE_EMPTY_TO_FINISH": "Leave empty and press Enter to finish.",
+
+        # Nested collector — Paper obfuscation model overrides
+        "NESTED_COLLECTOR_PAPER_OBFUSCATION_MODEL_OVERRIDES_TITLE": "Enter Minecraft Namespaced IDs to configure overrides (e.g. 'minecraft:elytra').",
+        "NESTED_COLLECTOR_PAPER_OBFUSCATION_MODEL_OVERRIDES_KEY_PROMPT": "Minecraft Namespaced ID (text):",
+        "NESTED_COLLECTOR_PAPER_OBFUSCATION_ALSO_OBFUSCATE_PROMPT": "Data components to hide from other players (texts divided by commas):",
+        "NESTED_COLLECTOR_PAPER_OBFUSCATION_DONT_OBFUSCATE_PROMPT": "Data components to not hide from other players (texts divided by commas):",
+        "NESTED_COLLECTOR_PAPER_OBFUSCATION_SANITIZE_COUNT_PROMPT": "Hide item counts from other players (true/false):",
+
+        # Nested collector — Paper packet limiter overrides
+        "NESTED_COLLECTOR_PAPER_PACKET_LIMITER_OVERRIDES_TITLE": "Enter packet class names to configure limit overrides (e.g. 'ServerboundMovePlayerPacket').",
+        "NESTED_COLLECTOR_PAPER_PACKET_LIMITER_PACKET_NAME_PROMPT": "Packet name (text):",
+        "NESTED_COLLECTOR_PAPER_PACKET_LIMITER_ACTION_PROMPT": "Action (DROP, KICK):",
+        "NESTED_COLLECTOR_PAPER_PACKET_LIMITER_INTERVAL_PROMPT": "Interval (number):",
+        "NESTED_COLLECTOR_PAPER_PACKET_LIMITER_MAX_PACKET_RATE_PROMPT": "Max packet rate (number):",
+
+        # Nested collector — Paper entity per chunk save limit
+        "NESTED_COLLECTOR_PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_TITLE": "Enter entity limits.",
+        "NESTED_COLLECTOR_PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_KEY_PROMPT": "Entity type (text):",
+        "NESTED_COLLECTOR_PAPER_ENTITY_PER_CHUNK_SAVE_LIMIT_VALUE_PROMPT": "Amount (number):",
+
+        # Nested collector — Paper door breaking difficulty
+        "NESTED_COLLECTOR_PAPER_DOOR_BREAKING_DIFFICULTY_TITLE": "Enter door breaking difficulty.",
+        "NESTED_COLLECTOR_PAPER_DOOR_BREAKING_DIFFICULTY_ENTITY_TYPE_PROMPT": "Entity type (text):",
+        "NESTED_COLLECTOR_PAPER_DOOR_BREAKING_DIFFICULTY_DIFFICULTIES_PROMPT": "Difficulties (texts divided by commas):",
+
+        # Nested collector — Paper alt item despawn rate
+        "NESTED_COLLECTOR_PAPER_ALT_ITEM_DESPAWN_RATE_TITLE": "Enter alternative item despawn rate per item.",
+        "NESTED_COLLECTOR_PAPER_ALT_ITEM_DESPAWN_RATE_KEY_PROMPT": "Item type (text):",
+        "NESTED_COLLECTOR_PAPER_ALT_ITEM_DESPAWN_RATE_VALUE_PROMPT": "Amount (number):",
+
+        # Nested collector — Paper despawn ranges
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_TITLE": "Enter despawn ranges per mob category.",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_CATEGORY_PROMPT": "Mob category (text):",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_HARD_HORIZONTAL_PROMPT": "Horizontal number of blocks away from player to be forcibly despawned (default or int):",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_HARD_VERTICAL_PROMPT": "Vertical number of blocks away from player to be forcibly despawned (default or int):",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_SOFT_HORIZONTAL_PROMPT": "Horizontal number of blocks away from player to be randomly picked to despawn (default or int):",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_RANGES_SOFT_VERTICAL_PROMPT": "Vertical number of blocks away from player to be randomly picked to despawn (default or int):",
+
+        # Nested collector — Paper despawn time
+        "NESTED_COLLECTOR_PAPER_DESPAWN_TIME_TITLE": "Enter despawn time per entity type.",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_TIME_ENTITY_TYPE_PROMPT": "Entity type (text):",
+        "NESTED_COLLECTOR_PAPER_DESPAWN_TIME_VALUE_PROMPT": "Time (seconds as number or 'disabled'):",
+
+        # Nested collector — Paper feature seeds
+        "NESTED_COLLECTOR_PAPER_FEATURE_SEEDS_TITLE": "Enter feature seeds per feature namespace.",
+        "NESTED_COLLECTOR_PAPER_FEATURE_SEEDS_KEY_PROMPT": "Feature namespace (text):",
+        "NESTED_COLLECTOR_PAPER_FEATURE_SEEDS_VALUE_PROMPT": "Seed (number):",
+
+        # Nested collector — Paper tick rates behavior
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_BEHAVIOR_TITLE": "Enter tick rates behavior per entity type.",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_BEHAVIOR_OUTER_PROMPT": "Entity type (text):",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_BEHAVIOR_INNER_PROMPT": "Behavior name (text):",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_BEHAVIOR_VALUE_PROMPT": "Value (number):",
+
+        # Nested collector — Paper tick rates sensor
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_SENSOR_TITLE": "Enter tick rates sensor per entity type.",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_SENSOR_OUTER_PROMPT": "Entity type (text):",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_SENSOR_INNER_PROMPT": "Sensor name (text):",
+        "NESTED_COLLECTOR_PAPER_TICK_RATES_SENSOR_VALUE_PROMPT": "Value (number):",
+
         # Server
         "INFO_CREATING_SERVER": "Creating a Minecraft server ({} {}) in: {}",
         "INFO_EULA": "By creating Minecraft server you agree with Minecraft EULA available at "
