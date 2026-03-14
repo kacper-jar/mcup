@@ -95,14 +95,20 @@ git clone https://github.com/kacper-jar/mcup.git
 cd mcup
 ```
 
-2. Run the appropriate startup script:
+2. Install the package:
 
-=== "Linux / macOS"
-    ```sh
-    ./mcup.sh <args>
-    ```
+```sh
+pip install .
+```
 
-=== "Windows"
+3. Run mcup:
+
+```sh
+mcup <args>
+```
+
+!!! tip
+    If you don't want to install the package, you can also run it directly as a Python module:
     ```sh
-    mcup.bat <args>
+    python3 -m mcup <args>
     ```

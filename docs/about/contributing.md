@@ -78,21 +78,6 @@ reflected.
 mcup [command]
 ```
 
-### Using Helper Scripts
-
-We provide helper scripts that handle the execution for you, which can be useful if you haven't activated your virtual
-environment manually.
-
-=== "Linux / macOS"
-    ```bash
-    ./mcup.sh [command]
-    ```
-
-=== "Windows"
-    ```bat
-    mcup.bat [command]
-    ```
-
 ### Using Python Module
 
 Alternatively, you can run the package directly using Python:
