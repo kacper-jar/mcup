@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -1014,17 +1014,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#using-helper-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Helper Scripts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#using-python-module" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1223,28 +1212,13 @@ reflected.</p>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mcup<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 </code></pre></div>
-<h3 id="using-helper-scripts">Using Helper Scripts<a class="headerlink" href="#using-helper-scripts" title="Permanent link">&para;</a></h3>
-<p>We provide helper scripts that handle the execution for you, which can be useful if you haven't activated your virtual
-environment manually.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux / macOS</label><label for="__tabbed_2_2">Windows</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./mcup.sh<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mcup.bat [command]
-</code></pre></div>
-</div>
-</div>
-</div>
 <h3 id="using-python-module">Using Python Module<a class="headerlink" href="#using-python-module" title="Permanent link">&para;</a></h3>
 <p>Alternatively, you can run the package directly using Python:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mcup<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mcup<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 </code></pre></div>
 <h2 id="building-the-project">Building the Project<a class="headerlink" href="#building-the-project" title="Permanent link">&para;</a></h2>
 <p>To build the distributable packages (DEB, RPM), use the provided build script.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./build.sh
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./build.sh
 </code></pre></div>
 <p>This will generate the packages in the <code>dist</code> directory.</p>
 <div class="admonition note">
@@ -1258,7 +1232,7 @@ environment manually.</p>
 <h2 id="commit-message-convention">Commit Message Convention<a class="headerlink" href="#commit-message-convention" title="Permanent link">&para;</a></h2>
 <p>We follow the <strong>Conventional Commits</strong> style to keep our commit history clear and easy to understand.</p>
 <p>Each commit message should start with a <strong>type prefix</strong>, followed by a colon and a short description:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&lt;type&gt;: &lt;short description&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&lt;type&gt;: &lt;short description&gt;
 </code></pre></div>
 <h3 id="common-types">Common Types<a class="headerlink" href="#common-types" title="Permanent link">&para;</a></h3>
 <table>
@@ -1329,7 +1303,7 @@ environment manually.</p>
 </table>
 <h3 id="optional-scope">Optional Scope<a class="headerlink" href="#optional-scope" title="Permanent link">&para;</a></h3>
 <p>You can optionally specify a scope in parentheses to indicate which part of the codebase is affected:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>fix(config): handle missing default values
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>fix(config): handle missing default values
 </code></pre></div>
 <h3 id="how-to-write-a-good-commit-message">How to Write a Good Commit Message<a class="headerlink" href="#how-to-write-a-good-commit-message" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1341,7 +1315,7 @@ environment manually.</p>
 <p>Before submitting your changes, please run the tests to ensure that everything is working correctly and to
 avoid regressions.</p>
 <p>We use <code>pytest</code> for testing. You can run the tests using the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pytest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pytest
 </code></pre></div>
 <p>If you are adding a new feature, please consider adding new tests to cover it. This helps ensure that your feature works
 as expected and will continue to work in the future.</p>
@@ -1381,7 +1355,7 @@ as expected and will continue to work in the future.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 26, 2026 10:24:55 UTC">January 26, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2026 13:26:11 UTC">March 14, 2026</span>
   </span>
 
     
