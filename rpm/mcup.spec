@@ -28,7 +28,7 @@ python3 -m pip wheel --no-deps --wheel-dir dist .
 %install
 rm -rf %{buildroot}
 wheel_file=$(find dist -name "*.whl" | head -n 1)
-python3 -m pip install $wheel_file --root %{buildroot} --no-deps --ignore-installed
+python3 -m pip install $wheel_file --root %{buildroot} --prefix=/usr --no-deps --ignore-installed --no-warn-script-location
 
 %files
 %doc README.md
