@@ -49,7 +49,7 @@ python3 -m pip install $wheel_file --root %{buildroot} --prefix=/usr --no-deps -
 - chore: Bump dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/91
 - chore: Drop wrapper start scripts by @kacper-jar in https://github.com/kacper-jar/mcup/pull/92
 
-* Tue Jan 28 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_beta7-1
+* Wed Jan 28 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_beta7-1
 - build: Drop Snap support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/72
 - docs: Fix formatting by @kacper-jar in https://github.com/kacper-jar/mcup/pull/73
 - docs: Add MkDocs-based documentation by @kacper-jar in https://github.com/kacper-jar/mcup/pull/74
