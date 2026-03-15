@@ -36,9 +36,11 @@ if [[ ! -f ".venv/bin/activate" ]]; then
     exit 1
 fi
 
+source .venv/bin/activate
+
 if [[ -n "$VIRTUAL_ENV" ]]; then
     echo "Ensuring required Python packages are installed in venv..."
-    python3 -m pip install --upgrade hatchling build trove-classifiers wheel setuptools
+    python -m pip install --upgrade hatchling build trove-classifiers wheel setuptools
 fi
 
 if command -v apt >/dev/null 2>&1; then
@@ -116,7 +118,7 @@ rm -rf dist debian/mcup .pybuild rpm/SOURCES rpm/BUILD rpm/RPMS rpm/SRPMS rpm/BU
 mkdir -p "$DIST_DIR"
 
 echo "Building Python package..."
-python3 -m hatchling build
+python -m hatchling build
 
 
 if [[ "$SKIP_DEB" -eq 1 ]]; then
