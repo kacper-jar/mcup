@@ -38,6 +38,17 @@ python3 -m pip install $wheel_file --root %{buildroot} --no-deps --ignore-instal
 %{python3_sitelib}/mcup-*.dist-info
 
 %changelog
+* Sun Mar 15 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_rc1-1
+- build: Update build exclusions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/84
+- build: Update minimum Python version to 3.10 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/85
+- build: Remove Python 3.8 and 3.9 classifiers from pyproject by @kacper-jar in https://github.com/kacper-jar/mcup/pull/86
+- docs: Add pip installation instructions to installation guide by @kacper-jar in https://github.com/kacper-jar/mcup/pull/87
+- feat: Add support for overrides in Paper Global config collector by @kacper-jar in https://github.com/kacper-jar/mcup/pull/88
+- feat: Add elapsed time tracking to progress bars in UI by @kacper-jar in https://github.com/kacper-jar/mcup/pull/89
+- feat: Add support for override-like customizable values in Paper World Defaults config collector by @kacper-jar in https://github.com/kacper-jar/mcup/pull/90
+- chore: Bump dependencies by @kacper-jar in https://github.com/kacper-jar/mcup/pull/91
+- chore: Drop wrapper start scripts by @kacper-jar in https://github.com/kacper-jar/mcup/pull/92
+
 * Tue Jan 28 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_beta7-1
 - build: Drop Snap support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/72
 - docs: Fix formatting by @kacper-jar in https://github.com/kacper-jar/mcup/pull/73
