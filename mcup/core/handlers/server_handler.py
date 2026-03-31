@@ -258,7 +258,11 @@ class ServerHandler:
 
         self.logger.debug(f"Detected Java version: {java_major_version}")
 
-        if minecraft_version >= Version(1, 20, 6) and java_major_version < 21:
+        if minecraft_version >= Version(26, 1, 0) and java_major_version < 25:
+            self.logger.warning(
+                f"Java 25+ recommended for Minecraft {minecraft_version.get_string()}, found Java {java_major_version}")
+            return Status(StatusCode.INFO_JAVA_MINIMUM_25)
+        elif minecraft_version >= Version(1, 20, 6) and java_major_version < 21:
             self.logger.warning(
                 f"Java 21+ recommended for Minecraft {minecraft_version.get_string()}, found Java {java_major_version}")
             return Status(StatusCode.INFO_JAVA_MINIMUM_21)

@@ -900,6 +900,8 @@ class Language:
         "INFO_VERSION_NEWER_THAN_SUPPORTED": "You are using a version that is not supported by this version of mcup. "
                                              "Configuration files won't be generated to avoid broken or outdated "
                                              "configurations",
+        "INFO_JAVA_MINIMUM_25": "Minecraft 26.1 and above require at least JDK 25. "
+                                "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_21": "Minecraft 1.20.6 and above require at least JDK 21.  "
                                 "(Azul Zulu JDK is recommended.)",
         "INFO_JAVA_MINIMUM_17": "Minecraft 1.17.1 and above require at least JDK 17. "
