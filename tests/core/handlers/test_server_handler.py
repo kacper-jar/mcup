@@ -148,6 +148,9 @@ class TestServerHandler:
         """Verify Java version validation matrix."""
 
         cases = [
+            (Version(26, 1, 0), 25, None, True),
+            (Version(26, 1, 0), 24, StatusCode.INFO_JAVA_MINIMUM_25, False),
+
             (Version(1, 20, 6), 21, None, True),
             (Version(1, 20, 6), 17, StatusCode.INFO_JAVA_MINIMUM_21, False),
             (Version(1, 21), 21, None, True),
