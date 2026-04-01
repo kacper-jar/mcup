@@ -145,10 +145,39 @@ jobs:
           name: windows-installer
           path: packaging\windows\Output\mcup-windows-setup.exe
 
+  test-executables:
+    name: Test Executables on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: build-executables
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Download Executable
+        uses: actions/download-artifact@v4
+        with:
+          name: executables-${{ matrix.os }}
+          path: dist
+
+      - name: Run Selfcheck Validation
+        shell: bash
+        run: |
+          cd dist
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            BIN="./mcup.exe"
+          else
+            BIN="./mcup"
+            chmod +x $BIN
+          fi
+          
+          $BIN config set devtools.enabled true
+          $BIN devtools selfcheck
+
   release:
     name: GitHub Release
     runs-on: ubuntu-latest
-    needs: [build-wheels, build-linux-packages, build-executables, build-windows-installer]
+    needs: [build-wheels, build-linux-packages, build-executables, build-windows-installer, test-executables]
     if: github.ref_type == 'tag'
     permissions:
       contents: write

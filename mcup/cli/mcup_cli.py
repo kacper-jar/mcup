@@ -7,6 +7,7 @@ from mcup.core.status import StatusCode
 from mcup.core.user_config import UserConfig
 from mcup.devtools.confdiff import ConfDiff
 from mcup.devtools.locker_mgr import LockerManager
+from mcup.devtools.selfcheck import SelfCheck
 
 
 class McupCLI:
@@ -152,6 +153,9 @@ class McupCLI:
         if devtools_enabled == "true":
             devtools_parser = self.subparsers.add_parser("devtools", help="Developer tools")
             devtools_subparsers = devtools_parser.add_subparsers(dest="action", help="Devtools actions")
+
+            selfcheck_parser = devtools_subparsers.add_parser("selfcheck", help="Run automated binary sanity checks")
+            selfcheck_parser.set_defaults(func=SelfCheck.run)
 
             confdiff_parser = devtools_subparsers.add_parser("confdiff", help="Compare configuration files")
             confdiff_parser.add_argument("configuration_files", help="Configuration files with version"
