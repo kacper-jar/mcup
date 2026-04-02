@@ -1,3 +1,12 @@
+# 1.0.0-rc2
+
+* feat: Add support for 26.1 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/94
+* ci: Implemet automated artifact builds and releases by @kacper-jar in https://github.com/kacper-jar/mcup/pull/95
+* ci: Fix build linux packages action by @kacper-jar in https://github.com/kacper-jar/mcup/pull/96
+* ci: Force utf-8 IO encoding for metadata extraction by @kacper-jar in https://github.com/kacper-jar/mcup/pull/97
+* ci: Implement `selfcheck` devtool and executable testing job by @kacper-jar in https://github.com/kacper-jar/mcup/pull/98
+* docs: Update installation instructions to align with new release structure by @kacper-jar in https://github.com/kacper-jar/mcup/pull/99
+
 # 1.0.0-rc1
 
 * build: Update build exclusions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/84

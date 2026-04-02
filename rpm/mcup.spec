@@ -38,6 +38,14 @@ python3 -m pip install $wheel_file --root %{buildroot} --prefix=/usr --no-deps -
 %{python3_sitelib}/mcup-*.dist-info
 
 %changelog
+* Thu Apr 2 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_rc2-1
+- feat: Add support for 26.1 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/94
+- ci: Implemet automated artifact builds and releases by @kacper-jar in https://github.com/kacper-jar/mcup/pull/95
+- ci: Fix build linux packages action by @kacper-jar in https://github.com/kacper-jar/mcup/pull/96
+- ci: Force utf-8 IO encoding for metadata extraction by @kacper-jar in https://github.com/kacper-jar/mcup/pull/97
+- ci: Implement `selfcheck` devtool and executable testing job by @kacper-jar in https://github.com/kacper-jar/mcup/pull/98
+- docs: Update installation instructions to align with new release structure by @kacper-jar in https://github.com/kacper-jar/mcup/pull/99
+
 * Sun Mar 15 2026 Kacper Jarosławski <kacper.jaroslawski@kzl21.ovh> - 1.0.0_rc1-1
 - build: Update build exclusions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/84
 - build: Update minimum Python version to 3.10 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/85
