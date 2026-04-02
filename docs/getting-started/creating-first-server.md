@@ -106,4 +106,5 @@ You can view its console by running `screen -r <screen-name>`.
 You can detach from the screen view by pressing ++ctrl+a++ then ++d++, 
 or stop the server by pressing ++ctrl+c++ inside the screen session.
 
-For next steps, please see the [next guide](next-steps.md).
+## What's Next?
+- [Next Steps](next-steps.md)
