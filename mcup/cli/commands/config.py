@@ -80,3 +80,39 @@ class ConfigCommand:
                     print(language.get_string("ERROR_USERCONFIG_LIST_FAILED", status.status_details))
                 case StatusCode.ERROR_USERCONFIG_READ_FAILED:
                     print(language.get_string("ERROR_USERCONFIG_READ_FAILED", status.status_details))
+
+    @staticmethod
+    def export_config(args):
+        """Handles 'mcup config export <destination>' command."""
+        language = Language()
+        user_config = UserConfig()
+
+        for status in user_config.export_configuration(args.destination):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_USERCONFIG_EXPORT", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND:
+                    print(language.get_string("ERROR_USERCONFIG_FILE_NOT_FOUND"))
+                case StatusCode.ERROR_USERCONFIG_EXPORT_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_EXPORT_FAILED", status.status_details))
+
+    @staticmethod
+    def import_config(args):
+        """Handles 'mcup config import <path>' command."""
+        language = Language()
+        user_config = UserConfig()
+
+        for status in user_config.import_configuration(args.path):
+            match status.status_code:
+                case StatusCode.SUCCESS:
+                    print(language.get_string("SUCCESS_USERCONFIG_IMPORT",
+                                              status.status_details["source"],
+                                              status.status_details["keys_imported"]))
+                case StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND:
+                    print(language.get_string("ERROR_USERCONFIG_FILE_NOT_FOUND"))
+                case StatusCode.ERROR_USERCONFIG_INVALID_JSON_FORMAT:
+                    print(language.get_string("ERROR_USERCONFIG_INVALID_JSON_FORMAT", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_SAVE_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_SAVE_FAILED", status.status_details))
+                case StatusCode.ERROR_USERCONFIG_IMPORT_FAILED:
+                    print(language.get_string("ERROR_USERCONFIG_IMPORT_FAILED", status.status_details))

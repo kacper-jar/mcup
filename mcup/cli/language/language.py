@@ -960,13 +960,18 @@ class Language:
         "ERROR_USERCONFIG_REMOVE_FAILED": "Failed to remove configuration key",
         "ERROR_USERCONFIG_CLEAR_FAILED": "Failed to clear configuration: {}",
         "ERROR_USERCONFIG_LIST_FAILED": "Failed to list configuration: {}",
+        "ERROR_USERCONFIG_EXPORT_FAILED": "Failed to export configuration: {}",
+        "ERROR_USERCONFIG_IMPORT_FAILED": "Failed to import configuration: {}",
         "ERROR_USERCONFIG_KEY_NOT_FOUND": "Configuration key '{}' not found",
         "ERROR_USERCONFIG_FILE_NOT_FOUND": "Configuration file not found",
+        "ERROR_USERCONFIG_INVALID_JSON_FORMAT": "Invalid JSON format in configuration file: {}",
         "SUCCESS_USERCONFIG_GET_NO_VALUE": "No value found for key '{}'",
         "SUCCESS_USERCONFIG_GET_VALUE": "Current value for key '{}': '{}'",
         "SUCCESS_USERCONFIG_SET_VALUE": "Saved value for key '{}': '{}'",
         "SUCCESS_USERCONFIG_REMOVE": "Configuration key '{}' removed successfully",
         "SUCCESS_USERCONFIG_CLEAR": "All user configuration cleared successfully",
+        "SUCCESS_USERCONFIG_EXPORT": "Configuration exported successfully to '{}'",
+        "SUCCESS_USERCONFIG_IMPORT": "Configuration imported successfully from '{}' ({} keys merged)",
 
         # About
         "ABOUT_TITLE": "mcup (version {}) by Kacper Jarosławski",

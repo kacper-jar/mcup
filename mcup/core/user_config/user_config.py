@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import shutil
 
 from mcup.core.status import Status, StatusCode
 from mcup.core.utils.path import PathProvider
@@ -200,3 +201,75 @@ class UserConfig:
         except Exception as e:
             self.logger.error(f"Failed to list configuration: {e}")
             yield Status(StatusCode.ERROR_USERCONFIG_LIST_FAILED, str(e))
+
+    def export_configuration(self, destination: str):
+        """
+        Export the current configuration to a destination file path.
+
+        Args:
+            destination: The destination file path to export the configuration to
+        """
+        self.logger.info(f"Exporting user configuration to: {destination}")
+
+        try:
+            if not os.path.exists(self.config_file):
+                self.logger.warning(f"Configuration file '{self.config_file}' does not exist")
+                yield Status(StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND, str(self.config_file))
+                return
+
+            destination_dir = os.path.dirname(destination)
+            if destination_dir and not os.path.exists(destination_dir):
+                self.logger.debug(f"Creating destination directory: {destination_dir}")
+                os.makedirs(destination_dir, exist_ok=True)
+
+            shutil.copy2(str(self.config_file), destination)
+            self.logger.info(f"Configuration exported successfully to '{destination}'")
+            yield Status(StatusCode.SUCCESS, destination)
+
+        except Exception as e:
+            self.logger.error(f"Failed to export configuration to '{destination}': {e}")
+            yield Status(StatusCode.ERROR_USERCONFIG_EXPORT_FAILED, str(e))
+
+    def import_configuration(self, source: str):
+        """
+        Import configuration from a source file, merging it into the current configuration.
+        Existing keys will be overwritten by values from the imported file.
+
+        Args:
+            source: The source file path to import the configuration from
+        """
+        self.logger.info(f"Importing user configuration from: {source}")
+
+        try:
+            if not os.path.exists(source):
+                self.logger.warning(f"Source configuration file not found: '{source}'")
+                yield Status(StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND, source)
+                return
+
+            with open(source, 'r', encoding='utf-8') as f:
+                try:
+                    imported_config = json.load(f)
+                except json.JSONDecodeError as e:
+                    self.logger.error(f"Invalid JSON format in '{source}': {e}")
+                    yield Status(StatusCode.ERROR_USERCONFIG_INVALID_JSON_FORMAT, source)
+                    return
+
+            if not isinstance(imported_config, dict):
+                self.logger.error(f"Imported configuration is not a JSON object: '{source}'")
+                yield Status(StatusCode.ERROR_USERCONFIG_INVALID_JSON_FORMAT, source)
+                return
+
+            keys_imported = len(imported_config)
+            self.user_config.update(imported_config)
+            self.logger.debug(f"Merged {keys_imported} keys from '{source}' into current configuration")
+
+            for status in self.save_configuration():
+                if status.status_code == StatusCode.SUCCESS:
+                    self.logger.info(f"Configuration imported and saved successfully ({keys_imported} keys from '{source}')")
+                    yield Status(StatusCode.SUCCESS, {"source": source, "keys_imported": keys_imported})
+                else:
+                    yield status
+
+        except Exception as e:
+            self.logger.error(f"Failed to import configuration from '{source}': {e}")
+            yield Status(StatusCode.ERROR_USERCONFIG_IMPORT_FAILED, str(e))

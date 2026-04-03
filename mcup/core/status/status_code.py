@@ -51,3 +51,6 @@ class StatusCode(enum.Enum):
     ERROR_USERCONFIG_LIST_FAILED = enum.auto()
     ERROR_USERCONFIG_KEY_NOT_FOUND = enum.auto()
     ERROR_USERCONFIG_FILE_NOT_FOUND = enum.auto()
+    ERROR_USERCONFIG_EXPORT_FAILED = enum.auto()
+    ERROR_USERCONFIG_IMPORT_FAILED = enum.auto()
+    ERROR_USERCONFIG_INVALID_JSON_FORMAT = enum.auto()
