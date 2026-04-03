@@ -103,7 +103,10 @@ jobs:
         run: fpm -s dir -t rpm -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Build pacman package
-        run: fpm -s dir -t pacman -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
+        shell: bash
+        run: |
+          PACMAN_VERSION=$(echo "${{ steps.meta.outputs.version }}" | tr '-' '_')
+          fpm -s dir -t pacman -n mcup --version "$PACMAN_VERSION" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
@@ -286,3 +289,4 @@ jobs:
             ./artifacts/linux-packages/*.pkg.tar.*
             ./artifacts/executables-*/*.zip
             ./artifacts/windows-installer/*.exe
+
