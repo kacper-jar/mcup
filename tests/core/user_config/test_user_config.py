@@ -81,3 +81,57 @@ class TestUserConfig:
             assert "Current configuration (2 entries):" in statuses[0].status_details
             assert "  a = 1" in statuses[0].status_details
             assert "  b = 2" in statuses[0].status_details
+
+    def test_export_configuration_success(self, mock_deps):
+        with patch("os.path.exists", return_value=True), \
+                patch("builtins.open", mock_open(read_data='{"key": "value"}')), \
+                patch("mcup.core.user_config.user_config.shutil.copy2") as mock_copy:
+            config = UserConfig()
+            statuses = list(config.export_configuration("/tmp/exported_userconfig.json"))
+
+            assert statuses[0].status_code == StatusCode.SUCCESS
+            assert statuses[0].status_details == "/tmp/exported_userconfig.json"
+            mock_copy.assert_called_once()
+
+    def test_export_configuration_file_not_found(self, mock_deps):
+        with patch("os.path.exists", return_value=False):
+            config = UserConfig()
+            statuses = list(config.export_configuration("/tmp/exported_userconfig.json"))
+
+            assert statuses[0].status_code == StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND
+
+    def test_import_configuration_success(self, mock_deps):
+        with patch("os.path.exists", side_effect=lambda p: True), \
+                patch("builtins.open", mock_open(read_data='{"imported_key": "imported_value"}')):
+            config = UserConfig()
+            config.user_config = {"existing_key": "existing_value"}
+
+            statuses = list(config.import_configuration("/tmp/some_userconfig.json"))
+
+            assert statuses[0].status_code == StatusCode.SUCCESS
+            assert statuses[0].status_details["keys_imported"] == 1
+            assert "imported_key" in config.user_config
+            assert "existing_key" in config.user_config
+
+    def test_import_configuration_file_not_found(self, mock_deps):
+        with patch("os.path.exists", return_value=False):
+            config = UserConfig()
+            statuses = list(config.import_configuration("/tmp/nonexistent.json"))
+
+            assert statuses[0].status_code == StatusCode.ERROR_USERCONFIG_FILE_NOT_FOUND
+
+    def test_import_configuration_invalid_json(self, mock_deps):
+        with patch("os.path.exists", return_value=True), \
+                patch("builtins.open", mock_open(read_data='not valid json')):
+            config = UserConfig()
+            statuses = list(config.import_configuration("/tmp/bad.json"))
+
+            assert statuses[0].status_code == StatusCode.ERROR_USERCONFIG_INVALID_JSON_FORMAT
+
+    def test_import_configuration_non_dict_json(self, mock_deps):
+        with patch("os.path.exists", return_value=True), \
+                patch("builtins.open", mock_open(read_data='["list", "not", "dict"]')):
+            config = UserConfig()
+            statuses = list(config.import_configuration("/tmp/list.json"))
+
+            assert statuses[0].status_code == StatusCode.ERROR_USERCONFIG_INVALID_JSON_FORMAT
