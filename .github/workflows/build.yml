@@ -62,16 +62,18 @@ jobs:
       - name: Install FPM Python dependencies
         run: python -m pip install packaging
 
-      - name: Build .deb and .rpm packages
+      - name: Prepare packaging environment
         run: |
           mkdir -p linux-packages
-          
           WHEEL=$(ls ./wheelhouse/*.whl | head -n 1)
           echo "Using wheel: $WHEEL"
-          
-          fpm -s python -t deb -p linux-packages/ "$WHEEL"
-          
-          fpm -s python -t rpm -p linux-packages/ "$WHEEL"
+          echo "WHEEL_PATH=$WHEEL" >> $GITHUB_ENV
+
+      - name: Build .deb package
+        run: fpm -s python -t deb -p linux-packages/ "$WHEEL_PATH"
+
+      - name: Build .rpm package
+        run: fpm -s python -t rpm -p linux-packages/ "$WHEEL_PATH"
 
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
