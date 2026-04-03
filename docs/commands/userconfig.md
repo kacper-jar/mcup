@@ -102,3 +102,61 @@ List all current configuration keys and their values.
 ```bash
 mcup config list
 ```
+
+## Export Configuration
+
+Export all current configuration settings to a JSON file. This is useful for backing up your settings or sharing them
+across machines.
+
+```bash
+mcup config export <destination>
+```
+
+### Arguments
+
+| Argument      | Description                                                  |
+|:--------------|:-------------------------------------------------------------|
+| `destination` | The file path where the configuration will be exported to.   |
+
+### Examples
+
+Export configuration to the current directory:
+
+```bash
+mcup config export ./userconfig.json
+```
+
+Export configuration to a custom location:
+
+```bash
+mcup config export ~/backups/mcup-userconfig.json
+```
+
+## Import Configuration
+
+Import configuration settings from a JSON file, merging them into your current configuration. Keys present in the
+imported file will overwrite any existing values; keys not mentioned in the file are left unchanged.
+
+```bash
+mcup config import <path>
+```
+
+### Arguments
+
+| Argument | Description                                          |
+|:---------|:-----------------------------------------------------|
+| `path`   | Path to the JSON configuration file to import from.  |
+
+### Examples
+
+Import configuration from a file:
+
+```bash
+mcup config import ./userconfig.json
+```
+
+Restore configuration from a custom location:
+
+```bash
+mcup config import ~/backups/mcup-userconfig.json
+```
