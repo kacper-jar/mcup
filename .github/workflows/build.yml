@@ -93,10 +93,10 @@ jobs:
           echo "WHEEL_PATH=$WHEEL" >> $GITHUB_ENV
 
       - name: Build .deb package
-        run: fpm -s python -t deb -p linux-packages/ "$WHEEL_PATH"
+        run: fpm -s python -t deb -n mcup -p linux-packages/ "$WHEEL_PATH"
 
       - name: Build .rpm package
-        run: fpm -s python -t rpm -p linux-packages/ "$WHEEL_PATH"
+        run: fpm -s python -t rpm -n mcup -p linux-packages/ "$WHEEL_PATH"
 
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
@@ -126,8 +126,27 @@ jobs:
           pip install pyinstaller
           pip install .
 
+      - name: Extract Metadata
+        id: meta
+        shell: bash
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          VERSION=$(python -c "import re; print(re.search(r'version\s*=\s*\"([^\"]+)\"', open('pyproject.toml', encoding='utf-8').read()).group(1))")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build executable
         run: pyinstaller --onefile --name mcup mcup/__main__.py
+
+      - name: Package Executable
+        shell: bash
+        run: |
+          cd dist
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            zip -j mcup-${{ steps.meta.outputs.version }}-windows-amd64.zip mcup.exe
+          else
+            zip -j mcup-${{ steps.meta.outputs.version }}-linux-amd64.zip mcup
+          fi
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
@@ -165,11 +184,17 @@ jobs:
       - name: Build Installer
         run: iscc /DMyAppName="${{ steps.meta.outputs.name }}" /DMyAppVersion="${{ steps.meta.outputs.version }}" /DMyAppPublisher="${{ steps.meta.outputs.author }}" packaging\windows\installer.iss
 
+      - name: Rename Installer
+        shell: bash
+        run: |
+          cd packaging/windows/Output
+          mv mcup-windows-setup.exe mcup-${{ steps.meta.outputs.version }}-windows-setup.exe
+
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: windows-installer
-          path: packaging\windows\Output\mcup-windows-setup.exe
+          path: packaging\windows\Output\mcup-*-windows-setup.exe
 
   test-linux-packages:
     name: Test Linux Packages
@@ -246,5 +271,5 @@ jobs:
             ./artifacts/wheels/*.whl
             ./artifacts/linux-packages/*.deb
             ./artifacts/linux-packages/*.rpm
-            ./artifacts/executables-*/*
+            ./artifacts/executables-*/*.zip
             ./artifacts/windows-installer/*.exe
