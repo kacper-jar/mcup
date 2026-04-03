@@ -131,6 +131,14 @@ class McupCLI:
         list_parser = config_subparsers.add_parser("list", help="List all configuration keys and values")
         list_parser.set_defaults(func=ConfigCommand.list)
 
+        export_parser = config_subparsers.add_parser("export", help="Export configuration to a file")
+        export_parser.add_argument("destination", help="Destination file path for the exported configuration")
+        export_parser.set_defaults(func=ConfigCommand.export_config)
+
+        import_parser = config_subparsers.add_parser("import", help="Import configuration from a file")
+        import_parser.add_argument("path", help="Path to the configuration file to import")
+        import_parser.set_defaults(func=ConfigCommand.import_config)
+
     def _register_about_command(self):
         """Register about command."""
         about_parser = self.subparsers.add_parser("about", help="About mcup")
