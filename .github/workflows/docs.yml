@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   deploy:
+    name: Deploy Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
