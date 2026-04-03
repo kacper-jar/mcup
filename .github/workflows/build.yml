@@ -85,6 +85,9 @@ jobs:
       - name: Install FPM Python dependencies
         run: python -m pip install packaging
 
+      - name: Install pacman package dependencies
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools
+
       - name: Prepare packaging environment
         run: |
           mkdir -p linux-packages
