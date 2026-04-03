@@ -53,13 +53,13 @@ pip install -e .
 Here is a quick overview of the project's structure to help you navigate the codebase:
 
 - `.github/`: GitHub-related configuration files (workflows, issue templates).
-- `debian/`: Files for building the `.deb` package.
+- `docs/`: Documentation files (MkDocs).
 - `mcup/`: The main source code directory.
     - `mcup.core`: Core application logic (handlers, utils, status codes).
     - `mcup.cli`: Command-line interface code (commands, UI components).
     - `mcup.devtools`: Development tools to assist with testing and maintenance.
-- `rpm/`: Files for building the `.rpm` package.
-- `docs/`: Documentation files (MkDocs).
+- `packaging/`: Platform-specific packaging resources (e.g., Windows installer script).
+- `tests/`: Unit and integration tests (pytest).
 
 ## Running Locally
 
@@ -88,19 +88,16 @@ python3 -m mcup [command]
 
 ## Building the Project
 
-To build the distributable packages (DEB, RPM), use the provided build script.
+All distributable packages (wheels, Linux packages, standalone executables, Windows installer) are built automatically
+by the **Build & Release** GitHub Actions workflow.
 
-```bash
-./build.sh
-```
+To trigger a build manually:
 
-This will generate the packages in the `dist` directory.
+1. Go to the **Actions** tab on your own fork of the repository.
+2. Select the **Build & Release** workflow.
+3. Click **Run workflow** and choose the branch you want to build from.
 
-!!! note
-    You can skip specific package builds using flags:
-
-    *   `--skip-deb`: Skip building the Debian package.
-    *   `--skip-rpm`: Skip building the RPM package.
+Tagging a commit (e.g., `1.0.0`, `1.1.0-rc1`) will also trigger the workflow automatically and create a draft GitHub Release.
 
 ## Commit Message Convention
 
