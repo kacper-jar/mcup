@@ -1190,15 +1190,15 @@ copy of the project to work on.</p>
 <p>Here is a quick overview of the project's structure to help you navigate the codebase:</p>
 <ul>
 <li><code>.github/</code>: GitHub-related configuration files (workflows, issue templates).</li>
-<li><code>debian/</code>: Files for building the <code>.deb</code> package.</li>
+<li><code>docs/</code>: Documentation files (MkDocs).</li>
 <li><code>mcup/</code>: The main source code directory.<ul>
 <li><code>mcup.core</code>: Core application logic (handlers, utils, status codes).</li>
 <li><code>mcup.cli</code>: Command-line interface code (commands, UI components).</li>
 <li><code>mcup.devtools</code>: Development tools to assist with testing and maintenance.</li>
 </ul>
 </li>
-<li><code>rpm/</code>: Files for building the <code>.rpm</code> package.</li>
-<li><code>docs/</code>: Documentation files (MkDocs).</li>
+<li><code>packaging/</code>: Platform-specific packaging resources (e.g., Windows installer script).</li>
+<li><code>tests/</code>: Unit and integration tests (pytest).</li>
 </ul>
 <h2 id="running-locally">Running Locally<a class="headerlink" href="#running-locally" title="Permanent link">&para;</a></h2>
 <p>You can run the CLI directly from the source code to test your changes.</p>
@@ -1217,22 +1217,19 @@ reflected.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mcup<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 </code></pre></div>
 <h2 id="building-the-project">Building the Project<a class="headerlink" href="#building-the-project" title="Permanent link">&para;</a></h2>
-<p>To build the distributable packages (DEB, RPM), use the provided build script.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./build.sh
-</code></pre></div>
-<p>This will generate the packages in the <code>dist</code> directory.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can skip specific package builds using flags:</p>
-<ul>
-<li><code>--skip-deb</code>: Skip building the Debian package.</li>
-<li><code>--skip-rpm</code>: Skip building the RPM package.</li>
-</ul>
-</div>
+<p>All distributable packages (wheels, Linux packages, standalone executables, Windows installer) are built automatically
+by the <strong>Build &amp; Release</strong> GitHub Actions workflow.</p>
+<p>To trigger a build manually:</p>
+<ol>
+<li>Go to the <strong>Actions</strong> tab on your own fork of the repository.</li>
+<li>Select the <strong>Build &amp; Release</strong> workflow.</li>
+<li>Click <strong>Run workflow</strong> and choose the branch you want to build from.</li>
+</ol>
+<p>Tagging a commit (e.g., <code>1.0.0</code>, <code>1.1.0-rc1</code>) will also trigger the workflow automatically and create a draft GitHub Release.</p>
 <h2 id="commit-message-convention">Commit Message Convention<a class="headerlink" href="#commit-message-convention" title="Permanent link">&para;</a></h2>
 <p>We follow the <strong>Conventional Commits</strong> style to keep our commit history clear and easy to understand.</p>
 <p>Each commit message should start with a <strong>type prefix</strong>, followed by a colon and a short description:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&lt;type&gt;: &lt;short description&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&lt;type&gt;: &lt;short description&gt;
 </code></pre></div>
 <h3 id="common-types">Common Types<a class="headerlink" href="#common-types" title="Permanent link">&para;</a></h3>
 <table>
@@ -1303,7 +1300,7 @@ reflected.</p>
 </table>
 <h3 id="optional-scope">Optional Scope<a class="headerlink" href="#optional-scope" title="Permanent link">&para;</a></h3>
 <p>You can optionally specify a scope in parentheses to indicate which part of the codebase is affected:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>fix(config): handle missing default values
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>fix(config): handle missing default values
 </code></pre></div>
 <h3 id="how-to-write-a-good-commit-message">How to Write a Good Commit Message<a class="headerlink" href="#how-to-write-a-good-commit-message" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1315,7 +1312,7 @@ reflected.</p>
 <p>Before submitting your changes, please run the tests to ensure that everything is working correctly and to
 avoid regressions.</p>
 <p>We use <code>pytest</code> for testing. You can run the tests using the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pytest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pytest
 </code></pre></div>
 <p>If you are adding a new feature, please consider adding new tests to cover it. This helps ensure that your feature works
 as expected and will continue to work in the future.</p>
@@ -1355,7 +1352,7 @@ as expected and will continue to work in the future.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 14, 2026 13:26:11 UTC">March 14, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 3, 2026 13:19:52 UTC">April 3, 2026</span>
   </span>
 
     
