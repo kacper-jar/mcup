@@ -90,9 +90,10 @@ jobs:
 
       - name: Extract version
         id: meta
+        env:
+          PYTHONIOENCODING: utf-8
         run: |
           VERSION=$(python -c "import re; print(re.search(r'version\s*=\s*\"([^\"]+)\"', open('pyproject.toml', encoding='utf-8').read()).group(1))")
-          # Strip 'v' prefix or similar if necessary, though FPM should handle it standardly
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build .deb package
