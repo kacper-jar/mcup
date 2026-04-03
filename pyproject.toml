@@ -46,6 +46,5 @@ mcup = "mcup.__main__:main"
 
 [tool.hatch.build]
 exclude = [
-    "build.sh",
     "commitlint.config.js"
 ]
