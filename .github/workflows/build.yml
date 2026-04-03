@@ -102,9 +102,6 @@ jobs:
       - name: Build .rpm package
         run: fpm -s dir -t rpm -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
-      - name: Build .apk package
-        run: fpm -s dir -t apk -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
-
       - name: Build pacman package
         run: fpm -s dir -t pacman -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
@@ -228,10 +225,6 @@ jobs:
       - name: Install and Test .rpm Package via Docker
         run: |
           docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set devtools.enabled true && mcup devtools selfcheck"
-
-      - name: Install and Test .apk Package via Docker
-        run: |
-          docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg alpine:latest sh -c "apk add --allow-untrusted /pkg/*.apk && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test Pacman Package via Docker
         run: |
