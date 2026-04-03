@@ -101,6 +101,9 @@ jobs:
       - name: Build .apk package
         run: fpm -s python -t apk -n mcup -p linux-packages/ "$WHEEL_PATH"
 
+      - name: Build pacman package
+        run: fpm -s python -t pacman -n mcup -p linux-packages/ "$WHEEL_PATH"
+
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
         with:
@@ -226,6 +229,10 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg alpine:latest sh -c "apk add --allow-untrusted /pkg/*.apk && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
+      - name: Install and Test Pacman Package via Docker
+        run: |
+          docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set devtools.enabled true && mcup devtools selfcheck"
+
   test-executables:
     name: Test Executables on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -279,5 +286,6 @@ jobs:
             ./artifacts/linux-packages/*.deb
             ./artifacts/linux-packages/*.rpm
             ./artifacts/linux-packages/*.apk
+            ./artifacts/linux-packages/*.pkg.tar.*
             ./artifacts/executables-*/*.zip
             ./artifacts/windows-installer/*.exe
