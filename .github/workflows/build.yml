@@ -84,7 +84,7 @@ jobs:
         run: |
           mkdir -p linux-packages
           cd dist
-          unzip -j *.zip
+          unzip -o -j *.zip
           chmod +x mcup
           cd ..
 
