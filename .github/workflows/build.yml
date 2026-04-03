@@ -88,17 +88,24 @@ jobs:
           chmod +x mcup
           cd ..
 
+      - name: Extract version
+        id: meta
+        run: |
+          VERSION=$(python -c "import re; print(re.search(r'version\s*=\s*\"([^\"]+)\"', open('pyproject.toml', encoding='utf-8').read()).group(1))")
+          # Strip 'v' prefix or similar if necessary, though FPM should handle it standardly
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build .deb package
-        run: fpm -s dir -t deb -n mcup --version "${{ github.ref_name }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
+        run: fpm -s dir -t deb -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Build .rpm package
-        run: fpm -s dir -t rpm -n mcup --version "${{ github.ref_name }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
+        run: fpm -s dir -t rpm -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Build .apk package
-        run: fpm -s dir -t apk -n mcup --version "${{ github.ref_name }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
+        run: fpm -s dir -t apk -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Build pacman package
-        run: fpm -s dir -t pacman -n mcup --version "${{ github.ref_name }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
+        run: fpm -s dir -t pacman -n mcup --version "${{ steps.meta.outputs.version }}" -p linux-packages/ dist/mcup=/usr/bin/mcup
 
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
