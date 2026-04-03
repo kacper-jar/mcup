@@ -152,7 +152,7 @@ jobs:
         run: |
           cd dist
           if [ "$RUNNER_OS" == "Windows" ]; then
-            zip -j mcup-${{ steps.meta.outputs.version }}-windows-amd64.zip mcup.exe
+            7z a mcup-${{ steps.meta.outputs.version }}-windows-amd64.zip mcup.exe
           else
             zip -j mcup-${{ steps.meta.outputs.version }}-linux-amd64.zip mcup
           fi
