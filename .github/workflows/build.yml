@@ -162,7 +162,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: executables-${{ matrix.os }}
-          path: dist/mcup*
+          path: dist/*.zip
 
   build-windows-installer:
     name: Build Windows Installer
@@ -177,6 +177,12 @@ jobs:
         with:
           name: executables-windows-latest
           path: dist
+
+      - name: Unzip Windows Executable
+        shell: bash
+        run: |
+          cd dist
+          7z x -y *.zip
 
       - name: Extract Metadata
         id: meta
@@ -253,8 +259,10 @@ jobs:
         run: |
           cd dist
           if [ "$RUNNER_OS" == "Windows" ]; then
+            7z x -y *.zip
             BIN="./mcup.exe"
           else
+            unzip -o -j *.zip
             BIN="./mcup"
             chmod +x $BIN
           fi
