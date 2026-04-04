@@ -16,7 +16,7 @@ Before installing `mcup` and running Minecraft servers, ensure you have the foll
 
 **Setup Executable (Recommended):**
 
-1. Download `mcup-windows-setup.exe` from the latest release.
+1. Download `mcup-*-windows-setup.exe` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
 2. Running the installer will automatically configure the application entirely through a wizard GUI and automatically append `mcup` to your system `PATH` variables.
 3. Once finished, open your command prompt or PowerShell and run:
 ```cmd
@@ -25,7 +25,17 @@ mcup
 
 **Standalone / Portable:**
 
-If you don't have Administrator privileges, you can download the standalone executable (`mcup-windows.exe` or equivalent) or use the [Python Module](#python-module-universal) method.
+If you don't have Administrator privileges, you can use the standalone portable build instead:
+
+1. Download `mcup-*-windows-amd64.zip` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
+2. Extract the archive to a folder of your choice.
+3. Optionally, add that folder to your system `PATH` to use `mcup` from any terminal.
+4. Run `mcup.exe` directly, or from your terminal:
+```cmd
+mcup
+```
+
+Alternatively, you can use the [Python Module](#python-module-universal) method.
 
 ## Linux
 
@@ -33,9 +43,10 @@ If you don't have Administrator privileges, you can download the standalone exec
 
 You can download the compiled native standalone binary that comes fully packed with everything needed to run `mcup`:
 
-1. Download the linux `mcup` binary from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
-2. Move it to your local bin directory and make it executable:
+1. Download `mcup-*-linux-amd64.zip` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
+2. Extract the archive and make the binary executable:
 ```sh
+unzip mcup-*-linux-amd64.zip
 chmod +x ./mcup
 sudo mv ./mcup /usr/local/bin/mcup
 ```
@@ -45,48 +56,57 @@ sudo mv ./mcup /usr/local/bin/mcup
 !!! note
     An official APT release is planned down the line. In the meantime, please install using the provided `.deb` package.
 
-1. Download the latest `.deb` package.
+1. Download `mcup_*_amd64.deb` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
 2. Install it using `dpkg`:
 ```sh
-sudo dpkg -i ./mcup_*.deb
+sudo dpkg -i mcup_*_amd64.deb
 sudo apt-get install -f
 ```
 
 ### RPM-based Distributions (.rpm)
 
-Download the latest `.rpm` package and install natively depending on your architecture:
+Download `mcup-*.x86_64.rpm` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases) 
+and install natively depending on your distribution:
 
 **Fedora / RHEL 8+ / Rocky / Alma:**
 ```sh
-sudo dnf install ./mcup_*.rpm
+sudo dnf install mcup-*.x86_64.rpm
 ```
 
 **Older RHEL / CentOS (6-7):**
 ```sh
-sudo yum localinstall ./mcup_*.rpm
+sudo yum localinstall mcup-*.x86_64.rpm
 ```
 
 **openSUSE:**
 ```sh
-sudo zypper install ./mcup_*.rpm
+sudo zypper install mcup-*.x86_64.rpm
+```
+
+### Arch Linux (.pkg.tar.zst)
+
+1. Download `mcup-*-x86_64.pkg.tar.zst` from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
+2. Install it using `pacman`:
+```sh
+sudo pacman -U mcup-*-x86_64.pkg.tar.zst
 ```
 
 ## Python Module (Universal)
 
 If you prefer installing `mcup` directly into an active Python environment on any OS (macOS, Linux, Windows), 
-download the latest `.whl` wheel from the active repository release.
+download the latest `.whl` wheel from [GitHub Releases](https://github.com/kacper-jar/mcup/releases).
 
 Install it using pip from a command prompt:
 
 ```sh
-pip install ./mcup-*.whl
+pip install mcup-*-py3-none-any.whl
 ```
 
 !!! tip
     If the `pip` command is not available, try using `python3 -m pip install ...` instead.
 
 !!! warning "PATH Variable"
-    If you install via `pip`, the `mcup` binary is placed in your Python environment's scripts directory (e.g., `~/.local/bin` on Linux/macOS or `Scripts` on Windows). Ensure this directory is in your system's `PATH` to avoid "Command not found" errors.
+    If you install via `pip`, the `mcup` binary is placed in your Python environment's scripts directory (e.g., `~/.local/bin` on Linux/macOS or `Scripts` on Windows). Ensure this directory is in your system `PATH` to avoid "Command not found" errors.
 
 ## Manual Installation (From Source)
 
