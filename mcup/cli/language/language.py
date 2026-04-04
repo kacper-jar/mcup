@@ -973,6 +973,10 @@ class Language:
         "SUCCESS_USERCONFIG_EXPORT": "Configuration exported successfully to '{}'",
         "SUCCESS_USERCONFIG_IMPORT": "Configuration imported successfully from '{}' ({} keys merged)",
 
+        # Updates
+        "INFO_UPDATE_AVAILABLE": "A new version of mcup is available: {} (you have {}).",
+        "INFO_UPDATE_AVAILABLE_PRERELEASE": "A new pre-release of mcup is available: {} (you have {}).",
+
         # About
         "ABOUT_TITLE": "mcup (version {}) by Kacper Jarosławski",
         "ABOUT_DESCRIPTION": "Command-line tool for quickly creating Minecraft servers\n",
