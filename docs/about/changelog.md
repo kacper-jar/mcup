@@ -1,3 +1,17 @@
+# 1.0.0-rc3
+
+* ci: Reorganize Actions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/101
+* ci: Build workflow fixes by @kacper-jar in https://github.com/kacper-jar/mcup/pull/102
+* ci: Refactor native Linux packing to wrap binary artifacts instead of wheels by @kacper-jar in https://github.com/kacper-jar/mcup/pull/103
+* ci: Add -o flag to unzip to suppress interactive prompt by @kacper-jar in https://github.com/kacper-jar/mcup/pull/104
+* ci: Fix dpkg version format crash by parsing pyproject instead of branch name by @kacper-jar in https://github.com/kacper-jar/mcup/pull/105
+* ci: Drop .apk build support because of broken builds by @kacper-jar in https://github.com/kacper-jar/mcup/pull/106
+* ci: Sanitize package version string manually for pacman compatibility by @kacper-jar in https://github.com/kacper-jar/mcup/pull/107
+* ci: Restrict artifact uploads to compressed zip files by @kacper-jar in https://github.com/kacper-jar/mcup/pull/108
+* chore: Remove legacy packaging artifacts by @kacper-jar in https://github.com/kacper-jar/mcup/pull/109
+* feat: Add import/export commands for user config by @kacper-jar in https://github.com/kacper-jar/mcup/pull/110
+* feat: Add configurable startup update notifications by @kacper-jar in https://github.com/kacper-jar/mcup/pull/111
+
 # 1.0.0-rc2
 
 * feat: Add support for 26.1 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/94
