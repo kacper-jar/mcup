@@ -568,6 +568,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#arch-linux-pkgtarzst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arch Linux (.pkg.tar.zst)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1098,22 +1109,32 @@ The easiest way to install it is to grab the compiled binaries from the <a href=
 <h2 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h2>
 <p><strong>Setup Executable (Recommended):</strong></p>
 <ol>
-<li>Download <code>mcup-windows-setup.exe</code> from the latest release.</li>
+<li>Download <code>mcup-*-windows-setup.exe</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
 <li>Running the installer will automatically configure the application entirely through a wizard GUI and automatically append <code>mcup</code> to your system <code>PATH</code> variables.</li>
 <li>Once finished, open your command prompt or PowerShell and run:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mcup
 </code></pre></div></li>
 </ol>
 <p><strong>Standalone / Portable:</strong></p>
-<p>If you don't have Administrator privileges, you can download the standalone executable (<code>mcup-windows.exe</code> or equivalent) or use the <a href="#python-module-universal">Python Module</a> method.</p>
+<p>If you don't have Administrator privileges, you can use the standalone portable build instead:</p>
+<ol>
+<li>Download <code>mcup-*-windows-amd64.zip</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
+<li>Extract the archive to a folder of your choice.</li>
+<li>Optionally, add that folder to your system <code>PATH</code> to use <code>mcup</code> from any terminal.</li>
+<li>Run <code>mcup.exe</code> directly, or from your terminal:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mcup
+</code></pre></div></li>
+</ol>
+<p>Alternatively, you can use the <a href="#python-module-universal">Python Module</a> method.</p>
 <h2 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h2>
 <h3 id="standalone-binary-distro-agnostic">Standalone Binary (distro-agnostic)<a class="headerlink" href="#standalone-binary-distro-agnostic" title="Permanent link">&para;</a></h3>
 <p>You can download the compiled native standalone binary that comes fully packed with everything needed to run <code>mcup</code>:</p>
 <ol>
-<li>Download the linux <code>mcup</code> binary from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
-<li>Move it to your local bin directory and make it executable:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>./mcup
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>mv<span class="w"> </span>./mcup<span class="w"> </span>/usr/local/bin/mcup
+<li>Download <code>mcup-*-linux-amd64.zip</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
+<li>Extract the archive and make the binary executable:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>unzip<span class="w"> </span>mcup-*-linux-amd64.zip
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>./mcup
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sudo<span class="w"> </span>mv<span class="w"> </span>./mcup<span class="w"> </span>/usr/local/bin/mcup
 </code></pre></div></li>
 </ol>
 <h3 id="debian-ubuntu-deb">Debian / Ubuntu (.deb)<a class="headerlink" href="#debian-ubuntu-deb" title="Permanent link">&para;</a></h3>
@@ -1122,28 +1143,36 @@ The easiest way to install it is to grab the compiled binaries from the <a href=
 <p>An official APT release is planned down the line. In the meantime, please install using the provided <code>.deb</code> package.</p>
 </div>
 <ol>
-<li>Download the latest <code>.deb</code> package.</li>
+<li>Download <code>mcup_*_amd64.deb</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
 <li>Install it using <code>dpkg</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>./mcup_*.deb
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-f
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>mcup_*_amd64.deb
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-f
 </code></pre></div></li>
 </ol>
 <h3 id="rpm-based-distributions-rpm">RPM-based Distributions (.rpm)<a class="headerlink" href="#rpm-based-distributions-rpm" title="Permanent link">&para;</a></h3>
-<p>Download the latest <code>.rpm</code> package and install natively depending on your architecture:</p>
+<p>Download <code>mcup-*.x86_64.rpm</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a> 
+and install natively depending on your distribution:</p>
 <p><strong>Fedora / RHEL 8+ / Rocky / Alma:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>./mcup_*.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>mcup-*.x86_64.rpm
 </code></pre></div></p>
 <p><strong>Older RHEL / CentOS (6-7):</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>./mcup_*.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>yum<span class="w"> </span>localinstall<span class="w"> </span>mcup-*.x86_64.rpm
 </code></pre></div></p>
 <p><strong>openSUSE:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>zypper<span class="w"> </span>install<span class="w"> </span>./mcup_*.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>zypper<span class="w"> </span>install<span class="w"> </span>mcup-*.x86_64.rpm
 </code></pre></div></p>
+<h3 id="arch-linux-pkgtarzst">Arch Linux (.pkg.tar.zst)<a class="headerlink" href="#arch-linux-pkgtarzst" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Download <code>mcup-*-x86_64.pkg.tar.zst</code> from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</li>
+<li>Install it using <code>pacman</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-U<span class="w"> </span>mcup-*-x86_64.pkg.tar.zst
+</code></pre></div></li>
+</ol>
 <h2 id="python-module-universal">Python Module (Universal)<a class="headerlink" href="#python-module-universal" title="Permanent link">&para;</a></h2>
 <p>If you prefer installing <code>mcup</code> directly into an active Python environment on any OS (macOS, Linux, Windows), 
-download the latest <code>.whl</code> wheel from the active repository release.</p>
+download the latest <code>.whl</code> wheel from <a href="https://github.com/kacper-jar/mcup/releases">GitHub Releases</a>.</p>
 <p>Install it using pip from a command prompt:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>./mcup-*.whl
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>mcup-*-py3-none-any.whl
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1151,7 +1180,7 @@ download the latest <code>.whl</code> wheel from the active repository release.<
 </div>
 <div class="admonition warning">
 <p class="admonition-title">PATH Variable</p>
-<p>If you install via <code>pip</code>, the <code>mcup</code> binary is placed in your Python environment's scripts directory (e.g., <code>~/.local/bin</code> on Linux/macOS or <code>Scripts</code> on Windows). Ensure this directory is in your system's <code>PATH</code> to avoid "Command not found" errors.</p>
+<p>If you install via <code>pip</code>, the <code>mcup</code> binary is placed in your Python environment's scripts directory (e.g., <code>~/.local/bin</code> on Linux/macOS or <code>Scripts</code> on Windows). Ensure this directory is in your system <code>PATH</code> to avoid "Command not found" errors.</p>
 </div>
 <h2 id="manual-installation-from-source">Manual Installation (From Source)<a class="headerlink" href="#manual-installation-from-source" title="Permanent link">&para;</a></h2>
 <p>You can assemble and execute <code>mcup</code> strictly from the underlying source files by downloading the repository directly.</p>
@@ -1164,30 +1193,30 @@ download the latest <code>.whl</code> wheel from the active repository release.<
 <ol>
 <li>
 <p>Clone the repository:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kacper-jar/mcup.git
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>mcup
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kacper-jar/mcup.git
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">cd</span><span class="w"> </span>mcup
 </code></pre></div></p>
 </li>
 <li>
 <p>Install the package locally:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>.
 </code></pre></div></p>
 </li>
 <li>
 <p>Run mcup:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mcup<span class="w"> </span>&lt;args&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mcup<span class="w"> </span>&lt;args&gt;
 </code></pre></div></p>
 </li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you don't want to install the package system-wide during source execution, you can completely sidestep installation and run <code>mcup</code> directly as a Python module:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mcup<span class="w"> </span>&lt;args&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>mcup<span class="w"> </span>&lt;args&gt;
 </code></pre></div></p>
 </div>
 <h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
 <p>To verify that <code>mcup</code> was successfully installed, open a fresh terminal or command prompt and run:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mcup<span class="w"> </span>--version
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>mcup<span class="w"> </span>--version
 </code></pre></div>
 It should print the application version. You can also view all available commands by running <code>mcup --help</code>.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
@@ -1216,7 +1245,7 @@ It should print the application version. You can also view all available command
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2026 10:07:00 UTC">April 2, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 4, 2026 12:04:03 UTC">April 4, 2026</span>
   </span>
 
     
