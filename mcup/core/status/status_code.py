@@ -12,6 +12,7 @@ class StatusCode(enum.Enum):
     PROGRESSBAR_FINISH_TASK = enum.auto()
     PROGRESSBAR_END = enum.auto()
 
+    INFO_UPDATE_AVAILABLE = enum.auto()
     INFO_VERSION_NEWER_THAN_SUPPORTED = enum.auto()
     INFO_JAVA_MINIMUM_25 = enum.auto()
     INFO_JAVA_MINIMUM_21 = enum.auto()
@@ -54,3 +55,4 @@ class StatusCode(enum.Enum):
     ERROR_USERCONFIG_EXPORT_FAILED = enum.auto()
     ERROR_USERCONFIG_IMPORT_FAILED = enum.auto()
     ERROR_USERCONFIG_INVALID_JSON_FORMAT = enum.auto()
+    ERROR_UPDATE_CHECK_FAILED = enum.auto()

@@ -4,7 +4,9 @@ import os
 
 from mcup import __version__
 from mcup.cli import McupCLI
+from mcup.cli.language import Language
 from mcup.core.utils.path import PathProvider
+from mcup.core.utils.update_checker import UpdateChecker
 from mcup.core.user_config import UserConfig
 from mcup.core.status import StatusCode
 
@@ -33,6 +35,35 @@ def _resolve_log_level(value):
     return logging.INFO
 
 
+def _run_update_check(user_config: "UserConfig") -> None:
+    """Run the GitHub Releases update check and print a notice if a newer version exists."""
+    check_enabled = True
+    for cfg_status in user_config.get_configuration('updates.check', 'true'):
+        if cfg_status.status_code == StatusCode.SUCCESS:
+            check_enabled = str(cfg_status.status_details).lower() != 'false'
+        break
+
+    if not check_enabled:
+        return
+
+    channel = 'stable'
+    for ch_status in user_config.get_configuration('updates.channel', 'stable'):
+        if ch_status.status_code == StatusCode.SUCCESS:
+            val = str(ch_status.status_details).lower()
+            if val in ('stable', 'all'):
+                channel = val
+        break
+
+    language = Language()
+    checker = UpdateChecker()
+
+    for status in checker.check_for_update(channel):
+        if status.status_code == StatusCode.INFO_UPDATE_AVAILABLE:
+            details = status.status_details
+            key = "INFO_UPDATE_AVAILABLE_PRERELEASE" if details['prerelease'] else "INFO_UPDATE_AVAILABLE"
+            print(language.get_string(key, details['latest_tag'], details['current_version']))
+
+
 def main():
     """Entry point for the application when run with 'python -m mcup'."""
     path_provider = PathProvider()
@@ -58,6 +89,8 @@ def main():
     logger.info("Logger initialized")
 
     logger.info(f"Starting Mcup CLI (mcup {__version__})")
+
+    _run_update_check(user_config)
 
     cli = McupCLI()
     cli.run()
