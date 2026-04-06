@@ -23,6 +23,7 @@ class StatusCode(enum.Enum):
     INFO_LOCKER_USING_REMOTE = enum.auto()
     INFO_LOCKER_UP_TO_DATE = enum.auto()
     INFO_LOCKER_UPDATING = enum.auto()
+    INFO_LOCKER_UPDATE_SKIPPED = enum.auto()
 
     ERROR_GENERIC = enum.auto()
     ERROR_JAVA_NOT_FOUND = enum.auto()

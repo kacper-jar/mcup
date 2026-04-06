@@ -280,13 +280,16 @@ class LockerUpdater:
         else:
             yield Status(StatusCode.ERROR_LOCKER_META_UPDATE_FAILED, err)
 
-    def load_locker(self) -> Iterator[Status]:
+    def load_locker(self, skip_update: bool = False) -> Iterator[Status]:
         """Load the locker.json file."""
-        for status in self.update_locker():
-            if status.status_code != StatusCode.SUCCESS:
-                yield status
-            else:
-                break
+        if skip_update and os.path.exists(self.locker_path):
+            yield Status(StatusCode.INFO_LOCKER_UPDATE_SKIPPED)
+        else:
+            for status in self.update_locker():
+                if status.status_code != StatusCode.SUCCESS:
+                    yield status
+                else:
+                    break
         if os.path.exists(self.locker_path):
             with open(self.locker_path, 'r') as file:
                 yield Status(StatusCode.SUCCESS, json.load(file))
