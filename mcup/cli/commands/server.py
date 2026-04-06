@@ -23,12 +23,12 @@ class ServerCommand:
 
         locker_data = None
         update_occurred = False
-        for status in locker.load_locker():
+        for status in locker.load_locker(skip_update=args.skip_locker_update):
             match status.status_code:
                 case StatusCode.INFO_LOCKER_USING_REMOTE:
                     print(language.get_string("INFO_LOCKER_USING_REMOTE", status.status_details['remote_url'],
                                               status.status_details['branch']))
-                case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING:
+                case StatusCode.INFO_LOCKER_MODIFIED | StatusCode.INFO_LOCKER_UP_TO_DATE | StatusCode.INFO_LOCKER_UPDATING | StatusCode.INFO_LOCKER_UPDATE_SKIPPED:
                     print(language.get_string(status.status_code.name))
 
                     if status.status_code == StatusCode.INFO_LOCKER_UPDATING:

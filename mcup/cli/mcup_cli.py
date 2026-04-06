@@ -57,6 +57,8 @@ class McupCLI:
                                    help="Prompt for all configuration values")
         configs_group.add_argument("--all-defaults", action="store_true",
                                    help="Use default configuration values for all configuration files")
+        create_parser.add_argument("--skip-locker-update", action="store_true",
+                                   help="Skip checking for locker file updates unless it's missing")
         create_parser.add_argument("--skip-java-check", action="store_true",
                                    help="Skip Java installation and version checks")
         create_parser.set_defaults(func=ServerCommand.create)
@@ -104,7 +106,8 @@ class McupCLI:
     def _register_update_command(self):
         """Register command for updating the locker file."""
         update_parser = self.subparsers.add_parser("update", help="Manually update the locker file")
-        update_parser.add_argument("--force", action="store_true", help="Force update the locker file even if it's up to date")
+        update_parser.add_argument("--force", action="store_true",
+                                   help="Force update the locker file even if it's up to date")
         update_parser.set_defaults(func=UpdateCommand.run)
 
     def _register_config_commands(self):
@@ -167,7 +170,7 @@ class McupCLI:
 
             confdiff_parser = devtools_subparsers.add_parser("confdiff", help="Compare configuration files")
             confdiff_parser.add_argument("configuration_files", help="Configuration files with version"
-                                         " formatted like this: VERSION:PATH", nargs="+")
+                                                                     " formatted like this: VERSION:PATH", nargs="+")
             confdiff_parser.set_defaults(func=ConfDiff.run)
 
             locker_mgr_parser = devtools_subparsers.add_parser("lockermgr", help="Manage the locker file")
@@ -180,16 +183,21 @@ class McupCLI:
             add_server_parser.add_argument("server_type", help="Type of server to add")
             add_server_parser.set_defaults(func=LockerManager.add_server)
 
-            add_version_parser = locker_mgr_subparsers.add_parser("add-version", help="Add a new version to a server type")
+            add_version_parser = locker_mgr_subparsers.add_parser("add-version",
+                                                                  help="Add a new version to a server type")
             add_version_parser.add_argument("server_type", help="Type of server")
             add_version_parser.add_argument("version", help="Version to add")
             source_group = add_version_parser.add_mutually_exclusive_group(required=True)
             source_group.add_argument("--server-url", help="Direct download URL for server jar (DOWNLOAD source)")
             source_group.add_argument("--installer-url", help="URL for installer jar (INSTALLER source)")
-            add_version_parser.add_argument("--installer-args", nargs=argparse.REMAINDER, help="Arguments for installer jar (INSTALLER source only). Use '--' before these to separate from mcup flags.")
-            add_version_parser.add_argument("--supports-plugins", action="store_true", help="Mark server as supporting plugins")
-            add_version_parser.add_argument("--supports-mods", action="store_true", help="Mark server as supporting mods")
-            add_version_parser.add_argument("--configs", nargs="*", default=[], help="Config files associated with this server")
+            add_version_parser.add_argument("--installer-args", nargs=argparse.REMAINDER,
+                                            help="Arguments for installer jar (INSTALLER source only). Use '--' before these to separate from mcup flags.")
+            add_version_parser.add_argument("--supports-plugins", action="store_true",
+                                            help="Mark server as supporting plugins")
+            add_version_parser.add_argument("--supports-mods", action="store_true",
+                                            help="Mark server as supporting mods")
+            add_version_parser.add_argument("--configs", nargs="*", default=[],
+                                            help="Config files associated with this server")
             add_version_parser.add_argument("--cleanup", nargs="*", default=[], help="Files to clean up after install")
             add_version_parser.set_defaults(func=LockerManager.add_version)
 
@@ -212,7 +220,8 @@ class McupCLI:
                                                help="Files to clean up after install")
             update_version_parser.set_defaults(func=LockerManager.update_version)
 
-            remove_version_parser = locker_mgr_subparsers.add_parser("remove-version", help="Remove a version from a server type")
+            remove_version_parser = locker_mgr_subparsers.add_parser("remove-version",
+                                                                     help="Remove a version from a server type")
             remove_version_parser.add_argument("server_type", help="Type of server")
             remove_version_parser.add_argument("version", help="Version to remove")
             remove_version_parser.set_defaults(func=LockerManager.remove_version)
