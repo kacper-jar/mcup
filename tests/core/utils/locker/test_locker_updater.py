@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch, mock_open
 from mcup.core.utils.locker.locker_updater import LockerUpdater
-from mcup.core.status import StatusCode
+from mcup.core.status import Status, StatusCode
 
 
 class TestLockerUpdater:
@@ -119,3 +119,29 @@ class TestLockerUpdater:
 
             assert result.status_code == StatusCode.SUCCESS
             assert result.status_details == {"servers": {}}
+
+    def test_load_locker_skip_update_exists(self, mock_deps):
+        """Verify load_locker yields INFO_LOCKER_UPDATE_SKIPPED and skips update_locker."""
+        updater = LockerUpdater()
+
+        with patch.object(updater, 'update_locker') as mock_update, \
+                patch("os.path.exists", return_value=True), \
+                patch("builtins.open", mock_open(read_data='{"servers": {"paper": []}}')):
+            statuses = list(updater.load_locker(skip_update=True))
+
+            codes = [s.status_code for s in statuses]
+            assert StatusCode.INFO_LOCKER_UPDATE_SKIPPED in codes
+            mock_update.assert_not_called()
+            assert statuses[-1].status_details == {"servers": {"paper": []}}
+
+    def test_load_locker_skip_update_missing(self, mock_deps):
+        """Verify load_locker calls update_locker if file is missing, even if skip_update=True."""
+        updater = LockerUpdater()
+
+        with patch.object(updater, 'update_locker',
+                          return_value=iter([Status(StatusCode.SUCCESS, {"servers": {}})])) as mock_update, \
+                patch("os.path.exists", side_effect=[False, True]), \
+                patch("builtins.open", mock_open(read_data='{"servers": {}}')):
+            list(updater.load_locker(skip_update=True))
+
+            mock_update.assert_called_once()

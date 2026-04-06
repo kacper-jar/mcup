@@ -84,3 +84,41 @@ class TestServerCommand:
         assert any("paper:" in c for c in calls)
         assert any("1.20.1, 1.19.4" in c for c in calls)
         assert any("forge:" in c for c in calls)
+
+    @patch("mcup.cli.commands.server.LockerUpdater")
+    @patch("mcup.cli.commands.server.ServerHandler")
+    @patch("mcup.cli.commands.server.ServerConfigsCollector")
+    @patch("builtins.print")
+    def test_server_create_passes_skip_locker_update(self, mock_print, mock_collector, MockServerHandler, MockLocker,
+                                                     mock_args):
+        """Verify skip_locker_update flag is passed to load_locker."""
+        mock_locker = MockLocker.return_value
+        mock_locker.load_locker.return_value = iter([Status(StatusCode.SUCCESS, {
+            "servers": {"paper": [{"version": "1.20.1", "source": "DOWNLOAD", "configs": []}]}})])
+        mock_handler = MockServerHandler.return_value
+        mock_handler.create.return_value = iter([Status(StatusCode.SUCCESS)])
+
+        mock_args.skip_locker_update = True
+        ServerCommand.create(mock_args)
+
+        mock_locker.load_locker.assert_called_once_with(skip_update=True)
+
+    @patch("mcup.cli.commands.server.LockerUpdater")
+    @patch("mcup.cli.commands.server.ServerHandler")
+    @patch("mcup.cli.commands.server.ServerConfigsCollector")
+    @patch("builtins.print")
+    def test_server_create_handles_skip_status(self, mock_print, mock_collector, MockServerHandler, MockLocker,
+                                               mock_args):
+        """Verify INFO_LOCKER_UPDATE_SKIPPED status is printed."""
+        mock_locker = MockLocker.return_value
+        mock_locker.load_locker.return_value = iter([
+            Status(StatusCode.INFO_LOCKER_UPDATE_SKIPPED),
+            Status(StatusCode.SUCCESS,
+                   {"servers": {"paper": [{"version": "1.20.1", "source": "DOWNLOAD", "configs": []}]}})])
+        mock_handler = MockServerHandler.return_value
+        mock_handler.create.return_value = iter([Status(StatusCode.SUCCESS)])
+
+        ServerCommand.create(mock_args)
+
+        printed_messages = [str(call) for call in mock_print.call_args_list]
+        assert any("Locker update check skipped." in m for m in printed_messages)
