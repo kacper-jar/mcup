@@ -29,6 +29,7 @@ class SelfCheck:
                 "1.20.4",
                 str(temp_path),
                 "--all-defaults",
+                "--skip-locker-update",
                 "--skip-java-check"
             ]
 

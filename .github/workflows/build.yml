@@ -28,7 +28,17 @@ jobs:
         run: |
           mcup config set updates.check false
           mcup config set devtools.enabled true
+          mcup update
           mcup devtools selfcheck
+
+      - name: Upload Locker Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: locker-artifact
+          # Saving locker.json and locker-meta.json to avoid hitting GitHub API rate limits in later jobs
+          path: |
+            ~/.config/mcup/locker.json
+            ~/.config/mcup/locker-meta.json
 
   build-wheels:
     name: Build wheels
@@ -250,18 +260,24 @@ jobs:
           name: linux-packages-${{ matrix.arch }}
           path: ./linux-packages
 
+      - name: Download Locker Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: locker-artifact
+          path: ./locker
+
       - name: Install and Test .deb Package via Docker
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg ubuntu:latest bash -c "apt-get update && apt-get install -y /pkg/*.deb && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg -v ${{ github.workspace }}/locker:/root/.config/mcup ubuntu:latest bash -c "apt-get update && apt-get install -y /pkg/*.deb && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test .rpm Package via Docker
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg -v ${{ github.workspace }}/locker:/root/.config/mcup fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test Pacman Package via Docker
         if: matrix.arch == 'amd64'
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg -v ${{ github.workspace }}/locker:/root/.config/mcup archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
   test-executables:
     name: Test Executables on ${{ matrix.os }}
@@ -288,9 +304,30 @@ jobs:
           name: executables-${{ matrix.os }}-${{ matrix.arch }}
           path: dist
 
+      - name: Download Locker Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: locker-artifact
+          path: ./locker
+
       - name: Run Selfcheck Validation
         shell: bash
         run: |
+          # Prepare locker directory based on OS
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            mkdir -p ~/.config/mcup
+            cp locker/locker.json ~/.config/mcup/
+            cp locker/locker-meta.json ~/.config/mcup/
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            mkdir -p "$HOME/Library/Application Support/mcup/config"
+            cp locker/locker.json "$HOME/Library/Application Support/mcup/config/"
+            cp locker/locker-meta.json "$HOME/Library/Application Support/mcup/config/"
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            mkdir -p "$APPDATA/mcup"
+            cp locker/locker.json "$APPDATA/mcup/"
+            cp locker/locker-meta.json "$APPDATA/mcup/"
+          fi
+
           cd dist
           if [ "$RUNNER_OS" == "Windows" ]; then
             7z x -y *.zip
