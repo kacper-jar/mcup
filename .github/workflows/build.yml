@@ -186,7 +186,7 @@ jobs:
       - name: Download Windows Executable
         uses: actions/download-artifact@v4
         with:
-          name: executables-windows-latest
+          name: executables-windows-latest-amd64
           path: dist
 
       - name: Unzip Windows Executable
