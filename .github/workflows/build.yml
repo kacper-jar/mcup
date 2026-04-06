@@ -129,7 +129,7 @@ jobs:
           - os: windows-latest
             arch: amd64
           - os: macos-latest
-            arch: universal
+            arch: arm64
           - os: ubuntu-24.04-arm
             arch: arm64
 
@@ -157,13 +157,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build executable
-        shell: bash
-        run: |
-          BUILD_ARGS="--onefile --name mcup"
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            BUILD_ARGS="$BUILD_ARGS --target-arch universal2"
-          fi
-          pyinstaller $BUILD_ARGS mcup/__main__.py
+        run: pyinstaller --onefile --name mcup mcup/__main__.py
 
       - name: Package Executable
         shell: bash
@@ -278,7 +272,7 @@ jobs:
           - os: windows-latest
             arch: amd64
           - os: macos-latest
-            arch: universal
+            arch: arm64
           - os: ubuntu-24.04-arm
             arch: arm64
 
