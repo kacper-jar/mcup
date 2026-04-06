@@ -20,12 +20,13 @@ mcup server create <server_type> <server_version> [path] [flags]
 
 ### Flags
 
-| Flag                | Description                                                            |
-|:--------------------|:-----------------------------------------------------------------------|
-| `--no-configs`      | Skip the generation of configuration files (e.g. `server.properties`). |
-| `--no-defaults`     | Prompt for all configuration values, ignoring any defaults.            |
-| `--all-defaults`    | Use default values for all configuration options without prompting.    |
-| `--skip-java-check` | Skip the check for Java installation and version compatibility.        |
+| Flag                   | Description                                                                           |
+|:-----------------------|:--------------------------------------------------------------------------------------|
+| `--no-configs`         | Skip the generation of configuration files (e.g. `server.properties`).                |
+| `--no-defaults`        | Prompt for all configuration values, ignoring any defaults.                           |
+| `--all-defaults`       | Use default values for all configuration options without prompting.                   |
+| `--skip-locker-update` | Skip the check for locker file updates if it's already present on the local machine. |
+| `--skip-java-check`    | Skip the check for Java installation and version compatibility.                       |
 
 ### Examples
 
