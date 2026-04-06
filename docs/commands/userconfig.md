@@ -5,16 +5,17 @@ across sessions.
 
 ## Known Configuration Keys
 
-| Key                    | Description                                                             | Default Value  |
-|:-----------------------|:------------------------------------------------------------------------|:---------------|
-| `java.path`            | The path to the Java executable to use for running servers.             | `java`         |
-| `logging.level`        | The logging level for the CLI output (e.g., `DEBUG`, `INFO`).           | `INFO`         |
-| `devtools.enabled`     | Enable developer tools commands (`confdiff`, `lockermgr`).              | `false`        |
-| `advancedmode.enabled` | Enable advanced fields in the server configuration wizard.              | `false`        |
-| `locker.remote`        | The URL of the remote locker file to use for updates.                   | (Standard URL) |
-| `locker.branch`        | The branch of the remote locker repository to use (if applicable).      | `main`         |
-| `updates.check`        | Enable or disable automatic update notifications on startup.            | `true`         |
-| `updates.channel`      | Which releases to notify about: `stable` or `all` (incl. pre-releases). | `stable`       |
+| Key                     | Description                                                             | Default Value  |
+|:------------------------|:------------------------------------------------------------------------|:---------------|
+| `java.path`             | The path to the Java executable to use for running servers.             | `java`         |
+| `logging.level`         | The logging level for the CLI output (e.g., `DEBUG`, `INFO`).           | `INFO`         |
+| `devtools.enabled`      | Enable developer tools commands (`confdiff`, `lockermgr`).              | `false`        |
+| `advancedmode.enabled`  | Enable advanced fields in the server configuration wizard.              | `false`        |
+| `locker.remote`         | The URL of the remote locker file to use for updates.                   | (Standard URL) |
+| `locker.branch`         | The branch of the remote locker repository to use (if applicable).      | `main`         |
+| `updates.check`         | Enable or disable automatic update notifications on startup.            | `true`         |
+| `updates.check_timeout` | Interval between automatic update checks (in seconds).                  | `86400`        |
+| `updates.channel`       | Which releases to notify about: `stable` or `all` (incl. pre-releases). | `stable`       |
 
 ## Get Configuration
 
