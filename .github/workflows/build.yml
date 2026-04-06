@@ -267,9 +267,6 @@ jobs:
     name: Test Executables on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: build-executables
-    concurrency:
-      group: test-executables-lock
-      cancel-in-progress: false
     strategy:
       matrix:
         include:
