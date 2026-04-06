@@ -1,6 +1,8 @@
 from datetime import datetime
+import json
 import logging
 import os
+import time
 
 from mcup import __version__
 from mcup.cli import McupCLI
@@ -46,6 +48,32 @@ def _run_update_check(user_config: "UserConfig") -> None:
     if not check_enabled:
         return
 
+    timeout = 86400
+    for timeout_status in user_config.get_configuration('updates.check_timeout', 86400):
+        if timeout_status.status_code == StatusCode.SUCCESS:
+            try:
+                timeout = int(timeout_status.status_details)
+            except (ValueError, TypeError):
+                pass
+        break
+
+    path_provider = PathProvider()
+    config_dir = path_provider.get_config_path()
+    updates_file = config_dir / "updates.json"
+
+    last_checked = 0
+    if updates_file.exists():
+        try:
+            with open(updates_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                last_checked = data.get('last_checked', 0)
+        except Exception:
+            pass
+
+    current_time = time.time()
+    if current_time - last_checked < timeout:
+        return
+
     channel = 'stable'
     for ch_status in user_config.get_configuration('updates.channel', 'stable'):
         if ch_status.status_code == StatusCode.SUCCESS:
@@ -62,6 +90,14 @@ def _run_update_check(user_config: "UserConfig") -> None:
             details = status.status_details
             key = "INFO_UPDATE_AVAILABLE_PRERELEASE" if details['prerelease'] else "INFO_UPDATE_AVAILABLE"
             print(language.get_string(key, details['latest_tag'], details['current_version']))
+
+    try:
+        if not config_dir.exists():
+            os.makedirs(config_dir, exist_ok=True)
+        with open(updates_file, 'w', encoding='utf-8') as f:
+            json.dump({'last_checked': current_time}, f, indent=4)
+    except Exception:
+        pass
 
 
 def main():
