@@ -26,6 +26,7 @@ jobs:
 
       - name: Run Selfcheck
         run: |
+          mcup config set updates.check false
           mcup config set devtools.enabled true
           mcup devtools selfcheck
 
@@ -249,16 +250,16 @@ jobs:
 
       - name: Install and Test .deb Package via Docker
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg ubuntu:latest bash -c "apt-get update && apt-get install -y /pkg/*.deb && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg ubuntu:latest bash -c "apt-get update && apt-get install -y /pkg/*.deb && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test .rpm Package via Docker
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test Pacman Package via Docker
         if: matrix.arch == 'amd64'
         run: |
-          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set updates.check false && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
   test-executables:
     name: Test Executables on ${{ matrix.os }}
@@ -296,6 +297,7 @@ jobs:
             chmod +x $BIN
           fi
           
+          $BIN config set updates.check false
           $BIN config set devtools.enabled true
           $BIN devtools selfcheck
 
