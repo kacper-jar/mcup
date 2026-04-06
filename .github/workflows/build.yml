@@ -55,9 +55,12 @@ jobs:
           path: ./wheelhouse/*.whl
 
   build-linux-packages:
-    name: Build Linux Packages
+    name: Build Linux Packages (${{ matrix.arch }})
     runs-on: ubuntu-latest
     needs: build-executables
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
 
     steps:
       - name: Checkout code
@@ -66,7 +69,7 @@ jobs:
       - name: Download Executables
         uses: actions/download-artifact@v4
         with:
-          name: executables-ubuntu-latest
+          name: executables-${{ matrix.arch == 'amd64' && 'ubuntu-latest' || 'ubuntu-24.04-arm' }}-${{ matrix.arch }}
           path: ./dist
 
       - name: Install pacman package dependencies
@@ -111,7 +114,7 @@ jobs:
       - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
         with:
-          name: linux-packages
+          name: linux-packages-${{ matrix.arch }}
           path: ./linux-packages/*
 
   build-executables:
@@ -120,7 +123,13 @@ jobs:
     needs: pre-build-selfcheck
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            arch: amd64
+          - os: windows-latest
+            arch: amd64
+          - os: ubuntu-24.04-arm
+            arch: arm64
 
     steps:
       - uses: actions/checkout@v4
@@ -152,16 +161,18 @@ jobs:
         shell: bash
         run: |
           cd dist
+          PLATFORM="linux"
           if [ "$RUNNER_OS" == "Windows" ]; then
-            7z a mcup-${{ steps.meta.outputs.version }}-windows-amd64.zip mcup.exe
+            PLATFORM="windows"
+            7z a mcup-${{ steps.meta.outputs.version }}-$PLATFORM-${{ matrix.arch }}.zip mcup.exe
           else
-            zip -j mcup-${{ steps.meta.outputs.version }}-linux-amd64.zip mcup
+            zip -j mcup-${{ steps.meta.outputs.version }}-$PLATFORM-${{ matrix.arch }}.zip mcup
           fi
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
         with:
-          name: executables-${{ matrix.os }}
+          name: executables-${{ matrix.os }}-${{ matrix.arch }}
           path: dist/*.zip
 
   build-windows-installer:
@@ -213,18 +224,26 @@ jobs:
           path: packaging\windows\Output\mcup-*-windows-setup.exe
 
   test-linux-packages:
-    name: Test Linux Packages
+    name: Test Linux Packages (${{ matrix.arch }})
     runs-on: ubuntu-latest
     needs: build-linux-packages
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
 
     steps:
+      - name: Set up QEMU
+        if: matrix.arch == 'arm64'
+        uses: docker/setup-qemu-action@v3
+
       - name: Download Linux Packages
         uses: actions/download-artifact@v4
         with:
-          name: linux-packages
+          name: linux-packages-${{ matrix.arch }}
           path: ./linux-packages
 
       - name: Install and Test .deb Package
+        if: matrix.arch == 'amd64'
         run: |
           sudo apt-get update
           sudo apt-get install -y ./linux-packages/*.deb
@@ -233,11 +252,11 @@ jobs:
 
       - name: Install and Test .rpm Package via Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg fedora:latest bash -c "dnf install -y /pkg/*.rpm && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
       - name: Install and Test Pacman Package via Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set devtools.enabled true && mcup devtools selfcheck"
+          docker run --rm --platform linux/${{ matrix.arch }} -v ${{ github.workspace }}/linux-packages:/pkg archlinux:latest bash -c "pacman -U --noconfirm /pkg/*.pkg.tar.* && mcup config set devtools.enabled true && mcup devtools selfcheck"
 
   test-executables:
     name: Test Executables on ${{ matrix.os }}
@@ -245,13 +264,19 @@ jobs:
     needs: build-executables
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            arch: amd64
+          - os: windows-latest
+            arch: amd64
+          - os: ubuntu-24.04-arm
+            arch: arm64
 
     steps:
       - name: Download Executable
         uses: actions/download-artifact@v4
         with:
-          name: executables-${{ matrix.os }}
+          name: executables-${{ matrix.os }}-${{ matrix.arch }}
           path: dist
 
       - name: Run Selfcheck Validation
@@ -291,10 +316,10 @@ jobs:
           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
           files: |
             ./artifacts/wheels/*.whl
-            ./artifacts/linux-packages/*.deb
-            ./artifacts/linux-packages/*.rpm
-            ./artifacts/linux-packages/*.apk
-            ./artifacts/linux-packages/*.pkg.tar.*
+            ./artifacts/linux-packages-*/*.deb
+            ./artifacts/linux-packages-*/*.rpm
+            ./artifacts/linux-packages-*/*.apk
+            ./artifacts/linux-packages-*/*.pkg.tar.*
             ./artifacts/executables-*/*.zip
             ./artifacts/windows-installer/*.exe
 
