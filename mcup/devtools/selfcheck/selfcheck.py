@@ -35,7 +35,7 @@ class SelfCheck:
 
             logger.info(f"Executing subsystem call: {' '.join(command)}")
             try:
-                result = subprocess.run(command, check=True)
+                subprocess.run(command, check=True)
             except subprocess.CalledProcessError as e:
                 logger.error(f"Functional subsystem test failed with exit code {e.returncode}")
                 sys.exit(1)

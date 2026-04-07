@@ -474,7 +474,6 @@ class PaperConfig(ConfigFile):
             }
         }
 
-
         self.default_configuration = {
             "messages": {
                 "kick": {
