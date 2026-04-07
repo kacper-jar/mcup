@@ -194,7 +194,8 @@ class TestTemplateHandler:
         }
 
         def mock_load_locker_gen():
-            if False: yield
+            if False:
+                yield
             return locker_data
 
         with patch.object(handler, '_get_template_path', return_value="/path/to/template.json"), \

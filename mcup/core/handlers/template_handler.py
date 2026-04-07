@@ -176,7 +176,7 @@ class TemplateHandler:
             if updated_locker_entry is None:
                 self.logger.error(
                     f"No locker entry found for {template_data['template_server_type']} {template_data['template_server_version']}")
-                yield Status(StatusCode.ERROR_TEMPLATE_REFRESH_FAILED, f"Locker entry not found")
+                yield Status(StatusCode.ERROR_TEMPLATE_REFRESH_FAILED, "Locker entry not found")
                 return
 
             assembler_linker_config = AssemblerLinkerConfig()
@@ -232,8 +232,7 @@ class TemplateHandler:
         )
         return None
 
-    def _validate_template_data_for_refresh(self, template_data: Dict[str, Any], template_name: str) -> Optional[
-        Status]:
+    def _validate_template_data_for_refresh(self, template_data: Dict[str, Any], template_name: str) -> Optional[Status]:
         """Validate template data for refresh operation."""
         required_fields = ["template_name", "template_server_type", "template_server_version", "template_linker_config"]
 

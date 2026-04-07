@@ -1,6 +1,5 @@
 import logging
-from datetime import datetime, timezone
-
+from datetime import datetime
 import requests
 
 from mcup import __version__

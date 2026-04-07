@@ -9,6 +9,6 @@ class EulaAssembler(Assembler):
     def assemble(path: str, config: EulaFile):
         """Assemble eula file at the specified path."""
         with open(f"{path}/{config.config_file_path}/{config.config_file_name}", "w") as config_file:
-            config_file.write(f"""
+            config_file.write("""
 #By changing the setting below to TRUE you are indicating your agreement to Minecraft EULA (https://aka.ms/MinecraftEULA).
 eula=true""")

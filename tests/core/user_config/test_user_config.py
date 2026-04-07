@@ -9,7 +9,7 @@ class TestUserConfig:
     @pytest.fixture
     def mock_deps(self):
         with patch("mcup.core.user_config.user_config.PathProvider") as MockPathProvider, \
-                patch("os.makedirs") as mock_makedirs:
+                patch("os.makedirs"):
             mock_path = MagicMock()
             mock_path.__truediv__.return_value = "mock/path/userconfig.json"
             MockPathProvider.return_value.get_config_path.return_value = mock_path

@@ -172,7 +172,7 @@ class LockerUpdater:
             }
             with open(self.meta_path, "w", encoding="utf-8") as f:
                 json.dump(meta_data, f, indent=4)
-            self.logger.info(f"Local meta updated successfully")
+            self.logger.info("Local meta updated successfully")
             return True, None
         except IOError as e:
             self.logger.error(f"Failed to update locker-meta.json: {e}")

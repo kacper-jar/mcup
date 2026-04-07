@@ -26,7 +26,6 @@ class Collector:
 
     def start_collector(self, version: "Version", no_defaults, advanced_mode_enabled) -> dict:
         """Collects user input into a configuration dictionary."""
-        user_config = UserConfig()
         language = Language()
 
         collector_output = {}
