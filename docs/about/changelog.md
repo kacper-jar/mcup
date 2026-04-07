@@ -1,3 +1,23 @@
+# 1.0.0
+
+* docs: Align install guide with release artifacts by @kacper-jar in https://github.com/kacper-jar/mcup/pull/113
+* feat: Bump support to version 26.1.1 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/114
+* ci: Add support for Linux arm64 builds and packaging by @kacper-jar in https://github.com/kacper-jar/mcup/pull/115
+* ci: Set explicit architecture for Linux packages by @kacper-jar in https://github.com/kacper-jar/mcup/pull/116
+* ci: Fix invalid artifact name in Build Windows Installer task by @kacper-jar in https://github.com/kacper-jar/mcup/pull/117
+* ci: Skip testing of aarch64 builds on pacman by @kacper-jar in https://github.com/kacper-jar/mcup/pull/118
+* ci: Add macOS executable builds by @kacper-jar in https://github.com/kacper-jar/mcup/pull/119
+* ci: Create universal2 build for macOS instead of separate binaries by @kacper-jar in https://github.com/kacper-jar/mcup/pull/120
+* ci: Build only arm64 for macOS because of broken universal2 builds by @kacper-jar in https://github.com/kacper-jar/mcup/pull/121
+* feat: Implement update check timeout by @kacper-jar in https://github.com/kacper-jar/mcup/pull/122
+* ci: Disable update checks during CI tests by @kacper-jar in https://github.com/kacper-jar/mcup/pull/123
+* ci: Add macOS Intel x64 builds to CI matrix by @kacper-jar in https://github.com/kacper-jar/mcup/pull/124
+* ci: Add global concurrency to test-executables job by @kacper-jar in https://github.com/kacper-jar/mcup/pull/125
+* revert: ci: Add global concurrency to test-executables job by @kacper-jar in https://github.com/kacper-jar/mcup/pull/126
+* feat: add `--skip-locker-update` flag allowing to skip automatic locker updates by @kacper-jar in https://github.com/kacper-jar/mcup/pull/127
+* ci: Cache locker.json as artifact to avoid GitHub API rate limits by @kacper-jar in https://github.com/kacper-jar/mcup/pull/128
+* docs: Update installation guide with macOS support and architecture-specific steps by @kacper-jar in https://github.com/kacper-jar/mcup/pull/129
+
 # 1.0.0-rc3
 
 * ci: Reorganize Actions by @kacper-jar in https://github.com/kacper-jar/mcup/pull/101
