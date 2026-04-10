@@ -74,5 +74,5 @@ class Version:
 
 
 OLDEST_SUPPORTED_VERSION = Version(1, 2, 5)
-LATEST_VERSION = Version(26, 1, 1)
+LATEST_VERSION = Version(26, 1, 2)
 INF_VERSION = Version(9999, 9999, 9999)
