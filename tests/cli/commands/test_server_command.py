@@ -122,3 +122,22 @@ class TestServerCommand:
 
         printed_messages = [str(call) for call in mock_print.call_args_list]
         assert any("Locker update check skipped." in m for m in printed_messages)
+
+    @patch("mcup.cli.commands.server.LockerUpdater")
+    @patch("mcup.cli.commands.server.ServerHandler")
+    @patch("mcup.cli.commands.server.ServerConfigsCollector")
+    @patch("builtins.print")
+    def test_server_create_passes_create_docker_container_flag(self, mock_print, mock_collector, MockServerHandler,
+                                                               MockLocker, mock_args):
+        """Verify create_docker_container flag is passed to server.create."""
+        mock_locker = MockLocker.return_value
+        mock_locker.load_locker.return_value = iter([Status(StatusCode.SUCCESS, {
+            "servers": {"paper": [{"version": "1.20.1", "source": "DOWNLOAD", "configs": []}]}})])
+        mock_handler = MockServerHandler.return_value
+        mock_handler.create.return_value = iter([Status(StatusCode.SUCCESS)])
+
+        mock_args.create_docker_container = True
+        ServerCommand.create(mock_args)
+
+        mock_handler.create.assert_called_once()
+        assert mock_handler.create.call_args[1]['create_docker_container'] is True

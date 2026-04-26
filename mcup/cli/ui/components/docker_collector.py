@@ -5,7 +5,7 @@ from mcup.core.utils.version import OLDEST_SUPPORTED_VERSION, INF_VERSION
 
 class DockerCollector(Collector):
     def __init__(self):
-        super().__init__("Docker Configuration")
+        super().__init__("Docker")
 
         self.add_section(CollectorSection(
             "General",
