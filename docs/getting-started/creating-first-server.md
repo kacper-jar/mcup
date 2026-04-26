@@ -27,6 +27,10 @@ Run the following command:
 mcup server create paper 1.20.1 ./my-survival-server
 ```
 
+!!! tip
+    If you prefer to run your server in a container, you can add the `--create-docker-container` flag to generate
+    the necessary Docker files.
+
 This tells `mcup` to:
 
 -   Create a **Paper** server.
@@ -98,6 +102,19 @@ To start your server, run the generated script for your operating system:
 === "Windows"
     ```bat
     start.bat
+    ```
+
+!!! note "Running with Docker"
+    If you used the `--create-docker-container` flag, `mcup` generates a `Dockerfile` and a `docker-compose.yml` file. 
+    
+    To build the image and start the container for the first time, run:
+    ```bash
+    docker compose up --build
+    ```
+    
+    For subsequent runs, you can simply use:
+    ```bash
+    docker compose up
     ```
 
 **Congratulations!** Your server should now be starting up.
