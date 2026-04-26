@@ -817,6 +817,10 @@ class Language:
         "COLLECTOR_START_SCRIPT_MAX_RESTARTS": "Max restarts",
         "COLLECTOR_START_SCRIPT_RESTART_DELAY": "Delay between restarts (in seconds)",
 
+        # Docker collector
+        "COLLECTOR_DOCKER_SERVICE_NAME": "Docker service name",
+        "COLLECTOR_DOCKER_CONTAINER_NAME": "Docker container name",
+
         # Collector headers
         "COLLECTOR_HEADER_DEFAULT_RECOMMENDED": "Warning: It's recommended to leave all these settings as default",
 

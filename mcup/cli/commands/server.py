@@ -74,7 +74,7 @@ class ServerCommand:
             flags = ServerConfigsCollectorFlags.NONE
 
         assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"],
-                                                                              flags)
+                                                                              flags, args.create_docker_container)
 
         with Progress(
                 SpinnerColumn(),
@@ -106,7 +106,8 @@ class ServerCommand:
             }
 
             for status in server.create(server_path, server_type, server_version, locker_entry, assembler_linker_conf,
-                                        skip_java_check=args.skip_java_check):
+                                        skip_java_check=args.skip_java_check,
+                                        create_docker_container=args.create_docker_container):
                 match status.status_code:
                     case StatusCode.PROGRESSBAR_NEXT:
                         if task is not None:

@@ -3,9 +3,10 @@ import sys
 from mcup.cli.language import Language
 from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.configs import ServerPropertiesConfig, BukkitConfig, SpigotConfig, PaperConfig, PaperGlobalConfig, \
-    PaperWorldDefaultsConfig, BashStartScript, BatchStartScript
+    PaperWorldDefaultsConfig, BashStartScript, BatchStartScript, DockerFile, DockerComposeFile
 from mcup.cli.ui.components import ServerPropertiesCollector, BukkitCollector, SpigotCollector, PaperCollector, \
-    StartScriptCollector, PaperGlobalCollector, PaperWorldDefaultsCollector, ServerConfigsCollectorFlags
+    StartScriptCollector, PaperGlobalCollector, PaperWorldDefaultsCollector, ServerConfigsCollectorFlags, \
+    DockerCollector
 from mcup.core.status import StatusCode
 from mcup.core.user_config import UserConfig
 from mcup.core.utils.version import Version
@@ -14,7 +15,8 @@ from mcup.core.utils.version import Version
 class ServerConfigsCollector:
     @staticmethod
     def collect_configurations(server_version, configs,
-                               flags=ServerConfigsCollectorFlags.NONE) -> AssemblerLinkerConfig:
+                               flags=ServerConfigsCollectorFlags.NONE,
+                               create_docker_container=False) -> AssemblerLinkerConfig:
         language = Language()
         user_config = UserConfig()
 
@@ -147,5 +149,22 @@ class ServerConfigsCollector:
 
             start_script_config.set_configuration_properties(output, version)
             assembler_linker_config.add_configuration_file(start_script_config)
+
+        if create_docker_container:
+            docker_file = DockerFile()
+            docker_compose_file = DockerComposeFile()
+
+            docker_collector = DockerCollector()
+            docker_collector.set_config_file(docker_compose_file)
+
+            if all_defaults:
+                output = docker_collector.get_version_appropriate_defaults(version)
+            else:
+                output = docker_collector.start_collector(version, no_defaults, advanced_mode_enabled)
+
+            docker_compose_file.set_configuration_properties(output, version)
+
+            assembler_linker_config.add_configuration_file(docker_file)
+            assembler_linker_config.add_configuration_file(docker_compose_file)
 
         return assembler_linker_config

@@ -5,11 +5,12 @@ from .paper_collector import PaperCollector
 from .paper_global_collector import PaperGlobalCollector
 from .paper_world_defaults_collector import PaperWorldDefaultsCollector
 from .start_script_collector import StartScriptCollector
+from .docker_collector import DockerCollector
 
 # These two always need to be last
 from .server_configs_collector_flags import ServerConfigsCollectorFlags
 from .server_configs_collector import ServerConfigsCollector
 
 __all__ = ["ServerPropertiesCollector", "BukkitCollector", "SpigotCollector", "PaperCollector",
-           "PaperGlobalCollector", "PaperWorldDefaultsCollector", "StartScriptCollector", "ServerConfigsCollectorFlags",
-           "ServerConfigsCollector"]
+           "PaperGlobalCollector", "PaperWorldDefaultsCollector", "StartScriptCollector", "DockerCollector",
+           "ServerConfigsCollectorFlags", "ServerConfigsCollector"]

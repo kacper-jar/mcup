@@ -6,6 +6,9 @@ from .eula_assembler import EulaAssembler
 from .yml_assembler import YmlAssembler
 from .bash_start_script_assembler import BashStartScriptAssembler
 from .batch_start_script_assembler import BatchStartScriptAssembler
+from .docker_assembler import DockerAssembler
+from .docker_compose_assembler import DockerComposeAssembler
 
 __all__ = ["Assembler", "AssemblerLinker", "AssemblerLinkerConfig", "ServerPropertiesAssembler", "EulaAssembler",
-           "YmlAssembler", "BashStartScriptAssembler", "BatchStartScriptAssembler"]
+           "YmlAssembler", "BashStartScriptAssembler", "BatchStartScriptAssembler", "DockerAssembler",
+           "DockerComposeAssembler"]
