@@ -68,7 +68,8 @@ class TemplateCommand:
             print(language.get_string("ERROR_INVALID_SERVER_VERSION", server_version))
             return None
 
-        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"])
+        assembler_linker_conf = ServerConfigsCollector.collect_configurations(server_version, locker_entry["configs"],
+                                                                              create_docker_container=False)
 
         template_handler = TemplateHandler()
         for status in template_handler.create_template(template_name, server_type, server_version, locker_entry,

@@ -9,6 +9,9 @@ from .paper_world_defaults_config import PaperWorldDefaultsConfig
 from .start_script import StartScript
 from .bash_start_script import BashStartScript
 from .batch_start_script import BatchStartScript
+from .docker_file import DockerFile
+from .docker_compose_file import DockerComposeFile
 
 __all__ = ["ConfigFile", "ServerPropertiesConfig", "EulaFile", "BukkitConfig", "SpigotConfig", "PaperConfig",
-           "PaperGlobalConfig", "PaperWorldDefaultsConfig", "StartScript", "BashStartScript", "BatchStartScript"]
+           "PaperGlobalConfig", "PaperWorldDefaultsConfig", "StartScript", "BashStartScript", "BatchStartScript",
+           "DockerFile", "DockerComposeFile"]

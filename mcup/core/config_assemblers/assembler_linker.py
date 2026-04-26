@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
 class AssemblerLinker:
     """Links configuration files with their appropriate assemblers."""
+
     def __init__(self, configuration: "AssemblerLinkerConfig" = None):
         """Initialize the assembler linker with optional configuration."""
         self.configuration = configuration
@@ -27,7 +28,8 @@ class AssemblerLinker:
     def link(self):
         """Link configuration files with their appropriate assemblers."""
         from mcup.core.config_assemblers import (ServerPropertiesAssembler, YmlAssembler, BashStartScriptAssembler,
-                                                 BatchStartScriptAssembler, EulaAssembler)
+                                                 BatchStartScriptAssembler, EulaAssembler, DockerAssembler,
+                                                 DockerComposeAssembler)
 
         for config_file in self.configuration.get_configuration_files():
             if config_file.get_file_name() == "server.properties":
@@ -49,6 +51,14 @@ class AssemblerLinker:
 
             if config_file.get_file_name() in ["eula.txt"]:
                 self.linked_files[config_file.config_file_name] = EulaAssembler()
+                continue
+
+            if config_file.get_file_name() == "Dockerfile":
+                self.linked_files[config_file.config_file_name] = DockerAssembler()
+                continue
+
+            if config_file.get_file_name() == "docker-compose.yml":
+                self.linked_files[config_file.config_file_name] = DockerComposeAssembler()
                 continue
 
     def get_linked_files(self) -> dict[str, "Assembler"]:

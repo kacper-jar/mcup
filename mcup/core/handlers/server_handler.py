@@ -10,7 +10,7 @@ from typing import Iterator, Tuple, Optional
 import requests
 
 from mcup.core.config_assemblers import AssemblerLinkerConfig, AssemblerLinker
-from mcup.core.configs import EulaFile
+from mcup.core.configs import EulaFile, DockerFile, DockerComposeFile, StartScript
 from mcup.core.status import Status, StatusCode
 from mcup.core.utils.version import Version, LATEST_VERSION
 from mcup.core.user_config import UserConfig
@@ -25,7 +25,8 @@ class ServerHandler:
         self.user_config = UserConfig()
 
     def create(self, server_path: Path, server_type: str, server_version: str, locker_entry: dict,
-               assembler_linker_config: AssemblerLinkerConfig, skip_java_check: bool = False) -> Iterator[Status]:
+               assembler_linker_config: AssemblerLinkerConfig, skip_java_check: bool = False,
+               create_docker_container: bool = False) -> Iterator[Status]:
         """Downloads/Builds server in a specified path along with all required configuration files."""
         self.logger.info(f"Creating server: type={server_type}, version={server_version}, path={server_path}")
         self.logger.debug(f"Locker entry: {locker_entry}")
@@ -65,7 +66,7 @@ class ServerHandler:
 
         yield from self._cleanup_files(server_path, locker_entry["cleanup"])
         yield from self._assemble_configuration_files(
-            server_path, version, server_jar_name, args_instead_of_jar, assembler_linker_config
+            server_path, version, server_jar_name, args_instead_of_jar, assembler_linker_config, create_docker_container
         )
 
         self.logger.info("Server creation completed successfully")
@@ -378,7 +379,8 @@ class ServerHandler:
 
     def _assemble_configuration_files(self, server_path: Path, version: Version, server_jar_name: str,
                                       args_instead_of_jar: bool,
-                                      assembler_linker_config: AssemblerLinkerConfig) -> Iterator[Status]:
+                                      assembler_linker_config: AssemblerLinkerConfig,
+                                      create_docker_container: bool = False) -> Iterator[Status]:
         """Assemble configuration files for the server."""
         self.logger.info("Assembling configuration files")
         yield Status(StatusCode.PROGRESSBAR_NEXT, ["Assembling configuration files...", 1])
@@ -391,13 +393,67 @@ class ServerHandler:
         else:
             self.logger.info("EULA file not required, creation skipped")
 
+        if create_docker_container:
+            if not any(isinstance(c, DockerFile) for c in config_files):
+                config_files.append(DockerFile())
+                self.logger.debug("DockerFile added to configuration files")
+            
+            if not any(isinstance(c, DockerComposeFile) for c in config_files):
+                config_files.append(DockerComposeFile())
+                self.logger.debug("DockerComposeFile added to configuration files")
+
         self.logger.debug(f"Found {len(config_files)} configuration files to process")
+
+        server_port = "25565"
+        for config in config_files:
+            if config.config_file_name == "server.properties":
+                server_port = config.configuration.get("server-port") or "25565"
+                self.logger.debug(f"Detected server port: {server_port}")
 
         for config in config_files:
             if config.config_file_name in ["start.sh", "start.bat"]:
                 self.logger.debug(f"Setting server-jar property for {config.config_file_name}")
                 config.set_configuration_property("server-jar", server_jar_name, version)
                 config.set_configuration_property("server-args-instead-of-jar", args_instead_of_jar, version)
+
+            if config.config_file_name == "Dockerfile":
+                if version >= Version(26, 1, 0):
+                    zulu_version = "25"
+                elif version >= Version(1, 20, 6):
+                    zulu_version = "21"
+                elif version > Version(1, 17, 1):
+                    zulu_version = "17"
+                elif version >= Version(1, 17, 0):
+                    zulu_version = "16"
+                else:
+                    zulu_version = "8"
+
+                config.set_configuration_property("java-version", zulu_version, version)
+                config.set_configuration_property("server-jar", server_jar_name, version)
+                config.set_configuration_property("server-args-instead-of-jar", args_instead_of_jar, version)
+                config.set_configuration_property("port", server_port, version)
+
+                initial = "1024M"
+                max_m = "1024M"
+
+                start_script = next((c for c in config_files if isinstance(c, StartScript)), None)
+                if start_script:
+                    ss_initial = start_script.configuration.get("initial-heap")
+                    ss_max = start_script.configuration.get("max-heap")
+                    if ss_initial:
+                        initial = f"{ss_initial}M"
+                    if ss_max:
+                        max_m = f"{ss_max}M"
+
+                config.set_configuration_property("memory-initial", initial, version)
+                config.set_configuration_property("memory-max", max_m, version)
+
+            if config.config_file_name == "docker-compose.yml":
+                config.set_configuration_property("port", server_port, version)
+
+                if sys.platform != "win32":
+                    config.set_configuration_property("uid", os.getuid(), version)
+                    config.set_configuration_property("gid", os.getgid(), version)
 
         assembler_linker = AssemblerLinker(assembler_linker_config)
         assembler_linker.link()

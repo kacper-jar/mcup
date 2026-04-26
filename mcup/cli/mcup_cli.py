@@ -61,6 +61,8 @@ class McupCLI:
                                    help="Skip checking for locker file updates unless it's missing")
         create_parser.add_argument("--skip-java-check", action="store_true",
                                    help="Skip Java installation and version checks")
+        create_parser.add_argument("--create-docker-container", action="store_true",
+                                   help="Generate Dockerfile and docker-compose.yml")
         create_parser.set_defaults(func=ServerCommand.create)
 
         list_parser = server_subparsers.add_parser("list", help="List available server types and versions")
