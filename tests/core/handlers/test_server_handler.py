@@ -2,8 +2,10 @@ import pytest
 from unittest.mock import MagicMock, patch, mock_open
 from pathlib import Path
 from mcup.core.handlers.server_handler import ServerHandler
+from mcup.core.configs import ServerPropertiesConfig, StartScript, DockerFile, DockerComposeFile
+from mcup.core.config_assemblers import AssemblerLinkerConfig
 from mcup.core.utils.version import Version
-from mcup.core.status import StatusCode
+from mcup.core.status import Status, StatusCode
 
 
 class TestServerHandler:
@@ -184,3 +186,141 @@ class TestServerHandler:
                     assert returned_status is not None
                     assert returned_status.status_code == expected_code, \
                         f"Expected {expected_code} for {mc_ver} / Java {java_ver}, got {returned_status.status_code}"
+
+    def test_assemble_configuration_files_docker_port_sync(self, handler):
+        """Verify that Docker port is synced from ServerPropertiesConfig."""
+        server_path = Path("/tmp/server")
+        version = Version(1, 20, 1)
+
+        properties = ServerPropertiesConfig()
+        properties.configuration["server-port"] = "25570"
+
+        config_files = [properties]
+        mock_linker_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_linker_config.get_configuration_files.return_value = config_files
+
+        with patch("mcup.core.handlers.server_handler.AssemblerLinker") as MockLinker:
+            list(handler._assemble_configuration_files(
+                server_path, version, "server.jar", False, mock_linker_config, create_docker_container=True
+            ))
+
+            docker_file = next(c for c in config_files if isinstance(c, DockerFile))
+            docker_compose = next(c for c in config_files if isinstance(c, DockerComposeFile))
+
+            assert docker_file.configuration["port"] == "25570"
+            assert docker_compose.configuration["port"] == "25570"
+
+    def test_assemble_configuration_files_docker_memory_sync(self, handler):
+        """Verify that Docker memory is synced from StartScript."""
+        server_path = Path("/tmp/server")
+        version = Version(1, 20, 1)
+
+        start_script = StartScript()
+        start_script.configuration["initial-heap"] = 4096
+        start_script.configuration["max-heap"] = 8192
+
+        config_files = [start_script]
+        mock_linker_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_linker_config.get_configuration_files.return_value = config_files
+
+        with patch("mcup.core.handlers.server_handler.AssemblerLinker"):
+            list(handler._assemble_configuration_files(
+                server_path, version, "server.jar", False, mock_linker_config, create_docker_container=True
+            ))
+
+            docker_file = next(c for c in config_files if isinstance(c, DockerFile))
+            assert docker_file.configuration["memory-initial"] == "4096M"
+            assert docker_file.configuration["memory-max"] == "8192M"
+
+    @patch("mcup.core.handlers.server_handler.os.getuid", return_value=501)
+    @patch("mcup.core.handlers.server_handler.os.getgid", return_value=20)
+    def test_assemble_configuration_files_docker_user_mapping(self, mock_getgid, mock_getuid, handler):
+        """Verify that Docker UID/GID are correctly detected and applied."""
+        server_path = Path("/tmp/server")
+        version = Version(1, 20, 1)
+
+        config_files = []
+        mock_linker_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_linker_config.get_configuration_files.return_value = config_files
+
+        with patch("mcup.core.handlers.server_handler.sys.platform", "linux"), \
+                patch("mcup.core.handlers.server_handler.AssemblerLinker"):
+            list(handler._assemble_configuration_files(
+                server_path, version, "server.jar", False, mock_linker_config, create_docker_container=True
+            ))
+
+            docker_compose = next(c for c in config_files if isinstance(c, DockerComposeFile))
+            assert docker_compose.configuration["uid"] == 501
+            assert docker_compose.configuration["gid"] == 20
+
+    def test_assemble_configuration_files_docker_user_mapping_windows_skipped(self, handler):
+        """Verify that Docker UID/GID mapping is skipped on Windows."""
+        server_path = Path("/tmp/server")
+        version = Version(1, 20, 1)
+
+        config_files = []
+        mock_linker_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_linker_config.get_configuration_files.return_value = config_files
+
+        with patch("mcup.core.handlers.server_handler.sys.platform", "win32"), \
+                patch("mcup.core.handlers.server_handler.AssemblerLinker"):
+            list(handler._assemble_configuration_files(
+                server_path, version, "server.jar", False, mock_linker_config, create_docker_container=True
+            ))
+
+            docker_compose = next(c for c in config_files if isinstance(c, DockerComposeFile))
+            assert docker_compose.configuration["uid"] == 1000
+            assert docker_compose.configuration["gid"] == 1000
+
+    def test_assemble_configuration_files_docker_fallbacks(self, handler):
+        """Verify that Docker logic handles missing configs gracefully with defaults."""
+        server_path = Path("/tmp/server")
+        version = Version(1, 20, 1)
+
+        config_files = []
+        mock_linker_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_linker_config.get_configuration_files.return_value = config_files
+
+        with patch("mcup.core.handlers.server_handler.AssemblerLinker"):
+            list(handler._assemble_configuration_files(
+                server_path, version, "server.jar", False, mock_linker_config, create_docker_container=True
+            ))
+
+            docker_file = next(c for c in config_files if isinstance(c, DockerFile))
+            assert docker_file.configuration["port"] == "25565"
+            assert docker_file.configuration["memory-initial"] == "1024M"
+            assert docker_file.configuration["memory-max"] == "1024M"
+
+    @patch("mcup.core.handlers.server_handler.requests.get")
+    def test_create_server_docker_download(self, mock_get, handler):
+        """Test full create flow with Docker enabled for DOWNLOAD source."""
+        server_path = Path("/tmp/test_docker_server")
+        locker_entry = {
+            "source": "DOWNLOAD",
+            "server_url": "https://example.com/server.jar",
+            "cleanup": []
+        }
+        mock_assembler_config = MagicMock(spec=AssemblerLinkerConfig)
+        mock_assembler_config.get_configuration_files.return_value = []
+
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.iter_content.return_value = [b"data"]
+        mock_response.headers = {'content-length': '4'}
+        mock_get.return_value = mock_response
+
+        with patch("builtins.open", mock_open()), \
+                patch("mcup.core.handlers.server_handler.os.makedirs"), \
+                patch("mcup.core.handlers.server_handler.Path.exists", return_value=True), \
+                patch("mcup.core.handlers.server_handler.AssemblerLinker") as MockLinker:
+            status_generator = handler.create(
+                server_path, "paper", "1.20.1", locker_entry,
+                mock_assembler_config, skip_java_check=True, create_docker_container=True
+            )
+
+            statuses = list(status_generator)
+            assert any(s.status_code == StatusCode.SUCCESS for s in statuses)
+
+            added_configs = mock_assembler_config.get_configuration_files.return_value
+            assert any(isinstance(c, DockerFile) for c in added_configs)
+            assert any(isinstance(c, DockerComposeFile) for c in added_configs)
