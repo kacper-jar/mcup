@@ -20,13 +20,14 @@ mcup server create <server_type> <server_version> [path] [flags]
 
 ### Flags
 
-| Flag                   | Description                                                                           |
-|:-----------------------|:--------------------------------------------------------------------------------------|
-| `--no-configs`         | Skip the generation of configuration files (e.g. `server.properties`).                |
-| `--no-defaults`        | Prompt for all configuration values, ignoring any defaults.                           |
-| `--all-defaults`       | Use default values for all configuration options without prompting.                   |
-| `--skip-locker-update` | Skip the check for locker file updates if it's already present on the local machine. |
-| `--skip-java-check`    | Skip the check for Java installation and version compatibility.                       |
+| Flag                        | Description                                                                           |
+|:----------------------------|:--------------------------------------------------------------------------------------|
+| `--no-configs`              | Skip the generation of configuration files (e.g. `server.properties`).                |
+| `--no-defaults`             | Prompt for all configuration values, ignoring any defaults.                           |
+| `--all-defaults`            | Use default values for all configuration options without prompting.                   |
+| `--skip-locker-update`      | Skip the check for locker file updates if it's already present on the local machine.  |
+| `--skip-java-check`         | Skip the check for Java installation and version compatibility.                       |
+| `--create-docker-container` | Generate `Dockerfile` and `docker-compose.yml` for running the server in a container. |
 
 ### Examples
 
@@ -46,6 +47,12 @@ Create a Paper 1.20.1 server using all default configuration values:
 
 ```bash
 mcup server create paper 1.20.1 --all-defaults
+```
+
+Create a Paper 1.20.1 server with Docker files:
+
+```bash
+mcup server create paper 1.20.1 --create-docker-container
 ```
 
 ## List Available Servers
