@@ -1,3 +1,8 @@
+# 1.1.0
+
+* feat: Add support for 26.1.2 by @kacper-jar in https://github.com/kacper-jar/mcup/pull/131
+* feat: Add Docker container generation support by @kacper-jar in https://github.com/kacper-jar/mcup/pull/132
+
 # 1.0.0
 
 * docs: Align install guide with release artifacts by @kacper-jar in https://github.com/kacper-jar/mcup/pull/113
