@@ -4,6 +4,14 @@
 Inspired by tools like `rustup` and `npm init`, `mcup` simplifies the setup process and allows for templated server creation with support for multiple server types (e.g., vanilla, Spigot).
 Made for both advanced server managers and beginners setting up their first server.
 
+> [!WARNING]
+> **Project Development Frozen**
+>
+> The active development of this project is currently on hold.
+> While the past year of building this tool has been an incredibly rewarding journey, other projects currently require my attention.
+> The project will continue to receive critical security and stability updates.
+> Active development may resume in the future as time permits and community interest grows.
+
 ## Features
 
 - Fast server setup with a single command
